@@ -1,0 +1,152 @@
+<div class="relative h-screen" data-controller="sidebar">
+  <div
+    class="fixed inset-0 w-full h-full bg-black bg-opacity-50 z-10 hidden"
+    data-sidebar-target="backdrop"
+    data-action="click->sidebar#toggleSidebar"
+  ></div>
+  <button
+    class="fixed top-4 left-4 z-20 bg-primary-regular text-white p-2 rounded md:hidden"
+    data-action="click->sidebar#toggleSidebar"
+    aria-label="Toggle Sidebar"
+    aria-expanded="false"
+    id="sidebar-toggle"
+  >
+    <%= icon('fa-solid', 'bars', class: "w-6") %>
+  </button>
+
+  <div
+    class="fixed z-10 inset-y-0 h-screen left-0 w-64 p-4 bg-primary-regular transform -translate-x-full transition-transform duration-300 md:translate-x-0 md:static md:w-64"
+    data-sidebar-target="sidebar"
+  >
+    <div class="flex flex-col items-center mb-2">
+      <div class="self-end md:hidden">
+        <button data-action="click->sidebar#toggleSidebar">
+          <%= icon('fa-solid', 'xmark', class: "text-white w-6") %>
+        </button>
+      </div>
+      <div>
+        <%= image_tag("logo.jpg", class: "w-16 rounded-full mx-auto") %>
+        <h1 class="text-md py-2 text-white font-bold">Hotel Admin</h1>
+      </div>
+
+    </div>
+    <hr class="border-white"/>
+    <ul class="flex flex-col">
+      <li class="mt-2" data-controller="sidebar">
+        <div class="flex flex-col items-center">
+          <button
+            class="w-5/6 flex flex-row items-center justify-between py-2 px-2 mb-2 rounded hover:bg-white group"
+            id="dropdown-button"
+            data-action="click->sidebar#toggle"
+          >
+            <div>
+              <%= icon('fa-solid', 'hotel', class: "text-white w-6 group-hover:text-primary-regular") %>
+              <span class="font-title tracking-wider text-white font-semibold group-hover:text-primary-regular">Hotel</span>
+            </div>
+            <%= icon('fa-solid', 'chevron-down', class: "text-white w-10 group-hover:text-primary-regular") %>
+          </button>
+          <ul
+            data-sidebar-target="menu"
+            data-transition-enter="transition ease-out duration-100"
+            data-transition-enter-start="transform opacity-0 scale-95"
+            data-transition-enter-end="transform opacity-100 scale-100"
+            data-transition-leave="transition ease-in duration-75"
+            data-transition-leave-start="transform opacity-100 scale-100"
+            data-transition-leave-end="transform opacity-0 scale-95"
+          >
+            <li class="flex justify-between items-center gap-2 py-1 px-2 hover:scale-100 mb-2">
+              <%= link_to admin_path do%>
+                <%= icon('fa-solid', 'house', class: "text-white w-6") %>
+                <span class="text-white text-sm group-hover:text-primary-regular">Hotel Details</span>
+              <% end %>
+            </li>
+            <li class="flex justify-between items-center gap-2 py-1 px-2 hover:scale-100 mb-2">
+              <%= link_to admin_path do%>
+                <%= icon('fa-solid', 'hands-holding', class: "text-white w-6") %>
+                <span class="text-white text-sm group-hover:text-primary-regular">Amenities</span>
+              <% end %>
+            </li>
+            <li class="flex justify-between items-center gap-2 py-1 px-2 hover:scale-100 mb-2">
+              <%= link_to admin_path do%>
+                <%= icon('fa-solid', 'hand-holding-heart', class: "text-white w-6") %>
+                <span class="text-white text-sm group-hover:text-primary-regular">Offer</span>
+              <% end %>
+            </li>
+            <li class="flex justify-between items-center gap-2 py-1 px-2 hover:scale-100 mb-2">
+              <%= link_to admin_path do%>
+                <%= icon('fa-solid', 'comment', class: "text-white w-6") %>
+                <span class="text-white text-sm group-hover:text-primary-regular">Feedback</span>
+              <% end %>
+            </li>
+
+          </ul>
+        </div>
+
+      </li>
+      <li data-controller="sidebar">
+        <div class="flex flex-col items-center">
+          <button
+            class="w-5/6 flex flex-row items-center justify-between py-2 px-2 mb-2 rounded hover:bg-white group"
+            id="dropdown-button"
+            data-action="click->sidebar#toggle"
+          >
+            <div>
+              <%= icon('fa-solid', 'bed', class: "text-white w-6 group-hover:text-primary-regular") %>
+              <span class="font-title tracking-wider text-white font-semibold group-hover:text-primary-regular">Rooms</span>
+            </div>
+            <%= icon('fa-solid', 'chevron-down', class: "text-white w-10 group-hover:text-primary-regular") %>
+          </button>
+          <ul
+            data-sidebar-target="menu"
+            data-transition-enter="transition ease-out duration-100"
+            data-transition-enter-start="transform opacity-0 scale-95"
+            data-transition-enter-end="transform opacity-100 scale-100"
+            data-transition-leave="transition ease-in duration-75"
+            data-transition-leave-start="transform opacity-100 scale-100"
+            data-transition-leave-end="transform opacity-0 scale-95"
+          >
+            <li class="flex justify-between items-center gap-2 py-1 px-2 hover:scale-100 mb-2">
+              <%= link_to admin_path do%>
+                <%= icon('fa-solid', 'circle-info', class: "text-white w-6 text-center") %>
+                <span class="text-white text-sm group-hover:text-primary-regular ">Room Details</span>
+              <% end %>
+            </li>
+            <li class="flex justify-between items-center gap-2 py-1 px-2 hover:scale-100 mb-2">
+              <%= link_to admin_path do%>
+                <%= icon('fa-solid', 'hands-holding-heart', class: "text-white w-6") %>
+                <span class="text-white text-sm group-hover:text-primary-regular">Room Class</span>
+              <% end %>
+            </li>
+            <li class="flex justify-between items-center gap-2 py-1 px-2 hover:scale-100 mb-2">
+              <%= link_to admin_path do%>
+                <%= icon('fa-solid', 'bed', class: "text-white w-6") %>
+                <span class="text-white text-sm group-hover:text-primary-regular">Bed Type</span>
+              <% end %>
+            </li>
+            <li class="flex justify-between items-center gap-2 py-1 px-2 hover:scale-100 mb-2">
+              <%= link_to admin_path do%>
+                <%= icon('fa-solid', 'hands-holding-heart', class: "text-white w-6") %>
+                <span class="text-white text-sm group-hover:text-primary-regular">Room Facility</span>
+              <% end %>
+            </li>
+
+          </ul>
+        </div>
+
+      </li>
+
+      <li class="flex flex-col items-center ">
+        <%= link_to admin_path, class:"w-5/6 flex items-center py-2 px-2 mb-2 rounded hover:bg-white group" do%>
+          <%= icon('fa-solid', 'user-group', class: "text-white w-6 mr-1 group-hover:text-primary-regular") %>
+          <span class="font-title tracking-wider text-white font-semibold group-hover:text-primary-regular">Employee</span>
+        <% end %>
+      </li>
+      <li class="flex flex-col items-center ">
+        <%= link_to admin_path, class:"w-5/6 flex items-center py-2 px-2 mb-2 rounded hover:bg-white group" do%>
+          <%= icon('fa-solid', 'person-shelter', class: "text-white w-6 mr-1 group-hover:text-primary-regular") %>
+          <span class="font-title tracking-wider text-white font-semibold group-hover:text-primary-regular ">Guest</span>
+        <% end %>
+      </li>
+    </ul>
+  </div>
+</div>
