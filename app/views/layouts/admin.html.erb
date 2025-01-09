@@ -25,11 +25,13 @@
 </head>
 
 <body class="bg-background font-body">
-  <main class="container flex">
-    <nav class="flex w-full">
+  <main class="flex flex-col md:flex-row ">
+    <nav class="flex" id="admin-sidebar">
       <%= render 'shared/sidebar' %>
     </nav>
-    <%= yield %>
+    <div class="w-full">
+      <%= yield %>
+    </div>
   </main>
 </body>
 </html>

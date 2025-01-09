@@ -4,7 +4,6 @@ import { toggle} from "el-transition";
 export default class extends Controller {
   static  targets = ["menu", "sidebar", "backdrop"]
   toggle() {
-    console.log("This is when click")
     toggle(this.menuTarget);
   }
   toggleSidebar(event) {
