@@ -1,31 +1,33 @@
 <div class="flex flex-row items-center justify-center w-full h-full">
-  <div class="w-full md:w-1/2 flex justify-center items-center">
-    <div class="w-full md:w-5/6 flex flex-col justify-start items-center p-8 shadow-lg border-primary-regular hover:bg-white transition ease-in-out duration-75 hover:border-none ">
-      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: {method: :put}, class: "bg-white") do |f| %>
-        <%= render "devise/shared/error_messages", resource: resource %>
-        <%= f.hidden_field :reset_password_token %>
-        <h1 class="font-playfair font-bold text-primary-regular text-2xl text-center mb-4">Reset Password</h1>
-        <% if @minimum_password_length %>
-          <em>(<%= @minimum_password_length %> characters minimum)</em><br />
-        <% end %>
-        <div class="flex items-center border-2 border-primary-regular py-3 px-3 rounded mb-4">
-          <%= icon('fa-solid', 'key', class: "text-primary-regular") %>
-          <%= f.password_field :password, class: 'pl-2 outline-none border-none border-transparent bg-none focus:border-transparent ',
-                               placeholder: "New Password", autocomplete: "new-password", autofocus: true%>
-        </div>
+  <div class="w-full md:w-5/6 flex justify-center items-center">
+    <div class="w-full md:w-5/6 lg:w-2/3 xl:w-1/2 flex flex-col justify-start items-center p-8 shadow-lg border-primary-regular hover:bg-white transition ease-in-out duration-75 hover:border-none ">
+      <div class="w-full md:w-3/4">
+        <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: {method: :put}, class: "bg-white") do |f| %>
+          <%= render "devise/shared/error_messages", resource: resource %>
+          <%= f.hidden_field :reset_password_token %>
+          <h1 class="font-title font-bold text-primary-regular text-2xl text-center mb-4">Reset Password</h1>
+          <% if @minimum_password_length %>
+            <em>(<%= @minimum_password_length %> characters minimum)</em><br />
+          <% end %>
+          <div class="flex items-center border-2 border-primary-regular py-3 px-3 rounded mb-4">
+            <%= icon('fa-solid', 'key', class: "text-primary-regular") %>
+            <%= f.password_field :password, class: 'pl-2 outline-none border-none border-transparent bg-none focus:border-transparent ',
+                                 placeholder: "New Password", autocomplete: "new-password", autofocus: true%>
+          </div>
 
-        <div class="flex items-center border-2 border-primary-regular py-3 px-3 rounded mb-4">
-          <%= icon('fa-solid', 'key', class: "text-primary-regular") %>
-          <%= f.password_field :password, class: 'pl-2 outline-none border-none border-transparent bg-none focus:border-transparent ',
-                               placeholder: "Confirm New Password", autocomplete: "new-password", autofocus: false%>
-        </div>
+          <div class="flex items-center border-2 border-primary-regular py-3 px-3 rounded mb-4">
+            <%= icon('fa-solid', 'key', class: "text-primary-regular") %>
+            <%= f.password_field :password, class: 'pl-2 outline-none border-none border-transparent bg-none focus:border-transparent ',
+                                 placeholder: "Confirm New Password", autocomplete: "new-password", autofocus: false%>
+          </div>
 
-        <%= f.submit "Reset Password", class: "block w-full bg-primary-regular hover:bg-primary-dark mt-4 py-3 rounded text-white
+          <%= f.submit "Reset Password", class: "block w-full bg-primary-regular hover:bg-primary-dark mt-4 py-3 rounded text-white
            cursor-pointer font-bold mb-2 hover:-translate-y-1 delay-150 motion-reduce:transition-none motion-reduce:hover:transform-none"%>
-        <div class="mt-6">
-          <%= render "devise/shared/links" %>
-        </div>
-      <% end %>
+          <div class="mt-6">
+            <%= render "devise/shared/links" %>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

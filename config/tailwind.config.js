@@ -22,8 +22,9 @@ module.exports = {
         'text-color': '#1C1C1C'
       },
       fontFamily: {
-        'playfair': [`"Playfair Display"`, ...defaultTheme.fontFamily.sans],
+        'title': [`"Playfair Display"`, ...defaultTheme.fontFamily.sans],
         'poppins': ['Poppins', ...defaultTheme.fontFamily.sans],
+        'body': ['Libre Baskerville', ...defaultTheme.fontFamily.sans],
       },
     },
   },

@@ -15,3 +15,10 @@
     font-weight: normal;
     font-style: normal;
 }
+
+@font-face {
+    font-family: "Libre Baskerville";
+    src: url("LibreBaskerville-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
