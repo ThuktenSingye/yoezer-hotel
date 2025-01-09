@@ -5,9 +5,9 @@
         <%= render "devise/shared/error_messages", resource: resource %>
         <%= f.hidden_field :reset_password_token %>
         <h1 class="font-playfair font-bold text-primary-regular text-2xl text-center mb-4">Reset Password</h1>
-        <%# if @minimum_password_length %>
-<!--          <em>(<%#= @minimum_password_length %> characters minimum)</em><br />-->
-        <%# end %>
+        <% if @minimum_password_length %>
+          <em>(<%= @minimum_password_length %> characters minimum)</em><br />
+        <% end %>
         <div class="flex items-center border-2 border-primary-regular py-3 px-3 rounded mb-4">
           <%= icon('fa-solid', 'key', class: "text-primary-regular") %>
           <%= f.password_field :password, class: 'pl-2 outline-none border-none border-transparent bg-none focus:border-transparent ',
