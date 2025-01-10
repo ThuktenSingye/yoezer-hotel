@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  namespace :admin do
+    resources :hotels, only: [ :index, :edit, :update ]
+  end
   devise_for :admins, skip: [ :registrations ], controllers: { sessions: "admin/sessions" }
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

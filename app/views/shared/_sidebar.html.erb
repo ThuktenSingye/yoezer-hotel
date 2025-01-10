@@ -55,10 +55,10 @@
               data-transition-leave-start="transform opacity-100 scale-100"
               data-transition-leave-end="transform opacity-0 scale-95"
             >
-              <li class="flex justify-between items-center gap-2 py-1 px-2 mb-2 <%= current_page?(admin_path) ? 'bg-white rounded' : '' %>">
-                <%= link_to admin_path, class: "w-full flex items-center" do %>
-                  <%= icon('fa-solid', 'house', class: "w-6 #{current_page?(admin_path) ? 'text-primary-regular' : 'text-white'}") %>
-                  <span class="text-sm ml-2  <%= current_page?(admin_path) ? 'text-primary-regular' : 'text-white'%>">Hotel Details</span>
+              <li class="flex justify-between items-center gap-2 py-1 px-2 mb-2 <%= current_page?(admin_hotels_path) ? 'bg-white rounded' : '' %>">
+                <%= link_to admin_hotels_path, class: "w-full flex items-center" do %>
+                  <%= icon('fa-solid', 'house', class: "w-6 #{current_page?(admin_hotels_path) ? 'text-primary-regular' : 'text-white'}") %>
+                  <span class="text-sm ml-2  <%= current_page?(admin_hotels_path) ? 'text-primary-regular' : 'text-white'%>">Hotel Details</span>
                 <% end %>
               </li>
               <li class="flex justify-between items-center gap-2 py-1 px-2 mb-2 <%= current_page?(admin_path) ? 'bg-white rounded' : '' %>">

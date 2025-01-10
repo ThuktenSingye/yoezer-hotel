@@ -4,6 +4,6 @@ FactoryBot.define do
     gewog { "MyString" }
     street_address { "MyText" }
     address_type { 1 }
-    addressable { nil }
+    association :addressable, factory: :hotel
   end
 end
