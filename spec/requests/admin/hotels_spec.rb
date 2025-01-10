@@ -35,6 +35,7 @@ RSpec.describe "Admin::Hotels", type: :request do
         }
       end
       subject { put admin_hotel_path(hotel), params: { hotel: valid_hotel_params }; response }
+
       it { is_expected.to have_http_status :found }
       it { is_expected.to redirect_to admin_hotels_path }
     end

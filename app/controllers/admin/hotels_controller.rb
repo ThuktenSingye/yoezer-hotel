@@ -5,7 +5,7 @@ class Admin::HotelsController < ApplicationController
   before_action :authenticate_admin!
 
   def index
-    @hotel = Hotel.all
+    @hotel = Hotel.includes(:address).first
   end
 
   def edit; end
