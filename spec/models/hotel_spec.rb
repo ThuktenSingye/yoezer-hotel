@@ -5,6 +5,10 @@ RSpec.describe Hotel, type: :model do
     it { should validate_presence_of :name }
     it { should validate_presence_of :email }
     it { should validate_presence_of :contact_no }
+  end
+
+  context "associations" do
     it { should have_one :address }
+    it { should have_many :hotel_ratings }
   end
 end

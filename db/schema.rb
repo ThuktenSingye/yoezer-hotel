@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_10_074123) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_10_105043) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -46,6 +46,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_10_074123) do
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
+  create_table "hotel_ratings", force: :cascade do |t|
+    t.integer "rating", default: 0
+    t.bigint "hotel_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["hotel_id"], name: "index_hotel_ratings_on_hotel_id"
+  end
+
   create_table "hotels", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -54,4 +62,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_10_074123) do
     t.datetime "updated_at", null: false
     t.text "description"
   end
+
+  add_foreign_key "hotel_ratings", "hotels"
 end

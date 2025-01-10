@@ -9,7 +9,7 @@ RSpec.describe "Admin::Hotels", type: :request do
   end
 
   describe "GET /admin/hotels" do
-    subject { get admin_hotels_path; response }
+    subject { get admin_hotels_path(hotel); response }
     it { is_expected.to have_http_status :ok }
   end
 

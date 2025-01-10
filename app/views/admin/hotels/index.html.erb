@@ -1,6 +1,6 @@
 <div class="w-full flex flex-col border-box">
   <div class="flex flex-row justify-between items-center p-4">
-    <p class="font-title font-medium text-2xl text-primary-regular tracking-wider">Hotel Details</p>
+    <p class="font-title font-medium text-lg md:text-2xl text-primary-regular tracking-wider">Hotel Details</p>
     <div class="flex flex-row items-center justify-end">
       <div class="flex flex-row items-center gap-2">
         <%= icon('fa-solid', 'user', class: "fa-2x border bg-white rounded-full p-2 text-primary-regular") %>
@@ -13,7 +13,7 @@
   <div>
     <div class="w-full md:w-5/6 lg:w-3/5 mx-auto ">
       <div class="bg-white border rounded mx-4 mt-8" >
-        <%= render @hotel %>
+        <%= render "admin/hotels/hotel" , hotel: @hotel %>
       </div>
     </div>
   </div>
