@@ -31,6 +31,6 @@ class Admin::HotelsController < ApplicationController
   end
 
   def hotel_params
-    params.expect(hotel: [ :name, :email, :contact_no, :description, address_attributes: [ :dzongkhag, :gewog, :street_address ] ])
+    params.expect(hotel: [ :name, :email, :contact_no, :description, address_attributes: [ :id, :dzongkhag, :gewog, :street_address ] ])
   end
 end
