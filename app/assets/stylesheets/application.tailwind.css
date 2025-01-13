@@ -22,3 +22,28 @@
     font-weight: normal;
     font-style: normal;
 }
+
+@layer components {
+    .btn{
+        @apply font-title tracking-wider px-4 py-2 bg-primary-regular text-white rounded hover:bg-primary-dark;
+    }
+    .card-container{
+        @apply w-full md:w-5/6 lg:w-3/5 mx-auto;
+    }
+    .card {
+        @apply bg-white border rounded mx-4 mt-8;
+    }
+
+    .title{
+        @apply font-title font-medium tracking-wider text-lg md:text-xl text-primary-regular;
+    }
+    .input-container{
+        @apply p-2 flex items-center;
+    }
+    .input-field{
+        @apply text-text-color/50 font-poppins p-2 border rounded focus:outline-primary-regular;
+    }
+    .input-value{
+        @apply px-2 text-text-color/50 font-poppins;
+    }
+}

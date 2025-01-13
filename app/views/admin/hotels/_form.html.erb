@@ -2,9 +2,9 @@
 <div class="m-4">
   <%= form_with(model:[:admin, hotel], local: true, class: "flex flex-col justify-center") do |f| %>
     <% if @hotel.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(@hotel.errors.count, "error") %> prohibited this hotel from being saved:</h2>
-        <ul>
+      <div id="error_explanation" class="flex flex-col items-center">
+        <h2 class="text-text-color/50"><%= pluralize(@hotel.errors.count, "error") %> prohibited this hotel from being saved:</h2>
+        <ul class="text-error">
           <% @hotel.errors.full_messages.each do |message| %>
             <li><%= message %></li>
           <% end %>
@@ -13,47 +13,47 @@
     <% end %>
 
     <div class="my-1">
-      <h2 class="font-title font-medium tracking-wider text-lg md:text-xl text-primary-regular ">Hotel Info</h2>
-      <div class="p-2 flex items-center">
+      <h2 class="title">Hotel Info</h2>
+      <div class="input-container">
         <%= f.label :name, class: "w-32"%>
-        <%= f.text_field :name, class: "text-text-color/50 font-poppins p-2 border rounded focus:outline-primary-regular"%>
+        <%= f.text_field :name, class: "input-field"%>
       </div>
-      <div class="p-2 flex items-start">
+      <div class="input-container">
         <%= f.label :description, class: "w-32 shrink-0 self-start pt-2" %>
-        <%= f.textarea :description, class: "flex-grow text-text-color/50 p-2 break-words text-wrap font-poppins border rounded focus:outline-primary-regular"  %>
+        <%= f.textarea :description, class: "flex-grow break-words text-wrap input-field"  %>
       </div>
-      <div class="p-2 flex items-center">
+      <div class="input-container">
         <%= f.label :email, class: "w-32" %>
-        <%= f.email_field :email, class: "p-2 text-text-color/50 font-poppins border rounded focus:outline-primary-regular" %>
+        <%= f.email_field :email, class: "input-field" %>
       </div>
-      <div class="p-2 flex items-center">
+      <div class="input-container">
         <%= f.label :contact_no, class: "w-32" %>
-        <%= f.text_field :contact_no, class: "p-2 text-text-color/50 font-poppins border rounded focus:outline-primary-regular" %>
+        <%= f.text_field :contact_no, class: "input-field" %>
       </div>
 
     </div>
     <hr />
     <div class="my-2">
-      <h2 class="font-title font-medium tracking-wider text-lg md:text-xl text-primary-regular ">Address</h2>
+      <h2 class="title">Address</h2>
       <%= f.fields_for :address do |af| %>
-        <div class="p-2 mt-1 flex items-center">
+        <div class="input-container mt-1 ">
           <%= af.label :dzongkhag, class: "w-32" %>
-          <%= af.text_field :dzongkhag, class: "p-2 text-text-color/50 font-poppins border rounded focus:outline-primary-regular"  %>
+          <%= af.text_field :dzongkhag, class: "input-field"  %>
         </div>
-        <div class="p-2 flex items-center">
+        <div class="input-container">
           <%= af.label :gewog, class: "w-32" %>
-          <%= af.text_field :gewog, class:"p-2 text-text-color/50 font-poppins border rounded focus:outline-primary-regular" %>
+          <%= af.text_field :gewog, class:"input-field" %>
         </div>
-        <div class="p-2 flex items-center">
+        <div class="input-container">
           <%= af.label :street_address, class: "w-32 self-start pt-2" %>
-          <%= af.textarea :street_address, class: "p-2 text-text-color/50 font-poppins border rounded focus:outline-primary-regular" %>
+          <%= af.textarea :street_address, class: "input-field" %>
         </div>
       <% end %>
     </div>
     <hr class="bg-primary-regular h-0.5" />
     <div class="flex items-center mt-4 gap-5">
-      <%= f.submit "Save", class: "font-title tracking-wider px-4 py-2 bg-primary-regular text-white rounded hover:bg-primary-dark" %>
-      <%= link_to "Cancel", admin_hotels_path(hotel), class: "font-title tracking-wider px-4 py-2 bg-primary-regular text-white rounded hover:bg-primary-dark" %>
+      <%= f.submit "Save", class: "btn" %>
+      <%= link_to "Cancel", admin_hotels_path(hotel), class: "btn" %>
     </div>
 
   <% end %>
