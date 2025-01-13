@@ -1,5 +1,8 @@
-<div class="w-full md:w-5/6 lg:w-3/5 mx-auto ">
-  <div class="bg-white border rounded mx-4 mt-8" >
-    <%= render "form", hotel: @hotel %>
+
+  <div class="w-full md:w-5/6 lg:w-3/5 mx-auto ">
+    <div class="bg-white border rounded mx-4 mt-8" >
+      <turbo-frame id="<%= dom_id @hotel%>">
+        <%= render "form", hotel: @hotel %>
+      </turbo-frame>
+    </div>
   </div>
-</div>

@@ -1,62 +1,64 @@
-<div class="m-4" id="<%= dom_id hotel %>">
-  <div class="flex flex-col justify-center">
-    <div class="mb-2">
-      <h2 class="font-title font-medium tracking-wider text-lg md:text-xl text-primary-regular ">Hotel Info</h2>
-      <p class="p-2 mt-1 flex items-center">
-        <span class="w-32">Name:</span>
-        <span class="px-2 text-text-color/50 font-poppins"><%= hotel.name %></span>
-      </p>
-      <p class="p-2 flex items-start">
-        <span class="w-32 shrink-0 self-start">Description:</span>
-        <span class="flex-grow text-text-color/50 px-2 break-words text-wrap font-poppins"><%= hotel.description %></span>
-      </p>
-      <p class="p-2 flex items-center">
-        <span class="w-32">Email:</span>
-        <span class="px-2 text-text-color/50 font-poppins"><%= hotel.email %></span>
-      </p>
-      <p class="p-2 flex items-center">
-        <span class="w-32">Contact No:</span>
-        <span class="px-2 text-text-color/50 font-poppins"><%= hotel.contact_no %></span>
-      </p>
-    </div>
-    <hr />
-    <div class="my-2">
-      <h2 class="font-title font-medium tracking-wider text-lg md:text-xl text-primary-regular">Address</h2>
-      <p class="p-2 mt-1 flex items-center">
-        <span class="w-32">Dzongkhag:</span>
-        <span class="px-2 text-text-color/50 font-poppins"><%= hotel.address&.dzongkhag %></span>
-      </p>
-      <p class="p-2 flex items-center">
-        <span class="w-32">Gewog:</span>
-        <span class="px-2 text-text-color/50 font-poppins"><%= hotel&.address&.gewog %></span>
-      </p>
-      <p class="p-2 flex items-center">
-        <span class="w-32">Street Address:</span>
-        <span class="px-2 text-text-color/50 font-poppins"><%= hotel&.address&.street_address %></span>
-      </p>
-    </div>
-    <hr class="bg-primary-regular h-0.5" />
-    <div class="flex flex-row items-center justify-between mt-4">
-      <div class="flex flex-col items-center justify-center">
-        <div>
-          <% @rating[:full_stars].times do %>
-            <%= icon('fa-solid', 'star', class: "text-rating") %>
-          <% end %>
+<turbo-frame id="<%= dom_id hotel %>"  class="block">
+  <div class="m-4" id="<%= dom_id hotel %>">
+    <div class="flex flex-col justify-center">
+      <div class="mb-2">
+        <h2 class="font-title font-medium tracking-wider text-lg md:text-xl text-primary-regular ">Hotel Info</h2>
+        <p class="p-2 mt-1 flex items-center">
+          <span class="w-32">Name:</span>
+          <span class="px-2 text-text-color/50 font-poppins"><%= hotel.name %></span>
+        </p>
+        <p class="p-2 flex items-start">
+          <span class="w-32 shrink-0 self-start">Description:</span>
+          <span class="flex-grow text-text-color/50 px-2 break-words text-wrap font-poppins"><%= hotel.description %></span>
+        </p>
+        <p class="p-2 flex items-center">
+          <span class="w-32">Email:</span>
+          <span class="px-2 text-text-color/50 font-poppins"><%= hotel.email %></span>
+        </p>
+        <p class="p-2 flex items-center">
+          <span class="w-32">Contact No:</span>
+          <span class="px-2 text-text-color/50 font-poppins"><%= hotel.contact_no %></span>
+        </p>
+      </div>
+      <hr />
+      <div class="my-2">
+        <h2 class="font-title font-medium tracking-wider text-lg md:text-xl text-primary-regular">Address</h2>
+        <p class="p-2 mt-1 flex items-center">
+          <span class="w-32">Dzongkhag:</span>
+          <span class="px-2 text-text-color/50 font-poppins"><%= hotel.address&.dzongkhag %></span>
+        </p>
+        <p class="p-2 flex items-center">
+          <span class="w-32">Gewog:</span>
+          <span class="px-2 text-text-color/50 font-poppins"><%= hotel&.address&.gewog %></span>
+        </p>
+        <p class="p-2 flex items-center">
+          <span class="w-32">Street Address:</span>
+          <span class="px-2 text-text-color/50 font-poppins"><%= hotel&.address&.street_address %></span>
+        </p>
+      </div>
+      <hr class="bg-primary-regular h-0.5" />
+      <div class="flex flex-row items-center justify-between mt-4">
+        <div class="flex flex-col items-center justify-center">
+          <div>
+            <% @rating[:full_stars].times do %>
+              <%= icon('fa-solid', 'star', class: "text-rating") %>
+            <% end %>
 
-          <% if @rating[:half_stars] %>
-            <%= icon('fa-solid', 'star-half-stroke', class: "text-rating") %>
-          <% end %>
+            <% if @rating[:half_stars] %>
+              <%= icon('fa-solid', 'star-half-stroke', class: "text-rating") %>
+            <% end %>
 
-          <% @rating[:empty_stars].times do %>
-            <%= icon('fa-solid', 'star', class: "text-text-color/20") %>
-          <% end %>
+            <% @rating[:empty_stars].times do %>
+              <%= icon('fa-solid', 'star', class: "text-text-color/20") %>
+            <% end %>
+          </div>
+          <p class="font-title font-bold tracking-widest text-primary-regular text-2xl "><%= @hotel_ratings.to_s %></p>
         </div>
-        <p class="font-title font-bold tracking-widest text-primary-regular text-2xl "><%= @hotel_ratings.to_s %></p>
+        <div>
+          <%= link_to "Edit", edit_admin_hotel_path(hotel), class: "font-title tracking-wider px-4 py-2 bg-primary-regular text-white rounded hover:bg-primary-dark" %>
+        </div>
       </div>
-      <div>
-        <%= link_to "Edit", edit_admin_hotel_path(hotel), class: "font-title tracking-wider px-4 py-2 bg-primary-regular text-white rounded hover:bg-primary-dark" %>
-      </div>
-    </div>
 
+    </div>
   </div>
-</div>
+</turbo-frame>
