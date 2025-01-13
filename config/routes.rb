@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   namespace :admin do
     resources :hotels, only: [ :index, :edit, :update ]
+    resources :profile, only: [ :index, :edit, :update ]
   end
   devise_for :admins, skip: [ :registrations ], controllers: { sessions: "admin/sessions" }
 

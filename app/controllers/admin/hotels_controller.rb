@@ -25,7 +25,7 @@ class Admin::HotelsController < ApplicationController
       end
     else
       respond_to do |format|
-        format.html { render :edit, status: :unprocessable_content, notice: "Error updating Hotel" }
+        format.html { render :index, status: :unprocessable_content, notice: "Error updating Hotel" }
         format.turbo_stream do
           flash.now[:alert] = "Error updating Hotel"
           render turbo_stream: [
