@@ -38,7 +38,7 @@
         @apply font-title font-medium tracking-wider text-lg md:text-xl text-primary-regular;
     }
     .input-container{
-        @apply p-2 flex items-center;
+        @apply flex p-2 items-center;
     }
     .input-field{
         @apply text-text-color/50 font-poppins p-2 border rounded focus:outline-primary-regular;
