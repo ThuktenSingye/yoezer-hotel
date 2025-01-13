@@ -27,6 +27,12 @@
     .btn{
         @apply font-title tracking-wider px-4 py-2 bg-primary-regular text-white rounded hover:bg-primary-dark;
     }
+    .sidebar-menu-container{
+        @apply flex flex-col items-center;
+    }
+    .sidebar-menu-row{
+        @apply flex justify-between items-center gap-2 py-1 px-2 mb-2
+    }
     .card-container{
         @apply w-full md:w-5/6 lg:w-3/5 mx-auto;
     }
