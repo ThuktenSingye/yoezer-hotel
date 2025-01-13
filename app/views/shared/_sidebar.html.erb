@@ -1,4 +1,4 @@
-<div class="relative " data-controller="sidebar">
+<div class="relative" data-controller="sidebar">
   <div
     class="fixed inset-0 w-full h-full bg-black bg-opacity-50 z-10 hidden"
     data-sidebar-target="backdrop"
@@ -17,6 +17,7 @@
     class="fixed z-10 inset-y-0 h-screen left-0 w-64 p-4 bg-primary-regular transform -translate-x-full
     transition-transform duration-300 md:translate-x-0 md:static md:w-64"
     data-sidebar-target="sidebar"
+    data-turbo-permanent
   >
       <div class="sidebar-menu-container mb-2">
         <div class="self-end md:hidden">
@@ -28,7 +29,6 @@
           <%= image_tag("logo.jpg", class: "w-16 rounded-full mx-auto") %>
           <h1 class="text-md py-2 text-white font-bold">Hotel Admin</h1>
         </div>
-
       </div>
       <hr class="border-white"/>
       <ul class="flex flex-col">
@@ -138,7 +138,6 @@
               </li>
             </ul>
           </div>
-
         </li>
         <li class="sidebar-menu-container">
           <%= link_to admin_path, class: "w-5/6 flex items-center py-2 px-2 mb-2 rounded hover:bg-white group
@@ -154,6 +153,14 @@
             <span class="font-title tracking-wider font-semibold <%= current_page?(admin_path) ? 'text-primary-regular' : 'text-white group-hover:text-primary-regular'%>">Guest</span>
           <% end %>
         </li>
+        <li class="sidebar-menu-container">
+          <%= link_to destroy_admin_session_path, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "w-5/6 flex items-center py-2 px-2 mb-2 rounded hover:bg-white group
+       hover:transition ease-in-out duration-300 #{current_page?(admin_path) ? 'bg-white rounded' : ''}" do %>
+            <%= icon('fa-solid', 'arrow-right-from-bracket', class: "w-6 mr-1 #{current_page?(admin_path) ? 'text-primary-regular' : 'text-white group-hover:text-primary-regular'}") %>
+            <span class="font-title tracking-wider font-semibold <%= current_page?(admin_path) ? 'text-primary-regular' : 'text-white group-hover:text-primary-regular'%>">Sign Out</span>
+          <% end %>
+        </li>
       </ul>
+
   </div>
 </div>

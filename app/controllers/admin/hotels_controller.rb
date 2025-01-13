@@ -16,14 +16,22 @@ class Admin::HotelsController < ApplicationController
       respond_to do |format|
         format.html { redirect_to admin_hotels_path, notice: "Hotel was successfully updated." }
         format.turbo_stream do
-          render turbo_stream: turbo_stream.replace(@hotel, partial: "admin/hotels/hotel", locals: { hotel: @hotel })
+          flash.now[:notice] = "Hotel was successfully updated."
+          render turbo_stream: [
+            turbo_stream.replace(@hotel, partial: "admin/hotels/hotel", locals: { hotel: @hotel }),
+            turbo_stream.prepend("flash", partial: "layouts/flash")
+          ]
         end
       end
     else
       respond_to do |format|
-        format.html { render :edit, status: :unprocessable_content }
+        format.html { render :edit, status: :unprocessable_content, notice: "Error updating Hotel" }
         format.turbo_stream do
-          render turbo_stream: turbo_stream.replace(@hotel, partial: "admin/hotels/form", locals: { hotel: @hotel })
+          flash.now[:alert] = "Error updating Hotel"
+          render turbo_stream: [
+            turbo_stream.replace(@hotel, partial: "admin/hotels/form", locals: { hotel: @hotel }),
+            turbo_stream.prepend("flash", partial: "layouts/flash")
+          ]
         end
       end
     end
