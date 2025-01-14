@@ -14,7 +14,7 @@ class Admin::HotelsController < ApplicationController
   def update
     if @hotel.update(hotel_params)
       respond_to do |format|
-        format.html { redirect_to admin_hotels_path, notice: "Hotel was successfully updated." }
+        format.html { redirect_to admin_hotels_path }
         format.turbo_stream do
           flash.now[:notice] = "Hotel was successfully updated."
           render turbo_stream: [
@@ -25,7 +25,7 @@ class Admin::HotelsController < ApplicationController
       end
     else
       respond_to do |format|
-        format.html { render :edit, status: :unprocessable_content, notice: "Error updating Hotel" }
+        format.html { render :index, status: :unprocessable_content }
         format.turbo_stream do
           flash.now[:alert] = "Error updating Hotel"
           render turbo_stream: [

@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :hotel do
-    name { "Yoezer" }
-    email { "yoezer@gmail.com" }
-    contact_no { "17293224" }
-    description { "Yoezer" }
+    name { Faker::Name.name }
+    email { Faker::Internet.email }
+    contact_no { Faker::Number.number(digits: 8) }
+    description { Faker::Lorem.sentence }
   end
 end
