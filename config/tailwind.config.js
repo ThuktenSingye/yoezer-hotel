@@ -24,7 +24,7 @@ module.exports = {
       fontFamily: {
         'title': [`"Playfair Display"`, ...defaultTheme.fontFamily.sans],
         'poppins': ['Poppins', ...defaultTheme.fontFamily.sans],
-        'body': ['Libre Baskerville', ...defaultTheme.fontFamily.sans],
+        'body': [`"Libre Baskerville"`, ...defaultTheme.fontFamily.sans],
       },
     },
   },
