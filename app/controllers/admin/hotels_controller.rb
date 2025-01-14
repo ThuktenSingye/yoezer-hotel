@@ -40,7 +40,7 @@ class Admin::HotelsController < ApplicationController
   private
 
   def set_hotel
-    @hotel = Hotel.find(params[:id])
+    @hotel ||= Hotel.find(params[:id])
   end
 
   def set_rating
@@ -53,6 +53,6 @@ class Admin::HotelsController < ApplicationController
   end
 
   def hotel_params
-    params.expect(hotel: [ :name, :email, :contact_no, :description, address_attributes: [ :id, :dzongkhag, :gewog, :street_address ] ])
+    params.require(:hotel).permit(:name, :email, :contact_no, :description, address_attributes: [ :id, :dzongkhag, :gewog, :street_address ])
   end
 end

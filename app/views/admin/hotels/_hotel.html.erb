@@ -23,18 +23,22 @@
       <hr />
       <div class="my-2">
         <h2 class="title">Address</h2>
-        <p class="input-container mt-1">
-          <span class="w-32">Dzongkhag:</span>
-          <span class="input-value"><%= hotel.address&.dzongkhag %></span>
-        </p>
-        <p class="input-container">
-          <span class="w-32">Gewog:</span>
-          <span class="input-value"><%= hotel&.address&.gewog %></span>
-        </p>
-        <p class="input-container">
-          <span class="w-32">Street Address:</span>
-          <span class="input-value"><%= hotel&.address&.street_address %></span>
-        </p>
+        <% hotel.address.each do |addr| %>
+          <p class="input-container mt-1">
+            <span class="w-32">Dzongkhag:</span>
+            <span class="input-value"><%= addr&.dzongkhag %></span>
+          </p>
+          <p class="input-container">
+            <span class="w-32">Gewog:</span>
+            <span class="input-value"><%= addr&.gewog %></span>
+          </p>
+          <p class="input-container">
+            <span class="w-32">Street Address:</span>
+            <span class="input-value"><%= addr&.street_address %></span>
+          </p>
+          <hr class="last:hidden my-2">
+        <% end %>
+
       </div>
       <hr class="bg-primary-regular h-0.5" />
       <div class="flex flex-row items-center justify-between mt-4">
