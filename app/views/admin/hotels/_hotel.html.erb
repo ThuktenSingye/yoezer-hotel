@@ -1,4 +1,4 @@
-<turbo-frame id="<%= dom_id hotel %>"  class="block">
+<turbo-frame id="<%= dom_id hotel %>" class="block">
   <div class="m-4" role="region" aria-labelledby="hotel-info-<%= dom_id hotel %>">
     <div class="flex flex-col justify-center">
       <div class="mb-2">
@@ -20,19 +20,19 @@
           <span class="input-value"><%= hotel.contact_no %></span>
         </p>
       </div>
-      <hr />
+      <hr>
       <div class="my-2">
         <div class="flex flex-row justify-between items-center">
           <h2 class="title">Address</h2>
           <%=
             link_to "Add",
             new_admin_hotel_address_path(hotel),
-            data:{ "turbo-frame": "new_address" },
+            data: { "turbo-frame": "new_address" },
             class: "btn"
           %>
         </div>
         <turbo-frame id="new_address">
-          <% hotel.address.each do |addr|%>
+          <% hotel.address.each do |addr| %>
             <turbo-frame id="<%= dom_id addr %>">
               <div class="flex flex-col md:flex-row md:items-center md:justify-between py-2">
                 <div>
@@ -50,7 +50,7 @@
                   </p>
                 </div>
                 <div class="self-start ml-2 md:self-end ">
-                  <%= button_to "Delete", admin_hotel_address_path(hotel,addr),
+                  <%= button_to "Delete", admin_hotel_address_path(hotel, addr),
                                 method: :delete,
                                 data: { "turbo-frame": dom_id(addr), turbo_confirm: "Are you sure?" },
                                 class: "btn" %>
@@ -61,21 +61,21 @@
         <% end %>
         </turbo-frame>
       </div>
-      <hr class="bg-primary-regular h-0.5" />
+      <hr class="bg-primary-regular h-0.5">
       <div class="flex flex-row items-center justify-between mt-4">
         <div class="flex flex-col items-center justify-center">
           <div role="img" role="img" aria-label="<%= @hotel_ratings.to_s %> stars">
             <% if @rating.present? %>
               <% @rating[:full_stars]&.times do %>
-                <%= icon('fa-solid', 'star', class: "text-rating") %>
+                <%= icon("fa-solid", "star", class: "text-rating") %>
               <% end %>
 
               <% if @rating[:half_stars] %>
-                <%= icon('fa-solid', 'star-half-stroke', class: "text-rating") %>
+                <%= icon("fa-solid", "star-half-stroke", class: "text-rating") %>
               <% end %>
 
               <% @rating[:empty_stars]&.times do %>
-                <%= icon('fa-solid', 'star', class: "text-text-color/20") %>
+                <%= icon("fa-solid", "star", class: "text-text-color/20") %>
               <% end %>
             <% else %>
               <p>0</p>

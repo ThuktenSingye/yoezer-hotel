@@ -1,6 +1,6 @@
 
 <div class="m-4">
-  <%= form_with(model:[:admin, hotel], local: true, class: "flex flex-col justify-center") do |f| %>
+  <%= form_with(model: [ :admin, hotel ], local: true, class: "flex flex-col justify-center") do |f| %>
     <% if @hotel.errors.any? %>
       <div id="error_explanation" class="flex flex-col items-center">
         <h2 class="text-text-color/50"><%= pluralize(@hotel.errors.count, "error") %> prohibited this hotel from being saved:</h2>
@@ -20,7 +20,7 @@
       </div>
       <div class="input-container">
         <%= f.label :description, class: "w-32 shrink-0 self-start pt-2" %>
-        <%= f.textarea :description, class: "flex-grow break-words text-wrap input-field"  %>
+        <%= f.textarea :description, class: "flex-grow break-words text-wrap input-field" %>
       </div>
       <div class="input-container">
         <%= f.label :email, class: "w-32" %>
@@ -32,17 +32,17 @@
       </div>
 
     </div>
-    <hr />
+    <hr>
     <div class="my-2">
       <h2 class="title">Address</h2>
       <%= f.fields_for :address do |af| %>
         <div class="input-container mt-1 ">
           <%= af.label :dzongkhag, class: "w-32" %>
-          <%= af.text_field :dzongkhag, class: "input-field"  %>
+          <%= af.text_field :dzongkhag, class: "input-field" %>
         </div>
         <div class="input-container">
           <%= af.label :gewog, class: "w-32" %>
-          <%= af.text_field :gewog, class:"input-field" %>
+          <%= af.text_field :gewog, class: "input-field" %>
         </div>
         <div class="input-container">
           <%= af.label :street_address, class: "w-32 self-start pt-2" %>
@@ -50,11 +50,10 @@
         </div>
       <% end %>
     </div>
-    <hr class="bg-primary-regular h-0.5" />
+    <hr class="bg-primary-regular h-0.5">
     <div class="flex items-center mt-4 gap-5">
       <%= f.submit "Save", class: "btn" %>
       <%= link_to "Cancel", admin_hotels_path(hotel), class: "btn" %>
     </div>
   <% end %>
 </div>
-
