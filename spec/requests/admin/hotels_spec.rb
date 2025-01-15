@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe "Admin::Hotels", type: :request do
-  let(:admin) { FactoryBot.create(:admin) }
-  let(:hotel) { FactoryBot.create(:hotel) }
+  let!(:admin) { FactoryBot.create(:admin) }
+  let!(:hotel) { FactoryBot.create(:hotel) }
 
   before do
     sign_in admin, scope: :admin
@@ -20,45 +20,24 @@ RSpec.describe "Admin::Hotels", type: :request do
 
   describe "PUT /update" do
     context "with valid params" do
-      let(:valid_hotel_params) do
-        {
-          name: "Updated Yoezer",
-          email: "updated_yoezer@gmail.com",
-          contact_no: "12345678",
-          description: "Updated Description",
-          address: {
-            dzongkhag: "Updated Dzongkhag",
-            gewog: "Updated Gewog",
-            street_address: "Updated Street Address",
-            address_type: :present
-          }
-        }
-      end
+      let(:valid_hotel_params) { FactoryBot.attributes_for(:hotel) }
       subject { put admin_hotel_path(hotel), params: { hotel: valid_hotel_params }; response }
 
       it { is_expected.to have_http_status :found }
       it { is_expected.to redirect_to admin_hotels_path }
+      it { expect { subject }.not_to change(Hotel, :count) }
+      it { subject; hotel.reload; expect(hotel.attributes.slice('name', 'email', 'contact_no', 'description')).to eq(valid_hotel_params.stringify_keys) }
     end
 
     context "with invalid params" do
-        let(:invalid_hotel_params) do
-          {
-            name: "",
-            email: "updated_yoezer@gmail.com",
-            contact_no: "12345678",
-            description: "Updated Description",
-            address: {
-              dzongkhag: "Updated Dzongkhag",
-              gewog: "Updated Gewog",
-              street_address: "Updated Street Address",
-              address_type: :present
-            }
-          }
-        end
-        subject { put admin_hotel_path(hotel), params: { hotel: invalid_hotel_params }; response }
+      let(:invalid_hotel_params) { FactoryBot.attributes_for(:hotel, :invalid_hotel_params) }
+      subject { put admin_hotel_path(hotel), params: { hotel: invalid_hotel_params }; response }
 
-        it { is_expected.to have_http_status :unprocessable_content }
-        it { is_expected.to render_template(:index) }
+      it { is_expected.to have_http_status(:unprocessable_entity) }
+      it { is_expected.to render_template(:index) }
+      it { expect { subject }.not_to change { hotel.reload.attributes.slice('name', 'email', 'contact_no') } }
+      it { expect { subject }.not_to change(Hotel, :count) }
+      it { subject; expect(assigns(:hotel)).to eq(hotel) }
     end
   end
 end
