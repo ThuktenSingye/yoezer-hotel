@@ -8,7 +8,7 @@ RSpec.describe Hotel, type: :model do
   end
 
   context "associations" do
-    it { should have_one :address }
+    it { should have_many :address }
     it { should have_many :hotel_ratings }
   end
 end

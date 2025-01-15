@@ -14,7 +14,7 @@ class Admin::HotelsController < ApplicationController
   def update
     if @hotel.update(hotel_params)
       respond_to do |format|
-        format.html { redirect_to admin_hotels_path, notice: "Hotel was successfully updated." }
+        format.html { redirect_to admin_hotels_path }
         format.turbo_stream do
           flash.now[:notice] = "Hotel was successfully updated."
           render turbo_stream: [
@@ -25,7 +25,7 @@ class Admin::HotelsController < ApplicationController
       end
     else
       respond_to do |format|
-        format.html { render :index, status: :unprocessable_content, notice: "Error updating Hotel" }
+        format.html { render :index, status: :unprocessable_content }
         format.turbo_stream do
           flash.now[:alert] = "Error updating Hotel"
           render turbo_stream: [
@@ -40,7 +40,7 @@ class Admin::HotelsController < ApplicationController
   private
 
   def set_hotel
-    @hotel = Hotel.find(params[:id])
+    @hotel ||= Hotel.find(params[:id])
   end
 
   def set_rating
@@ -53,6 +53,6 @@ class Admin::HotelsController < ApplicationController
   end
 
   def hotel_params
-    params.expect(hotel: [ :name, :email, :contact_no, :description, address_attributes: [ :id, :dzongkhag, :gewog, :street_address ] ])
+    params.require(:hotel).permit(:name, :email, :contact_no, :description, address_attributes: [ :id, :dzongkhag, :gewog, :street_address ])
   end
 end
