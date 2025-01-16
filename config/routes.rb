@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     resources :hotels, only: [ :index, :edit, :update ] do
       resources :addresses, only: [ :new, :create, :destroy ]
     end
-    resources :profile, only: [ :index, :edit, :update ]
+    resources :profiles, only: [ :index, :edit, :update ]
   end
   devise_for :admins, skip: [ :registrations ], controllers: { sessions: "admin/sessions" }
 

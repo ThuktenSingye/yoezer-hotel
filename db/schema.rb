@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_13_125318) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_15_112815) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -32,23 +32,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_13_125318) do
     t.string "contact_no"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "admin_profiles", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
-    t.string "cid_no"
-    t.integer "designation"
-    t.date "date_of_joining"
-    t.string "contact_no"
-    t.decimal "salary"
-    t.date "dob"
-    t.string "qualification"
-    t.string "profileable_type", null: false
-    t.bigint "profileable_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["profileable_type", "profileable_id"], name: "index_admin_profiles_on_profileable"
   end
 
   create_table "admins", force: :cascade do |t|
@@ -78,6 +61,23 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_13_125318) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "description"
+  end
+
+  create_table "profiles", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "cid_no"
+    t.integer "designation"
+    t.date "date_of_joining"
+    t.string "contact_no"
+    t.decimal "salary"
+    t.date "dob"
+    t.string "qualification"
+    t.string "profileable_type", null: false
+    t.bigint "profileable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["profileable_type", "profileable_id"], name: "index_profiles_on_profileable"
   end
 
   add_foreign_key "hotel_ratings", "hotels"

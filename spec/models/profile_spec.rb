@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe Admin::Profile, type: :model do
+RSpec.describe Profile, type: :model do
   let(:admin) { FactoryBot.create(:admin) }
-  let(:profile) { FactoryBot.create(:admin_profile,  profileable: admin) }
+  let(:profile) { FactoryBot.create(:profile,  profileable: admin) }
 
   context "validations" do
     it { should validate_presence_of(:first_name) }

@@ -5,5 +5,5 @@ class Admin < ApplicationRecord
   devise :database_authenticatable,
          :recoverable, :rememberable, :validatable
 
-  has_one :profile, as: :profileable,  class_name: "Admin::Profile"
+  has_one :profile, as: :profileable
 end

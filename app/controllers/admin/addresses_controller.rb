@@ -39,8 +39,9 @@ class Admin::AddressesController < ApplicationController
   def destroy
     @address.destroy
     respond_to do |format|
-      format.html { redirect_to admin_hotels_path, notice: "Address was successfully deleted!" }
+      format.html { redirect_to admin_hotels_path }
       format.turbo_stream do
+        flash[:notice] = "Address successfully removed!"
         render turbo_stream: [
           turbo_stream.remove(@address),
           turbo_stream.prepend("flash", partial: "layouts/flash")

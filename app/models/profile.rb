@@ -1,9 +1,9 @@
-class Admin::Profile < ApplicationRecord
+class Profile < ApplicationRecord
   belongs_to :profileable, polymorphic: true
 
   has_many :addresses, as: :addressable
 
-  enum :designation, [ :owner, :manager ]
+  enum :designation, [ :owner, :manager, :employee ]
 
   validates :first_name, presence: true
   validates :cid_no, presence: true, uniqueness: { case_sensitive: false }
