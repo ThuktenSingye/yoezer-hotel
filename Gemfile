@@ -69,6 +69,8 @@ group :development, :test do
   gem "rails-controller-testing"
 
   gem "pundit"
+
+  gem "erb_lint", require: false
 end
 
 group :development do

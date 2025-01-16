@@ -1,7 +1,7 @@
 <div class="flex flex-row items-center justify-center w-full h-full">
   <div class="w-full md:w-5/6 flex justify-center items-center">
     <div class="w-full md:w-4/5 lg:w-2/3 xl:w-1/2 flex flex-col justify-start items-center p-8 shadow-lg border-primary-regular hover:bg-white transition ease-in-out duration-75 hover:border-none ">
-      <div >
+      <div>
         <%= image_tag("logo.jpg", class: "rounded-full w-32 h-32 mb-4 ") %>
       </div>
       <div class="w-full md:w-3/4">
@@ -9,17 +9,17 @@
           <%= render "devise/shared/error_messages", resource: resource %>
           <h1 class="font-title font-bold text-primary-regular text-2xl text-center mb-4">Login</h1>
           <div class="w-full md:w-full flex items-center border-2 border-primary-regular py-3 px-3 rounded mb-4">
-            <%= icon('fa-solid', 'envelope', class: "text-primary-regular") %>
-            <%= f.email_field :email, class: 'pl-2 w-full outline-none bg-none border-none border-transparent focus:border-transparent ',
-                              placeholder: "Email Address", autocomplete: "email", autofocus: true%>
+            <%= icon("fa-solid", "envelope", class: "text-primary-regular") %>
+            <%= f.email_field :email, class: "pl-2 w-full outline-none bg-none border-none border-transparent focus:border-transparent ",
+                              placeholder: "Email Address", autocomplete: "email", autofocus: true %>
           </div>
           <div class="flex items-center border-2 border-primary-regular py-3 px-3 rounded mb-4">
-            <%= icon('fa-solid', 'key', class: "text-primary-regular") %>
-            <%= f.password_field :password, class: 'w-full pl-2 outline-none border-none border-transparent bg-none focus:border-transparent ',
-                                 placeholder: "Password", autocomplete: "password", autofocus: false%>
+            <%= icon("fa-solid", "key", class: "text-primary-regular") %>
+            <%= f.password_field :password, class: "w-full pl-2 outline-none border-none border-transparent bg-none focus:border-transparent ",
+                                 placeholder: "Password", autocomplete: "password", autofocus: false %>
           </div>
           <%= f.submit "Log In", class: "block w-full bg-primary-regular hover:bg-primary-dark mt-4 py-3 rounded text-white
-           cursor-pointer font-bold mb-2 hover:-translate-y-1 delay-150 motion-reduce:transition-none motion-reduce:hover:transform-none"%>
+           cursor-pointer font-bold mb-2 hover:-translate-y-1 delay-150 motion-reduce:transition-none motion-reduce:hover:transform-none" %>
           <div class="mt-6">
             <%= render "devise/shared/links" %>
           </div>

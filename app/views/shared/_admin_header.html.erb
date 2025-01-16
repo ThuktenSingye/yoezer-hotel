@@ -1,0 +1,10 @@
+<div class="w-full flex flex-col border-box">
+  <div class="flex flex-row justify-between items-center p-4">
+    <p class="font-title font-medium text-lg hidden md:block md:text-2xl text-primary-regular tracking-wider">Yoezer</p>
+    <div class="flex flex-row items-center gap-2 ml-auto">
+      <%= icon("fa-solid", "user", class: "fa-2x border flex bg-white rounded-full p-2 text-primary-regular self-end") %>
+      <p class="hidden md:block">Hello <span class="block font-title font-semibold tracking-wider"><%= current_admin.email %></span></p>
+    </div>
+  </div>
+  <hr class="text-primary-regular mb-2">
+</div>
