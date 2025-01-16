@@ -71,7 +71,6 @@ group :development, :test do
   gem "pundit"
 
   gem "erb_lint", require: false
-
 end
 
 group :development do
