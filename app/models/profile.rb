@@ -1,7 +1,7 @@
 class Profile < ApplicationRecord
   belongs_to :profileable, polymorphic: true
-
   has_many :addresses, as: :addressable
+  accepts_nested_attributes_for :addresses
 
   enum :designation, [ :owner, :manager, :employee ]
 

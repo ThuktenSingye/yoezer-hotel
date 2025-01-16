@@ -1,4 +1,3 @@
-
 FactoryBot.define do
   factory :profile do
     first_name { Faker::Name.first_name }
@@ -11,25 +10,6 @@ FactoryBot.define do
     dob { Faker::Date.birthday(min_age: 18, max_age: 65) }
     qualification { Faker::Educator.degree }
     association :profileable, factory: :admin
-
-    trait :with_address do
-      after(:build) do |instance|
-        instance.addresses = [
-          {
-            dzongkhag: Faker::Address.state,
-            gewog: Faker::Address.city,
-            street_address: Faker::Address.street_address,
-            address_type: :present
-          },
-          {
-            dzongkhag: Faker::Address.state,
-            gewog: Faker::Address.city,
-            street_address: Faker::Address.street_address,
-            address_type: :permanent
-          }
-        ]
-      end
-    end
 
     trait :with_invalid_params do
       first_name { nil }

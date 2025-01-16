@@ -1,4 +1,7 @@
-<div>
-  <h1 class="font-bold text-4xl">Admin::Profiles#edit</h1>
-  <p>Find me in app/views/admin/profiles/edit.html.erb</p>
+<div class="card-container">
+  <div class="card">
+    <turbo-frame id="<%= dom_id @profile %>">
+      <%= render "form", profile: @profile %>
+    </turbo-frame>
+  </div>
 </div>
