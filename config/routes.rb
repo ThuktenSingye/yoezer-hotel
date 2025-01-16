@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  get "testsd/index"
+  devise_for :admins, skip: [ :registrations ], controllers: { sessions: "admin/sessions" }
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -12,4 +13,9 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+  authenticated :admins do
+    root to: "admin#index", as: :admin_root
+  end
+
+  get "admin" => "admin#index"
 end

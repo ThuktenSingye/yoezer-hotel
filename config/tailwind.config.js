@@ -10,7 +10,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#7C6A46',
+        primary: {
+          'regular': '#7C6A46',
+          'dark': '#755B26'
+        },
         'background': '#F4F7FC',
         'success': '#34D03B',
         'error': '#FF543E',
@@ -19,8 +22,9 @@ module.exports = {
         'text-color': '#1C1C1C'
       },
       fontFamily: {
-        'playfair': [`"Playfair Display"`, ...defaultTheme.fontFamily.sans],
+        'title': [`"Playfair Display"`, ...defaultTheme.fontFamily.sans],
         'poppins': ['Poppins', ...defaultTheme.fontFamily.sans],
+        'body': ['Libre Baskerville', ...defaultTheme.fontFamily.sans],
       },
     },
   },

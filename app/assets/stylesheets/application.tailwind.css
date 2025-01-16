@@ -2,15 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/*
-
-@layer components {
-  .btn-primary {
-    @apply py-2 px-4 bg-blue-200;
-  }
-}
-
-*/
 @font-face {
     font-family: "Playfair Display";
     src: url("PlayfairDisplay-Regular.ttf") format("truetype");
@@ -21,6 +12,13 @@
 @font-face {
     font-family: "Poppins";
     src: url("Poppins-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Libre Baskerville";
+    src: url("LibreBaskerville-Regular.ttf") format("truetype");
     font-weight: normal;
     font-style: normal;
 }
