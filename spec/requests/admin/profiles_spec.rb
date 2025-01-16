@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Admin::Profiles", type: :request do
   let!(:admin) { FactoryBot.create(:admin) }
-  let!(:profile) { FactoryBot.create(:profile) }
+  let!(:profile) { FactoryBot.create(:profile,  profileable: admin) }
 
   before do
     sign_in admin, scope: :admin
@@ -14,34 +14,34 @@ RSpec.describe "Admin::Profiles", type: :request do
   end
 
   describe "GET /edit" do
-    subject { get edit_admin_profile_path(admin); response }
-    it "cds" do
-      binding.pry
-      should have_http_status :ok
-    end
-    # it { should have_http_status :ok }
+    subject { get edit_admin_profile_path(profile); response }
+    it { should have_http_status :ok }
   end
 
   describe "PUT /update" do
+    let(:profile_attributes) { %w[first_name last_name designation date_of_joining contact_no salary dob qualification cid_no] }
     context "with valid params" do
       let!(:valid_profile_params) { FactoryBot.attributes_for(:profile) }
-      subject { put admin_profiles_path(admin, profile, params: { profile: valid_profile_params }); response }
+      subject { put admin_profile_path(profile, params: { profile: valid_profile_params }); response }
 
       it { is_expected.to have_http_status :found }
-      it { is_expected.to redirect_to admin_profiles_path(admin) }
+      it { is_expected.to redirect_to admin_profiles_path }
       it { expect { subject }.not_to change(Profile, :count) }
-      it { subject; profile.reload; expect(profile.attributes.slice('first_name', 'last_name', 'designation', 'date_of_joining', 'contact_no', 'salary', 'dob', 'qualification', 'cid_no')).to eq(valid_profile_params.stringify_keys) }
+      it { subject; profile.reload; expect(profile.attributes.slice(*profile_attributes).merge('designation' => Profile.last.designation.to_sym)).to eq(valid_profile_params.stringify_keys) }
+    end
 
+    context "with addresses" do
+      let!(:valid_profile_address_params) { FactoryBot.attributes_for(:profile, :with_address) }
     end
 
     context "with invalid params" do
       let(:invalid_profile_params) { FactoryBot.attributes_for(:profile, :with_invalid_params) }
-      subject { put admin_profiles_path(admin), params: { profile: invalid_profile_params }; response }
+      subject { put admin_profile_path(profile), params: { profile: invalid_profile_params }; response }
 
       it { is_expected.to have_http_status :unprocessable_entity }
       it { is_expected.to render_template(:index) }
       it { subject; expect(assigns(:profile)).to eq(profile) }
-      it { expect { subject }.not_to change { profile.reload.attributes.slice('first_name', 'last_name', 'designation', 'date_of_joining', 'contact_no', 'salary', 'dob', 'qualification', 'cid_no') } }
+      it { expect { subject }.not_to change { profile.reload.attributes.slice(*profile_attributes) } }
       it { expect { subject }.not_to change(Profile, :count) }
     end
   end

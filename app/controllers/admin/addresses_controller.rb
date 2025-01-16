@@ -1,10 +1,6 @@
-class Admin::AddressesController < ApplicationController
-  layout "admin"
-
-  before_action :authenticate_admin!
+class Admin::AddressesController < AdminController
   before_action :set_hotel, only: [ :new, :create, :destroy ]
   before_action :set_address, only: [ :destroy ]
-
 
   def new
     @address = Address.new
