@@ -8,30 +8,30 @@ class Admin::HotelsController < AdminController
 
   def edit; end
 
-  def update
-    if @hotel.update(hotel_params)
-      respond_to do |format|
-        format.html { redirect_to admin_hotels_path }
-        format.turbo_stream do
-          flash.now[:notice] = "Hotel was successfully updated."
-          render turbo_stream: [
-            turbo_stream.replace(@hotel, partial: "admin/hotels/hotel", locals: { hotel: @hotel }),
-            turbo_stream.prepend("flash", partial: "layouts/flash")
-          ]
+    def update
+      if @hotel.update(hotel_params)
+        respond_to do |format|
+          format.html { redirect_to admin_hotels_path }
+          format.turbo_stream do
+            flash.now[:notice] = "Hotel was successfully updated."
+            render turbo_stream: [
+              turbo_stream.replace(@hotel, partial: "admin/hotels/hotel", locals: { hotel: @hotel }),
+              turbo_stream.prepend("flash", partial: "layouts/flash")
+            ]
+          end
+        end
+      else
+        respond_to do |format|
+          format.html { render :index, status: :unprocessable_content }
+          format.turbo_stream do
+            flash.now[:alert] = "Error updating Hotel"
+            render turbo_stream: [
+              turbo_stream.replace(@hotel, partial: "admin/hotels/form", locals: { hotel: @hotel }),
+              turbo_stream.prepend("flash", partial: "layouts/flash")
+            ]
+          end
         end
       end
-    else
-      respond_to do |format|
-        format.html { render :index, status: :unprocessable_content }
-        format.turbo_stream do
-          flash.now[:alert] = "Error updating Hotel"
-          render turbo_stream: [
-            turbo_stream.replace(@hotel, partial: "admin/hotels/form", locals: { hotel: @hotel }),
-            turbo_stream.prepend("flash", partial: "layouts/flash")
-          ]
-        end
-      end
-    end
   end
 
   private

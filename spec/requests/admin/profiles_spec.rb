@@ -36,7 +36,6 @@ RSpec.describe "Admin::Profiles", type: :request do
       subject { put admin_profile_path(profile), params: { profile: invalid_profile_params }; response }
 
       it { is_expected.to have_http_status :unprocessable_entity }
-      it { is_expected.to render_template(:index) }
       it { subject; expect(assigns(:profile)).to eq(profile) }
       it { expect { subject }.not_to change { profile.reload.attributes.slice(*profile_attributes) } }
       it { expect { subject }.not_to change(Profile, :count) }

@@ -6,6 +6,8 @@ class Admin::ProfilesController < AdminController
   def edit; end
 
   def update
+    # binding.pry
+    Rails.logger.debug("Profile Params: #{profile_params.inspect}")
     if @profile.update(profile_params)
       respond_to do |format|
         format.html { redirect_to admin_profiles_path }

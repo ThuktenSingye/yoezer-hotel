@@ -6,7 +6,7 @@
         <%= icon("fa-solid", "user", class: "fa-2x border flex bg-white rounded-full p-2 text-primary-regular self-end hover:bg-background") %>
       <% end %>
 
-      <p class="hidden md:block">Hello <span class="block font-title text-primary-regular font-semibold tracking-wider"><%= current_admin.profile.first_name %></span></p>
+      <p class="hidden md:block">Hello <span class="block font-title text-primary-regular font-semibold tracking-wider"><%= current_admin.profile&.first_name %></span></p>
     </div>
   </div>
   <hr class="text-primary-regular mb-2">
