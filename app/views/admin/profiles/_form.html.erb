@@ -1,18 +1,32 @@
 <div class="m-4">
   <%= form_with(model: [ :admin , profile], local: true, class: "flex flex-col justify-center") do |f| %>
-    <%# if profile.errors.any? %>
-<!--      <div id="error_explanation" class="flex flex-col items-center">-->
-<!--        <h2 class="text-text-color/50"><%#= pluralize(profile.errors.count, "error") %> prohibited profile from being update:</h2>-->
-<!--        <ul class="text-error">-->
-          <%# profile.errors.full_messages.each do |message| %>
-<!--            <li><%#= message %></li>-->
-          <%# end %>
-<!--        </ul>-->
-<!--      </div>-->
-    <%# end %>
+    <% if profile.errors.any? %>
+      <div id="error_explanation" class="flex flex-col items-center">
+        <h2 class="text-text-color/50"><%= pluralize(profile.errors.count, "error") %> prohibited profile from being update:</h2>
+        <ul class="text-error">
+          <% profile.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
 
     <div class="my-1 w-full">
       <h2 class="title">Profile</h2>
+      <div class="flex flex-col" data-controller="avatar">
+        <div class="relative flex flex-row justify-center shrink-0">
+          <% if profile.avatar.present? %>
+            <%= image_tag profile.avatar, class: "h-32 w-32 rounded-full z-0" %>
+            <div class="self-start rounded-full border p-4 bg-background shadow-lg hover:bg-white hover:cursor-pointer" data-action="click->avatar#selectImage">
+              <%= icon('fa-solid', 'pen-to-square', class: "text-primary-regular") %>
+            </div>
+          <% end %>
+        </div>
+        <div class="input-container">
+          <%= f.file_field :avatar, class:"hidden", data: { "avatar-target": "avatarUpload"} %>
+        </div>
+      </div>
+
       <div class="input-container">
         <%= f.label :first_name, class: "w-32 shrink-0 self-start pt-2" %>
         <%= f.text_field :first_name, class: "input-field " %>
@@ -48,6 +62,10 @@
       <div class="input-container">
         <%= f.label :qualification, class: "w-32" %>
         <%= f.text_field :qualification, class: "input-field" %>
+      </div>
+      <div class="input-container">
+        <%= f.label :designation, class: "w-32" %>
+        <%= f.select :designation, Profile.designations.keys.map { |d| [d.humanize, d] } %>
       </div>
     </div>
     <hr>

@@ -16,5 +16,15 @@ FactoryBot.define do
       cid_no { nil }
       contact_no { nil }
     end
+
+    trait :with_avatar do
+      after(:build) do |profile|
+        profile.avatar.attach(
+          io: File.open(Rails.root.join('spec/support/images/cat.jpg')), # Path to your test image
+          filename: 'test-image.png',
+          content_type: 'image/png'
+        )
+      end
+    end
   end
 end

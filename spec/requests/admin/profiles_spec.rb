@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Admin::Profiles", type: :request do
   let!(:admin) { FactoryBot.create(:admin) }
-  let!(:profile) { FactoryBot.create(:profile, profileable: admin) }
+  let!(:profile) { FactoryBot.create(:profile, :with_avatar, profileable: admin) }
 
   before do
     sign_in admin, scope: :admin
@@ -19,7 +19,8 @@ RSpec.describe "Admin::Profiles", type: :request do
   end
 
   describe "PUT /update" do
-    let(:profile_attributes) { %w[first_name last_name designation date_of_joining contact_no salary dob qualification cid_no ] }
+    let(:profile_attributes) { %w[avatar first_name last_name designation date_of_joining contact_no salary dob qualification cid_no ] }
+
     context "with valid params" do
       let!(:valid_profile_params)  { FactoryBot.attributes_for(:profile) }
       subject { put admin_profile_path(profile, params: { profile: valid_profile_params }); response }
@@ -29,7 +30,6 @@ RSpec.describe "Admin::Profiles", type: :request do
       it { expect { subject }.not_to change(Profile, :count) }
       it { subject; profile.reload; expect(profile.attributes.slice(*profile_attributes).merge('designation' => Profile.last.designation.to_sym)).to eq(valid_profile_params.stringify_keys) }
     end
-
 
     context "with invalid params" do
       let(:invalid_profile_params) { FactoryBot.attributes_for(:profile, :with_invalid_params) }
