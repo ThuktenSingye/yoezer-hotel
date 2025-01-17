@@ -1,0 +1,46 @@
+<div>
+  <div class="card-container">
+    <div class="card">
+      <div class="m-4">
+        <h2 class="title">Hotel Info</h2>
+        <div>
+          <table>
+            <thead>
+            <tr>
+              <th>Image</th>
+              <th>Name</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% @amenities.each do |amenity| %>
+              <tr>
+                <td>
+                  <% if amenity.image&.attached? %>
+                    <%= image_tag(amenity.image) %>
+                  <% else %>
+                    <%= image_tag("https://via.placeholder.com/50") %>
+                  <% end %>
+                </td>
+                <td>
+                  <%= amenity.name %>
+                </td>
+                <td>
+                  <button>
+                    <%= icon('fa-solid', 'pen-to-square') %>
+                  </button>
+                  <button>
+                    <%= icon('fa-solid', 'trash') %>
+                  </button>
+                </td>
+              </tr>
+            <% end %>
+            </tbody>
+            <tfoot>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
