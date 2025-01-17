@@ -1,39 +1,39 @@
 <div class="m-4">
-  <%= form_with(model: [:admin, profile], local: true, class: "flex flex-col justify-center") do |f| %>
-    <% if profile.errors.any? %>
-      <div id="error_explanation" class="flex flex-col items-center">
-        <h2 class="text-text-color/50"><%= pluralize(profile.errors.count, "error") %> prohibited profile from being update:</h2>
-        <ul class="text-error">
-          <% profile.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
+  <%= form_with(model: [ :admin , profile], local: true, class: "flex flex-col justify-center") do |f| %>
+    <%# if profile.errors.any? %>
+<!--      <div id="error_explanation" class="flex flex-col items-center">-->
+<!--        <h2 class="text-text-color/50"><%#= pluralize(profile.errors.count, "error") %> prohibited profile from being update:</h2>-->
+<!--        <ul class="text-error">-->
+          <%# profile.errors.full_messages.each do |message| %>
+<!--            <li><%#= message %></li>-->
+          <%# end %>
+<!--        </ul>-->
+<!--      </div>-->
+    <%# end %>
 
     <div class="my-1 w-full">
-      <h2 class="title">Update Profile</h2>
+      <h2 class="title">Profile</h2>
       <div class="input-container">
         <%= f.label :first_name, class: "w-32 shrink-0 self-start pt-2" %>
-        <%= f.text_field :first_name, class: "input-field ", name: "first_name" %>
+        <%= f.text_field :first_name, class: "input-field " %>
       </div>
       <div class="input-container">
         <%= f.label :last_name, class: "w-32 shrink-0 self-start pt-2" %>
-        <%= f.text_field :last_name, class: "input-field", name: "last_name" %>
+        <%= f.text_field :last_name, class: "input-field" %>
       </div>
       <div class="input-container">
         <%= f.label :cid_no, class: "w-32 shrink-0 self-start pt-2" %>
-        <%= f.text_field :cid_no, class: "input-field", name: "cid_no" %>
+        <%= f.text_field :cid_no, class: "input-field" %>
       </div>
       <div class="input-container">
         <%= f.label :contact_no, class: "w-32 shrink-0 self-start pt-2" %>
-        <%= f.text_field :contact_no, class: "input-field ", name:"contact_no" %>
+        <%= f.text_field :contact_no, class: "input-field " %>
       </div>
 
       <div class="input-container">
         <%= f.label :date_of_joining, class: "w-32 shrink-0 self-start pt-2" %>
         <%= f.text_field :date_of_joining,
-             data: { controller: "flatpickr", flatpickr_date_format: "Y-m-d"}, class: "input-field", name: "joining_date" %>
+             data: { controller: "flatpickr", flatpickr_date_format: "Y-m-d"}, class: "input-field" %>
       </div>
       <div class="input-container">
         <%= f.label :dob, class: "w-32" %>
@@ -42,33 +42,41 @@
                controller: "flatpickr",
                flatpickr_min_date: "1800-01-01",
                flatpickr_max_date: Date.tomorrow.to_s
-             }, class: "input-field", name: "dob" %> ,
+             }, class: "input-field" %> ,
 
       </div>
       <div class="input-container">
         <%= f.label :qualification, class: "w-32" %>
-        <%= f.text_field :qualification, class: "input-field", name: "qualification" %>
+        <%= f.text_field :qualification, class: "input-field" %>
       </div>
     </div>
     <hr>
     <div class="my-2">
-      <%= f.fields_for :addresses do |af| %>
-        <h2 class="title">
-          <%= af.object.address_type == 'present' ? "Present Address" : "Permanent Address" %>
-        </h2>
-        <div class="input-container mt-1 ">
-          <%= af.label :dzongkhag, class: "w-32" %>
-          <%= af.text_field :dzongkhag, class: "input-field", name: "dzongkhag" %>
-        </div>
-        <div class="input-container">
-          <%= af.label :gewog, class: "w-32" %>
-          <%= af.text_field :gewog, class: "input-field", name:"gewog" %>
-        </div>
-        <div class="input-container">
-          <%= af.label :street_address, class: "w-32 self-start pt-2" %>
-          <%= af.textarea :street_address, class: "input-field", name: "street_address" %>
-        </div>
-      <% end %>
+      <div class="my-2">
+        <% sorted_addresses = profile.addresses.sort_by { |address| address.address_type == 'present' ? 0 : 1 } %>
+        <% sorted_addresses.each do |af| %>
+          <h2 class="title">
+            <%= af.address_type == 'present' ? "Present Address" : "Permanent Address" %>
+          </h2>
+          <div>
+            <%= f.fields_for :addresses, af do |address_fields| %>
+              <div class="input-container mt-1">
+                <%= address_fields.label :dzongkhag, class: "w-32" %>
+                <%= address_fields.text_field :dzongkhag, class: "input-field" %>
+              </div>
+              <div class="input-container mt-1">
+                <%= address_fields.label :gewog, class: "w-32" %>
+                <%= address_fields.text_field :gewog, class: "input-field" %>
+              </div>
+              <div class="input-container mt-1">
+                <%= address_fields.label :street_address, class: "w-32 self-start pt-2" %>
+                <%= address_fields.text_area :street_address, class: "input-field" %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+
     </div>
     <hr class="bg-primary-regular h-0.5">
     <div class="flex items-center mt-4 gap-5">

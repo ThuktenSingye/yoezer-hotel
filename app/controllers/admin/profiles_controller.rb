@@ -6,8 +6,6 @@ class Admin::ProfilesController < AdminController
   def edit; end
 
   def update
-    # binding.pry
-    Rails.logger.debug("Profile Params: #{profile_params.inspect}")
     if @profile.update(profile_params)
       respond_to do |format|
         format.html { redirect_to admin_profiles_path }
@@ -40,16 +38,6 @@ class Admin::ProfilesController < AdminController
   end
 
   def profile_params
-    params.require(:profile).permit(
-      :first_name,
-      :last_name,
-      :cid_no,
-      :contact_no,
-      :designation,
-      :date_of_joining,
-      :dob, :qualification,
-      :salary,
-      addresses_attributes: [ :id, :dzongkhag, :gewog, :street_address, :address_type ]
-    )
+    params.require(:profile).permit(:first_name, :last_name, :cid_no, :contact_no, :designation, :date_of_joining, :dob, :qualification, :salary, addresses_attributes: [ :id, :dzongkhag, :gewog, :street_address, :address_type ])
   end
 end

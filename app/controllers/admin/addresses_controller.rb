@@ -59,6 +59,6 @@ class Admin::AddressesController < AdminController
   def set_address
     @address ||= Address.find(params[:id])
     rescue ActiveRecord::RecordNotFound
-      redirect_to admin_path, alert: "Address not found"
+      redirect_to admin_path, flash[:alert]= "Address not found"
   end
 end
