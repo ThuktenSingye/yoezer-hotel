@@ -4,7 +4,7 @@
 
   export default class extends Controller {
 
-    static  targets = ['roomMenu', 'hotelMenu','sidebar', 'backdrop', 'sidebarToggle']
+    static  targets = ['roomMenu', 'hotelMenu','sidebar', 'backdrop', 'sidebar_toggle']
 
     toggleRoomMenu(){
       toggle(this.roomMenuTarget)
@@ -15,7 +15,7 @@
     }
 
     toggleSidebar(event) {
-      this.sidebarToggleTarget.classList.toggle('hidden')
+      this.sidebar_toggleTarget.classList.toggle('hidden')
       this.sidebarTarget.classList.toggle('-translate-x-full');
       this.backdropTarget.classList.toggle('hidden')
     }
