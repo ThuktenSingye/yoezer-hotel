@@ -1,1 +1,10 @@
-<h1>New Amenity</h1>
+<div class="card-container">
+  <div class="card">
+    <turbo-frame id="amenity" >
+      <h2 class="title">Add Amenity</h2>
+      <%= render "admin/amenities/form", amenity: @amenity %>
+    </turbo-frame>
+  </div>
+</div>
+
+

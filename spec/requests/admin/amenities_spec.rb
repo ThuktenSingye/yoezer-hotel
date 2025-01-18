@@ -46,7 +46,8 @@ RSpec.describe "Admin::Amenities", type: :request do
       let(:invalid_amenity_params) { FactoryBot.attributes_for(:amenity, :invalid_amenity) }
       subject { post admin_hotel_amenities_path(hotel, amenity), params: { amenity: invalid_amenity_params } ; response }
 
-      it { is_expected.to have_http_status :unprocessable_entity }
+      it { is_expected.to have_http_status :unprocessable_content }
+      it { is_expected.to render_template :new }
       it { expect { subject }.not_to change(Amenity, :count) }
     end
   end
@@ -84,6 +85,7 @@ RSpec.describe "Admin::Amenities", type: :request do
       subject { put admin_hotel_amenity_path(hotel, amenity), params: { amenity: invalid_amenity_params } ; response }
 
       it { is_expected.to have_http_status :unprocessable_entity }
+      it { is_expected.to render_template :edit }
       it { subject; expect(assigns(:amenity)).to eq(amenity) }
       it { expect { subject }.not_to change(Amenity, :count) }
     end
