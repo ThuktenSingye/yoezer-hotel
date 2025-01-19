@@ -90,4 +90,23 @@
         @apply icon hover-animation hover:shadow-lg
     }
 
+    nav{
+        @apply flex justify-between py-3 items-center
+    }
+
+    nav a {
+        @apply px-3 py-1 mr-1 border rounded text-text-color hover:bg-background;
+    }
+
+    nav a[class="current"] {
+        @apply bg-primary-regular text-white font-bold;
+    }
+
+    nav a[aria-disabled='true'] {
+        @apply cursor-not-allowed;
+    }
+
+    nav a[class='gap'] {
+        @apply px-3 text-text-color/60;
+    }
 }

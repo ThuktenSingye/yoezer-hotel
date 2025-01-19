@@ -2,9 +2,8 @@ class Admin::AmenitiesController < AdminController
   before_action :set_amenity, only: [ :edit, :update, :destroy ]
   before_action :set_hotel
 
-
   def index
-    @amenities = @hotel.amenities.all.order(created_at: :desc)
+    @pagy, @amenities = pagy(@hotel.amenities.order(created_at: :desc), items: 5)
   end
 
   def new
