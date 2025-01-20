@@ -20,9 +20,7 @@ FactoryBot.define do
     trait :with_avatar do
       after(:build) do |profile|
         profile.avatar.attach(
-          io: File.open(Rails.root.join('spec/support/images/cat.jpg')), # Path to your test image
-          filename: 'test-image.png',
-          content_type: 'image/png'
+          Rack::Test::UploadedFile.new("spec/support/images/cat.jpg", "image/jpeg")
         )
       end
     end

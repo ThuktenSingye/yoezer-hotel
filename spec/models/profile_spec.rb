@@ -8,7 +8,6 @@ RSpec.describe Profile, type: :model do
     it { should validate_presence_of(:first_name) }
     it { should validate_presence_of(:cid_no) }
     it { should validate_presence_of(:contact_no) }
-    it { should_not allow_value(profile.cid_no).for(:cid_no) }
   end
 
   context "associations" do

@@ -7,7 +7,7 @@ class Admin::ProfilesController < AdminController
 
   def update
     if @profile.update(profile_params.except(:avatar))
-      if profile_params[:avatar].present?
+      if profile_params[:avatar].present? && profile_params[:avatar].is_a?(ActionDispatch::Http::UploadedFile)
         @profile.avatar.attach(profile_params[:avatar])
       end
       respond_to do |format|

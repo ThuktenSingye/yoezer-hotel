@@ -19,16 +19,34 @@ RSpec.describe "Admin::Profiles", type: :request do
   end
 
   describe "PUT /update" do
-    let(:profile_attributes) { %w[avatar first_name last_name designation date_of_joining contact_no salary dob qualification cid_no ] }
-
+    let(:profile_attributes) { %w[first_name last_name designation date_of_joining contact_no salary dob qualification cid_no ] }
     context "with valid params" do
-      let!(:valid_profile_params)  { FactoryBot.attributes_for(:profile) }
+      let!(:valid_profile_params) do
+        {
+          first_name: Faker::Name.first_name,
+          last_name: Faker::Name.last_name,
+          cid_no: Faker::Number.number(digits: 11).to_s,
+          designation: :manager,
+          date_of_joining: Faker::Date.backward(days: 1),
+          contact_no:  Faker::Number.number(digits: 8).to_s,
+          salary: Faker::Number.decimal(l_digits: 5),
+          dob: Faker::Date.birthday(min_age: 18, max_age: 65),
+          qualification: Faker::Educator.degree,
+          avatar: Rack::Test::UploadedFile.new("spec/support/images/cat.jpg", "image/jpeg")
+        }
+      end
       subject { put admin_profile_path(profile, params: { profile: valid_profile_params }); response }
 
       it { is_expected.to have_http_status :found }
       it { is_expected.to redirect_to admin_profiles_path }
       it { expect { subject }.not_to change(Profile, :count) }
-      it { subject; profile.reload; expect(profile.attributes.slice(*profile_attributes).merge('designation' => Profile.last.designation.to_sym)).to eq(valid_profile_params.stringify_keys) }
+      it "update profile with valid attributes" do
+        subject
+        profile.reload
+        expect(profile.attributes.slice(*profile_attributes).merge('designation' => Profile.last.designation.to_sym)).to eq(valid_profile_params.stringify_keys.except('avatar'))
+        expect(profile.avatar.filename.to_s).to eq(valid_profile_params[:avatar].original_filename)
+        expect(profile.avatar.attached?).to eq(true)
+      end
     end
 
     context "with invalid params" do
