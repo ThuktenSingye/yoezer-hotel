@@ -21,7 +21,7 @@ class Admin::AmenitiesController < AdminController
       redirect_to admin_hotel_amenities_path(@hotel)
     else
       flash[:alert] = "Error adding amenity"
-      render :edit, status: :unprocessable_content
+      render :new, status: :unprocessable_content
     end
   end
 
