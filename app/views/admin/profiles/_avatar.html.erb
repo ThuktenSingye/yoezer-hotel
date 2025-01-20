@@ -1,9 +1,9 @@
 <div id="avatar" class="flex flex-row items-center gap-2 ml-auto">
   <%= link_to admin_profiles_path do %>
-    <% if profile&.avatar&.attached? %>
-      <%= image_tag(profile.avatar, class: "avatar", alt: "Profile Image") %>
-    <% else %>
+    <% if profile&.avatar.nil? %>
       <%= image_tag('https://via.placeholder.com/100', class: "avatar", alt: "Profile Image") %>
+    <% else %>
+      <%= image_tag(profile.avatar, class: "avatar", alt: "Profile Image") %>
     <% end %>
   <% end %>
   <p class="hidden md:block">Hello <span class="block font-title text-primary-regular font-semibold tracking-wider"><%= profile&.first_name %></span></p>
