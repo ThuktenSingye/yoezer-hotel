@@ -7,4 +7,5 @@ class Hotel < ApplicationRecord
   accepts_nested_attributes_for :address
   has_many :hotel_ratings, dependent: :destroy
   has_many :amenities, as: :amenityable
+  has_many :feedbacks
 end
