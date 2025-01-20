@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     resources :hotels, only: [ :index, :edit, :update ] do
       resources :addresses, only: [ :new, :create, :destroy ]
       resources :amenities
+      resources :feedbacks, only: [ :index, :destroy ]
     end
     resources :profiles, only: [ :index, :edit, :update ]
   end
