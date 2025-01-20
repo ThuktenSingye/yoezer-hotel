@@ -27,7 +27,6 @@ RSpec.describe "Admin::Amenities", type: :request do
           image: Rack::Test::UploadedFile.new("spec/support/images/dog.jpg", "image/jpeg")
         }
       end
-
       subject { post admin_hotel_amenities_path(hotel), params: { amenity: valid_amenity_params }; response }
 
       it { is_expected.to have_http_status :found }
@@ -65,7 +64,6 @@ RSpec.describe "Admin::Amenities", type: :request do
           image: Rack::Test::UploadedFile.new("spec/support/images/dog.jpg", "image/jpeg")
         }
       end
-
       subject { put admin_hotel_amenity_path(hotel, amenity), params: { amenity: valid_amenity_params } ; response }
 
       it { is_expected.to have_http_status :found }
