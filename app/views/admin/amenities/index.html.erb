@@ -3,20 +3,20 @@
     <div class="m-4">
       <turbo-frame id="amenity">
         <div class="flex justify-between items-center mb-4">
-          <h2 class="title">Amenities</h2>
           <div class="flex items-center space-x-3">
+            <h2 class="title">Amenities</h2>
             <div>
               <%= form_with(url: admin_hotel_amenities_path(@hotel),
                             method: :get, data: { turbo_frame: "search_result", turbo_action: "advance", controller: "search" }) do |form| %>
                 <%= form.search_field :query, class: "block p-2 mt-4 text-sm rounded border-2 focus:shadow-none focus:border-primary-regular focus:outline-none", placeholder: "Search", data: { action: "input->search#search"} %>
               <% end %>
             </div>
-            <div>
-              <%= link_to "Add",
-                          new_admin_hotel_amenity_path(@hotel),
-                          data: { "turbo-frame": "new_amenity" },
-                          class: "btn" %>
-            </div>
+          </div>
+          <div>
+            <%= link_to "Add",
+              new_admin_hotel_amenity_path(@hotel),
+              data: { "turbo-frame": "new_amenity" },
+              class: "btn" %>
           </div>
         </div>
         <div class="my-4">

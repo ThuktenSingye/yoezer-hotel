@@ -15,7 +15,7 @@ class Admin::AddressesController < AdminController
           flash[:notice] = "Address successfully added"
           render turbo_stream: [
             turbo_stream.prepend("new_address", partial: "admin/hotels/hotel", locals: { address: @address }),
-            turbo_stream.prepend("flash", partial: "layouts/flash", locals: { message: "Address successfully added", type: :notice })
+            turbo_stream.prepend("flash", partial: "shared/flash", locals: { message: "Address successfully added", type: :notice })
           ]
         end
       end
@@ -25,7 +25,7 @@ class Admin::AddressesController < AdminController
         format.turbo_stream do
           flash.now[:alert] = "Error updating Hotel"
           render turbo_stream: [
-            turbo_stream.prepend("flash", partial: "layouts/flash")
+            turbo_stream.prepend("flash", partial: "shared/flash")
           ]
         end
       end
@@ -40,7 +40,7 @@ class Admin::AddressesController < AdminController
         flash[:notice] = "Address successfully removed!"
         render turbo_stream: [
           turbo_stream.remove(@address),
-          turbo_stream.prepend("flash", partial: "layouts/flash")
+          turbo_stream.prepend("flash", partial: "shared/flash")
         ]
       end
     end

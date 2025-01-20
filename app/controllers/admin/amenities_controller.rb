@@ -29,7 +29,7 @@ class Admin::AmenitiesController < AdminController
 
   def update
     if @amenity.update(amenity_params.except(:image))
-      if amenity_params[:image].present?
+      if amenity_params[:image].present? && amenity_params[:image].is_a?(ActionDispatch::Http::UploadedFile)
         @amenity.image.attach(amenity_params[:image])
       end
       flash[:notice] = "Amenity successfully updated"
