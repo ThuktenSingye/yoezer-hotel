@@ -3,7 +3,11 @@ class Admin::AmenitiesController < AdminController
   before_action :set_hotel
 
   def index
-    @pagy, @amenities = pagy(@hotel.amenities.order(created_at: :desc), items: 5)
+    if params[:query].present?
+      @pagy, @amenities = pagy(@hotel.amenities.where("name LIKE ?", "%#{params[:query]}%").order(created_at: :desc))
+    else
+      @pagy, @amenities = pagy(@hotel.amenities.order(created_at: :desc), items: 5)
+    end
   end
 
   def new
@@ -12,52 +16,27 @@ class Admin::AmenitiesController < AdminController
 
   def create
     @amenity = @hotel.amenities.new(amenity_params)
-    respond_to do |format|
-      if @amenity.save
-        format.html { redirect_to admin_hotel_amenities_path(@hotel) }
-        format.turbo_stream do
-          flash.now[:notice] = "Amenity successfully added"
-          render turbo_stream: [
-            turbo_stream.prepend("amenities", partial: "admin/amenities/amenity", locals: { amenity: @amenity }),
-            turbo_stream.prepend("flash", partial: "layouts/flash")
-          ]
-        end
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.turbo_stream do
-          flash.now[:alert] = "Amenity failed to add"
-          turbo_stream.prepend("flash", partial: "layouts/flash")
-        end
-      end
+    if @amenity.save
+      flash[:notice] = "Amenity successfully added"
+      redirect_to admin_hotel_amenities_path(@hotel)
+    else
+      flash[:alert] = "Error adding amenity"
+      render :edit, status: :unprocessable_content
     end
   end
 
   def edit; end
 
   def update
-    respond_to do |format|
-      if @amenity.update(amenity_params.except(:image))
-        if amenity_params[:image].present?
-          @amenity.image.attach(amenity_params[:image])
-        end
-        format.html { redirect_to admin_hotel_amenities_path(@hotel), status: :see_other }
-        format.turbo_stream do
-          flash.now[:notice] = "Amenity was successfully updated."
-          render turbo_stream: [
-            turbo_stream.replace(@amenity, partial: "admin/amenities/amenity", locals: { amenity: @amenity }),
-            turbo_stream.prepend("flash", partial: "layouts/flash")
-          ]
-        end
-      else
-        format.html { render :edit, status: :unprocessable_content }
-        format.turbo_stream do
-          flash.now[:alert] = "Error updating Amenity"
-          render turbo_stream: [
-            turbo_stream.replace(@profile, partial: "admin/amenities/amenity", locals: { amenity: @amenity }),
-            turbo_stream.prepend("flash", partial: "layouts/flash")
-          ]
-        end
+    if @amenity.update(amenity_params.except(:image))
+      if amenity_params[:image].present?
+        @amenity.image.attach(amenity_params[:image])
       end
+      flash[:notice] = "Amenity successfully updated"
+      redirect_to admin_hotel_amenities_path(@hotel)
+    else
+      flash[:alert] = "Error updating amenity"
+      render :edit, status: :unprocessable_content
     end
   end
 
@@ -69,7 +48,7 @@ class Admin::AmenitiesController < AdminController
         flash.now[:notice] = "Amenity successfully removed!"
         render turbo_stream: [
           turbo_stream.remove(@amenity),
-          turbo_stream.prepend("flash", partial: "layouts/flash")
+          turbo_stream.prepend("flash", partial: "shared/flash")
         ]
       end
     end
