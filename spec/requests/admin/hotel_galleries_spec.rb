@@ -5,27 +5,30 @@ RSpec.describe "Admin::HotelGalleries", type: :request do
   let!(:admin) { FactoryBot.create(:admin) }
   let!(:gallery) { FactoryBot.create(:hotel_gallery, :with_hotel_image, hotel: hotel) }
 
+  before do
+    sign_in admin, scope: :admin
+  end
+
   describe "GET /index" do
     subject { get admin_hotel_galleries_path(hotel); response }
     it { is_expected.to have_http_status :ok }
   end
 
   describe "GET /new" do
-    subject {get new_admin_hotel_gallery_path(hotel); response }
+    subject { get new_admin_hotel_gallery_path(hotel); response }
     it { is_expected.to have_http_status :ok }
   end
 
   describe "GET /show" do
     context "when gallery exists" do
-      subject {get admin_hotel_gallery_path(hotel, gallery); response }
+      subject { get admin_hotel_gallery_path(hotel, gallery); response }
       it { is_expected.to have_http_status :ok }
     end
 
     context "when gallery record does not exist" do
       subject { get admin_hotel_gallery_path(hotel, gallery.id + 1); response }
-      it { is_expected.to redirect_to(admin_hotel_hotel_galleries_path(hotel)) }
+      it { is_expected.to redirect_to(admin_hotel_galleries_path(hotel)) }
     end
-
   end
 
   describe "GET /edit" do
@@ -37,7 +40,7 @@ RSpec.describe "Admin::HotelGalleries", type: :request do
     context "with valid params" do
       let(:valid_hotel_gallery_params) do
         {
-          hotel_name: Faker::Company.name,
+          name: Faker::Company.name,
           description: Faker::Lorem.sentence,
           images: [
             Rack::Test::UploadedFile.new("spec/support/images/dog.jpg", "image/jpeg"),
@@ -45,7 +48,7 @@ RSpec.describe "Admin::HotelGalleries", type: :request do
           ]
         }
       end
-      subject { put admin_hotel_gallery_path(hotel, gallery), { params: { hotel_gallery: valid_hotel_gallery_params }}; response  }
+      subject { put admin_hotel_gallery_path(hotel, gallery), params: { hotel_gallery: valid_hotel_gallery_params }; response }
       it { is_expected.to have_http_status :found }
       it { is_expected.to redirect_to admin_hotel_galleries_path(hotel) }
       it { expect { subject }.not_to change(HotelGallery, :count) }
@@ -53,20 +56,19 @@ RSpec.describe "Admin::HotelGalleries", type: :request do
         subject
         hotel_gallery = HotelGallery.last
         expect(hotel_gallery.name). to eq(valid_hotel_gallery_params[:name])
-        expect(hotel_gallery.description). to eq(valid_hotel_gallery_params[:name])
-        expect(hotel_gallery.images). to eq(valid_hotel_gallery_params[:images])
+        expect(hotel_gallery.description). to eq(valid_hotel_gallery_params[:description])
+        expect(hotel_gallery.images). to be_attached
       end
     end
 
     context "invalid params" do
       let(:invalid_hotel_gallery_params) { FactoryBot.attributes_for(:hotel_gallery, :invalid_hotel_gallery) }
-      subject { put admin_hotel_gallery_path(hotel, gallery), { params: { hotel_gallery: invalid_hotel_gallery_params }}; response  }
+      subject { put admin_hotel_gallery_path(hotel, gallery), params: { hotel_gallery: invalid_hotel_gallery_params } ; response  }
 
       it { is_expected.to have_http_status :unprocessable_entity }
       it { is_expected.to render_template :edit }
-      it { subject; expect(assigns(:gallery)).to eq(gallery) }
+      it { subject; expect(assigns(:hotel_gallery)).to eq(gallery) }
       it { expect { subject }.not_to change(HotelGallery, :count) }
-
     end
   end
 
@@ -79,7 +81,7 @@ RSpec.describe "Admin::HotelGalleries", type: :request do
     context "with valid params" do
       let(:valid_hotel_gallery_params) do
         {
-          hotel_name: Faker::Company.name,
+          name: Faker::Company.name,
           description: Faker::Lorem.sentence,
           images: [
             Rack::Test::UploadedFile.new("spec/support/images/dog.jpg", "image/jpeg"),
@@ -87,7 +89,7 @@ RSpec.describe "Admin::HotelGalleries", type: :request do
           ]
         }
       end
-      subject { post admin_hotel_gallery_path(hotel), params: { hotel_gallery: valid_hotel_gallery_params }; response }
+      subject { post admin_hotel_galleries_path(hotel), params: { hotel_gallery: valid_hotel_gallery_params }; response }
 
       it { is_expected.to have_http_status :found }
       it { is_expected.to redirect_to admin_hotel_galleries_path(hotel) }
@@ -102,7 +104,7 @@ RSpec.describe "Admin::HotelGalleries", type: :request do
     end
     context "with invalid params" do
       let(:invalid_hotel_gallery_params) { FactoryBot.attributes_for(:hotel_gallery, :invalid_hotel_gallery) }
-      subject { post admin_hotel_gallery_path(hotel), params: { hotel_gallery: invalid_hotel_gallery_params }; response }
+      subject { post admin_hotel_galleries_path(hotel), params: { hotel_gallery: invalid_hotel_gallery_params }; response }
 
       it { is_expected.to have_http_status :unprocessable_entity }
       it { is_expected.to render_template :new }
@@ -112,6 +114,6 @@ RSpec.describe "Admin::HotelGalleries", type: :request do
 
   describe "DELETE /destroy" do
     subject { delete admin_hotel_gallery_path(hotel, gallery); response }
-    it { is_expected.to have_http_status :ok }
+    it { is_expected.to redirect_to admin_hotel_galleries_path(hotel) }
   end
 end
