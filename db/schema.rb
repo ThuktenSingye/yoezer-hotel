@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_20_100656) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_20_122003) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -93,6 +93,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_20_100656) do
     t.index ["hotel_id"], name: "index_feedbacks_on_hotel_id"
   end
 
+  create_table "hotel_galleries", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.bigint "hotel_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["hotel_id"], name: "index_hotel_galleries_on_hotel_id"
+  end
+
   create_table "hotel_ratings", force: :cascade do |t|
     t.integer "rating", default: 0
     t.bigint "hotel_id", null: false
@@ -130,5 +139,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_20_100656) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "feedbacks", "hotels"
+  add_foreign_key "hotel_galleries", "hotels"
   add_foreign_key "hotel_ratings", "hotels"
 end

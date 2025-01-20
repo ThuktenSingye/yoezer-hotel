@@ -12,5 +12,6 @@ RSpec.describe Hotel, type: :model do
     it { should have_many :hotel_ratings }
     it { should have_many :amenities }
     it { should have_many :feedbacks }
+    it { should have_many :hotel_galleries}
   end
 end
