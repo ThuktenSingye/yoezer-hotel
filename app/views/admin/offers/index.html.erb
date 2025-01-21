@@ -1,4 +1,15 @@
-<div>
-  <h1 class="font-bold text-4xl">Admin::Offers#index</h1>
-  <p>Find me in app/views/admin/offers/index.html.erb</p>
+<div class="mx-4">
+  <div class="container mx-auto">
+    <div class="w-full flex justify-between items-center my-4">
+      <h1 class="title mx-4"> Hotel Offer</h1>
+      <div class="self-end">
+        <%= link_to "Add", new_admin_hotel_offer_path(@hotel), class: "btn" %>
+      </div>
+    </div>
+    <div class="flex flex-wrap items-center justify-center gap-5 ">
+      <% @offers.each do |offer| %>
+        <%= render "admin/offers/offer_card", offer: offer %>
+      <% end %>
+    </div>
+  </div>
 </div>

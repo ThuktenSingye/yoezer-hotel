@@ -2,7 +2,7 @@ class Admin::OffersController < AdminController
   before_action :set_hotel
   before_action :set_offer, only: [ :show, :edit, :update, :destroy ]
   def index
-    @offer = @hotel.offers.all.order(created_at: :desc)
+    @offers = @hotel.offers.all.order(created_at: :desc)
   end
 
   def show; end
@@ -25,7 +25,6 @@ class Admin::OffersController < AdminController
   def edit; end
 
   def update
-    # binding.pry
     if @offer.update(offer_params.except(:image))
       if offer_params[:image] && offer_params[:image].is_a?(ActionDispatch::Http::UploadedFile)
         @offer.image.attach(offer_params[:image])
@@ -40,6 +39,7 @@ class Admin::OffersController < AdminController
 
   def destroy
     @offer.destroy
+    flash[:notice] = "Offer was successfully destroyed"
     redirect_to admin_hotel_offer_path(@hotel, @offer)
   end
 
@@ -53,7 +53,7 @@ class Admin::OffersController < AdminController
     @hotel ||= Hotel.find(params[:hotel_id])
     @offer ||= @hotel.offers&.find(params[:id])
     rescue ActiveRecord::RecordNotFound
-      flash.now[:alert] = "Hotel Gallery not found"
+      flash.now[:alert] = "Offer not found"
       redirect_to admin_hotel_offers_path(@hotel)
   end
 

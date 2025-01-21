@@ -1,4 +1,8 @@
-<div>
-  <h1 class="font-bold text-4xl">Admin::Offers#edit</h1>
-  <p>Find me in app/views/admin/offers/edit.html.erb</p>
+<div class="card-container">
+  <div class="card">
+    <turbo-frame id="<%= dom_id @offer %>">
+      <h2 class="title m-4">Update Offer</h2>
+      <%= render "form", offer: @offer %>
+    </turbo-frame>
+  </div>
 </div>

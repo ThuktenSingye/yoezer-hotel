@@ -25,7 +25,6 @@ RSpec.describe "Admin::Offers", type: :request do
       it { is_expected.to redirect_to(admin_hotel_offers_path(hotel)) }
     end
   end
-  # expect(offer.attributes.slice(*offer_attributes).to eq(valid_hotel_offer_params.stringify_keys.except('image')))
 
   describe "GET /new" do
     subject { get new_admin_hotel_offer_path(hotel); response }
@@ -51,6 +50,7 @@ RSpec.describe "Admin::Offers", type: :request do
         }
       end
       subject { put admin_hotel_offer_path(hotel, offer), params: { offer: valid_hotel_offer_params }; response }
+
       it { is_expected.to have_http_status :found }
       it { is_expected.to redirect_to admin_hotel_offer_path(hotel, offer) }
       it { expect { subject }.not_to change(Offer, :count) }
