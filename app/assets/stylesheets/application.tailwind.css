@@ -41,7 +41,7 @@
     }
 
     .title{
-        @apply font-title font-medium text-lg md:text-xl text-primary-regular;
+        @apply font-title font-semibold tracking-wider text-lg md:text-xl text-primary-regular;
     }
     .input-container{
         @apply flex p-2 flex-col items-start md:flex-row md:items-center;
@@ -89,31 +89,26 @@
         @apply hover:scale-110 hover:transition ease-in-out delay-75;
     }
     .avatar {
-        @apply h-11 w-11 rounded-full object-cover hover-animation
+        @apply rounded-full object-cover hover-animation
     }
-    .icon{
-        @apply h-8 w-8 rounded-full p-1 bg-background
+    .icon {
+        @apply rounded-full bg-background hover:bg-white border
     }
     .icon-button{
         @apply icon hover-animation hover:shadow-lg
     }
-
     nav{
         @apply flex justify-between py-3 items-center
     }
-
     nav a {
         @apply px-3 py-1 mr-1 border rounded text-text-color hover:bg-background;
     }
-
     nav a[class="current"] {
         @apply bg-primary-regular text-white font-bold;
     }
-
     nav a[aria-disabled='true'] {
         @apply cursor-not-allowed;
     }
-
     nav a[class='gap'] {
         @apply px-3 text-text-color/60;
     }

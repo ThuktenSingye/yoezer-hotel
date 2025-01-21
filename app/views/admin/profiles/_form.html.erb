@@ -17,11 +17,11 @@
         <div class="flex flex-col" data-controller="avatar">
           <div class="relative flex flex-row justify-center shrink-0">
             <% if profile.avatar.present? %>
-              <%= image_tag profile.avatar, class: "h-24 w-24 md:h-32 md:w-32 rounded-full p-2 border bg:white z-0", data: { avatar_target: "imagePreview" } %>
+              <%= image_tag profile.avatar, class: "h-24 w-24 md:h-32 md:w-32 icon z-0", data: { avatar_target: "imagePreview" } %>
             <% else %>
-              <%= image_tag "https://placehold.co/200x200", class: "h-24 w-24 md:h-32 md:w-32 rounded-full p-2 border bg:white z-0", data: { avatar_target: "imagePreview" } %>
+              <%= image_tag "https://placehold.co/200x200", class: "h-24 w-24 md:h-32 md:w-32 icon z-0", data: { avatar_target: "imagePreview" } %>
             <% end %>
-            <div class="self-start rounded-full border p-4 bg-background shadow-lg hover:bg-white hover:cursor-pointer" data-action="click->avatar#selectImage">
+            <div class="self-start icon p-4 hover:cursor-pointer" data-action="click->avatar#selectImage">
               <%= icon('fa-solid', 'pen-to-square', class: "text-primary-regular") %>
             </div>
             <%= f.file_field :avatar, accept: "image/*", data: {avatar_target: "avatarUpload", action: "change->avatar#showPreview"}, class: "hidden" %>
