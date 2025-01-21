@@ -1,10 +1,6 @@
-class Admin::AddressesController < ApplicationController
-  layout "admin"
-
-  before_action :authenticate_admin!
+class Admin::AddressesController < AdminController
   before_action :set_hotel, only: [ :new, :create, :destroy ]
   before_action :set_address, only: [ :destroy ]
-
 
   def new
     @address = Address.new
@@ -39,8 +35,9 @@ class Admin::AddressesController < ApplicationController
   def destroy
     @address.destroy
     respond_to do |format|
-      format.html { redirect_to admin_hotels_path, notice: "Address was successfully deleted!" }
+      format.html { redirect_to admin_hotels_path }
       format.turbo_stream do
+        flash[:notice] = "Address successfully removed!"
         render turbo_stream: [
           turbo_stream.remove(@address),
           turbo_stream.prepend("flash", partial: "layouts/flash")
@@ -62,6 +59,6 @@ class Admin::AddressesController < ApplicationController
   def set_address
     @address ||= Address.find(params[:id])
     rescue ActiveRecord::RecordNotFound
-      redirect_to admin_path, alert: "Address not found"
+      redirect_to admin_path, flash[:alert]= "Address not found"
   end
 end

@@ -1,9 +1,6 @@
-class Admin::HotelsController < ApplicationController
-  layout "admin"
-
+class Admin::HotelsController < AdminController
   before_action :set_hotel, only: [ :edit, :update ]
   before_action :set_rating, only: [ :index, :update ]
-  before_action :authenticate_admin!
 
   def index
     @hotel = Hotel.includes(:address).first

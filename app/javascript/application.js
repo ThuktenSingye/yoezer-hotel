@@ -1,6 +1,11 @@
 // Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
 import '@hotwired/turbo-rails';
 import 'controllers';
+import { Application } from '@hotwired/stimulus';
+import Flatpickr from 'stimulus-flatpickr';
+
+const application = Application.start();
+application.register('flatpickr', Flatpickr);
 
 function handleViewTransition(event) {
   if (document.startViewTransition) {
@@ -16,3 +21,5 @@ function handleViewTransition(event) {
 
 document.addEventListener('turbo:before-frame-render', handleViewTransition);
 document.addEventListener('turbo:before-stream-render', handleViewTransition);
+
+

@@ -41,7 +41,7 @@
     }
 
     .title{
-        @apply font-title font-medium tracking-wider text-lg md:text-xl text-primary-regular;
+        @apply font-title font-semibold tracking-wider text-lg md:text-xl text-primary-regular;
     }
     .input-container{
         @apply flex p-2 flex-col items-start md:flex-row md:items-center;
@@ -74,5 +74,13 @@
         @apply text-sm text-white font-title text-center px-4 py-1 bg-success rounded-full;
         animation: appear-then-fade 4s both;
     }
-
+    #profile_designation{
+        @apply  w-11/12 md:w-1/2 text-text-color/50 bg-background font-poppins p-2 border rounded focus:outline-primary-regular ;
+    }
+    .avatar {
+        @apply rounded-full object-cover hover:scale-110 hover:transition ease-in-out delay-75
+    }
+    .icon {
+        @apply rounded-full bg-background hover:bg-white border shadow-lg
+    }
 }

@@ -4,7 +4,11 @@ FactoryBot.define do
     gewog { Faker::Address.city }
     street_address { Faker::Address.street_address }
     address_type { :present }
-    association :addressable, factory: :hotel
+    association :addressable, factory: [ :hotel, :profile ]
+  end
+
+  trait :permanent_address do
+    address_type { :permanent }
   end
 
   trait :invalid_params do

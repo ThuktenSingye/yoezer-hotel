@@ -6,5 +6,8 @@
     "eslint-plugin-prettier": "^5.2.2",
     "globals": "^15.14.0",
     "prettier": "^3.4.2"
+  },
+  "dependencies": {
+    "stimulus-flatpickr": "^1.4.0"
   }
 }
