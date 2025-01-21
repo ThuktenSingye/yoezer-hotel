@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :hotels, only: [ :index, :edit, :update ] do
       resources :addresses, only: [ :new, :create, :destroy ]
+      resources :amenities
     end
     resources :profiles, only: [ :index, :edit, :update ]
   end

@@ -70,17 +70,46 @@
             transform: translateY(10px);
         }
     }
-    .flash-message {
-        @apply text-sm text-white font-title text-center px-4 py-1 bg-success rounded-full;
+    .flash-notice{
+        @apply text-sm font-title text-white text-center px-4 py-2 bg-success rounded-lg;
+        animation: appear-then-fade 4s both;
+    }
+    .flash-alert {
+        @apply text-sm text-white font-title text-center px-4 py-1 bg-error rounded-lg;
+        animation: appear-then-fade 4s both;
+    }
+    .flash-normal {
+        @apply text-sm text-red-500 font-title text-center px-4 py-1 bg-white rounded-lg;
         animation: appear-then-fade 4s both;
     }
     #profile_designation{
         @apply  w-11/12 md:w-1/2 text-text-color/50 bg-background font-poppins p-2 border rounded focus:outline-primary-regular ;
     }
+    .hover-animation{
+        @apply hover:scale-110 hover:transition ease-in-out delay-75;
+    }
     .avatar {
-        @apply rounded-full object-cover hover:scale-110 hover:transition ease-in-out delay-75
+        @apply rounded-full object-cover hover-animation
     }
     .icon {
-        @apply rounded-full bg-background hover:bg-white border shadow-lg
+        @apply rounded-full bg-background hover:bg-white border
+    }
+    .icon-button{
+        @apply icon hover-animation hover:shadow-lg
+    }
+    nav{
+        @apply flex justify-between py-3 items-center
+    }
+    nav a {
+        @apply px-3 py-1 mr-1 border rounded text-text-color hover:bg-background;
+    }
+    nav a[class="current"] {
+        @apply bg-primary-regular text-white font-bold;
+    }
+    nav a[aria-disabled='true'] {
+        @apply cursor-not-allowed;
+    }
+    nav a[class='gap'] {
+        @apply px-3 text-text-color/60;
     }
 }

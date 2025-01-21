@@ -6,4 +6,5 @@ class Hotel < ApplicationRecord
   has_many :address, as: :addressable
   accepts_nested_attributes_for :address
   has_many :hotel_ratings, dependent: :destroy
+  has_many :amenities, as: :amenityable
 end

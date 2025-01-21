@@ -16,7 +16,7 @@ class Admin::HotelsController < AdminController
           flash.now[:notice] = "Hotel was successfully updated."
           render turbo_stream: [
             turbo_stream.replace(@hotel, partial: "admin/hotels/hotel", locals: { hotel: @hotel }),
-            turbo_stream.prepend("flash", partial: "layouts/flash")
+            turbo_stream.prepend("flash", partial: "shared/flash")
           ]
         end
       end
@@ -27,7 +27,7 @@ class Admin::HotelsController < AdminController
           flash.now[:alert] = "Error updating Hotel"
           render turbo_stream: [
             turbo_stream.replace(@hotel, partial: "admin/hotels/form", locals: { hotel: @hotel }),
-            turbo_stream.prepend("flash", partial: "layouts/flash")
+            turbo_stream.prepend("flash", partial: "shared/flash")
           ]
         end
       end

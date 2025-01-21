@@ -1,5 +1,6 @@
 class Admin::ProfilesController < AdminController
   before_action :set_profile, only: [ :index, :edit, :update ]
+  before_action :set_hotel
 
   def index; end
 
@@ -17,7 +18,7 @@ class Admin::ProfilesController < AdminController
           render turbo_stream: [
             turbo_stream.replace("avatar", partial: "admin/profiles/avatar", locals: { profile: @profile }),
             turbo_stream.replace(@profile, partial: "admin/profiles/profile", locals: { profile: @profile }),
-            turbo_stream.prepend("flash", partial: "layouts/flash")
+            turbo_stream.prepend("flash", partial: "shared/flash")
           ]
         end
       end
@@ -28,7 +29,7 @@ class Admin::ProfilesController < AdminController
           flash.now[:alert] = "Error updating Profile"
           render turbo_stream: [
             turbo_stream.replace(@profile, partial: "admin/profiles/form", locals: { profile: @profile }),
-            turbo_stream.prepend("flash", partial: "layouts/flash")
+            turbo_stream.prepend("flash", partial: "shared/flash")
           ]
         end
       end
@@ -36,6 +37,10 @@ class Admin::ProfilesController < AdminController
   end
 
   private
+
+  def set_hotel
+    @hotel = Hotel.first
+  end
 
   def set_profile
     @profile ||= current_admin.profile

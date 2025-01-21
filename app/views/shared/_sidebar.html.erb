@@ -1,4 +1,4 @@
-<div class="relative" data-controller="sidebar">
+<div class="relative" data-controller="sidebar" data-turbo-permanent>
   <div
     class="fixed inset-0 w-full h-full bg-black bg-opacity-50 z-10 hidden"
     data-sidebar-target="backdrop"
@@ -60,10 +60,10 @@
               <% end %>
             </li>
 
-            <li class="sidebar-menu-row <%= current_page?(admin_path) ? "bg-white rounded" : "" %>">
-              <%= link_to admin_path, class: "w-full flex items-center" do %>
-                <%= icon("fa-solid", "hands-holding", class: "w-6 #{current_page?(admin_path) ? 'text-primary-regular' : 'text-white'}") %>
-                <span class="text-sm ml-2  <%= current_page?(admin_path) ? "text-primary-regular" : "text-white" %>">Amenities</span>
+            <li class="sidebar-menu-row <%= current_page?(admin_hotel_amenities_path(hotel)) ? "bg-white rounded" : "" %>">
+              <%= link_to admin_hotel_amenities_path(hotel), class: "w-full flex items-center" do %>
+                <%= icon("fa-solid", "hands-holding", class: "w-6 #{current_page?(admin_hotel_amenities_path(hotel)) ? 'text-primary-regular' : 'text-white'}") %>
+                <span class="text-sm ml-2  <%= current_page?(admin_hotel_amenities_path(hotel)) ? "text-primary-regular" : "text-white" %>">Amenities</span>
               <% end %>
             </li>
 
