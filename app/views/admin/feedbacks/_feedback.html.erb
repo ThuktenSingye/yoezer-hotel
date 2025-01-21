@@ -12,7 +12,7 @@
     <%= link_to admin_hotel_feedback_path(@hotel, feedback),
                 class: "",
                 data: {"turbo-method": :delete, "turbo-frame": dom_id(feedback), "turbo-confirm": "Are you sure to delete?"} do %>
-      <button class="icon-button group-hover:bg-white self-center">
+      <button class="icon icon-button p-2 group-hover:bg-white self-center">
         <%= icon('fa-solid', 'trash', class: "text-error") %>
       </button>
     <% end %>
