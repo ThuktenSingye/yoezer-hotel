@@ -1,18 +1,20 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Hotel, type: :model do
-  context "validations" do
-    it { should validate_presence_of :name }
-    it { should validate_presence_of :email }
-    it { should validate_presence_of :contact_no }
+  context 'when validating attributes' do
+    it { is_expected.to validate_presence_of :name }
+    it { is_expected.to validate_presence_of :email }
+    it { is_expected.to validate_presence_of :contact_no }
   end
 
-  context "associations" do
-    it { should have_many :address }
-    it { should have_many :hotel_ratings }
-    it { should have_many :amenities }
-    it { should have_many :feedbacks }
-    it { should have_many :hotel_galleries }
-    it { should have_many :offers }
+  context 'when associating models' do
+    it { is_expected.to have_many :address }
+    it { is_expected.to have_many :hotel_ratings }
+    it { is_expected.to have_many :amenities }
+    it { is_expected.to have_many :feedbacks }
+    it { is_expected.to have_many :hotel_galleries }
+    it { is_expected.to have_many :offers }
   end
 end

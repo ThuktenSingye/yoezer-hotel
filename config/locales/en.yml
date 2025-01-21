@@ -27,5 +27,65 @@
 #       "yes": yup
 #       enabled: "ON"
 
-en:
-  hello: "Hello world"
+  en:
+    hello: "Hello world"
+
+    hotel:
+      update:
+        success: "Hotel updated successfully."
+        error: "Failed to update hotel"
+
+    address:
+      update:
+        success: "Address updated successfully."
+        error: "Failed to update address."
+      create:
+        success: "Address created successfully."
+        error: "Failed to create address."
+      destroy:
+        success: "Address removed successfully."
+      not_found: "Address not found"
+
+    profile:
+      update:
+        success: "Profile updated successfully."
+        error: "Failed to update profile."
+
+    amenity:
+      create:
+        success: "Amenity created successfully."
+        error: "Failed to create Amenity"
+      update:
+        success: "Amenity updated successfully."
+        error: "Failed to update Amenity"
+      destroy:
+        success: "Amenity removed successfully."
+
+    feedback:
+      destroy:
+        success: "Feedback removed successfully."
+
+    gallery:
+      create:
+        success: "Gallery created successfully."
+        error: "Failed to create Gallery"
+      update:
+        success: "Gallery updated successfully."
+        error: "Failed to update Gallery"
+      destroy:
+        success: "Gallery removed successfully."
+      not_found: "Gallery not found"
+
+    offer:
+      create:
+        success: "Offer created successfully."
+        error: "Failed to create Offer"
+      update:
+        success: "Offer updated successfully."
+        error: "Failed to update Offer"
+      destroy:
+        success: "Offer removed successfully."
+      not_found: "Offer not found"
+
+
+

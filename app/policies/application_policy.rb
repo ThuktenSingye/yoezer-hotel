@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Base policy class for defining authorization rules in the application
 class ApplicationPolicy
   attr_reader :user, :record
 
@@ -36,6 +37,7 @@ class ApplicationPolicy
     false
   end
 
+  # Scope class for defining the scope of records accessible by the user
   class Scope
     def initialize(user, scope)
       @user = user

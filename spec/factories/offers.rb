@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :offer do
-    title { Faker::Lorem.sentence   }
+    title { Faker::Lorem.sentence }
     description { Faker::Lorem.paragraph }
     start_time { Faker::Time.backward(days: 30) }
     end_time { Faker::Time.forward(days: 30) }
@@ -11,8 +13,8 @@ FactoryBot.define do
   trait :with_offer_image do
     after(:build) do |offer|
       offer.image.attach(
-        Rack::Test::UploadedFile.new("spec/support/images/cat.jpg", "image/jpeg"),
-        )
+        Rack::Test::UploadedFile.new('spec/support/images/cat.jpg', 'image/jpeg')
+      )
     end
   end
 
@@ -20,6 +22,6 @@ FactoryBot.define do
     title { nil }
     description { nil }
     start_time { nil }
-    end_time { nil  }
+    end_time { nil }
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :profile do
     first_name { Faker::Name.first_name }
@@ -20,7 +22,7 @@ FactoryBot.define do
     trait :with_avatar do
       after(:build) do |profile|
         profile.avatar.attach(
-          Rack::Test::UploadedFile.new("spec/support/images/cat.jpg", "image/jpeg")
+          Rack::Test::UploadedFile.new('spec/support/images/cat.jpg', 'image/jpeg')
         )
       end
     end

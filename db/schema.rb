@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_21_070447) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_21_155045) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -145,6 +145,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_21_070447) do
     t.bigint "profileable_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["cid_no"], name: "index_profiles_on_cid_no", unique: true
     t.index ["profileable_type", "profileable_id"], name: "index_profiles_on_profileable"
   end
 

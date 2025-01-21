@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Migration to create the profiles table with polymorphic associations
 class CreateProfiles < ActiveRecord::Migration[8.0]
   def change
     create_table :profiles do |t|

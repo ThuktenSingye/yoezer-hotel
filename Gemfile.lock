@@ -450,6 +450,7 @@ DEPENDENCIES
   rails-controller-testing
   rspec-rails (~> 7.0.0)
   rubocop-performance
+  rubocop-rails
   rubocop-rails-omakase
   rubocop-rspec
   shoulda-matchers (~> 6.0)

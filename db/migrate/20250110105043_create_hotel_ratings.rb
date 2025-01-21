@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Migration to create the hotel_ratings table
 class CreateHotelRatings < ActiveRecord::Migration[8.0]
   def change
     create_table :hotel_ratings do |t|

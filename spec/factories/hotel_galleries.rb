@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :hotel_gallery do
     name { Faker::Name.unique.name }
@@ -8,8 +10,8 @@ FactoryBot.define do
   trait :with_hotel_image do
     after(:build) do |hotel_gallery|
       hotel_gallery.image.attach(
-        Rack::Test::UploadedFile.new("spec/support/images/cat.jpg", "image/jpeg"),
-        )
+        Rack::Test::UploadedFile.new('spec/support/images/cat.jpg', 'image/jpeg')
+      )
     end
   end
   trait :invalid_hotel_gallery do

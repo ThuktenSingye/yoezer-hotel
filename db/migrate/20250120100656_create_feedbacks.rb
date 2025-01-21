@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Migration to create the customer feedbacks table
 class CreateFeedbacks < ActiveRecord::Migration[8.0]
   def change
     create_table :feedbacks do |t|
