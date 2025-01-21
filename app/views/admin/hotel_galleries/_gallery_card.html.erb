@@ -1,0 +1,17 @@
+<%= link_to admin_hotel_hotel_gallery_path(@hotel, hotel_gallery) do %>
+  <div class="card-sm card-animation mt-2 p-3 flex flex-col gap-2">
+    <div class="w-full">
+      <% if hotel_gallery&.image.present? %>
+        <%= image_tag hotel_gallery.image, class: "object-cover w-full h-48 rounded" %>
+      <% else %>
+        <div class="bg-gray-200 w-full h-48 flex items-center justify-center">
+          <%= image_tag "https://placehold.co/200x200", class: "object-cover w-full h-48 rounded" %>
+        </div>
+      <% end %>
+    </div>
+    <div class="mb-2">
+      <h3 class="font-title font-semibold tracking-wider text-primary-regular mb-2"><%= hotel_gallery.name %></h3>
+      <p class="text-sm text-text-color/50 line-clamp-1"><%= hotel_gallery.description %></p>
+    </div>
+  </div>
+<% end %>

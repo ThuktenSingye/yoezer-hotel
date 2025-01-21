@@ -7,7 +7,7 @@ FactoryBot.define do
 
   trait :with_hotel_image do
     after(:build) do |hotel_gallery|
-      hotel_gallery.images.attach(
+      hotel_gallery.image.attach(
         Rack::Test::UploadedFile.new("spec/support/images/cat.jpg", "image/jpeg"),
         )
     end

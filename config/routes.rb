@@ -4,7 +4,7 @@ Rails.application.routes.draw do
       resources :addresses, only: [ :new, :create, :destroy ]
       resources :amenities
       resources :feedbacks, only: [ :index, :destroy ]
-      resources :hotel_galleries, as: :galleries
+      resources :hotel_galleries
     end
     resources :profiles, only: [ :index, :edit, :update ]
   end

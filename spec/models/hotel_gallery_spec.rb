@@ -8,6 +8,6 @@ RSpec.describe HotelGallery, type: :model do
 
   context 'associations' do
     it { should belong_to :hotel }
-    it { should have_many_attached :images }
+    it { should have_one_attached :image }
   end
 end

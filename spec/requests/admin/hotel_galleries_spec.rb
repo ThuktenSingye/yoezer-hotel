@@ -10,29 +10,29 @@ RSpec.describe "Admin::HotelGalleries", type: :request do
   end
 
   describe "GET /index" do
-    subject { get admin_hotel_galleries_path(hotel); response }
+    subject { get admin_hotel_hotel_galleries_path(hotel); response }
     it { is_expected.to have_http_status :ok }
   end
 
   describe "GET /new" do
-    subject { get new_admin_hotel_gallery_path(hotel); response }
+    subject { get new_admin_hotel_hotel_gallery_path(hotel); response }
     it { is_expected.to have_http_status :ok }
   end
 
   describe "GET /show" do
     context "when gallery exists" do
-      subject { get admin_hotel_gallery_path(hotel, gallery); response }
+      subject { get admin_hotel_hotel_gallery_path(hotel, gallery); response }
       it { is_expected.to have_http_status :ok }
     end
 
     context "when gallery record does not exist" do
-      subject { get admin_hotel_gallery_path(hotel, gallery.id + 1); response }
-      it { is_expected.to redirect_to(admin_hotel_galleries_path(hotel)) }
+      subject { get admin_hotel_hotel_gallery_path(hotel, gallery.id + 1); response }
+      it { is_expected.to redirect_to(admin_hotel_hotel_galleries_path(hotel)) }
     end
   end
 
   describe "GET /edit" do
-    subject { get edit_admin_hotel_gallery_path(hotel, gallery); response }
+    subject { get edit_admin_hotel_hotel_gallery_path(hotel, gallery); response }
     it { is_expected.to have_http_status :ok }
   end
 
@@ -42,28 +42,25 @@ RSpec.describe "Admin::HotelGalleries", type: :request do
         {
           name: Faker::Company.name,
           description: Faker::Lorem.sentence,
-          images: [
-            Rack::Test::UploadedFile.new("spec/support/images/dog.jpg", "image/jpeg"),
-            Rack::Test::UploadedFile.new("spec/support/images/cat.jpg", "image/jpeg")
-          ]
+          image: Rack::Test::UploadedFile.new("spec/support/images/dog.jpg", "image/jpeg")
         }
       end
-      subject { put admin_hotel_gallery_path(hotel, gallery), params: { hotel_gallery: valid_hotel_gallery_params }; response }
+      subject { put admin_hotel_hotel_gallery_path(hotel, gallery), params: { hotel_gallery: valid_hotel_gallery_params }; response }
       it { is_expected.to have_http_status :found }
-      it { is_expected.to redirect_to admin_hotel_galleries_path(hotel) }
+      it { is_expected.to redirect_to admin_hotel_hotel_galleries_path(hotel) }
       it { expect { subject }.not_to change(HotelGallery, :count) }
       it "updates the hotel gallery" do
         subject
         hotel_gallery = HotelGallery.last
         expect(hotel_gallery.name). to eq(valid_hotel_gallery_params[:name])
         expect(hotel_gallery.description). to eq(valid_hotel_gallery_params[:description])
-        expect(hotel_gallery.images). to be_attached
+        expect(hotel_gallery.image). to be_attached
       end
     end
 
     context "invalid params" do
       let(:invalid_hotel_gallery_params) { FactoryBot.attributes_for(:hotel_gallery, :invalid_hotel_gallery) }
-      subject { put admin_hotel_gallery_path(hotel, gallery), params: { hotel_gallery: invalid_hotel_gallery_params } ; response  }
+      subject { put admin_hotel_hotel_gallery_path(hotel, gallery), params: { hotel_gallery: invalid_hotel_gallery_params } ; response  }
 
       it { is_expected.to have_http_status :unprocessable_entity }
       it { is_expected.to render_template :edit }
@@ -73,7 +70,7 @@ RSpec.describe "Admin::HotelGalleries", type: :request do
   end
 
   describe "GET /new" do
-    subject { get new_admin_hotel_gallery_path(hotel); response }
+    subject { get new_admin_hotel_hotel_gallery_path(hotel); response }
     it { is_expected.to have_http_status :ok }
   end
 
@@ -83,28 +80,26 @@ RSpec.describe "Admin::HotelGalleries", type: :request do
         {
           name: Faker::Company.name,
           description: Faker::Lorem.sentence,
-          images: [
-            Rack::Test::UploadedFile.new("spec/support/images/dog.jpg", "image/jpeg"),
-            Rack::Test::UploadedFile.new("spec/support/images/cat.jpg", "image/jpeg")
-          ]
+          image: Rack::Test::UploadedFile.new("spec/support/images/dog.jpg", "image/jpeg")
         }
       end
-      subject { post admin_hotel_galleries_path(hotel), params: { hotel_gallery: valid_hotel_gallery_params }; response }
+      subject { post admin_hotel_hotel_galleries_path(hotel), params: { hotel_gallery: valid_hotel_gallery_params }; response }
 
       it { is_expected.to have_http_status :found }
-      it { is_expected.to redirect_to admin_hotel_galleries_path(hotel) }
+      it { is_expected.to redirect_to admin_hotel_hotel_galleries_path(hotel) }
       it { expect { subject }.to change(HotelGallery, :count).by(1) }
       it "create a hotel gallery with valid params" do
         subject
         gallery = HotelGallery.last
         expect(gallery.name).to eq(valid_hotel_gallery_params[:name])
         expect(gallery.description).to eq(valid_hotel_gallery_params[:description])
-        expect(gallery.images.size).to eq(valid_hotel_gallery_params[:images].size)
+        expect(gallery.image.filename.to_s).to eq(valid_hotel_gallery_params[:image].original_filename)
       end
     end
+
     context "with invalid params" do
       let(:invalid_hotel_gallery_params) { FactoryBot.attributes_for(:hotel_gallery, :invalid_hotel_gallery) }
-      subject { post admin_hotel_galleries_path(hotel), params: { hotel_gallery: invalid_hotel_gallery_params }; response }
+      subject { post admin_hotel_hotel_galleries_path(hotel), params: { hotel_gallery: invalid_hotel_gallery_params }; response }
 
       it { is_expected.to have_http_status :unprocessable_entity }
       it { is_expected.to render_template :new }
@@ -113,7 +108,7 @@ RSpec.describe "Admin::HotelGalleries", type: :request do
   end
 
   describe "DELETE /destroy" do
-    subject { delete admin_hotel_gallery_path(hotel, gallery); response }
-    it { is_expected.to redirect_to admin_hotel_galleries_path(hotel) }
+    subject { delete admin_hotel_hotel_gallery_path(hotel, gallery); response }
+    it { is_expected.to redirect_to admin_hotel_hotel_galleries_path(hotel) }
   end
 end
