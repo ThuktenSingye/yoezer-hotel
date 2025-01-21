@@ -124,7 +124,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_21_070447) do
     t.text "description"
     t.datetime "start_time", default: -> { "CURRENT_TIMESTAMP" }
     t.datetime "end_time"
-    t.decimal "discount", precision: 3, scale: 2
+    t.integer "discount"
     t.bigint "hotel_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

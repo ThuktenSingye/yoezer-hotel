@@ -5,7 +5,7 @@ class CreateOffers < ActiveRecord::Migration[8.0]
       t.text :description
       t.datetime :start_time, default: -> { 'CURRENT_TIMESTAMP' }
       t.datetime :end_time
-      t.decimal :discount, precision: 3, scale: 2
+      t.integer :discount
       t.references :hotel, null: false, foreign_key: true
 
       t.timestamps

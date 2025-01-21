@@ -4,7 +4,7 @@ FactoryBot.define do
     description { Faker::Lorem.paragraph }
     start_time { Faker::Time.backward(days: 30) }
     end_time { Faker::Time.forward(days: 30) }
-    discount { Faker::Number.decimal(l_digits: 3, r_digits: 2) }
+    discount { Faker::Number.between(from: 0, to: 100) }
     association :hotel, factory: :hotel
   end
 
@@ -19,7 +19,7 @@ FactoryBot.define do
   trait :invalid_offer_params do
     title { nil }
     description { nil }
-    start_time { null }
-    end_time { null }
+    start_time { nil }
+    end_time { nil  }
   end
 end

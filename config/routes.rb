@@ -1,10 +1,18 @@
 Rails.application.routes.draw do
   namespace :admin do
+    get "offers/index"
+    get "offers/show"
+    get "offers/new"
+    get "offers/edit"
+    get "offers/create"
+    get "offers/update"
+    get "offers/destroy"
     resources :hotels, only: [ :index, :edit, :update ] do
       resources :addresses, only: [ :new, :create, :destroy ]
       resources :amenities
       resources :feedbacks, only: [ :index, :destroy ]
       resources :hotel_galleries
+      resources :offers
     end
     resources :profiles, only: [ :index, :edit, :update ]
   end

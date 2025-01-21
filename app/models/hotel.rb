@@ -9,4 +9,5 @@ class Hotel < ApplicationRecord
   has_many :amenities, as: :amenityable
   has_many :feedbacks
   has_many :hotel_galleries
+  has_many :offers
 end
