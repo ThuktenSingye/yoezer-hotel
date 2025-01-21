@@ -3,8 +3,8 @@
     <% if profile&.avatar.nil? %>
       <%= image_tag('https://via.placeholder.com/100', class: "avatar", alt: "Profile Image") %>
     <% else %>
-      <%= image_tag(profile.avatar, class: "avatar", alt: "Profile Image") %>
+      <%= image_tag(profile.avatar, class: "avatar h-11 w-11", alt: "Profile Image") %>
     <% end %>
   <% end %>
-  <p class="hidden md:block">Hello <span class="block font-title text-primary-regular font-semibold tracking-wider"><%= profile&.first_name %></span></p>
+  <p class="hidden md:block">Hello <span class="block title text-primary-regular"><%= profile&.first_name %></span></p>
 </div>
