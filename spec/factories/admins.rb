@@ -4,5 +4,6 @@ FactoryBot.define do
   factory :admin do
     email { Faker::Internet.email }
     password { Faker::Internet.password }
+    association :hotel, factory: :hotel
   end
 end
