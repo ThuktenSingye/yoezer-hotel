@@ -87,5 +87,16 @@
         success: "Offer removed successfully."
       not_found: "Offer not found"
 
+    room_category:
+      create:
+        success: "Room Category created successfully."
+        error: "Failed to create Room Category "
+      update:
+        success: "Room Category updated successfully."
+        error: "Failed to update Room Category "
+      destroy:
+        success: "Room Category removed successfully."
+      not_found: "Room Category not found"
+
 
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_22_120947) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_22_174841) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -149,6 +149,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_22_120947) do
     t.datetime "updated_at", null: false
     t.index ["cid_no"], name: "index_profiles_on_cid_no", unique: true
     t.index ["profileable_type", "profileable_id"], name: "index_profiles_on_profileable"
+  end
+
+  create_table "room_categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_room_categories_on_name", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

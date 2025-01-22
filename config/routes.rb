@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       resources :feedbacks, only: %i[index destroy]
       resources :hotel_galleries
       resources :offers
+      resources :room_categories, except: :show
     end
     resources :profiles, only: %i[index edit update]
   end
