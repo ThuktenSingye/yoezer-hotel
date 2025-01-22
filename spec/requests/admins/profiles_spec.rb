@@ -4,6 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'Admin::Profiles', type: :request do
   let!(:admin) { FactoryBot.create(:admin) }
+  let!(:hotel) { FactoryBot.create(:hotel) }
   let!(:profile) { FactoryBot.create(:profile, :with_avatar, profileable: admin) }
 
   before do
@@ -12,7 +13,7 @@ RSpec.describe 'Admin::Profiles', type: :request do
 
   describe 'GET /index' do
     subject do
-      get admins_profiles_path
+      get admins_profiles_path(hotel)
       response
     end
 

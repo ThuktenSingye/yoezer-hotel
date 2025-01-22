@@ -18,7 +18,8 @@ class FeedbackQuery
   private
 
   def search_feedback
-    @hotel.feedbacks.where('content LIKE ?', "%#{@params[:query]}%").order(created_at: :desc)
+    @hotel.feedbacks.where('name LIKE :search OR email LIKE :search',
+                           search: "%#{@params[:query]}%").order(created_at: :desc)
   end
 
   def all_feedback

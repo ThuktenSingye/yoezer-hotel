@@ -11,4 +11,5 @@ class Hotel < ApplicationRecord
   has_many :feedbacks, dependent: :destroy
   has_many :hotel_galleries, dependent: :destroy
   has_many :offers, dependent: :destroy
+  has_many :admins, dependent: :destroy
 end

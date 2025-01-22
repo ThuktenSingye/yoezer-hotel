@@ -23,7 +23,7 @@ module Admins
     private
 
     def hotel
-      @hotel ||= Hotel.first
+      @hotel ||= current_admin.hotel
     end
 
     def profile

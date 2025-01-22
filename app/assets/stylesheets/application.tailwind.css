@@ -60,7 +60,7 @@
         @apply w-96 h-80;
     }
     .card-wrapper-md {
-        @apply w-full h-[600px];
+        @apply w-full h-[400px] md:h-[600px];
     }
     .card-animation{
         @apply hover:transition ease-in-out duration-300 hover:scale-105 hover:shadow-lg
@@ -144,7 +144,7 @@
         @apply px-3 text-text-color/60;
     }
     .card-image-cropper-md {
-        @apply w-full h-1/2 flex-grow
+        @apply w-full h-1/3 md:h-1/2 flex-grow
     }
     .card-image-cropper-sm {
         @apply w-full h-3/4 flex-grow

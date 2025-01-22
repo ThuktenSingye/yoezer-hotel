@@ -8,5 +8,6 @@ class Admin < ApplicationRecord
   devise :database_authenticatable,
          :recoverable, :rememberable, :validatable
 
+  belongs_to :hotel
   has_one :profile, as: :profileable, dependent: :destroy
 end
