@@ -3,6 +3,7 @@
 module Admins
   # Manages amenities for hotels in the admins interface
   class AmenitiesController < AdminsController
+    include ImageAttachment
     before_action :hotel
     before_action :amenity, only: %i[edit update destroy]
 
@@ -30,7 +31,7 @@ module Admins
 
     def update
       if @amenity.update(amenity_params.except(:image))
-        attach_image(@amenity)
+        self.class.attach_image(@amenity, amenity_params, :image)
         flash[:notice] = I18n.t('amenity.update.success')
         redirect_to admins_hotel_amenities_path(@hotel)
       else
@@ -56,16 +57,6 @@ module Admins
 
     def amenity_params
       params.require(:amenity).permit(:name, :image)
-    end
-
-    def attach_image(amenity)
-      return unless valid_image?(amenity_params[:image])
-
-      amenity.image.attach(amenity_params[:image])
-    end
-
-    def valid_image?(image)
-      image.present? && image.is_a?(ActionDispatch::Http::UploadedFile)
     end
 
     def destroy_response

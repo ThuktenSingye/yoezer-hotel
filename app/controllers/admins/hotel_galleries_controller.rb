@@ -3,6 +3,7 @@
 module Admins
   # Manages galleries for hotels in the admins interface
   class HotelGalleriesController < AdminsController
+    include ImageAttachment
     before_action :hotel
     before_action :hotel_gallery, only: %i[show edit update destroy]
 
@@ -31,7 +32,7 @@ module Admins
 
     def update
       if @hotel_gallery.update(hotel_gallery_params.except(:image))
-        attach_image(@hotel_gallery)
+        self.class.attach_image(@hotel_gallery, hotel_gallery_params, :image)
         flash[:notice] = I18n.t('gallery.update.success')
         redirect_to admins_hotel_hotel_galleries_path(@hotel)
       else
@@ -61,16 +62,6 @@ module Admins
 
     def hotel_gallery_params
       params.require(:hotel_gallery).permit(:name, :description, :image)
-    end
-
-    def attach_image(gallery)
-      return unless valid_image?(hotel_gallery_params[:image])
-
-      gallery.image.attach(hotel_gallery_params[:image])
-    end
-
-    def valid_image?(image)
-      image.present? && image.is_a?(ActionDispatch::Http::UploadedFile)
     end
   end
 end

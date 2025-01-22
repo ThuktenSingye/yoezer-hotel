@@ -3,6 +3,7 @@
 module Admins
   # Manages offers for hotels in the admins interface
   class OffersController < AdminsController
+    include ImageAttachment
     before_action :hotel
     before_action :offer, only: %i[show edit update destroy]
     def index
@@ -30,7 +31,7 @@ module Admins
 
     def update
       if @offer.update(offer_params.except(:image))
-        attach_image(@offer)
+        self.class.attach_image(@offer, offer_params, :image)
         flash[:notice] = I18n.t('offer.update.success')
         redirect_to admins_hotel_offer_path(@hotel, @offer)
       else
@@ -60,16 +61,6 @@ module Admins
 
     def offer_params
       params.require(:offer).permit(:title, :description, :start_time, :end_time, :discount, :image)
-    end
-
-    def attach_image(offer)
-      return unless valid_image?(offer_params[:image])
-
-      offer.image.attach(offer_params[:image])
-    end
-
-    def valid_image?(image)
-      image.present? && image.is_a?(ActionDispatch::Http::UploadedFile)
     end
   end
 end

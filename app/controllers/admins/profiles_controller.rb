@@ -3,6 +3,7 @@
 module Admins
   # Manages profiles for admins in the admins interface
   class ProfilesController < AdminsController
+    include ImageAttachment
     before_action :hotel
     before_action :profile, only: %i[index edit update]
 
@@ -12,7 +13,7 @@ module Admins
 
     def update
       if @profile.update(profile_params.except(:avatar))
-        attach_image(@profile)
+        self.class.attach_image(@profile, profile_params, :avatar) # Attach avatar using
         success_response
       else
         failure_response
@@ -60,16 +61,6 @@ module Admins
           ]
         end
       end
-    end
-
-    def attach_image(profile)
-      return unless valid_image?(profile_params[:avatar])
-
-      profile.avatar.attach(profile_params[:avatar])
-    end
-
-    def valid_image?(image)
-      image.present? && image.is_a?(ActionDispatch::Http::UploadedFile)
     end
   end
 end
