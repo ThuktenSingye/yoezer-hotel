@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  namespace :admin do
+  namespace :admins do
     resources :hotels, only: %i[index edit update] do
       resources :addresses, only: %i[new create destroy]
       resources :amenities
@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     end
     resources :profiles, only: %i[index edit update]
   end
-  devise_for :admins, skip: [:registrations], controllers: { sessions: 'admin/sessions' }
+  devise_for :admins, skip: [:registrations], controllers: { sessions: 'admins/sessions' }
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -26,8 +26,8 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
   authenticated :admins do
-    root to: 'admin#index', as: :admin_root
+    root to: 'admins#index', as: :admin_root
   end
 
-  get 'admin' => 'admin#index'
+  get 'admins' => 'admins#index'
 end

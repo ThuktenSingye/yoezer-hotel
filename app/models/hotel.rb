@@ -2,9 +2,7 @@
 
 # Hotel model with validations and association
 class Hotel < ApplicationRecord
-  validates :name, presence: true
-  validates :email, presence: true
-  validates :contact_no, presence: true
+  validates :name, :email, :contact_no, presence: true
 
   has_many :address, as: :addressable, dependent: :destroy
   accepts_nested_attributes_for :address

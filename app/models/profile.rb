@@ -9,7 +9,6 @@ class Profile < ApplicationRecord
 
   enum :designation, { owner: 0, manager: 1, employee: 2 }
 
-  validates :first_name, presence: true
-  validates :cid_no, presence: true, uniqueness: true
-  validates :contact_no, presence: true
+  validates :first_name, :contact_no, :cid_no, presence: true
+  validates :cid_no, uniqueness: true
 end

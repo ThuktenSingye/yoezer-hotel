@@ -1,0 +1,51 @@
+<div class="m-4">
+    <%= form_with(model: [:admins, @hotel, hotel_gallery], local: true, class: "flex flex-col justify-center") do |f| %>
+    <% if hotel_gallery.errors.any? %>
+      <div id="error_explanation" class="flex flex-col items-center">
+        <h2 class="text-text-color/50"><%= pluralize(hotel_gallery.errors.count, "error") %> prohibited profile from being update:</h2>
+        <ul class="text-error">
+          <% hotel_gallery.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="my-1 w-full">
+      <div class="my-2">
+        <div class="flex flex-col" data-controller="avatar">
+          <div class="relative flex flex-row justify-center shrink-0 my-2 ml-2 gap-2">
+            <% if hotel_gallery.image.present? %>
+              <%= image_tag hotel_gallery.image, class: "w-96 h-48 object-cover rounded-lg border bg:white z-0", data: { avatar_target: "imagePreview" } %>
+            <% else %>
+              <%= image_tag "https://placehold.co/200x200", class: "w-96 h-48 rounded-lg object-cover border bg:white z-0", data: { avatar_target: "imagePreview" } %>
+            <% end %>
+            <div class="self-start icon p-4 hover:cursor-pointer" data-action="click->avatar#selectImage">
+              <%= icon('fa-solid', 'pen-to-square', class: "text-primary-regular") %>
+            </div>
+            <%= f.file_field :image, accept: "image/*", data: {avatar_target: "avatarUpload", action: "change->avatar#showPreview"}, class: "hidden" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="input-container">
+        <%= f.label :name, class: "w-32 shrink-0 self-start pt-2" %>
+        <%= f.text_field :name, class: "input-field" %>
+      </div>
+      <div class="input-container">
+        <%= f.label :description, class: "w-32 shrink-0 self-start pt-2" %>
+        <%= f.textarea :description, rows: 3, class: "input-field" %>
+      </div>
+
+    </div>
+    <hr class="bg-primary-regular h-0.5">
+    <div class="flex items-center mt-4 gap-5">
+      <%= f.submit "Save", class: "btn", data: { turbo_frame: "_top"} %>
+      <% if hotel_gallery.persisted? %>
+        <%= link_to "Cancel", admins_hotel_hotel_gallery_path(@hotel, hotel_gallery), class: "btn", data: { turbo_frame: "_top"} %>
+      <% else %>
+        <%= link_to "Cancel", admins_hotel_hotel_galleries_path(@hotel), class: "btn", data: { turbo_frame: "_top"} %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

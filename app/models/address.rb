@@ -6,7 +6,5 @@ class Address < ApplicationRecord
 
   enum :address_type, { present: 0, permanent: 1 }
 
-  validates :dzongkhag, presence: true
-  validates :gewog, presence: true
-  validates :street_address, presence: true
+  validates :dzongkhag, :gewog, :street_address, presence: true
 end

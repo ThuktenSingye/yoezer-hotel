@@ -1,0 +1,107 @@
+<div class="m-4">
+  <%= form_with(model: [ :admins , profile], local: true, class: "flex flex-col justify-center") do |f| %>
+    <% if profile.errors.any? %>
+      <div id="error_explanation" class="flex flex-col items-center">
+        <h2 class="text-text-color/50"><%= pluralize(profile.errors.count, "error") %> prohibited profile from being update:</h2>
+        <ul class="text-error">
+          <% profile.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="my-1 w-full">
+      <h2 class="title">Profile</h2>
+      <div class="my-2">
+        <div class="flex flex-col" data-controller="avatar">
+          <div class="relative flex flex-row justify-center shrink-0">
+            <% if profile.avatar.present? %>
+              <%= image_tag profile.avatar, class: "h-24 w-24 md:h-32 md:w-32 icon z-0", data: { avatar_target: "imagePreview" } %>
+            <% else %>
+              <%= image_tag "https://placehold.co/200x200", class: "h-24 w-24 md:h-32 md:w-32 icon z-0", data: { avatar_target: "imagePreview" } %>
+            <% end %>
+            <div class="self-start icon p-4 hover:cursor-pointer" data-action="click->avatar#selectImage">
+              <%= icon('fa-solid', 'pen-to-square', class: "text-primary-regular") %>
+            </div>
+            <%= f.file_field :avatar, accept: "image/*", data: {avatar_target: "avatarUpload", action: "change->avatar#showPreview"}, class: "hidden" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="input-container">
+        <%= f.label :first_name, class: "w-32 shrink-0 self-start pt-2" %>
+        <%= f.text_field :first_name, class: "input-field " %>
+      </div>
+      <div class="input-container">
+        <%= f.label :last_name, class: "w-32 shrink-0 self-start pt-2" %>
+        <%= f.text_field :last_name, class: "input-field" %>
+      </div>
+      <div class="input-container">
+        <%= f.label :cid_no, class: "w-32 shrink-0 self-start pt-2" %>
+        <%= f.text_field :cid_no, class: "input-field" %>
+      </div>
+      <div class="input-container">
+        <%= f.label :contact_no, class: "w-32 shrink-0 self-start pt-2" %>
+        <%= f.text_field :contact_no, class: "input-field " %>
+      </div>
+
+      <div class="input-container">
+        <%= f.label :date_of_joining, class: "w-32 shrink-0 self-start pt-2" %>
+        <%= f.text_field :date_of_joining,
+             data: { controller: "flatpickr", flatpickr_date_format: "Y-m-d"}, class: "input-field" %>
+      </div>
+      <div class="input-container">
+        <%= f.label :dob, class: "w-32" %>
+        <%= f.text_field :dob,
+             data: {
+               controller: "flatpickr",
+               flatpickr_min_date: "1800-01-01",
+               flatpickr_max_date: Date.tomorrow.to_s
+             }, class: "input-field" %> ,
+
+      </div>
+      <div class="input-container">
+        <%= f.label :qualification, class: "w-32" %>
+        <%= f.text_field :qualification, class: "input-field" %>
+      </div>
+      <div class="input-container">
+        <%= f.label :designation, class: "w-32" %>
+        <%= f.select :designation, Profile.designations.keys.map { |d| [d.humanize, d] } %>
+      </div>
+    </div>
+    <hr>
+    <div class="my-2">
+      <div class="my-2">
+        <% sorted_addresses = profile.addresses.sort_by { |address| address.address_type == 'present' ? 0 : 1 } %>
+        <% sorted_addresses.each do |address| %>
+          <h2 class="title">
+            <%= address.address_type == 'present' ? "Present Address" : "Permanent Address" %>
+          </h2>
+          <div>
+            <%= f.fields_for :addresses, address do |address_fields| %>
+              <div class="input-container mt-1">
+                <%= address_fields.label :dzongkhag, class: "w-32" %>
+                <%= address_fields.text_field :dzongkhag, class: "input-field" %>
+              </div>
+              <div class="input-container mt-1">
+                <%= address_fields.label :gewog, class: "w-32" %>
+                <%= address_fields.text_field :gewog, class: "input-field" %>
+              </div>
+              <div class="input-container mt-1">
+                <%= address_fields.label :street_address, class: "w-32 self-start pt-2" %>
+                <%= address_fields.text_area :street_address, class: "input-field" %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+
+    </div>
+    <hr class="bg-primary-regular h-0.5">
+    <div class="flex items-center mt-4 gap-5">
+      <%= f.submit "Save", class: "btn" %>
+      <%= link_to "Cancel", admins_profiles_path(profile), class: "btn" %>
+    </div>
+  <% end %>
+</div>
