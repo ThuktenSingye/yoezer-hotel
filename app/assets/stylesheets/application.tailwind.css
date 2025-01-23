@@ -111,7 +111,10 @@
         animation: appear-then-fade 4s both;
     }
     #profile_designation{
-        @apply  w-11/12 md:w-1/2 text-text-color/50 bg-background font-poppins p-2 border rounded focus:outline-primary-regular ;
+        @apply  w-11/12 md:w-2/3 text-text-color/50 bg-background font-poppins p-2 border rounded focus:outline-primary-regular ;
+    }
+    #room_status{
+        @apply  w-11/12 md:w-2/3 text-text-color/50 bg-background font-poppins p-2 border rounded focus:outline-primary-regular ;
     }
     .hover-animation{
         @apply hover:scale-110 hover:transition ease-in-out delay-75;

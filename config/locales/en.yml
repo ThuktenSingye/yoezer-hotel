@@ -44,7 +44,7 @@
         error: "Failed to create address."
       destroy:
         success: "Address removed successfully."
-      not_found: "Address not found"
+      not_found: "Address not found."
 
     profile:
       update:
@@ -54,10 +54,10 @@
     amenity:
       create:
         success: "Amenity created successfully."
-        error: "Failed to create Amenity"
+        error: "Failed to create Amenity."
       update:
         success: "Amenity updated successfully."
-        error: "Failed to update Amenity"
+        error: "Failed to update Amenity."
       destroy:
         success: "Amenity removed successfully."
 
@@ -68,35 +68,46 @@
     gallery:
       create:
         success: "Gallery created successfully."
-        error: "Failed to create Gallery"
+        error: "Failed to create Gallery."
       update:
         success: "Gallery updated successfully."
-        error: "Failed to update Gallery"
+        error: "Failed to update Gallery."
       destroy:
         success: "Gallery removed successfully."
-      not_found: "Gallery not found"
+      not_found: "Gallery not found."
 
     offer:
       create:
         success: "Offer created successfully."
-        error: "Failed to create Offer"
+        error: "Failed to create Offer."
       update:
         success: "Offer updated successfully."
-        error: "Failed to update Offer"
+        error: "Failed to update Offer."
       destroy:
         success: "Offer removed successfully."
-      not_found: "Offer not found"
+      not_found: "Offer not found."
 
     room_category:
       create:
         success: "Room Category created successfully."
-        error: "Failed to create Room Category "
+        error: "Failed to create Room Category."
       update:
         success: "Room Category updated successfully."
-        error: "Failed to update Room Category "
+        error: "Failed to update Room Category."
       destroy:
         success: "Room Category removed successfully."
-      not_found: "Room Category not found"
+      not_found: "Room Category not found."
+
+    room:
+      create:
+        success: "Room created successfully."
+        error: "Failed to create Room."
+      update:
+        success: "Room updated successfully."
+        error: "Failed to update Room."
+      destroy:
+        success: "Room removed successfully."
+      not_found: "Room not found."
 
 
 

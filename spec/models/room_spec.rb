@@ -12,7 +12,9 @@ RSpec.describe Room, type: :model do
   end
 
   context 'when validating uniqueness of room_number' do
-    subject { FactoryBot.build(:room) }
+    subject { FactoryBot.build(:room, room_category: room_category) }
+
+    let(:room_category) { FactoryBot.create(:room_category) }
 
     it { is_expected.to validate_uniqueness_of(:room_number).case_insensitive }
   end
@@ -20,5 +22,7 @@ RSpec.describe Room, type: :model do
   context 'when associating models' do
     it { is_expected.to belong_to :room_category }
     it { is_expected.to belong_to :hotel }
+    it { is_expected.to have_one_attached :primary_image }
+    it { is_expected.to have_many_attached :images }
   end
 end

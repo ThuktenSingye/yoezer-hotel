@@ -35,6 +35,7 @@ module Admins
       @room.room_category = RoomCategory.find(room_params[:room_category_id]) if room_params[:room_category_id].present?
       if @room.update(room_params)
         self.class.attach_multiple_images(@room, room_params, :images)
+        self.class.attach_image(@room, room_params, :primary_image)
         flash[:notice] = I18n.t('room.update.success')
         redirect_to admins_hotel_room_path(@hotel, @room)
       else
@@ -64,7 +65,7 @@ module Admins
 
     def room_params
       params.require(:room).permit(:room_number, :floor_number, :status, :description, :base_price, :max_no_adult,
-                                   :max_no_children, :room_category_id, images: [])
+                                   :max_no_children, :room_category_id, :primary_image, images: [])
     end
   end
 end

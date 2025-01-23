@@ -1,0 +1,58 @@
+<div class="">
+  <div>
+    <p>Images</p>
+  </div>
+  <section class="relative card-container">
+    <div class="card p-4 ">
+      <turbo-frame id="<%= dom_id room %>">
+        <div class="flex flex-col gap-4 ">
+          <div class="flex flex-col gap-2">
+            <div class="flex justify-between items-center">
+              <h2 class="title"><%= room.room_category.name %></h2>
+              <p class="absolute top-0 right-4 p-2 bg-success text-white  <%= status_class(room.status)%>">
+                <%= room.status.to_s.humanize %>
+              </p>
+            </div>
+            <p class="text-sm text-text-color/50"><%= room.description %></p>
+          </div>
+          <div class="flex flex-col items-start">
+            <p class="flex mt-1">
+              <span class="w-48 shrink-0 self-start text-text-color/50 ">Room No:</span>
+              <span class="input-value text-primary-regular"><%= room.room_number %></span>
+            </p>
+            <p class="flex mt-1">
+              <span class="w-48 shrink-0 self-start text-text-color/50">Floor No:</span>
+              <span class="input-value text-primary-regular"><%= room.floor_number %></span>
+            </p>
+            <p class="flex mt-1">
+              <span class="w-48 shrink-0 self-start text-text-color/50">Max no of Adults:</span>
+              <span class="input-value text-primary-regular"><%= room.max_no_adult %></span>
+            </p>
+            <p class="flex mt-1">
+              <span class="w-48 shrink-0 self-start text-text-color/50">Max no of Children:</span>
+              <span class="input-value text-primary-regular"><%= room.max_no_children %></span>
+            </p>
+          </div>
+          <div class="flex justify-between items-center ">
+            <div class="mt-2 self-end mb-2">
+              <%= link_to "Reservation", admins_hotel_rooms_path(@hotel), data: { turbo_frame: "_top"} ,class: "btn" %>
+            </div>
+            <p>Nu. <span class="font-bold text-2xl text-primary-regular"><%= room.base_price.to_i.to_s %></span> Night </p>
+          </div>
+          <hr class="bg-primary-regular h-0.5"/>
+          <div class="flex justify-between items-center gap-2 my-2">
+            <div>
+              <%= link_to "Back", admins_hotel_rooms_path(@hotel), data: { turbo_frame: "_top"} ,class: "btn" %>
+            </div>
+            <div>
+              <%= link_to "Edit", edit_admins_hotel_room_path(@hotel, room), class: "btn" %>
+              <%= link_to 'Delete', admins_hotel_room_path(@hotel, room), data: { turbo_method: :delete, turbo_confirm: "Are you sure to delete?", turbo_frame: "_top" }, class: "btn" %>
+            </div>
+          </div>
+        </div>
+      </turbo-frame>
+    </div>
+  </section>
+</div>
+
+

@@ -6,7 +6,7 @@ RSpec.describe 'Admins::Rooms', type: :request do
   let!(:hotel) { FactoryBot.create(:hotel) }
   let!(:admin) { FactoryBot.create(:admin) }
   let!(:room_category) { FactoryBot.create(:room_category, hotel: hotel) }
-  let!(:room) { FactoryBot.create(:room, :with_room_image, room_category: room_category) }
+  let!(:room) { FactoryBot.create(:room, :with_room_image, :with_room_primary_image,room_category: room_category) }
 
   before do
     sign_in admin, scope: :admin
@@ -76,6 +76,7 @@ RSpec.describe 'Admins::Rooms', type: :request do
           max_no_children: Faker::Number.number(digits: 2),
           base_price: Faker::Number.decimal(l_digits: 5, r_digits: 2),
           room_category_id: room_category.id,
+          primary_image: Rack::Test::UploadedFile.new('spec/support/images/cat.jpg', 'image/jpeg'),
           images: [
             Rack::Test::UploadedFile.new('spec/support/images/dog.jpg', 'image/jpeg'),
             Rack::Test::UploadedFile.new('spec/support/images/cat.jpg', 'image/jpeg')
@@ -115,6 +116,11 @@ RSpec.describe 'Admins::Rooms', type: :request do
       it 'updates the room with the correct max number of children' do
         update_room
         expect(Room.last.max_no_children).to eq(valid_room_params[:max_no_children])
+      end
+
+      it 'attaches the correct primary image to the room' do
+        update_room
+        expect(Room.last.primary_image).to be_attached
       end
 
       it 'attaches the correct image to the room' do
@@ -161,6 +167,7 @@ RSpec.describe 'Admins::Rooms', type: :request do
           max_no_children: Faker::Number.number(digits: 2),
           base_price: Faker::Number.decimal(l_digits: 5, r_digits: 2),
           room_category_id: room_category.id,
+          primary_image: Rack::Test::UploadedFile.new('spec/support/images/cat.jpg', 'image/jpeg'),
           images: [
             Rack::Test::UploadedFile.new('spec/support/images/dog.jpg', 'image/jpeg'),
             Rack::Test::UploadedFile.new('spec/support/images/cat.jpg', 'image/jpeg')
@@ -200,6 +207,11 @@ RSpec.describe 'Admins::Rooms', type: :request do
       it 'create the room with the correct max number of children' do
         create_room
         expect(Room.last.max_no_children).to eq(valid_room_params[:max_no_children])
+      end
+
+      it 'attaches the primary image to the room' do
+        create_room
+        expect(Room.last.primary_image).to be_attached
       end
 
       it 'attaches the image to the room' do

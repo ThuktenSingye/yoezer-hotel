@@ -111,10 +111,10 @@
             data-transition-leave="transition ease-in duration-75"
             data-transition-leave-start="transform opacity-100 scale-100"
             data-transition-leave-end="transform opacity-0 scale-95">
-            <li class="sidebar-menu-row <%= current_page?(admins_path) ? "bg-white rounded" : "" %>">
-              <%= link_to admins_path, class: "w-full flex items-center" do %>
-                <%= icon("fa-solid", "circle-info", class: "w-6 #{current_page?(admins_path) ? 'text-primary-regular' : 'text-white'}") %>
-                <span class="text-sm ml-2  <%= current_page?(admins_path) ? "text-primary-regular" : "text-white" %>">Details</span>
+            <li class="sidebar-menu-row <%= current_page?(admins_hotel_rooms_path(hotel)) ? "bg-white rounded" : "" %>">
+              <%= link_to admins_hotel_rooms_path(hotel), class: "w-full flex items-center" do %>
+                <%= icon("fa-solid", "circle-info", class: "w-6 #{current_page?(admins_hotel_rooms_path(hotel)) ? 'text-primary-regular' : 'text-white'}") %>
+                <span class="text-sm ml-2  <%= current_page?(admins_hotel_rooms_path(hotel)) ? "text-primary-regular" : "text-white" %>">Details</span>
               <% end %>
             </li>
 

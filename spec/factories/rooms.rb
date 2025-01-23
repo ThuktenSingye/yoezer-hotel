@@ -30,11 +30,11 @@ FactoryBot.define do
       )
     end
   end
-  # trait :with_room_primary_image do
-  #   after(:build) do |room|
-  #     room.primary_image.attach(
-  #         Rack::Test::UploadedFile.new('spec/support/images/cat.jpg', 'image/jpeg')
-  #     )
-  #   end
-  # end
+  trait :with_room_primary_image do
+    after(:build) do |room|
+      room.primary_image.attach(
+          Rack::Test::UploadedFile.new('spec/support/images/cat.jpg', 'image/jpeg')
+      )
+    end
+  end
 end

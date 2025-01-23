@@ -1,0 +1,29 @@
+<div class="relative card-wrapper rounded-none card-animation card-bg relative mt-2 flex flex-col p-3 gap-2 z-0">
+  <div class="w-full h-1/2">
+    <%= image_tag(room&.primary_image || "https://placehold.co/200x200", class:"object-cover w-full h-full rounded " ) %>
+  </div>
+  <div class="flex justify-between items-center">
+    <div>
+      <h3 class="title mb-2"><%= room.room_category.name %></h3>
+      <h2 class="text-primary-regular">Nu. <span class="font-bold text-lg"><%= room.base_price.to_i.to_s %></span></h2>
+    </div>
+    <div class="self-end">
+      <p class="">
+        <%= icon('fa-solid', 'hashtag', class: "text-text-color/50") %>
+        <span class="text-text-color/50 font-bold "><%= room.room_number %></span>
+      </p>
+    </div>
+  </div>
+  <div>
+    <p class="absolute top-0 left-0 p-2 text-white <%= status_class(room.status)%>">
+      <%= room.status.to_s.humanize %>
+    </p>
+  </div>
+  <hr class="bg-primary-regular h-0.5 mb-2"/>
+  <div class="flex flex-row justify-between items-center">
+    <div>
+      Star Rating
+    </div>
+    <%= link_to "Book Now", admins_hotel_room_path(@hotel, room), class:"btn" %>
+  </div>
+</div>
