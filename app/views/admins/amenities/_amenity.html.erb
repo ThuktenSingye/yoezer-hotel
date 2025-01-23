@@ -1,16 +1,16 @@
 <div class="border-b hover:bg-background group flex justify-between items-center p-2">
   <div class="w-[20%] flex justify-center">
-    <%= image_tag((amenity&.image&.attached? ? amenity.image : "https://placehold.co/50x50"),
-                  class: "icon icon-button w-11 h-11 p-2 group-hover:bg-white") %>
+      <%= image_tag((amenity&.image&.attached? ? amenity.image : "https://placehold.co/50x50"),
+                    class: "icon icon-button w-11 h-11 p-2 group-hover:bg-white") %>
   </div>
   <div class="flex-1  text-center text-gray-800">
     <%= amenity.name %>
   </div>
   <div class="flex-1 text-center" data-controller="popover">
     <div
-    class="fixed inset-0 w-full h-full bg-black bg-opacity-30 z-10 hidden"
-    data-popover-target="test"
-    data-action="click->popover#toggle"></div>
+      class="fixed inset-0 w-full h-full bg-black bg-opacity-30 z-10 hidden"
+      data-popover-target="backdrop"
+      data-action="click->popover#toggle"></div>
 
     <div class="flex justify-center items-center gap-4">
       <%= link_to edit_admins_hotel_amenity_path(@hotel, amenity), class: "hidden md:block", data: { "turbo-frame": "amenity"} do %>
@@ -37,3 +37,5 @@
     </div>
   </div>
 </div>
+
+
