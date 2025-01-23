@@ -12,4 +12,5 @@ class Hotel < ApplicationRecord
   has_many :hotel_galleries, dependent: :destroy
   has_many :offers, dependent: :destroy
   has_many :admins, dependent: :destroy
+  has_many :room_categories, dependent: :destroy
 end

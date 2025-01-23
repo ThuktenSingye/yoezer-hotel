@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe 'Admins::RoomCategories', type: :request do
   let!(:hotel) { FactoryBot.create(:hotel) }
   let!(:admin) { FactoryBot.create(:admin) }
-  let!(:room_category) { FactoryBot.create(:room_category) }
+  let!(:room_category) { FactoryBot.create(:room_category, hotel: hotel) }
 
   before do
     sign_in admin, scope: :admin

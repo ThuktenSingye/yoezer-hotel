@@ -7,17 +7,17 @@ module Admins
     before_action :room_category, only: %i[edit update destroy]
 
     def index
-      @pagy, @room_categories = pagy(RoomCategory.order(created_at: :desc), limit: 5)
+      @pagy, @room_categories = pagy(@hotel.room_categories.order(created_at: :desc), limit: 5)
     end
 
     def new
-      @room_category = RoomCategory.new
+      @room_category = @hotel.room_categories.new
     end
 
     def edit; end
 
     def create
-      @room_category = RoomCategory.new(room_category_params)
+      @room_category = @hotel.room_categories.new(room_category_params)
       if @room_category.save
         flash[:notice] = I18n.t('room_category.create.success')
         redirect_to admins_hotel_room_categories_path(@hotel)
