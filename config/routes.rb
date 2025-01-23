@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       resources :hotel_galleries
       resources :offers
       resources :room_categories, except: :show
+      resources :rooms
     end
     resources :profiles, only: %i[index edit update]
   end
