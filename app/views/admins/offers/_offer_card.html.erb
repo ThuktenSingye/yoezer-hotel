@@ -1,7 +1,7 @@
 <%= link_to admins_hotel_offer_path(@hotel, offer) do %>
   <div class="card-wrapper card-animation card-bg mt-2 p-3 flex flex-col gap-2 z-0">
     <div class="w-full h-1/2">
-      <%= image_tag((offer&.image&.attached? ? offer.image : "https://placehold.co/200x200"), class:"object-cover w-full h-full rounded" ) %>
+      <%= image_tag(offer&.image || "https://placehold.co/200x200", class:"object-cover w-full h-full rounded" ) %>
     </div>
     <div class="mb-2">
       <h3 class="title mb-2"><%= offer.title %></h3>
