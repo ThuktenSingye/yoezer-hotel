@@ -10,6 +10,10 @@ export default class extends Controller {
     this.avatarUploadTarget.click()
   }
 
+  removeImage(){
+
+  }
+
   showPreview(event) {
     const file = event.target.files[0];
     if (file) {

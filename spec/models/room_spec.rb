@@ -22,7 +22,6 @@ RSpec.describe Room, type: :model do
   context 'when associating models' do
     it { is_expected.to belong_to :room_category }
     it { is_expected.to belong_to :hotel }
-    it { is_expected.to have_one_attached :primary_image }
-    it { is_expected.to have_many_attached :images }
+    it { is_expected.to have_one_attached :image }
   end
 end

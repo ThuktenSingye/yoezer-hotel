@@ -9,7 +9,7 @@
           <div class="flex flex-col gap-2">
             <div class="flex justify-between items-center">
               <h2 class="title"><%= room.room_category.name %></h2>
-              <p class="absolute top-0 right-4 p-2 bg-success text-white  <%= status_class(room.status)%>">
+              <p class="absolute top-0 right-4 p-2 text-white  <%= status_class(room.status) %>">
                 <%= room.status.to_s.humanize %>
               </p>
             </div>
@@ -39,7 +39,7 @@
             </div>
             <p>Nu. <span class="font-bold text-2xl text-primary-regular"><%= room.base_price.to_i.to_s %></span> Night </p>
           </div>
-          <hr class="bg-primary-regular h-0.5"/>
+          <hr class="bg-primary-regular h-0.5">
           <div class="flex justify-between items-center gap-2 my-2">
             <div>
               <%= link_to "Back", admins_hotel_rooms_path(@hotel), data: { turbo_frame: "_top"} ,class: "btn" %>
@@ -54,5 +54,3 @@
     </div>
   </section>
 </div>
-
-

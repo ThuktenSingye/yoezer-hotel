@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
+# Model representing a hotel room with attributes
 class Room < ApplicationRecord
   belongs_to :room_category
   belongs_to :hotel
-  has_one_attached :primary_image
+  has_one_attached :image
   has_many_attached :images
 
   enum :status, { booked: 0, available: 1, maintenance: 2 }

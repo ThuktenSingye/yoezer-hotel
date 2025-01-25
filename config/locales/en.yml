@@ -109,5 +109,9 @@
         success: "Room removed successfully."
       not_found: "Room not found."
 
+    image:
+      destroy:
+        success: "Image removed successfully."
+      not_found: "Image not found."
 
 
