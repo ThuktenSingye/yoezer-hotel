@@ -2,10 +2,12 @@
 
 # Model representing a hotel room with attributes
 class Room < ApplicationRecord
+  include RatingCalculable
   belongs_to :room_category
   belongs_to :hotel
   has_one_attached :image
   has_many_attached :images
+  has_many :room_ratings, dependent: :destroy
 
   enum :status, { booked: 0, available: 1, maintenance: 2 }
 
