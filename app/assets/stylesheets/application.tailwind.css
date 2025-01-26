@@ -77,6 +77,9 @@
     .input-label{
         @apply w-32 shrink-0 self-start pt-2
     }
+    .input-label-sm {
+        @apply w-48 shrink-0 self-start
+    }
     .input-value{
         @apply md:px-2 text-text-color/50 font-poppins;
     }
@@ -157,6 +160,9 @@
     }
     .image-cropper{
         @apply w-36 h-36
+    }
+    .image {
+        @apply rounded w-full h-full object-cover
     }
 
 }

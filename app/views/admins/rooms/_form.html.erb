@@ -40,7 +40,7 @@
                 <div data-image-target="existingImageContainer">
                   <div class="relative my-2">
                     <div class="relative image-cropper">
-                      <%= image_tag(image || "https://placehold.co/200x200", class: "rounded object-cover w-full h-full", data: { image_target: "imagePreview" }) %>
+                      <%= image_tag(image || "https://placehold.co/200x200", class: "image", data: { image_target: "imagePreview" }) %>
                     </div>
                     <div class="flex items-center justify-center absolute -top-4 -right-4 avatar-cropper icon hover:cursor-pointer z-10" data-action="click->image#removeExistingImage">
                       <%= icon('fa-solid', 'xmark', class: "text-primary-regular") %>
