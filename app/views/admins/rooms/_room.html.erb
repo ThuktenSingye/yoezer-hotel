@@ -4,7 +4,7 @@
       <div>
         <p class="title mb-2">Primary Image:</p>
         <div class="image-cropper md:card-wrapper-sm mx-auto">
-          <%= image_tag(room.image || "https://placehold.co/100x100", class: "object-cover w-full h-full rounded") %>
+          <%= image_tag(room.image || "https://placehold.co/100x100", class: "image") %>
         </div>
       </div>
       <div>
@@ -12,7 +12,7 @@
         <div class="flex flex-wrap justify-evenly mb-2 gap-4">
           <% room.images.each do |image| %>
             <div class="image-cropper">
-              <%= image_tag(image || "https://placehold.co/100x100", class: "object-cover w-full h-full") %>
+              <%= image_tag(image || "https://placehold.co/100x100", class: "image") %>
             </div>
           <% end %>
         </div>
@@ -36,19 +36,19 @@
         </div>
         <div class="flex flex-col items-start">
           <p class="flex mt-1">
-            <span class="w-48 shrink-0 self-start text-text-color/50 ">Room No:</span>
+            <span class="input-label-sm text-text-color/50 ">Room No:</span>
             <span class="input-value text-primary-regular"><%= room.room_number %></span>
           </p>
           <p class="flex mt-1">
-            <span class="w-48 shrink-0 self-start text-text-color/50">Floor No:</span>
+            <span class="input-label-sm text-text-color/50">Floor No:</span>
             <span class="input-value text-primary-regular"><%= room.floor_number %></span>
           </p>
           <p class="flex mt-1">
-            <span class="w-48 shrink-0 self-start text-text-color/50">Max no of Adults:</span>
+            <span class="input-label-sm text-text-color/50">Max no of Adults:</span>
             <span class="input-value text-primary-regular"><%= room.max_no_adult %></span>
           </p>
           <p class="flex mt-1">
-            <span class="w-48 shrink-0 self-start text-text-color/50">Max no of Children:</span>
+            <span class="input-label-sm  text-text-color/50">Max no of Children:</span>
             <span class="input-value text-primary-regular"><%= room.max_no_children %></span>
           </p>
         </div>
