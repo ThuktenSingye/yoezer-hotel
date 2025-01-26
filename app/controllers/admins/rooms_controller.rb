@@ -9,7 +9,9 @@ module Admins
     # before_action :set_rating, only: %i[index update]
 
     def index
-      @rooms = @hotel.rooms.includes(:room_ratings).order(created_at: :desc)
+      # @rooms = @hotel.rooms.includes(:room_ratings).order(created_at: :desc)
+      room_query = RoomQuery.new(@hotel, params)
+      @rooms = room_query.call
     end
 
     def show; end

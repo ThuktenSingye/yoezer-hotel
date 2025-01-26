@@ -164,5 +164,7 @@
     .image {
         @apply rounded w-full h-full object-cover
     }
-
+    .query-field {
+        @apply bg-white p-2 mt-4 text-sm rounded border-2 focus:shadow-none focus:border-primary-regular focus:outline-none
+    }
 }
