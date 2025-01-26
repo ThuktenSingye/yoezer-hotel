@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_25_163019) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_26_193649) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -85,6 +85,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_25_163019) do
     t.index ["amenityable_type", "amenityable_id"], name: "index_amenities_on_amenityable"
   end
 
+  create_table "bed_types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_bed_types_on_name", unique: true
+  end
+
   create_table "feedbacks", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -151,6 +158,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_25_163019) do
     t.index ["profileable_type", "profileable_id"], name: "index_profiles_on_profileable"
   end
 
+  create_table "room_bed_types", force: :cascade do |t|
+    t.bigint "room_id", null: false
+    t.bigint "bed_type_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bed_type_id"], name: "index_room_bed_types_on_bed_type_id"
+    t.index ["room_id"], name: "index_room_bed_types_on_room_id"
+  end
+
   create_table "room_categories", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -192,6 +208,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_25_163019) do
   add_foreign_key "hotel_galleries", "hotels"
   add_foreign_key "hotel_ratings", "hotels"
   add_foreign_key "offers", "hotels"
+  add_foreign_key "room_bed_types", "bed_types"
+  add_foreign_key "room_bed_types", "rooms"
   add_foreign_key "room_categories", "hotels"
   add_foreign_key "room_ratings", "rooms"
   add_foreign_key "rooms", "hotels"

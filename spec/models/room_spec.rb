@@ -23,5 +23,6 @@ RSpec.describe Room, type: :model do
     it { is_expected.to belong_to :room_category }
     it { is_expected.to belong_to :hotel }
     it { is_expected.to have_one_attached :image }
+    it { is_expected.to have_many(:bed_types).through(:room_bed_types).dependent(:destroy) }
   end
 end
