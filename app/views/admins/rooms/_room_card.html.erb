@@ -19,10 +19,13 @@
       <%= room.status.to_s.humanize %>
     </p>
   </div>
-  <hr class="bg-primary-regular h-0.5 mb-2">
-  <div class="flex flex-row justify-between items-center">
-    <div>
-      Star Rating
+  <hr class="bg-primary-regular h-0.5">
+  <div class="flex flex-row justify-between items-center mb-2">
+    <div class="flex flex-col items-center justify-center">
+      <% rating = room.room_ratings.average(:rating) || 0 %>
+      <% stars = Room.calculate_rating(rating) %>
+      <%= render 'shared/rating', rating: rating, stars: stars %>
+      <p class="font-title font-bold tracking-widest text-primary-regular text-2xl "><%= rating.to_s %></p>
     </div>
     <%= link_to "View More", admins_hotel_room_path(@hotel, room), class:"btn" %>
   </div>

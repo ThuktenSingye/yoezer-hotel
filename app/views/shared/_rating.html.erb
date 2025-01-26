@@ -1,0 +1,18 @@
+<div role="img" aria-label="<%= rating.to_s %> stars">
+  <% if rating.present? %>
+    <% stars[:full_stars]&.times do %>
+      <%= icon("fa-solid", "star", class: "text-rating") %>
+    <% end %>
+
+    <% if stars[:half_stars] > 0 %>
+      <%= icon("fa-solid", "star-half-stroke", class: "text-rating") %>
+    <% end %>
+
+    <% stars[:empty_stars]&.times do %>
+      <%= icon("fa-solid", "star", class: "text-text-color/20") %>
+    <% end %>
+
+  <% else %>
+    <p>0</p>
+  <% end %>
+</div>

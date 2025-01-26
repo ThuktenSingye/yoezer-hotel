@@ -45,33 +45,15 @@
         </turbo-frame>
       </div>
       <hr class="bg-primary-regular h-0.5">
-      <div class="flex flex-row items-center justify-between mt-4">
+      <div class="flex flex-row justify-between items-center mt-4">
         <div class="flex flex-col items-center justify-center">
-          <div role="img" role="img" aria-label="<%= @hotel_ratings.to_s %> stars">
-            <% if @rating.present? %>
-              <% @rating[:full_stars]&.times do %>
-                <%= icon("fa-solid", "star", class: "text-rating") %>
-              <% end %>
-
-              <% if @rating[:half_stars] %>
-                <%= icon("fa-solid", "star-half-stroke", class: "text-rating") %>
-              <% end %>
-
-              <% @rating[:empty_stars]&.times do %>
-                <%= icon("fa-solid", "star", class: "text-text-color/20") %>
-              <% end %>
-            <% else %>
-              <p>0</p>
-            <% end %>
-
-          </div>
-          <p class="font-title font-bold tracking-widest text-primary-regular text-2xl "><%= @hotel_ratings.to_s %></p>
+          <% rating = hotel.hotel_ratings.average(:rating) || 0 %>
+          <% stars = Room.calculate_rating(rating) %>
+          <%= render 'shared/rating', rating: rating, stars: stars %>
+          <p class="font-title font-bold tracking-widest text-primary-regular text-2xl "><%= rating.to_s %></p>
         </div>
-        <div>
-          <%= link_to "Edit", edit_admins_hotel_path(hotel), class: "btn" %>
-        </div>
+        <%= link_to "Edit", edit_admins_hotel_path(hotel), class: "btn" %>
       </div>
-
     </div>
   </div>
 </turbo-frame>
