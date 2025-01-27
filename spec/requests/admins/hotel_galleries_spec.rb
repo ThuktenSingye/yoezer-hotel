@@ -77,18 +77,12 @@ RSpec.describe 'Admin::HotelGalleries', type: :request do
       it { is_expected.to redirect_to admins_hotel_hotel_galleries_path(hotel) }
       it { expect { update_gallery }.not_to change(HotelGallery, :count) }
 
-      it 'updates the hotel gallery with the correct name' do
+      it 'update the hotel gallery with correct attributes' do
         update_gallery
-        expect(HotelGallery.last.name).to eq(valid_hotel_gallery_params[:name])
-      end
-
-      it 'updates the hotel gallery with the correct description' do
-        update_gallery
-        expect(HotelGallery.last.description).to eq(valid_hotel_gallery_params[:description])
-      end
-
-      it 'attaches the correct image to the hotel gallery' do
-        update_gallery
+        expect(HotelGallery.last).to have_attributes(
+          name: valid_hotel_gallery_params[:name],
+          description: valid_hotel_gallery_params[:description]
+        )
         expect(HotelGallery.last.image).to be_attached
       end
     end
@@ -131,19 +125,13 @@ RSpec.describe 'Admin::HotelGalleries', type: :request do
       it { is_expected.to redirect_to admins_hotel_hotel_galleries_path(hotel) }
       it { expect { create_gallery }.to change(HotelGallery, :count).by(1) }
 
-      it 'creates a hotel gallery with the correct name' do
+      it 'update the hotel gallery with correct attributes' do
         create_gallery
-        expect(HotelGallery.last.name).to eq(valid_hotel_gallery_params[:name])
-      end
-
-      it 'creates a hotel gallery with the correct description' do
-        create_gallery
-        expect(HotelGallery.last.description).to eq(valid_hotel_gallery_params[:description])
-      end
-
-      it 'attaches the correct image' do
-        create_gallery
-        expect(HotelGallery.last.image.filename.to_s).to eq(valid_hotel_gallery_params[:image].original_filename)
+        expect(HotelGallery.last).to have_attributes(
+          name: valid_hotel_gallery_params[:name],
+          description: valid_hotel_gallery_params[:description]
+        )
+        expect(HotelGallery.last.image).to be_attached
       end
     end
 

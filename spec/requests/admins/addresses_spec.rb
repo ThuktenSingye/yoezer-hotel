@@ -25,19 +25,13 @@ RSpec.describe 'Admins::Addresses', type: :request do
       it { is_expected.to redirect_to admins_hotel_path(hotel) }
       it { expect { create_address }.to change(Address, :count).by(1) }
 
-      it 'creates an address with the correct dzongkhag' do
+      it 'create an address with correct attributes' do
         create_address
-        expect(Address.last.dzongkhag).to eq(valid_address_params[:dzongkhag])
-      end
-
-      it 'creates an address with the correct gewog' do
-        create_address
-        expect(Address.last.gewog).to eq(valid_address_params[:gewog])
-      end
-
-      it 'creates an address with the correct address_type' do
-        create_address
-        expect(Address.last.address_type).to eq(valid_address_params[:address_type].to_s)
+        expect(Address.last).to have_attributes(
+          dzongkhag: valid_address_params[:dzongkhag],
+          gewog: valid_address_params[:gewog],
+          address_type: valid_address_params[:address_type].to_s
+        )
       end
     end
 
