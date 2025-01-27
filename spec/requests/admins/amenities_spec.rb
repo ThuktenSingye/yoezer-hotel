@@ -47,18 +47,10 @@ RSpec.describe 'AdminPanel::Amenities', type: :request do
       it { is_expected.to redirect_to admins_hotel_amenities_path(hotel) }
       it { expect { create_amenity }.to change(Amenity, :count).by(1) }
 
-      it 'creates the amenity with the correct name' do
+      it 'creates the amenity with correct attributes' do
         create_amenity
-        expect(Amenity.last.name).to eq(valid_amenity_params[:name])
-      end
-
-      it 'attaches the correct image' do
-        create_amenity
+        expect(Amenity.last).to have_attributes(name: valid_amenity_params[:name])
         expect(Amenity.last.image).to be_attached
-      end
-
-      it 'sets the correct image filename' do
-        create_amenity
         expect(Amenity.last.image.filename.to_s).to eq(valid_amenity_params[:image].original_filename)
       end
     end
@@ -104,18 +96,10 @@ RSpec.describe 'AdminPanel::Amenities', type: :request do
       it { is_expected.to redirect_to admins_hotel_amenities_path(hotel) }
       it { expect { update_amenity }.not_to change(Amenity, :count) }
 
-      it 'updates the amenity with the correct name' do
+      it 'update the amenity with correct attributes' do
         update_amenity
-        expect(Amenity.last.name).to eq(valid_amenity_params[:name])
-      end
-
-      it 'attaches the correct image' do
-        update_amenity
+        expect(Amenity.last).to have_attributes(name: valid_amenity_params[:name])
         expect(Amenity.last.image).to be_attached
-      end
-
-      it 'sets the correct image filename' do
-        update_amenity
         expect(Amenity.last.image.filename.to_s).to eq(valid_amenity_params[:image].original_filename)
       end
     end
