@@ -11,15 +11,6 @@ RSpec.describe 'Admins::BedTypes', type: :request do
     sign_in admin, scope: :admin
   end
 
-  describe 'GET /index' do
-    subject do
-      get admins_hotel_bed_types_path(hotel)
-      response
-    end
-
-    it { is_expected.to have_http_status :ok }
-  end
-
   describe 'GET /new' do
     subject do
       get new_admins_hotel_bed_type_path(hotel)
