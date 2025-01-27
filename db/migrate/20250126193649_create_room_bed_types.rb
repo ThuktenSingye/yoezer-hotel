@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Migration to create room bed type model
 class CreateRoomBedTypes < ActiveRecord::Migration[8.0]
   def change
     create_table :room_bed_types do |t|

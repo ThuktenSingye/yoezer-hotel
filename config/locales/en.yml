@@ -114,4 +114,15 @@
         success: "Image removed successfully."
       not_found: "Image not found."
 
+    bed_type:
+      create:
+        success: "Bed Type created successfully."
+        error: "Failed to create Bed Type."
+      update:
+        success: "Bed Type updated successfully."
+        error: "Failed to update Bed Type."
+      destroy:
+        success: "Bed Type removed successfully."
+      not_found: "Bed Type not found."
+
 

@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Migration to create bed type record
 class CreateBedTypes < ActiveRecord::Migration[8.0]
   def change
     create_table :bed_types do |t|

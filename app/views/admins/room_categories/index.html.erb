@@ -1,5 +1,5 @@
 <div class="w-full flex flex-col items-center">
-  <div class="card-container">
+  <div class="card-container mb-4">
     <div class="card p-4">
         <turbo-frame id="room_category">
           <div class="flex justify-between items-center mb-4">
@@ -16,9 +16,9 @@
                 <h3 class="w-[30%] text-center">Action</h3>
               </div>
             </div>
-            <div id="amenities">
+            <div>
                 <% if @room_categories.blank? %>
-                  <h3 class="text-text-color/50 text-center mt-4 p-2">No search result found!</h3>
+                  <h3 class="text-text-color/50 text-center mt-4 p-2">No Room Category data!</h3>
                 <% else %>
                   <% @room_categories.each do |room_category| %>
                     <turbo-frame id="room_category_<%= room_category.id %>">
@@ -28,10 +28,43 @@
                 <% end %>
             </div>
             <div class="flex justify-end items-center mt-2">
-              <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
+              <%== pagy_nav(@room_categories_pagy) if @bed_types_pagy.pages > 1 %>
             </div>
           </div>
         </turbo-frame>
+    </div>
+    <div class="card p-4">
+      <turbo-frame id="bed_type">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="title">Bed Type</h2>
+          <%= link_to "Add",
+                      new_admins_hotel_bed_type_path(@hotel),
+                      data: { "turbo-frame": "bed_type" },
+                      class: "btn" %>
+        </div>
+        <div class="w-full overflow-hidden my-4">
+          <div class="bg-background p-2 border-b">
+            <div class="flex justify-between items-center text-sm font-medium text-gray-700 p-2">
+              <h3 class="flex-1 text-center">Name</h3>
+              <h3 class="w-[30%] text-center">Action</h3>
+            </div>
+          </div>
+          <div>
+            <% if @bed_types.blank? %>
+              <h3 class="text-text-color/50 text-center mt-4 p-2">No Bed type data!</h3>
+            <% else %>
+              <% @bed_types.each do |bed_type| %>
+                <turbo-frame id="bed_type_<%= bed_type.id %>">
+                  <%= render "admins/bed_types/bed_type", bed_type: bed_type %>
+                </turbo-frame>
+              <% end %>
+            <% end %>
+          </div>
+          <div class="flex justify-end items-center mt-2">
+            <%== pagy_nav(@bed_types_pagy) if @bed_types_pagy.pages > 1 %>
+          </div>
+        </div>
+      </turbo-frame>
     </div>
   </div>
 </div>
