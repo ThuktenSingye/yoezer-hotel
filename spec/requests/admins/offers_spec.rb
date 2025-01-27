@@ -80,38 +80,16 @@ RSpec.describe 'Admin::Offers', type: :request do
       it { is_expected.to redirect_to admins_hotel_offer_path(hotel, offer) }
       it { expect { update_offer }.not_to change(Offer, :count) }
 
-      it 'updates the offer title' do
+      it 'updates the offer with correct attributes' do
         update_offer
-        expect(Offer.last.title).to eq(valid_hotel_offer_params[:title])
-      end
-
-      it 'updates the offer description' do
-        update_offer
-        expect(Offer.last.description).to eq(valid_hotel_offer_params[:description])
-      end
-
-      it 'updates the offer start time' do
-        update_offer
-        expect(Offer.last.start_time).to eq(valid_hotel_offer_params[:start_time])
-      end
-
-      it 'updates the offer end time' do
-        update_offer
-        expect(Offer.last.end_time).to eq(valid_hotel_offer_params[:end_time])
-      end
-
-      it 'updates the offer discount' do
-        update_offer
-        expect(Offer.last.discount).to eq(valid_hotel_offer_params[:discount])
-      end
-
-      it 'attaches the image' do
-        update_offer
+        expect(Offer.last).to have_attributes(
+          title: valid_hotel_offer_params[:title],
+          description: valid_hotel_offer_params[:description],
+          start_time: valid_hotel_offer_params[:start_time],
+          end_time: valid_hotel_offer_params[:end_time],
+          discount: valid_hotel_offer_params[:discount]
+        )
         expect(Offer.last.image).to be_attached
-      end
-
-      it 'attaches the correct image name' do
-        update_offer
         expect(Offer.last.image.filename.to_s).to eq(valid_hotel_offer_params[:image].original_filename)
       end
     end
@@ -157,34 +135,17 @@ RSpec.describe 'Admin::Offers', type: :request do
       it { is_expected.to redirect_to admins_hotel_offers_path(hotel) }
       it { expect { create_offer }.to change(Offer, :count).by(1) }
 
-      it 'creates the offer with the correct title' do
+      it 'creates the offer with correct attributes' do
         create_offer
-        expect(Offer.last.title).to eq(valid_hotel_offer_params[:title])
-      end
-
-      it 'creates the offer with the correct description' do
-        create_offer
-        expect(Offer.last.description).to eq(valid_hotel_offer_params[:description])
-      end
-
-      it 'creates the offer with the correct start time' do
-        create_offer
-        expect(Offer.last.start_time).to eq(valid_hotel_offer_params[:start_time])
-      end
-
-      it 'creates the offer with the correct end time' do
-        create_offer
-        expect(Offer.last.end_time).to eq(valid_hotel_offer_params[:end_time])
-      end
-
-      it 'creates the offer with the correct discount' do
-        create_offer
-        expect(Offer.last.discount).to eq(valid_hotel_offer_params[:discount])
-      end
-
-      it 'attaches the image' do
-        create_offer
+        expect(Offer.last).to have_attributes(
+          title: valid_hotel_offer_params[:title],
+          description: valid_hotel_offer_params[:description],
+          start_time: valid_hotel_offer_params[:start_time],
+          end_time: valid_hotel_offer_params[:end_time],
+          discount: valid_hotel_offer_params[:discount]
+        )
         expect(Offer.last.image).to be_attached
+        expect(Offer.last.image.filename.to_s).to eq(valid_hotel_offer_params[:image].original_filename)
       end
     end
 

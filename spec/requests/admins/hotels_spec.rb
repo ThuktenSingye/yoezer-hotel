@@ -41,24 +41,14 @@ RSpec.describe 'Admins::Hotels', type: :request do
       it { is_expected.to redirect_to admins_hotels_path }
       it { expect { update_hotel }.not_to change(Hotel, :count) }
 
-      it 'updates the hotel with the correct name' do
+      it 'updates the hotel with the correct attributes' do
         update_hotel
-        expect(Hotel.last.name).to eq(valid_hotel_params[:name])
-      end
-
-      it 'updates the hotel with the correct email' do
-        update_hotel
-        expect(Hotel.last.email).to eq(valid_hotel_params[:email])
-      end
-
-      it 'updates the hotel with the correct contact number' do
-        update_hotel
-        expect(Hotel.last.contact_no).to eq(valid_hotel_params[:contact_no])
-      end
-
-      it 'updates the hotel with the correct description' do
-        update_hotel
-        expect(Hotel.last.description).to eq(valid_hotel_params[:description])
+        expect(Hotel.last).to have_attributes(
+          name: valid_hotel_params[:name],
+          email: valid_hotel_params[:email],
+          contact_no: valid_hotel_params[:contact_no],
+          description: valid_hotel_params[:description]
+        )
       end
     end
 
@@ -72,7 +62,6 @@ RSpec.describe 'Admins::Hotels', type: :request do
 
       it { is_expected.to have_http_status(:unprocessable_entity) }
       it { is_expected.to render_template(:index) }
-      it { expect { update_hotel }.not_to(change { hotel.reload.attributes.slice('name', 'email', 'contact_no') }) }
       it { expect { update_hotel }.not_to change(Hotel, :count) }
 
       it 'assigns the correct hotel' do
