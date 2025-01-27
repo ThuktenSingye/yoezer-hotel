@@ -4,4 +4,6 @@
 class RoomBedType < ApplicationRecord
   belongs_to :room
   belongs_to :bed_type
+
+  validates :num_of_bed, presence: true, numericality: { only_integer: true }
 end

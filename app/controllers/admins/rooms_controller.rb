@@ -6,10 +6,8 @@ module Admins
     include ImageAttachment
     before_action :hotel
     before_action :room, only: %i[show edit update destroy]
-    # before_action :set_rating, only: %i[index update]
 
     def index
-      # @rooms = @hotel.rooms.includes(:room_ratings).order(created_at: :desc)
       room_query = RoomQuery.new(@hotel, params)
       @rooms = room_query.call
     end
@@ -70,12 +68,6 @@ module Admins
 
       @room.room_category ||= RoomCategory.find(room_params[:room_category_id])
     end
-
-    # def set_rating
-    #   @room ||= Room.find(params[:id])
-    #   @room_ratings = @room.room_ratings.average(:rating) || 0
-    #   @rating = self.class.calculate_rating(@room_ratings)
-    # end
 
     def destroy_all_image
       @room.images.destroy_all

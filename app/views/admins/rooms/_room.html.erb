@@ -4,7 +4,7 @@
       <div>
         <p class="title mb-2">Primary Image:</p>
         <div class="image-cropper md:card-wrapper-sm mx-auto">
-          <%= image_tag(room.image || "https://placehold.co/100x100", class: "image") %>
+          <%= image_tag( room&.persisted? ? room&.image : "https://placehold.co/100x100", class: "image") %>
         </div>
       </div>
       <div>
@@ -12,7 +12,7 @@
         <div class="flex flex-wrap justify-evenly mb-2 gap-4">
           <% room.images.each do |image| %>
             <div class="image-cropper">
-              <%= image_tag(image || "https://placehold.co/100x100", class: "image") %>
+              <%= image_tag( room&.persisted? ? room&.image : "https://placehold.co/100x100", class: "image") %>
             </div>
           <% end %>
         </div>
@@ -67,6 +67,45 @@
             <%= link_to "Edit", edit_admins_hotel_room_path(@hotel, room), class: "btn" %>
             <%= link_to 'Delete', admins_hotel_room_path(@hotel, room), data: { turbo_method: :delete, turbo_confirm: "Are you sure to delete?", turbo_frame: "_top" }, class: "btn" %>
           </div>
+        </div>
+      </div>
+    </div>
+    <div class="card p-4">
+      <div>
+        <p class="title mb-2">Bed Type</p>
+        <div>
+          <%= form_with(model: RoomBedType.new, url: admins_hotel_room_room_bed_types_path(@hotel, room), method: :post, local: true) do |form| %>
+            <div class="flex justify-between gap-4">
+              <%= form.collection_select :bed_type_id, BedType.all, :id, :name, { prompt: "Add Bed Type" }, class: "input-field bg-white" %>
+              <%= form.number_field :num_of_bed, value: nil, placeholder: "Number of bed", min: 1, max: 10, class: "input-field" %>
+              <%= form.submit "add", class: "btn cursor-pointer" %>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="bg-background p-2 border-b">
+          <div class="flex justify-between items-center text-sm font-medium text-gray-700 py-2">
+            <h3 class="w-[20%] text-center">Number of Bed</h3>
+            <h3 class="flex-1 text-center">Bed Type</h3>
+            <h3 class="w-[20%] text-center">Action</h3>
+          </div>
+        </div>
+        <div>
+          <% if room.room_bed_types.blank? %>
+            <h3 class="text-text-color/50 text-center mt-4 p-2">No Bed Type!</h3>
+          <% else %>
+            <% room.room_bed_types.each do |room_bed_type| %>
+              <div class="flex justify-between items-center p-3 border-b hover:bg-background group">
+                <p class="w-[20%] text-center"><%= room_bed_type.bed_type.name %></p>
+                <p class="flex-1 text-center"><%= room_bed_type.num_of_bed %></p>
+                <%= link_to admins_hotel_room_room_bed_type_path(@hotel, room, room_bed_type), class: "w-[20%] text-center", data: {"turbo-method": :delete, "turbo-confirm": "Are you sure to delete?"} do %>
+                  <button class="icon icon-button p-2 group-hover:bg-white text-center">
+                    <%= icon('fa-solid', 'trash', class: "text-error") %>
+                  </button>
+                <% end %>
+              </div>
+            <% end %>
+          <% end %>
         </div>
       </div>
     </div>
