@@ -16,4 +16,5 @@ class Hotel < ApplicationRecord
   has_many :room_categories, dependent: :destroy
   has_many :rooms, dependent: :destroy
   has_many :bed_types, dependent: :destroy
+  has_many :facilities, dependent: :destroy
 end

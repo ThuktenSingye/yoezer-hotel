@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Migration to create room facility record
 class CreateFacilities < ActiveRecord::Migration[8.0]
   def change
     create_table :facilities do |t|
