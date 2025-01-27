@@ -88,43 +88,17 @@ RSpec.describe 'Admins::Rooms', type: :request do
       it { is_expected.to redirect_to admins_hotel_room_path(hotel, room) }
       it { expect { update_room }.not_to change(Room, :count) }
 
-      it 'updates the room with the correct room number' do
+      it 'updates the room with correct attributes' do
         update_room
-        expect(Room.last.room_number).to eq(valid_room_params[:room_number])
-      end
-
-      it 'updates the room with the correct floor number' do
-        update_room
-        expect(Room.last.floor_number).to eq(valid_room_params[:floor_number])
-      end
-
-      it 'updates the room with the correct status' do
-        update_room
-        expect(Room.last.status).to eq(valid_room_params[:status].to_s)
-      end
-
-      it 'updates the room with the correct base price' do
-        update_room
-        expect(Room.last.base_price).to eq(valid_room_params[:base_price])
-      end
-
-      it 'updates the room with the correct max number of adult' do
-        update_room
-        expect(Room.last.max_no_adult).to eq(valid_room_params[:max_no_adult])
-      end
-
-      it 'updates the room with the correct max number of children' do
-        update_room
-        expect(Room.last.max_no_children).to eq(valid_room_params[:max_no_children])
-      end
-
-      it 'attaches the correct primary image to the room' do
-        update_room
+        expect(Room.last).to have_attributes(
+          room_number: valid_room_params[:room_number],
+          floor_number: valid_room_params[:floor_number],
+          status: valid_room_params[:status].to_s,
+          base_price: valid_room_params[:base_price],
+          max_no_adult: valid_room_params[:max_no_adult],
+          max_no_children: valid_room_params[:max_no_children]
+        )
         expect(Room.last.image).to be_attached
-      end
-
-      it 'attaches the correct image to the room' do
-        update_room
         expect(Room.last.images).to be_attached
       end
     end
@@ -179,43 +153,17 @@ RSpec.describe 'Admins::Rooms', type: :request do
       it { is_expected.to redirect_to admins_hotel_rooms_path(hotel) }
       it { expect { create_room }.to change(Room, :count).by(1) }
 
-      it 'create the room with the correct room number' do
+      it 'create the room with correct attributes' do
         create_room
-        expect(Room.last.room_number).to eq(valid_room_params[:room_number])
-      end
-
-      it 'create the room with the correct floor number' do
-        create_room
-        expect(Room.last.floor_number).to eq(valid_room_params[:floor_number])
-      end
-
-      it 'create the room with the correct status' do
-        create_room
-        expect(Room.last.status).to eq(valid_room_params[:status].to_s)
-      end
-
-      it 'create the room with the correct base price' do
-        create_room
-        expect(Room.last.base_price).to eq(valid_room_params[:base_price])
-      end
-
-      it 'create the room with the correct max number of adult' do
-        create_room
-        expect(Room.last.max_no_adult).to eq(valid_room_params[:max_no_adult])
-      end
-
-      it 'create the room with the correct max number of children' do
-        create_room
-        expect(Room.last.max_no_children).to eq(valid_room_params[:max_no_children])
-      end
-
-      it 'attaches the primary image to the room' do
-        create_room
+        expect(Room.last).to have_attributes(
+          room_number: valid_room_params[:room_number],
+          floor_number: valid_room_params[:floor_number],
+          status: valid_room_params[:status].to_s,
+          base_price: valid_room_params[:base_price],
+          max_no_adult: valid_room_params[:max_no_adult],
+          max_no_children: valid_room_params[:max_no_children]
+        )
         expect(Room.last.image).to be_attached
-      end
-
-      it 'attaches the image to the room' do
-        create_room
         expect(Room.last.images).to be_attached
       end
     end

@@ -59,59 +59,21 @@ RSpec.describe 'Admin::Profiles', type: :request do
       it { is_expected.to redirect_to admins_profiles_path }
       it { expect { update_profile }.not_to change(Profile, :count) }
 
-      it 'updates first name correctly' do
+      it 'updates profile attributes correctly and attaches the correct avatar' do
         update_profile
-        expect(Profile.last.first_name).to eq(valid_profile_params[:first_name])
-      end
-
-      it 'updates last name correctly' do
-        update_profile
-        expect(Profile.last.last_name).to eq(valid_profile_params[:last_name])
-      end
-
-      it 'updates designation correctly' do
-        update_profile
-        expect(Profile.last.designation).to eq(valid_profile_params[:designation].to_s)
-      end
-
-      it 'updates date of joining correctly' do
-        update_profile
-        expect(Profile.last.date_of_joining).to eq(valid_profile_params[:date_of_joining])
-      end
-
-      it 'updates contact number correctly' do
-        update_profile
-        expect(Profile.last.contact_no).to eq(valid_profile_params[:contact_no])
-      end
-
-      it 'updates salary correctly' do
-        update_profile
-        expect(Profile.last.salary.to_s).to eq(valid_profile_params[:salary].to_s)
-      end
-
-      it 'updates date of birth correctly' do
-        update_profile
-        expect(Profile.last.dob).to eq(valid_profile_params[:dob])
-      end
-
-      it 'updates qualification correctly' do
-        update_profile
-        expect(Profile.last.qualification).to eq(valid_profile_params[:qualification])
-      end
-
-      it 'updates CID number correctly' do
-        update_profile
-        expect(Profile.last.cid_no).to eq(valid_profile_params[:cid_no])
-      end
-
-      it 'attaches the correct avatar filename' do
-        update_profile
-        expect(Profile.last.avatar.filename.to_s).to eq(valid_profile_params[:avatar].original_filename)
-      end
-
-      it 'attaches the avatar' do
-        update_profile
+        expect(Profile.last).to have_attributes(
+          first_name: valid_profile_params[:first_name],
+          last_name: valid_profile_params[:last_name],
+          designation: valid_profile_params[:designation].to_s,
+          date_of_joining: valid_profile_params[:date_of_joining],
+          contact_no: valid_profile_params[:contact_no],
+          salary: valid_profile_params[:salary].to_d,
+          dob: valid_profile_params[:dob],
+          qualification: valid_profile_params[:qualification],
+          cid_no: valid_profile_params[:cid_no]
+        )
         expect(Profile.last.avatar).to be_attached
+        expect(Profile.last.avatar.filename.to_s).to eq(valid_profile_params[:avatar].original_filename)
       end
     end
 
