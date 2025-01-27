@@ -47,18 +47,10 @@ RSpec.describe 'Admins::Facilities', type: :request do
       it { is_expected.to redirect_to admins_hotel_facilities_path(hotel) }
       it { expect { create_facility }.to change(Facility, :count).by(1) }
 
-      it 'creates the facility with the correct name' do
+      it 'creates the facility with the correct attributes' do
         create_facility
         expect(Facility.last.name).to eq(valid_facility_params[:name])
-      end
-
-      it 'attaches the correct image' do
-        create_facility
         expect(Facility.last.image).to be_attached
-      end
-
-      it 'sets the correct image filename' do
-        create_facility
         expect(Facility.last.image.filename.to_s).to eq(valid_facility_params[:image].original_filename)
       end
     end
@@ -107,15 +99,7 @@ RSpec.describe 'Admins::Facilities', type: :request do
       it 'updates the facility with the correct name' do
         update_facility
         expect(Facility.last.name).to eq(valid_facility_params[:name])
-      end
-
-      it 'attaches the correct image' do
-        update_facility
         expect(Facility.last.image).to be_attached
-      end
-
-      it 'sets the correct image filename' do
-        update_facility
         expect(Facility.last.image.filename.to_s).to eq(valid_facility_params[:image].original_filename)
       end
     end
