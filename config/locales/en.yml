@@ -142,3 +142,10 @@
       destroy:
         success: "Room Bed Type removed successfully."
 
+    room_facility:
+      create:
+        success: "Room Facility created successfully."
+        error: "Failed to create Room Facility."
+      destroy:
+        success: "Room Facility removed successfully."
+

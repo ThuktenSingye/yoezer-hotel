@@ -10,7 +10,8 @@ Rails.application.routes.draw do
       resources :offers
       resources :room_categories, except: :show
       resources :rooms do
-        resources :room_bed_types, only: %i[new create destroy]
+        resources :room_bed_types, only: %i[create destroy]
+        resources :room_facilities, only: %i[create destroy]
       end
       resources :bed_types, except: %i[index show]
       resources :facilities
