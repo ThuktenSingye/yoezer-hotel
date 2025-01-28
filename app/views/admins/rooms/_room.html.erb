@@ -1,24 +1,6 @@
 <turbo-frame id="<%= dom_id room %>">
   <section class="card-container mb-4">
-    <div class="card p-4 flex flex-col gap-4">
-      <div>
-        <p class="title mb-2">Primary Image:</p>
-        <div class="image-cropper md:card-wrapper-sm mx-auto">
-          <%= image_tag( room&.persisted? ? room&.image : "https://placehold.co/100x100", class: "image") %>
-        </div>
-      </div>
-      <div>
-        <p class="title mb-2">Images:</p>
-        <div class="flex flex-wrap justify-evenly mb-2 gap-4">
-          <% room.images.each do |image| %>
-            <div class="image-cropper">
-              <%= image_tag( room&.persisted? ? image : "https://placehold.co/100x100", class: "image") %>
-            </div>
-          <% end %>
-        </div>
-      </div>
-    </div>
-    <div class="card mb-4 hover:shadow-lg ">
+    <div class="card hover:shadow-lg ">
       <div class="relative p-4 ">
         <div class="flex flex-col gap-4 ">
           <div class="flex flex-col gap-2">
@@ -72,6 +54,24 @@
         </div>
       </div>
 
+    </div>
+    <div class="card p-4 flex flex-col gap-4">
+      <div>
+        <p class="title mb-2">Primary Image:</p>
+        <div class="image-cropper md:card-wrapper-sm mx-auto">
+          <%= image_tag( room&.persisted? ? room&.image : "https://placehold.co/100x100", class: "image") %>
+        </div>
+      </div>
+      <div>
+        <p class="title mb-2">Images:</p>
+        <div class="flex flex-wrap justify-evenly mb-2 gap-4">
+          <% room.images.each do |image| %>
+            <div class="image-cropper">
+              <%= image_tag( room&.persisted? ? image : "https://placehold.co/100x100", class: "image") %>
+            </div>
+          <% end %>
+        </div>
+      </div>
     </div>
     <div class="card p-4">
       <div>
