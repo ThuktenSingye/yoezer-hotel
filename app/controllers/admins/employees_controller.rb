@@ -7,7 +7,8 @@ module Admins
     before_action :employee, only: %i[show edit update destroy]
 
     def index
-      @employees = @hotel.employees.order(created_at: :desc)
+      employee_query = EmployeeQuery.new(@hotel, params)
+      @pagy, @employees = pagy(employee_query.call, limit: 10)
     end
 
     def show; end
@@ -23,7 +24,7 @@ module Admins
     def create
       @employee = @hotel.employees.build(employee_params)
       if @employee.save
-        flash[:notice] = I18n.t('employee.create.success')
+        flash[:notice] = I18n.t('employee.destroy.success')
         redirect_to admins_hotel_employees_path(@hotel)
       else
         flash[:alert] = I18n.t('employee.create.error')
@@ -32,6 +33,7 @@ module Admins
     end
 
     def update
+      destroy_all_documents
       if @employee.update(employee_params)
         flash[:notice] = I18n.t('employee.update.success')
         redirect_to admins_hotel_employee_path(@hotel, @employee)
@@ -60,10 +62,14 @@ module Admins
       redirect_to admins_hotel_employees_path(@hotel)
     end
 
+    def destroy_all_documents
+      @employee.documents.destroy_all
+    end
+
     def employee_params
       params.require(:employee).permit(
         :email,
-        contract_files: [],
+        documents: [],
         profile_attributes: [:id, :avatar, :first_name, :last_name, :cid_no,
                              :contact_no, :designation, :date_of_joining, :dob, :qualification, :salary,
                              {

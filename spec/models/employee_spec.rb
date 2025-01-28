@@ -8,7 +8,7 @@ RSpec.describe Employee, type: :model do
   end
 
   context 'when associating models' do
-    it { is_expected.to have_many_attached :contract_files }
+    it { is_expected.to have_many_attached :documents }
     it { is_expected.to have_one :profile }
   end
 end

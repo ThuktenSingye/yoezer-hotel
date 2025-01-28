@@ -40,12 +40,17 @@
           </div>
           <div class="my-2">
             <h3 class="title">Contract Files</h3>
-            <% @employee.contract_files.each do |file| %>
-              <div class="p-2 flex gap-2 items-center ">
-                <%= icon("fa-solid", "file", class: "text-primary-regular w-6 h-6 flex items-center justify-center") %>
-                <span class="inline"><%= file.filename.to_s %></span>
-              </div>
+            <% if @employee.documents.present? %>
+              <% @employee.documents.each do |file| %>
+                <div class="p-2 flex gap-2 items-center ">
+                  <%= icon("fa-solid", "file", class: "text-primary-regular w-6 h-6 flex items-center justify-center") %>
+                  <%= link_to "#{file.filename.to_s}", rails_blob_path(file, only_path: true), target: '_blank', class: "underline text-primary-regular italic hover:text-primary-dark" %>
+                </div>
+              <% end %>
+            <% else %>
+              <p class="text-text-color/50 p-2">No Attached Documents</p>
             <% end %>
+
           </div>
           <hr class="bg-primary-regular h-0.5 my-2">
           <div class="flex justify-between items-center gap-2 mt-2">

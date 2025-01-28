@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["imagesContainer", "imagesUpload", "imageInput", "existingImageContainer"];
+  static targets = ["imagesContainer", "imageInput", "existingImageContainer"];
 
   selectImage() {
     this.imageInputTarget.click();
@@ -15,16 +15,19 @@ export default class extends Controller {
       const reader = new FileReader();
       reader.onload = () => {
         const newImageHtml = `
-          <div class="relative my-2 " data-image-id="${file.name}" data-controller="image">
-            <div class="image-cropper">
-              <img src="${reader.result}" class="rounded object-cover w-full h-full" />
-            </div>
-            <div
-              class="flex items-center text-center absolute -top-4 -right-4 avatar-cropper icon hover:cursor-pointer z-10"
-              data-action="click->image#removeImage" data-image-id="${file.name}">
-              <i class="fa-solid fa-xmark w-full text-primary-regular"></i>
+          <div data-image-target="existingImageContainer">
+            <div class="relative my-2 " data-image-id="${file.name}">
+              <div class="image-cropper">
+                <img src="${reader.result}" class="rounded object-cover w-full h-full" />
+              </div>
+              <div
+                class="flex items-center text-center absolute -top-4 -right-4 avatar-cropper icon hover:cursor-pointer z-10"
+                data-action="click->image#removeImage" data-image-id="${file.name}">
+                <i class="fa-solid fa-xmark w-full text-primary-regular"></i>
+              </div>
             </div>
           </div>
+                    
         `;
         this.imagesContainerTarget.insertAdjacentHTML("beforeend", newImageHtml);
       };
@@ -44,7 +47,7 @@ export default class extends Controller {
       const imageId = imageElement.dataset.imageId;
       imageElement.remove();
 
-      const files = Array.from(this.imagesUploadTarget.files).filter(
+      const files = Array.from(this.imageInputTarget.files).filter(
           (file) => file.name !== imageId
       );
       this.updateFileInput(files);
@@ -55,6 +58,6 @@ export default class extends Controller {
   updateFileInput(files) {
     const dataTransfer = new DataTransfer();
     files.forEach((file) => dataTransfer.items.add(file));
-    this.imagesUploadTarget.files = dataTransfer.files;
+    this.imageInputTarget.files = dataTransfer.files;
   }
 }

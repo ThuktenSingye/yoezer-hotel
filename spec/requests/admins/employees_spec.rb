@@ -68,7 +68,7 @@ RSpec.describe 'Admins::Employees', type: :request do
       let(:valid_employee_params) do
         {
           email: Faker::Internet.email,
-          contract_files: [
+          documents: [
             Rack::Test::UploadedFile.new('spec/support/images/dog.jpg', 'image/jpeg'),
             Rack::Test::UploadedFile.new('spec/support/images/cat.jpg', 'image/jpeg')
           ],
@@ -108,7 +108,7 @@ RSpec.describe 'Admins::Employees', type: :request do
       it 'updates the employee with correct employee attributes' do
         update_employee
         expect(Employee.last.email).to eq(valid_employee_params[:email])
-        expect(Employee.last.contract_files).to be_attached
+        expect(Employee.last.documents).to be_attached
       end
 
       it 'updates the employee with correct profile attributes' do
@@ -146,7 +146,7 @@ RSpec.describe 'Admins::Employees', type: :request do
       let(:invalid_employee_params) do
         {
           email: nil,
-          contract_files: [
+          documents: [
             Rack::Test::UploadedFile.new('spec/support/images/dog.jpg', 'image/jpeg'),
             Rack::Test::UploadedFile.new('spec/support/images/cat.jpg', 'image/jpeg')
           ],
@@ -185,7 +185,7 @@ RSpec.describe 'Admins::Employees', type: :request do
       let(:valid_employee_params) do
         {
           email: Faker::Internet.email,
-          contract_files: [
+          documents: [
             Rack::Test::UploadedFile.new('spec/support/images/dog.jpg', 'image/jpeg'),
             Rack::Test::UploadedFile.new('spec/support/images/cat.jpg', 'image/jpeg')
           ],
@@ -225,7 +225,7 @@ RSpec.describe 'Admins::Employees', type: :request do
       it 'create the employee with correct employee attributes' do
         create_employee
         expect(Employee.last.email).to eq(valid_employee_params[:email])
-        expect(Employee.last.contract_files).to be_attached
+        expect(Employee.last.documents).to be_attached
       end
 
       it 'create the employee with correct profile attributes' do
@@ -263,7 +263,7 @@ RSpec.describe 'Admins::Employees', type: :request do
       let(:invalid_employee_params) do
         {
           email: nil,
-          contract_files: [
+          documents: [
             Rack::Test::UploadedFile.new('spec/support/images/dog.jpg', 'image/jpeg'),
             Rack::Test::UploadedFile.new('spec/support/images/cat.jpg', 'image/jpeg')
           ],

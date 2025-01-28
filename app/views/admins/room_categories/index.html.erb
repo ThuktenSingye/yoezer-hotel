@@ -28,7 +28,7 @@
                 <% end %>
             </div>
             <div class="flex justify-end items-center mt-2">
-              <%== pagy_nav(@room_categories_pagy) if @bed_types_pagy.pages > 1 %>
+              <%== pagy_nav(@room_categories_pagy) if @room_categories_pagy.pages > 1 %>
             </div>
           </div>
         </turbo-frame>

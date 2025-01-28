@@ -1,10 +1,18 @@
 <div class="mx-4">
   <turbo-frame id="employee">
-
     <div class="card px-4 w-full mx-auto">
-      <div class="w-full flex justify-between items-center my-4">
-        <h1 class="title">Employees</h1>
-        <div class="self-end">
+      <div class="w-full flex justify-between items-center">
+        <div class="flex justify-center items-center">
+          <h1 class="title mx-4">Employee</h1>
+          <div class="flex">
+            <%= form_with(url: admins_hotel_employees_path(@hotel),
+                          method: :get, data: { turbo_frame: "employee_search_result", turbo_action: "advance", controller: "search" }) do |form| %>
+              <%= form.select :designation, Profile.designations.keys.map { |s| [s.humanize, s] },{ prompt: "Filter by Designation"}, class: "query-field",data: { action: "change->search#search" } %>
+              <%= form.search_field :query, class: "query-field", placeholder: "Search", data: { action: "input->search#search"} %>
+            <% end %>
+          </div>
+        </div>
+        <div>
           <%= link_to "Add", new_admins_hotel_employee_path(@hotel), class: "btn" %>
         </div>
       </div>
@@ -20,9 +28,9 @@
             </div>
           </div>
           <div>
-            <turbo-frame id="search_result">
+            <turbo-frame id="employee_search_result">
               <% if @employees.blank? %>
-                <h3 class="text-text-color/50 text-center mt-4 p-2">No search result found!</h3>
+                <h3 class="text-text-color/50 text-center mt-4 p-2">No Employee Data!</h3>
               <% else %>
                 <% @employees.each do |employee| %>
                   <turbo-frame id="employee_<%= employee.id %>">
@@ -32,9 +40,9 @@
               <% end %>
             </turbo-frame>
           </div>
-          <!--        <div class="flex justify-end items-center mt-2">-->
-          <%#== pagy_nav(@pagy) if @pagy.pages > 1 %>
-          <!--        </div>-->
+          <div class="flex justify-end items-center mt-2">
+            <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
+          </div>
         </div>
       </div>
     </div>
