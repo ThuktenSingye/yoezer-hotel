@@ -1,0 +1,33 @@
+<div class="card-container mb-4">
+  <div class="card">
+    <turbo-frame id="<%= dom_id @guest %>" class="block">
+      <div class="m-4" role="region" aria-labelledby="guest-<%= dom_id @guest %>">
+        <div class="flex flex-col justify-center">
+          <h3 class="title">Guest Details</h3>
+          <div class="mb-2">
+            <% guest_attributes = [
+              { name: "Name", value: "#{@guest&.first_name} #{@guest&.last_name}" },
+              { name: "Contact No", value: @guest&.contact_no },
+              { name: "Email", value: @guest&.email },
+              { name: "Country", value: @guest&.country },
+              { name: "Region", value: @guest&.region },
+              { name: "City", value: @guest&.city },
+            ] %>
+            <% guest_attributes.each do |attribute| %>
+              <%= render 'shared/input', input: attribute %>
+            <% end %>
+          </div>
+          <hr class="bg-primary-regular h-0.5 my-2">
+          <div class="flex justify-between items-center gap-2 mt-2">
+            <div>
+              <%= link_to "Back", admins_hotel_guests_path(@hotel), data: { turbo_frame: "_top"} ,class: "btn" %>
+            </div>
+            <div class="flex gap-2 items-center">
+              <%= link_to "Edit", edit_admins_hotel_guest_path(@hotel, @guest), class: "btn" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </turbo-frame>
+  </div>
+</div>

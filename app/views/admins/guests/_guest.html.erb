@@ -1,0 +1,19 @@
+<div class="border-b text-sm hover:bg-background group flex justify-between items-center text-text-color/50 p-4">
+  <div class="flex flex-1 items-center justify-center ">
+    <%= link_to admins_hotel_guest_path(@hotel, guest), data: { turbo_frame: "_top" } do %>
+      <p class="hover:text-primary-dark hover:underline text-center"><%= guest.first_name %> <%= guest.last_name %></p>
+    <% end %>
+  </div>
+
+  <div class="w-[30%] text-center hidden lg:block">
+    <p class="break-words"><%= guest.email %></p>
+  </div>
+
+  <div class="w-[20%] text-center hidden md:block">
+    <p><%= guest.contact_no %></p>
+  </div>
+
+  <div class="w-[30%] text-center hidden lg:block">
+    <p class="break-words"><%= guest.country %>,<%= guest.region %>,<%= guest.city %></p>
+  </div>
+</div>

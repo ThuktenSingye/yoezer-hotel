@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       resources :bed_types, except: %i[index show]
       resources :facilities
       resources :employees
+      resources :guests
     end
     resources :profiles, only: %i[index edit update]
   end

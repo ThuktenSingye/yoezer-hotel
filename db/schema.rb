@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_28_170320) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_28_194755) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -122,6 +122,20 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_28_170320) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["hotel_id"], name: "index_feedbacks_on_hotel_id"
+  end
+
+  create_table "guests", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "contact_no"
+    t.string "email"
+    t.string "country"
+    t.string "region"
+    t.string "city"
+    t.bigint "hotel_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["hotel_id"], name: "index_guests_on_hotel_id"
   end
 
   create_table "hotel_galleries", force: :cascade do |t|
@@ -241,6 +255,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_28_170320) do
   add_foreign_key "employees", "profiles"
   add_foreign_key "facilities", "hotels"
   add_foreign_key "feedbacks", "hotels"
+  add_foreign_key "guests", "hotels"
   add_foreign_key "hotel_galleries", "hotels"
   add_foreign_key "hotel_ratings", "hotels"
   add_foreign_key "offers", "hotels"
