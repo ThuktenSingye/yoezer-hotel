@@ -6,6 +6,7 @@ class Profile < ApplicationRecord
   has_many :addresses, as: :addressable, dependent: :destroy
   accepts_nested_attributes_for :addresses
   has_one_attached :avatar
+  has_one :employee
 
   enum :designation, { owner: 0, manager: 1, employee: 2 }
 

@@ -11,7 +11,7 @@ FactoryBot.define do
     salary { Faker::Number.decimal(l_digits: 5) }
     dob { Faker::Date.birthday(min_age: 18, max_age: 65) }
     qualification { Faker::Educator.degree }
-    association :profileable, factory: :admin
+    association :profileable, factory: %i[admin employee]
 
     trait :with_invalid_params do
       first_name { nil }
@@ -26,5 +26,11 @@ FactoryBot.define do
         )
       end
     end
+
+    # factory :employee_profile do
+    #   after(:create) do |profile|
+    #     profile.create(:employee, profileable: profile)
+    #   end
+    # end
   end
 end
