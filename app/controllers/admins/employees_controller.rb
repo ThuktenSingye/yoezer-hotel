@@ -1,16 +1,22 @@
 # frozen_string_literal: true
 
 module Admins
+  # Admin controller for managing employee
   class EmployeesController < AdminsController
     before_action :hotel
     before_action :employee, only: %i[show edit update destroy]
+
     def index
       @employees = @hotel.employees.order(created_at: :desc)
     end
 
     def show; end
 
-    def new; end
+    def new
+      @employee = @hotel.employees.new
+      @employee.build_profile
+      @employee.profile.addresses.build
+    end
 
     def edit; end
 
@@ -26,10 +32,9 @@ module Admins
     end
 
     def update
-      # binding.pry
       if @employee.update(employee_params)
         flash[:notice] = I18n.t('employee.update.success')
-        redirect_to admins_hotel_employees_path(@hotel)
+        redirect_to admins_hotel_employee_path(@hotel, @employee)
       else
         flash[:alert] = I18n.t('employee.update.error')
         render :edit, status: :unprocessable_entity
@@ -56,9 +61,15 @@ module Admins
     end
 
     def employee_params
-      params.require(:employee).permit(:email, contract_files: [],
-                                               profile_attributes: [:avatar, :first_name, :last_name, :cid_no, :contact_no, :designation, :date_of_joining, :dob, :qualification, :salary,
-                                                                    { addresses_attributes: %i[id dzongkhag gewog street_address address_type] }])
+      params.require(:employee).permit(
+        :email,
+        contract_files: [],
+        profile_attributes: [:id, :avatar, :first_name, :last_name, :cid_no,
+                             :contact_no, :designation, :date_of_joining, :dob, :qualification, :salary,
+                             {
+                               addresses_attributes: %i[id dzongkhag gewog street_address address_type]
+                             }]
+      )
     end
   end
 end

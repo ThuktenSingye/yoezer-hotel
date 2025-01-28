@@ -1,0 +1,126 @@
+<div class="m-4">
+  <%= form_with(model: [ :admins , @hotel, employee], local: true, class: "flex flex-col justify-center") do |f| %>
+    <% if employee.errors.any? %>
+      <div id="error_explanation" class="flex flex-col items-center">
+        <h2 class="text-text-color/50"><%= pluralize(employee.errors.count, "error") %>:</h2>
+        <ul class="text-error">
+          <% employee.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="my-1 w-full">
+      <div>
+        <%= f.fields_for :profile do |profile_form| %>
+          <div class="flex flex-col" data-controller="avatar">
+            <div class="flex flex-col" data-controller="avatar">
+              <div class="relative flex flex-row justify-center shrink-0">
+                <%= image_tag(profile_form.object.avatar.attached? ? profile_form.object.avatar : 'https://placehold.co/200x200', class: "h-24 w-24 md:h-32 md:w-32 icon z-0", alt: "Profile Image", data: {avatar_target: "imagePreview"}) %>
+                <div class="self-start icon p-4 hover:cursor-pointer" data-action="click->avatar#selectImage">
+                  <%= icon('fa-solid', 'pen-to-square', class: "text-primary-regular") %>
+                </div>
+                <%= profile_form.file_field :avatar, accept: "image/*", data: {avatar_target: "avatarUpload", action: "change->avatar#showPreview"}, class: "hidden" %>
+              </div>
+            </div>
+          </div>
+          <div class="input-container">
+            <%= f.label :email, class: "input-label" %>
+            <%= f.text_field :email, class: "input-field " %>
+          </div>
+          <div class="input-container">
+            <%= f.label :contract_files, class: "input-label" %>
+            <%= f.file_field :contract_files, multiple: true, accept: ".pdf", class: "input-field " %>
+          </div>
+
+          <div class="input-container">
+            <%= profile_form.label :first_name, class: "input-label" %>
+            <%= profile_form.text_field :first_name, class: "input-field " %>
+          </div>
+
+          <div class="input-container">
+            <%= profile_form.label :last_name, class: "input-label" %>
+            <%= profile_form.text_field :last_name, class: "input-field" %>
+          </div>
+
+          <div class="input-container">
+            <%= profile_form.label :cid_no, class: "input-label" %>
+            <%= profile_form.text_field :cid_no, class: "input-field" %>
+          </div>
+
+          <div class="input-container">
+            <%= profile_form.label :contact_no, class: "input-label" %>
+            <%= profile_form.text_field :contact_no, class: "input-field " %>
+          </div>
+
+          <div class="input-container">
+            <%= profile_form.label :date_of_joining, class: "input-label" %>
+            <%= profile_form.text_field :date_of_joining, placeholder: "Joining Date",
+                             data: { controller: "flatpickr", flatpickr_date_format: "Y-m-d"}, class: "input-field" %>
+          </div>
+
+          <div class="input-container">
+            <%= profile_form.label :dob, class: "input-label" %>
+            <%= profile_form.text_field :dob, placeholder: "Date of Birth",
+                             data: {
+                               controller: "flatpickr",
+                               flatpickr_min_date: "1800-01-01",
+                               flatpickr_max_date: Date.tomorrow.to_s
+                             }, class: "input-field" %> ,
+
+          </div>
+
+          <div class="input-container">
+            <%= profile_form.label :qualification, class: "input-label" %>
+            <%= profile_form.text_field :qualification, class: "input-field" %>
+          </div>
+
+          <div class="input-container">
+            <%= profile_form.label :designation, class: "input-label" %>
+            <%= profile_form.select :designation, Profile.designations.keys.map { |d| [d.humanize, d] },{ prompt: "Choose Designation"}, class: "input-field bg-white" %>
+          </div>
+
+          <div class="my-2">
+            <% if profile_form.object.addresses.size > 1 %>
+              <% sorted_addresses = profile_form.object.addresses.sort_by { |address| address.address_type == 'present' ? 0 : 1 } %>
+              <% sorted_addresses.each do |address| %>
+                <h2 class="title">
+                  <%= address.address_type == 'present' ? "Present Address" : "Permanent Address" %>
+                </h2>
+                <div>
+                  <%= profile_form.fields_for :addresses, address do |address_fields| %>
+                    <%= render 'shared/address', address_fields: address_fields %> <!-- Render the partial -->
+                  <% end %>
+                </div>
+              <% end %>
+            <% else %>
+              <div class="my-2">
+                <h2 class="title">Present Address</h2>
+                <%= profile_form.fields_for :addresses do |address_fields| %>
+                  <%= render 'shared/address', address_fields: address_fields %>
+                  <%= address_fields.hidden_field :address_type, value: 'present' %>
+                <% end %>
+              </div>
+              <div class="mb-2">
+                <h2 class="title">Present Address</h2>
+                <%= profile_form.fields_for :addresses do |address_fields| %>
+                  <%= render 'shared/address', address_fields: address_fields %>
+                  <%= address_fields.hidden_field :address_type, value: 'permanent' %>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+          <% end %>
+      </div>
+    </div>
+    <hr class="bg-primary-regular h-0.5">
+    <div class="flex items-center mt-4 gap-5">
+      <%= f.submit "Save", class: "btn" %>
+      <% if employee.persisted? %>
+        <%= link_to "Cancel", admins_hotel_employee_path(@hotel, employee), class: "btn", data: { turbo_frame: "_top"} %>
+      <% else %>
+        <%= link_to "Cancel", admins_hotel_employees_path(@hotel), class: "btn", data: { turbo_frame: "_top"} %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

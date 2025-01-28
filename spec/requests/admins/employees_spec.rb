@@ -102,7 +102,7 @@ RSpec.describe 'Admins::Employees', type: :request do
       end
 
       it { is_expected.to have_http_status :found }
-      it { is_expected.to redirect_to admins_hotel_employees_path(hotel) }
+      it { is_expected.to redirect_to admins_hotel_employee_path(hotel, employee) }
       it { expect { update_employee }.not_to change(Room, :count) }
 
       it 'updates the employee with correct employee attributes' do

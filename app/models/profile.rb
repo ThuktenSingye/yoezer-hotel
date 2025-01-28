@@ -4,9 +4,9 @@
 class Profile < ApplicationRecord
   belongs_to :profileable, polymorphic: true
   has_many :addresses, as: :addressable, dependent: :destroy
-  accepts_nested_attributes_for :addresses
+  accepts_nested_attributes_for :addresses, allow_destroy: true
   has_one_attached :avatar
-  has_one :employee
+  has_one :employee, dependent: :nullify
 
   enum :designation, { owner: 0, manager: 1, employee: 2 }
 
