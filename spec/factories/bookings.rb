@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :booking do
     checkin_date { Faker::Date.backward(days: 14) }
@@ -9,7 +11,7 @@ FactoryBot.define do
     confirmation_token { Faker::Internet.password }
     confirmed { false }
     association :guest, factory: :guest
-    association :hotel, factory: :hotel
+    association :room, factory: :room
   end
 
   trait :invalid_booking do

@@ -75,6 +75,8 @@ group :development, :test do
   gem 'pundit'
 
   gem 'erb_lint', require: false
+
+  gem 'dotenv-rails'
 end
 
 group :development do

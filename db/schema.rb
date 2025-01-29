@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_28_211956) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_29_085918) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -107,7 +107,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_28_211956) do
     t.bigint "room_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "hotel_id"
+    t.datetime "confirmation_sent_at", default: -> { "CURRENT_TIMESTAMP" }
+    t.datetime "confirmation_expires_at"
     t.index ["guest_id"], name: "index_bookings_on_guest_id"
+    t.index ["hotel_id"], name: "index_bookings_on_hotel_id"
     t.index ["room_id"], name: "index_bookings_on_room_id"
   end
 
@@ -269,6 +273,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_28_211956) do
   add_foreign_key "admins", "hotels"
   add_foreign_key "bed_types", "hotels"
   add_foreign_key "bookings", "guests"
+  add_foreign_key "bookings", "hotels"
   add_foreign_key "bookings", "rooms"
   add_foreign_key "employees", "hotels"
   add_foreign_key "employees", "profiles"

@@ -168,3 +168,18 @@
         success: "Guest removed successfully."
       not-found: "Guest not found"
 
+    booking:
+      create:
+        success: "Room booked successfully."
+        error: "Failed to booked Room. Please try again!"
+      update:
+        success: "Booking updated successfully."
+        error: "Failed to update Booking."
+      destroy:
+        success: "Booking removed successfully."
+      not-found: "Booking not found."
+      confirmed: "Booking Confirm.Thank you. Enjoy your Stay!"
+      invalid: "Failed to confirm booking."
+      expired: "Confirmation Link Expired!"
+      email-subject: "Room Booking Confirmation Email"
+

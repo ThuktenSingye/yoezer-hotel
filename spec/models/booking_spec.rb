@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Booking, type: :model do
@@ -6,7 +8,6 @@ RSpec.describe Booking, type: :model do
     it { is_expected.to validate_presence_of :checkout_date }
     it { is_expected.to validate_presence_of :num_of_adult }
     it { is_expected.to validate_presence_of :num_of_children }
-    it { is_expected.to validate_presence_of :checkin_date }
   end
 
   context 'when associating models' do
