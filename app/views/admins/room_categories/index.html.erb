@@ -16,9 +16,9 @@
                 <h3 class="w-[30%] text-center">Action</h3>
               </div>
             </div>
-            <div id="amenities">
+            <div>
                 <% if @room_categories.blank? %>
-                  <h3 class="text-text-color/50 text-center mt-4 p-2">No search result found!</h3>
+                  <h3 class="text-text-color/50 text-center mt-4 p-2">No Data found!</h3>
                 <% else %>
                   <% @room_categories.each do |room_category| %>
                     <turbo-frame id="room_category_<%= room_category.id %>">
