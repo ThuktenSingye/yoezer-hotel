@@ -56,7 +56,7 @@ module Admins
     end
 
     def employee
-      @employee ||= Employee.find(params[:id])
+      @employee ||= @hotel.employees.find(params[:id])
     rescue ActiveRecord::RecordNotFound
       flash[:alert] = I18n.t('employee.not-found')
       redirect_to admins_hotel_employees_path(@hotel)
@@ -70,11 +70,11 @@ module Admins
       params.require(:employee).permit(
         :email,
         documents: [],
-        profile_attributes: [:id, :avatar, :first_name, :last_name, :cid_no,
-                             :contact_no, :designation, :date_of_joining, :dob, :qualification, :salary,
-                             {
-                               addresses_attributes: %i[id dzongkhag gewog street_address address_type]
-                             }]
+        profile_attributes: [
+          :id, :avatar, :first_name, :last_name, :cid_no,
+          :contact_no, :designation, :date_of_joining, :dob, :qualification, :salary,
+          { addresses_attributes: %i[id dzongkhag gewog street_address address_type] }
+        ]
       )
     end
   end

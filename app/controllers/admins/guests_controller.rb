@@ -31,7 +31,7 @@ module Admins
     end
 
     def guest
-      @guest ||= Guest.find(params[:id])
+      @guest ||= @hotel.guests.find(params[:id])
     rescue ActiveRecord::RecordNotFound
       flash[:alert] = I18n.t('guest.not_found')
       redirect_to admins_hotel_guests_path(@hotel)

@@ -2,8 +2,8 @@
   <turbo-frame id="employee">
     <div class="card px-4 w-full mx-auto">
       <div class="w-full flex justify-between items-center">
-        <div class="flex justify-center items-center">
-          <h1 class="title mx-4">Employee</h1>
+        <div class="flex justify-center items-center gap-4">
+          <h1 class="title">Employee</h1>
           <div class="flex">
             <%= form_with(url: admins_hotel_employees_path(@hotel),
                           method: :get, data: { turbo_frame: "employee_search_result", turbo_action: "advance", controller: "search" }) do |form| %>
