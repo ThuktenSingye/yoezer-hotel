@@ -46,7 +46,7 @@ module Admins
     end
 
     def bed_type
-      @bed_type ||= BedType.find(params[:id])
+      @bed_type ||= @hotel.bed_types.find(params[:id])
     rescue ActiveRecord::RecordNotFound
       flash.now[:alert] = I18n.t('bed_type.not_found')
       redirect_to admins_hotel_room_categories_path(@hotel)
