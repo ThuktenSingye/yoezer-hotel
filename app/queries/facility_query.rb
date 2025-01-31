@@ -1,27 +1,17 @@
 # frozen_string_literal: true
 
-# Query class to search room facility by name
-class FacilityQuery
-  def initialize(hotel, params)
-    @hotel = hotel
-    @params = params
-  end
-
+# Query class to search room facilities by name
+class FacilityQuery < BaseQuery
   def call
-    if @params[:query].present?
-      search_facilities
-    else
-      search_all_facilities
-    end
+    facilities = @hotel.facilities
+    facilities = search_facilities(facilities) if @params[:query].present?
+
+    ordered_records(facilities)
   end
 
   private
 
-  def search_facilities
-    @hotel.facilities.where('name LIKE ?', "%#{@params[:query]}%").order(created_at: :desc)
-  end
-
-  def search_all_facilities
-    @hotel.facilities.order(created_at: :desc)
+  def search_facilities(facilities)
+    facilities.where('name LIKE ?', "%#{@params[:query]}%")
   end
 end

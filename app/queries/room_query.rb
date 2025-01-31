@@ -1,19 +1,14 @@
 # frozen_string_literal: true
 
-# Room query class for searching and filtering
-class RoomQuery
-  def initialize(hotel, params)
-    @hotel = hotel
-    @params = params
-  end
-
+# Room Query Class for searching and filtering rooms
+class RoomQuery < BaseQuery
   def call
     rooms = @hotel.rooms
     rooms = filter_by_status(rooms) if @params[:status].present?
     rooms = filter_by_category(rooms) if @params[:room_category_id].present?
     rooms = search_by_query(rooms) if @params[:query].present?
 
-    rooms.includes(:room_ratings).order(created_at: :desc)
+    ordered_records(rooms.includes(:room_ratings))
   end
 
   private
@@ -22,7 +17,7 @@ class RoomQuery
     if Room.statuses.key?(@params[:status])
       rooms.where(status: Room.statuses[@params[:status]])
     else
-      rooms.none
+      rooms.none # This could also be handled differently, e.g., by raising an error or returning all rooms.
     end
   end
 
