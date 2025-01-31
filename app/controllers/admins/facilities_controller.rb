@@ -53,7 +53,7 @@ module Admins
     end
 
     def facility
-      @facility ||= Facility.find(params[:id])
+      @facility ||= @hotel.facilities.find(params[:id])
     end
 
     def facility_params
