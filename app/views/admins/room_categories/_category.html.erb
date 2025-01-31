@@ -9,13 +9,13 @@
       data-action="click->popover#toggle"></div>
 
     <div class="flex justify-center items-center gap-4">
-      <%= link_to edit_admins_hotel_room_category_path(@hotel, room_category), class: "hidden md:block", data: { "turbo-frame": "room_category"} do %>
+      <%= link_to edit_admins_hotel_room_category_path(@hotel, room_category), class: "hidden md:block", data: { turbo_frame: "room_category"} do %>
         <button class="icon icon-button p-2 group-hover:bg-white">
           <%= icon('fa-solid', 'pen-to-square', class: "text-secondary") %>
         </button>
       <% end %>
 
-      <%= link_to admins_hotel_room_category_path(@hotel, room_category), class: "hidden md:block", data: {"turbo-method": :delete, "turbo-frame": dom_id(room_category), "turbo-confirm": "Are you sure to delete?"} do %>
+      <%= link_to admins_hotel_room_category_path(@hotel, room_category), class: "hidden md:block", data: { turbo_method: :delete, turbo_frame: dom_id(room_category), turbo_confirm: "Are you sure to delete?"} do %>
         <button class="icon icon-button p-2 group-hover:bg-white hidden md:block">
           <%= icon('fa-solid', 'trash', class: "text-error") %>
         </button>
