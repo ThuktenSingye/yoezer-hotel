@@ -59,7 +59,7 @@ module Admins
     end
 
     def room
-      @room ||= Room.find(params[:id])
+      @room ||= @hotel.rooms.find(params[:id])
     rescue ActiveRecord::RecordNotFound
       flash.now[:alert] = I18n.t('room.not_found')
       redirect_to admins_hotel_rooms_path(@hotel)
@@ -68,7 +68,7 @@ module Admins
     def set_room_category
       return if room_params[:room_category_id].blank?
 
-      @room.room_category ||= RoomCategory.find(room_params[:room_category_id])
+      @room.room_category ||= @hotel.room_categories.find(room_params[:room_category_id])
     end
 
     # def set_rating
