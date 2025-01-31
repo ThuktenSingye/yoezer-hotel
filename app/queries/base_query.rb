@@ -8,7 +8,7 @@ class BaseQuery
   end
 
   def call
-    raise NotImplementedError, "You must implement the call method"
+    raise NotImplementedError, 'You must implement the call method'
   end
 
   protected

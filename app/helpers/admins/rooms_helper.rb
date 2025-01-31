@@ -6,8 +6,7 @@ module Admins
     def status_class(status)
       case status.to_sym
       when :available then 'bg-success'
-      when :booked then 'bg-secondary'
-      when :reserved then 'bg-secondary'
+      when :booked || :reserved then 'bg-secondary'
       else 'bg-error'
       end
     end

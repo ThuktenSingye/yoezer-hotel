@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Query class for booking
 class BookingQuery < BaseQuery
   def call
     bookings = @hotel.bookings
@@ -28,15 +29,15 @@ class BookingQuery < BaseQuery
     )
   end
 
-
   def ordered_records(bookings)
     bookings.order(
       Arel.sql(
-"CASE
-        WHEN checkin_date = '#{Date.today}' THEN 0
-        WHEN checkout_date = '#{Date.today}' THEN 1
+        "CASE
+        WHEN checkin_date = '#{Time.zone.today}' THEN 0
+        WHEN checkout_date = '#{Time.zone.today}' THEN 1
         ELSE 2
-      END")
+      END"
+      )
     )
   end
 end

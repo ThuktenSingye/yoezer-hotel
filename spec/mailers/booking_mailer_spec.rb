@@ -12,8 +12,8 @@ RSpec.describe BookingMailer, type: :mailer do
     it 'has the correct attributes' do
       expect(confirm_email).to have_attributes(
         subject: I18n.t('booking.confirmation-email-subject'),
-        to: ['thuktensingye2163@gmail.com'],
-        from: ['02210232.cst@rub.edu.bt']
+        to: [booking.guest.email],
+        from: [hotel.email]
       )
     end
 
@@ -30,8 +30,8 @@ RSpec.describe BookingMailer, type: :mailer do
     it 'has the correct attributes' do
       expect(success_email).to have_attributes(
         subject: I18n.t('booking.success-email-subject'),
-        to: ['thuktensingye2163@gmail.com'],
-        from: ['02210232.cst@rub.edu.bt']
+        to: [booking.guest.email],
+        from: [hotel.email]
       )
     end
 
@@ -48,8 +48,8 @@ RSpec.describe BookingMailer, type: :mailer do
     it 'has the correct attributes' do
       expect(update_email).to have_attributes(
         subject: I18n.t('booking.update-email-subject'),
-        to: ['thuktensingye2163@gmail.com'],
-        from: ['02210232.cst@rub.edu.bt']
+        to: [booking.guest.email],
+        from: [hotel.email]
       )
     end
 

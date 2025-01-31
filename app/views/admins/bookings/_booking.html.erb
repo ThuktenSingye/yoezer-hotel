@@ -17,6 +17,10 @@
     <p class="break-words"><%= booking.total_amount.to_i.to_s %></p>
   </div>
 
+  <div class="w-[15%] text-center hidden lg:block">
+    <p class="break-words <%= room_status_class(booking.room.status) %> "><%= booking.room.status.to_s.humanize %></p>
+  </div>
+
   <div class="w-[20%] text-center hidden lg:block">
     <p class="break-words <%= payment_status_class(booking.payment_status) %> "><%= booking.payment_status.to_s.humanize %></p>
   </div>

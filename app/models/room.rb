@@ -14,7 +14,7 @@ class Room < ApplicationRecord
   has_many :facilities, through: :room_facilities, dependent: :destroy
   has_one :booking, dependent: :destroy
 
-  enum :status, {reserved: 0, booked: 1, available: 2, maintenance: 3 }
+  enum :status, { reserved: 0, booked: 1, available: 2, maintenance: 3 }
 
   validates :room_number, :base_price, :max_no_adult, :max_no_children, :status, presence: true
   validates :room_number, uniqueness: { case_sensitive: false }

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Booking business logic class
 class BookingService
   def initialize(hotel, room, booking)
     @hotel = hotel
@@ -10,8 +11,10 @@ class BookingService
   def create_booking(booking_params)
     return false unless booking_date_present?(booking_params)
 
-    booking_params = booking_params.merge(total_amount: calculate_total_amount(booking_params[:checkin_date],
-                                                                               booking_params[:checkout_date], @room))
+    booking_params = booking_params.merge(
+      total_amount: calculate_total_amount(booking_params[:checkin_date],
+                                           booking_params[:checkout_date], @room)
+    )
 
     guest = find_guest(booking_params)
     booking = build_booking(booking_params, guest)
@@ -66,7 +69,7 @@ class BookingService
   def find_guest(booking_params)
     return nil if @hotel.guests.blank?
 
-    @hotel.bookings.guests.find_by(email: booking_params[:guest_attributes][:email])
+    @hotel.guests.find_by(email: booking_params[:guest_attributes][:email])
   end
 
   def send_confirmation_email(booking)

@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
 module Admins
+  # Booking controller for booking CRUD operation
   class BookingsController < AdminsController
+    before_action :authenticate_admin!, except: %i[confirm_booking update_confirmation]
     before_action :hotel
     before_action :room, only: %i[new create confirm_booking update_confirmation]
     before_action :booking, only: %i[edit show update destroy confirm_booking update_confirmation]
     before_action :booking_service, only: %i[create update_confirmation]
-
     def index
       booking_query = BookingQuery.new(@hotel, params)
       @pagy, @bookings = pagy(booking_query.call, limit: 10)
@@ -44,7 +45,7 @@ module Admins
     end
 
     def destroy
-      if @booking.payment_status != 'completed'
+      if @booking.room.status == 'booked' && @booking.payment_status != 'completed'
         flash[:alert] = I18n.t('booking.payment-missing')
         redirect_to admins_hotel_bookings_path(@hotel) and return
       end
@@ -100,7 +101,7 @@ module Admins
     def confirm_booking_and_redirect
       @booking.update(confirmed: true)
       @booking.room.update(status: :booked)
-      BookingMailer.booking_success_email(@booking).deliver_later(queue: 'booking_mailers')
+      BookingMailer.booking_success_email(@booking).deliver_later(queue: 'mailers')
       flash[:notice] = I18n.t('booking.confirmed')
       redirect_to admins_hotel_room_path(@hotel, @room)
     end
