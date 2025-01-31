@@ -32,10 +32,10 @@
                     </turbo-frame>
                   <% end %>
                 <% end %>
+                <div class="flex justify-end items-center mt-2">
+                  <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
+                </div>
               </turbo-frame>
-            </div>
-            <div class="flex justify-end items-center mt-2">
-              <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
             </div>
           </div>
         </div>

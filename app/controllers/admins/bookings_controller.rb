@@ -8,7 +8,8 @@ module Admins
     before_action :booking_service, only: %i[create update_confirmation]
 
     def index
-      @pagy, @bookings = pagy(@hotel.bookings.where(confirmed: true).order(created_at: :desc), limit: 5)
+      booking_query = BookingQuery.new(@hotel, params)
+      @pagy, @bookings = pagy(booking_query.call, limit: 10)
     end
 
     def show; end

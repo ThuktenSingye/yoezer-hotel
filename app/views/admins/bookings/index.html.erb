@@ -4,6 +4,13 @@
       <div class="w-full flex justify-between items-center">
         <div class="flex justify-center items-center">
           <h1 class="title mx-4">Booking</h1>
+          <div class="flex">
+            <%= form_with url: admins_hotel_bookings_path(@hotel), method: :get,
+                          data: {turbo_frame: "booking_search_result", turbo_action: "advance", controller: "search"} do |form| %>
+              <%= form.select :status, Room.statuses.slice('reserved', 'booked').keys.map { |s| [s.humanize, s] },{ prompt: "Filter by Status"}, class: "query-field",data: { action: "change->search#search" } %>
+              <%= form.search_field :query, class: "query-field", placeholder: "Search", data: {action: "input->search#search"} %>
+            <% end %>
+          </div>
         </div>
       </div>
       <div class="my-4">

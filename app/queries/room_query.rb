@@ -17,7 +17,7 @@ class RoomQuery < BaseQuery
     if Room.statuses.key?(@params[:status])
       rooms.where(status: Room.statuses[@params[:status]])
     else
-      rooms.none # This could also be handled differently, e.g., by raising an error or returning all rooms.
+      rooms.none
     end
   end
 

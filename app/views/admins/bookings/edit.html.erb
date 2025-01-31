@@ -18,7 +18,7 @@
             <div>
               <h3 class="title">Booking Details</h3>
               <div class="input-container">
-                <%= f.label "Room Number", class: "input-label"%>
+                <%= f.label "Room Number", class: "input-label" %>
                 <% available_rooms = @hotel.rooms.where(status: 'available') %>
                 <% current_room = @booking.room %>
                 <%= f.collection_select :room_id,
@@ -70,7 +70,7 @@
                                    class: "input-field" %>
               </div>
             </div>
-            <hr />
+            <hr>
             <div>
               <%= f.fields_for :guest do |guest_form| %>
                 <h3 class="title">Guest Details</h3>
