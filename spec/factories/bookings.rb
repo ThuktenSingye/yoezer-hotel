@@ -21,4 +21,8 @@ FactoryBot.define do
     num_of_adult { nil }
     num_of_children { nil }
   end
+
+  trait :expired_booking do
+    checkout_date { Faker::Date.backward(days: 14) }
+  end
 end

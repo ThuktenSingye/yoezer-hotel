@@ -13,7 +13,6 @@ class Booking < ApplicationRecord
   def generate_confirmation_token(attempts = 5)
     retries ||= 0
     self.confirmation_token = SecureRandom.urlsafe_base64(nil, false)
-    save!
   rescue ActiveRecord::RecordNotUnique
     raise if (retries += 1) > attempts
 

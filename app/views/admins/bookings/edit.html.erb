@@ -31,18 +31,18 @@
               <div class="input-container">
                 <%= f.label :checkin_date, class: "input-label" %>
                 <%= f.text_field :checkin_date,
-                                 data: { controller: "flatpickr", flatpickr_date_format: "Y-m-d"},
+                                 value: @booking.checkin_date&.strftime("%Y-%m-%d"),
+                                 data: { controller: "flatpickr", flatpickr_min_date: Date.today.to_s, flatpickr_date_format: "Y-m-d"},
                                  class: "input-field",
-                                 flatpickr_min_date: Date.today.to_s,
                                  placeholder: "YYYY-MM-DD" %>
               </div>
 
               <div class="input-container">
                 <%= f.label :checkout_date, class: "input-label" %>
                 <%= f.text_field :checkout_date,
-                                 data: { controller: "flatpickr", flatpickr_date_format: "Y-m-d"},
+                                 value: @booking.checkin_date&.strftime("%Y-%m-%d"),
+                                 data: { controller: "flatpickr",flatpickr_min_date: Date.tomorrow.to_s, flatpickr_date_format: "Y-m-d", },
                                  class: "input-field",
-                                 flatpickr_min_date: Date.today.to_s,
                                  placeholder: "YYYY-MM-DD" %>
               </div>
 

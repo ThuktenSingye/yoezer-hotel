@@ -36,10 +36,13 @@
             </p>
           </div>
           <div class="flex justify-between items-center mt-2 ">
-            <div>
-              <%= link_to "Reservation", new_admins_hotel_room_booking_path(@hotel, room), data: { turbo_frame: "_top"} ,class: "btn" %>
-            </div>
-            <p>Nu. <span class="font-bold text-2xl text-primary-regular"><%= room.base_price.to_i.to_s %></span> Night </p>
+            <% if room.status == 'available' %>
+              <div class="flex items-center">
+                <%= link_to "Reservation", new_admins_hotel_room_booking_path(@hotel, room), data: { turbo_frame: "_top"} ,class: "btn" %>
+              </div>
+            <% end %>
+
+            <p>Nu. <span class="font-bold text-2xl self-end text-primary-regular"><%= room.base_price.to_i.to_s %></span> Night </p>
           </div>
           <hr class="bg-primary-regular h-0.5">
           <div class="flex justify-between items-center mt-2 gap-2">

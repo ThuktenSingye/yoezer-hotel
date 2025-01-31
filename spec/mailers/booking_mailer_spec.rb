@@ -7,38 +7,56 @@ RSpec.describe BookingMailer, type: :mailer do
   let!(:booking) { FactoryBot.create(:booking, hotel: hotel) }
 
   context 'when confirmation email is sent' do
-    let!(:mail) { described_class.confirmation_email(booking) }
+    subject(:confirm_email) { described_class.confirmation_email(booking).deliver_now }
 
-    it 'renders the headers' do
-      expect(mail).to have_attributes(
-        subject: 'Room Booking Confirmation Email',
+    it 'has the correct attributes' do
+      expect(confirm_email).to have_attributes(
+        subject: I18n.t('booking.confirmation-email-subject'),
         to: ['thuktensingye2163@gmail.com'],
         from: ['02210232.cst@rub.edu.bt']
       )
+    end
+
+    it 'enqueues the confirmation email job' do
+      expect do
+        described_class.confirmation_email(booking).deliver_later(queue: 'mailers')
+      end.to change { Sidekiq::Worker.jobs.size }.by(1)
     end
   end
 
   context 'when success booking email is sent' do
-    let!(:mail) { described_class.booking_success_email(booking) }
+    subject(:success_email) { described_class.booking_success_email(booking).deliver_now }
 
-    it 'renders the headers' do
-      expect(mail).to have_attributes(
-        subject: 'Booking Confirmation Successful',
+    it 'has the correct attributes' do
+      expect(success_email).to have_attributes(
+        subject: I18n.t('booking.success-email-subject'),
         to: ['thuktensingye2163@gmail.com'],
         from: ['02210232.cst@rub.edu.bt']
       )
     end
+
+    it 'enqueues the success booking email job' do
+      expect do
+        described_class.booking_success_email(booking).deliver_later(queue: 'mailers')
+      end.to change { Sidekiq::Worker.jobs.size }.by(1)
+    end
   end
 
   context 'when update booking email is sent' do
-    let!(:mail) { described_class.booking_update_email(booking) }
+    subject(:update_email) { described_class.booking_update_email(booking).deliver_now }
 
-    it 'renders the headers' do
-      expect(mail).to have_attributes(
-        subject: 'Booking Detail Update',
+    it 'has the correct attributes' do
+      expect(update_email).to have_attributes(
+        subject: I18n.t('booking.update-email-subject'),
         to: ['thuktensingye2163@gmail.com'],
         from: ['02210232.cst@rub.edu.bt']
       )
+    end
+
+    it 'enqueues the update booking email job' do
+      expect do
+        described_class.booking_update_email(booking).deliver_later(queue: 'mailers')
+      end.to change { Sidekiq::Worker.jobs.size }.by(1)
     end
   end
 end

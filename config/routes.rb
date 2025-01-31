@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
+require 'sidekiq/web'
 Rails.application.routes.draw do
+  mount Sidekiq::Web => '/sidekiq'
   namespace :admins do
     resources :hotels, only: %i[index edit update] do
       resources :addresses, only: %i[new create destroy]
@@ -42,6 +44,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
   authenticated :admins do
+    # mount Sidekiq::Web => '/sidekiq'
     root to: 'admins#index', as: :admin_root
   end
 

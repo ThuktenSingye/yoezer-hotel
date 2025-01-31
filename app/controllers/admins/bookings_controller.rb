@@ -32,7 +32,7 @@ module Admins
     end
 
     def update
-      booking_service ||= BookingService.new(@hotel, @booking.room, @booking)
+      booking_service = BookingService.new(@hotel, @booking.room, @booking)
       if booking_service.update_booking?(booking_params)
         flash[:notice] = I18n.t('booking.update.success')
         redirect_to admins_hotel_booking_path(@hotel, @booking)
@@ -99,7 +99,7 @@ module Admins
     def confirm_booking_and_redirect
       @booking.update(confirmed: true)
       @booking.room.update(status: :booked)
-      BookingMailer.booking_success_email(@booking).deliver_later
+      BookingMailer.booking_success_email(@booking).deliver_later(queue: 'booking_mailers')
       flash[:notice] = I18n.t('booking.confirmed')
       redirect_to admins_hotel_room_path(@hotel, @room)
     end

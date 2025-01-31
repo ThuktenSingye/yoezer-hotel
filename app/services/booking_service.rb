@@ -1,21 +1,23 @@
 # frozen_string_literal: true
 
 class BookingService
-  def initialize(hotel, room, booking = nil)
+  def initialize(hotel, room, booking)
     @hotel = hotel
     @room = room
     @booking = booking
   end
 
   def create_booking(booking_params)
-    return unless booking_date_present?(booking_params)
+    return false unless booking_date_present?(booking_params)
 
-    booking_params.merge(total_amount: calculate_total_amount(booking_params[:checkin_date],
-                                                              booking_params[:checkout_date], @room))
-    guest = find_or_initialize_guest(booking_params)
+    booking_params = booking_params.merge(total_amount: calculate_total_amount(booking_params[:checkin_date],
+                                                                               booking_params[:checkout_date], @room))
+
+    guest = find_guest(booking_params)
     booking = build_booking(booking_params, guest)
 
     if booking.save
+      booking.room.update(status: :reserved)
       send_confirmation_email(booking) and true
     else
       false
@@ -25,11 +27,12 @@ class BookingService
   def update_booking?(booking_params)
     return false unless booking_date_present?(booking_params)
 
-    booking = set_association(booking_params)
+    booking = assign_association(booking_params)
     previous_attributes = store_previous_attributes(booking)
 
     if update_booking_and_room(booking, booking_params)
-      check_and_send_update_email(booking, previous_attributes) and true
+      check_and_send_update_email(booking, previous_attributes)
+      true
     else
       false
     end
@@ -37,7 +40,7 @@ class BookingService
 
   def confirm_token(id, token)
     booking = @hotel.bookings.find_by(id: id, confirmation_token: token)
-    return { valid: false, error: I18n.t('booking.invalid') } unless booking && !booking.confirmed?
+    return { valid: false, error: I18n.t('booking.invalid-confirmation') } unless booking && !booking.confirmed?
 
     validate_confirmation_link(booking) ? { valid: true } : { valid: false, error: I18n.t('booking.expired') }
   end
@@ -49,23 +52,21 @@ class BookingService
     booking.room = @room
     booking.guest = guest if guest.present?
     booking.guest.hotel = @hotel
-    booking.generate_confirmation_token if booking.new_record?
+    booking.generate_confirmation_token
     booking
   end
 
-  def set_association(booking_params)
+  def assign_association(booking_params)
     @booking.room&.update(status: :available)
     @booking.room ||= Room.find(booking_params[:room_id]) if booking_params[:room_id].present?
     @booking.guest.hotel ||= @hotel if @booking.guest.present?
     @booking
   end
 
-  def find_or_initialize_guest(booking_params)
-    return if @hotel.guests.blank?
+  def find_guest(booking_params)
+    return nil if @hotel.guests.blank?
 
-    @hotel.guests.find_or_initialize_by(email: booking_params[:guest_attributes][:email]).tap do |guest|
-      guest.hotel ||= @hotel if guest.new_record?
-    end
+    @hotel.bookings.guests.find_by(email: booking_params[:guest_attributes][:email])
   end
 
   def send_confirmation_email(booking)
@@ -73,11 +74,11 @@ class BookingService
       confirmation_sent_at: Time.current,
       confirmation_expires_at: 24.hours.from_now
     )
-    BookingMailer.confirmation_email(booking).deliver_later
+    BookingMailer.confirmation_email(booking).deliver_later(queue: 'mailers')
   end
 
   def send_booking_update_email(booking)
-    BookingMailer.booking_update_email(booking).deliver_later
+    BookingMailer.booking_update_email(booking).deliver_later(queue: 'mailers')
   end
 
   def validate_confirmation_link(booking)

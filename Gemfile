@@ -77,6 +77,12 @@ group :development, :test do
   gem 'erb_lint', require: false
 
   gem 'dotenv-rails'
+
+  gem 'sidekiq'
+
+  gem 'redis'
+
+  gem 'sidekiq-cron'
 end
 
 group :development do

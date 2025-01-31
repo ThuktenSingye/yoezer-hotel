@@ -73,6 +73,12 @@ Rails.application.configure do
   # config.generators.apply_rubocop_autocorrect_after_generate!
 
   # Action Mailer Config
+  config.active_job.queue_adapter = :sidekiq
+
+  config.active_job.queue_name_prefix = 'booking'
+  config.active_job.queue_name_delimiter = '_'
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default_url_options = { host: 'localhost:3000' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {

@@ -1,0 +1,7 @@
+# frozen_string_literal: true
+
+destroy_expired_bookings:
+  cron: "0 12 * * *" # every day at 12
+  class: "BookingCleanupWorker"
+  queue: booking_cleanup_queue
+  tz: "Asia/Thimphu"
