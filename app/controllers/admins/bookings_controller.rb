@@ -79,13 +79,12 @@ module Admins
     end
 
     private
-
-    def room
-      @room ||= Room.find(params[:room_id])
-    end
-
     def hotel
       @hotel ||= Hotel.find(params[:hotel_id])
+    end
+
+    def room
+      @room ||= @hotel.rooms.find(params[:room_id])
     end
 
     def booking
