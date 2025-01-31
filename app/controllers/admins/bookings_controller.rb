@@ -8,6 +8,7 @@ module Admins
     before_action :room, only: %i[new create confirm_booking update_confirmation]
     before_action :booking, only: %i[edit show update destroy confirm_booking update_confirmation]
     before_action :booking_service, only: %i[create update_confirmation]
+
     def index
       booking_query = BookingQuery.new(@hotel, params)
       @pagy, @bookings = pagy(booking_query.call, limit: 10)
