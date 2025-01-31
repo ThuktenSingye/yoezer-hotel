@@ -1,0 +1,50 @@
+<div class="card-container mb-4">
+  <div class="card">
+    <turbo-frame id="<%= dom_id @booking %>" class="block">
+      <div class="m-4" role="region" aria-labelledby="booking-<%= dom_id @booking %>">
+        <div class="flex flex-col justify-center gap-y-2">
+          <div class="border-b">
+            <h3 class="title">Room Details</h3>
+            <% booking_attributes = [
+              { name: "Room Number", value: @booking.room&.room_number },
+              { name: "Room Category", value: @booking.room&.room_category&.name },
+              { name: "Check In Date", value: @booking.checkin_date.strftime("%d/%m/%Y") },
+              { name: "Check Out Date", value: @booking.checkout_date.strftime("%d/%m/%Y") },
+              { name: "Total Amount", value: @booking.total_amount },
+              { name: "Payment Status", value: @booking.payment_status },
+              { name: "Confirmed", value: @booking.confirmed ? "Yes" : "No" },
+
+            ] %>
+            <% booking_attributes.each do |attribute| %>
+              <%= render 'shared/input', input: attribute %>
+            <% end %>
+          </div>
+          <div>
+            <h3 class="title">Guest Details</h3>
+            <% guest_attributes = [
+              { name: "Name", value: "#{@booking.guest.first_name} #{@booking.guest.last_name}" },
+              { name: "Contact No", value: @booking.guest.contact_no},
+              { name: "Email", value: @booking.guest.email },
+              { name: "Country", value: @booking.guest.country },
+              { name: "Region", value: @booking.guest.region },
+              { name: "City", value: @booking.guest.city },
+            ] %>
+            <% guest_attributes.each do |attribute| %>
+              <%= render 'shared/input', input: attribute %>
+            <% end %>
+          </div>
+          <hr class="bg-primary-regular h-0.5">
+          <div class="flex justify-between items-center gap-2">
+            <div>
+              <%= link_to "Back", admins_hotel_bookings_path(@hotel), data: { turbo_frame: "_top"} ,class: "btn" %>
+            </div>
+            <div class="flex gap-2 items-center">
+              <%= link_to "Edit", edit_admins_hotel_booking_path(@hotel, @booking), class: "btn" %>
+              <%= link_to 'Delete', admins_hotel_booking_path(@hotel, @booking), data: { turbo_method: :delete, turbo_confirm: "Are you sure to delete?"}, class: "btn" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </turbo-frame>
+  </div>
+</div>

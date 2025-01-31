@@ -179,7 +179,10 @@
         success: "Booking removed successfully."
       not-found: "Booking not found."
       confirmed: "Booking Confirm.Thank you. Enjoy your Stay!"
-      invalid: "Failed to confirm booking."
+      invalid-confirmation: "Invalid Confirmation Token!"
       expired: "Confirmation Link Expired!"
-      email-subject: "Room Booking Confirmation Email"
-
+      confirmation-email-subject: "Room Booking Confirmation Email"
+      success-email-subject: "Booking Confirmation Successful"
+      update-email-subject: "Booking Detail Update"
+      missing-date: "Booking Date are missing!."
+      payment-missing: "Payment not made!. Update the payment status to completed before deleting!"

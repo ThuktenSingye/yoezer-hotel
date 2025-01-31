@@ -3,12 +3,13 @@
 FactoryBot.define do
   factory :booking do
     checkin_date { Faker::Date.backward(days: 14) }
-    checkout_date { Faker::Date.backward(days: 14) }
+    checkout_date { Faker::Date.forward(days: 14) }
     num_of_adult { Faker::Number.between(from: 1, to: 10) }
     num_of_children { Faker::Number.between(from: 1, to: 10) }
-    payment_status { :pending }
+    payment_status { :completed }
     total_amount { Faker::Number.decimal(l_digits: 5) }
     confirmation_token { Faker::Internet.password }
+    confirmation_expires_at { Faker::Date.forward(days: 1) }
     confirmed { false }
     association :guest, factory: :guest
     association :room, factory: :room

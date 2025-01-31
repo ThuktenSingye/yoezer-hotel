@@ -12,10 +12,14 @@ Rails.application.routes.draw do
       resources :rooms do
         resources :room_bed_types, only: %i[create destroy]
         resources :room_facilities, only: %i[create destroy]
-        resources :bookings do
-          get 'confirm' => 'bookings#confirm_booking'
+        resources :bookings, only: %i[new create] do
+          member do
+            get :confirm_booking
+            patch :update_confirmation
+          end
         end
       end
+      resources :bookings, except: %i[new create]
       resources :bed_types, except: %i[index show]
       resources :facilities
       resources :employees

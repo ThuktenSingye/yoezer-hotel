@@ -7,5 +7,6 @@ class AdminsController < ApplicationController
 
   def index
     @hotel = Hotel.first
+    # @room = @hotel.rooms.
   end
 end

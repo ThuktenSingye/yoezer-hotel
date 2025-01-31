@@ -4,7 +4,7 @@ class Booking < ApplicationRecord
   belongs_to :guest
   belongs_to :room
   belongs_to :hotel
-  accepts_nested_attributes_for :guest
+  accepts_nested_attributes_for :guest, allow_destroy: true
 
   enum :payment_status, { pending: 0, completed: 1, refunded: 2 }
 

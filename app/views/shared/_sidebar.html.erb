@@ -125,10 +125,10 @@
               <% end %>
             </li>
 
-            <li class="sidebar-menu-row <%= current_page?(admins_path) ? "bg-white rounded" : "" %>">
-              <%= link_to admins_path, class: "w-full flex items-center" do %>
-                <%= icon("fa-solid", "bed", class: "w-6 #{current_page?(admins_path) ? 'text-primary-regular' : 'text-white'}") %>
-                <span class="text-sm ml-2  <%= current_page?(admins_path) ? "text-primary-regular" : "text-white" %>">Bed Type</span>
+            <li class="sidebar-menu-row <%= current_page?(admins_hotel_bookings_path(hotel)) ? "bg-white rounded" : "" %>">
+              <%= link_to admins_hotel_bookings_path(hotel), class: "w-full flex items-center" do %>
+                <%= icon("fa-solid", "bed", class: "w-6 #{current_page?(admins_hotel_bookings_path(hotel)) ? 'text-primary-regular' : 'text-white'}") %>
+                <span class="text-sm ml-2  <%= current_page?(admins_hotel_bookings_path(hotel)) ? "text-primary-regular" : "text-white" %>">Bookings</span>
               <% end %>
             </li>
 
