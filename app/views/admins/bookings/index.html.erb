@@ -7,7 +7,8 @@
           <div class="flex">
             <%= form_with url: admins_hotel_bookings_path(@hotel), method: :get,
                           data: {turbo_frame: "booking_search_result", turbo_action: "advance", controller: "search"} do |form| %>
-              <%= form.select :status, Room.statuses.slice('reserved', 'booked').keys.map { |s| [s.humanize, s] },{ prompt: "Filter by Room Status"}, class: "query-field text-primary-regular",data: { action: "change->search#search" } %>
+              <%= form.select :status, Room.statuses.slice('reserved', 'booked').keys.map { |s| [s.humanize, s] },{ prompt: "Filter by Room Status"},
+                              class: "query-field text-primary-regular",data: { action: "change->search#search" } %>
               <%= form.search_field :query, class: "query-field", placeholder: "Search", data: {action: "input->search#search"} %>
             <% end %>
           </div>
