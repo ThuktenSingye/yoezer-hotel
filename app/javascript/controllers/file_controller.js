@@ -20,7 +20,7 @@ export default class extends Controller {
             <div class="p-1 flex gap-1 items-center ">
               <i class="fa-solid fa-file text-primary-regular w-6 h-6 flex items-center justify-center"></i>
               <p data-file-target="filePreview" class="w-5/6">${file.name}</p>
-              <div class="flex items-center justify-center avatar-cropper icon hover:cursor-pointer z-10" 
+              <div class="flex items-center justify-center avatar-wrapper icon hover:cursor-pointer z-10" 
               data-action="click->file#removeFile" data-file-id="${file.name}">
                 <i class="fa-solid fa-trash text-error"></i>
               </div>

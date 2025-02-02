@@ -17,23 +17,19 @@
             </div>
             <p class="text-sm text-text-color/50"><%= room.description %></p>
           </div>
-          <div class="flex flex-col items-start">
-            <p class="flex mt-1">
-              <span class="input-label-sm text-text-color/50 ">Room No:</span>
-              <span class="input-value text-primary-regular"><%= room.room_number %></span>
-            </p>
-            <p class="flex mt-1">
-              <span class="input-label-sm text-text-color/50">Floor No:</span>
-              <span class="input-value text-primary-regular"><%= room.floor_number %></span>
-            </p>
-            <p class="flex mt-1">
-              <span class="input-label-sm text-text-color/50">Max no of Adults:</span>
-              <span class="input-value text-primary-regular"><%= room.max_no_adult %></span>
-            </p>
-            <p class="flex mt-1">
-              <span class="input-label-sm  text-text-color/50">Max no of Children:</span>
-              <span class="input-value text-primary-regular"><%= room.max_no_children %></span>
-            </p>
+          <div class="flex flex-col items-start justify-center">
+            <% room_attributes = [
+              { name: "Room No", value: room.room_number },
+              { name: "Floor No", value: room.floor_number },
+              { name: "No of Adults", value: room.max_no_adult },
+              { name: "No of Children", value: room.max_no_children }
+            ] %>
+            <% room_attributes.each do |attribute| %>
+              <div class="flex mt-1 items-center">
+                <p class="input-label"><%= attribute[:name] %></p>
+                <p class="input-value self-end"><%= attribute[:value] %></p>
+              </div>
+            <% end %>
           </div>
           <div class="flex justify-between items-center mt-2 ">
             <% if room.status == 'available' %>
@@ -57,10 +53,11 @@
         </div>
       </div>
     </div>
+
     <div class="card p-4 flex flex-col gap-4">
       <div>
         <p class="title mb-2">Primary Image:</p>
-        <div class="image-cropper md:card-wrapper-sm mx-auto">
+        <div class="image-wrapper md:card-wrapper-sm mx-auto">
           <%= image_tag( room&.persisted? ? room&.image : "https://placehold.co/100x100", class: "image") %>
         </div>
       </div>
@@ -68,13 +65,14 @@
         <p class="title mb-2">Images:</p>
         <div class="flex flex-wrap justify-evenly mb-2 gap-4">
           <% room.images.each do |image| %>
-            <div class="image-cropper">
+            <div class="image-wrapper">
               <%= image_tag( room&.persisted? ? image : "https://placehold.co/100x100", class: "image") %>
             </div>
           <% end %>
         </div>
       </div>
     </div>
+
     <div class="card p-4">
       <div>
         <p class="title mb-2">Bed Type</p>
@@ -114,6 +112,7 @@
         </div>
       </div>
     </div>
+
     <div class="card p-4">
       <div>
         <p class="title mb-2">Room Facility</p>

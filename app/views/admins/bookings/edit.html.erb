@@ -21,43 +21,31 @@
                 <%= f.label "Room Number", class: "input-label" %>
                 <% available_rooms = @hotel.rooms.where(status: 'available') %>
                 <% current_room = @booking.room %>
-                <%= f.collection_select :room_id,
-                                        (available_rooms + [current_room]).uniq,
-                                        :id,
-                                        :room_number,
-                                        { selected: current_room.id },
+                <%= f.collection_select :room_id, (available_rooms + [current_room]).uniq, :id, :room_number, { selected: current_room.id },
                                         class: "input-field" %>
               </div>
               <div class="input-container">
                 <%= f.label :checkin_date, class: "input-label" %>
-                <%= f.text_field :checkin_date,
-                                 value: @booking.checkin_date&.strftime("%Y-%m-%d"),
+                <%= f.text_field :checkin_date, value: @booking.checkin_date&.strftime("%Y-%m-%d"),
                                  data: { controller: "flatpickr", flatpickr_min_date: Date.today.to_s, flatpickr_date_format: "Y-m-d"},
-                                 class: "input-field",
-                                 placeholder: "YYYY-MM-DD" %>
+                                 class: "input-field", placeholder: "YYYY-MM-DD" %>
               </div>
 
               <div class="input-container">
                 <%= f.label :checkout_date, class: "input-label" %>
-                <%= f.text_field :checkout_date,
-                                 value: @booking.checkin_date&.strftime("%Y-%m-%d"),
+                <%= f.text_field :checkout_date, value: @booking.checkin_date&.strftime("%Y-%m-%d"),
                                  data: { controller: "flatpickr",flatpickr_min_date: Date.tomorrow.to_s, flatpickr_date_format: "Y-m-d", },
-                                 class: "input-field",
-                                 placeholder: "YYYY-MM-DD" %>
+                                 class: "input-field", placeholder: "YYYY-MM-DD" %>
               </div>
 
               <div class="input-container">
                 <%= f.label :num_of_adult, class: "input-label" %>
-                <%= f.number_field :num_of_adult,
-                                   class: "input-field",
-                                   placeholder: "Number of Adults" %>
+                <%= f.number_field :num_of_adult, class: "input-field", placeholder: "Number of Adults" %>
               </div>
 
               <div class="input-container">
                 <%= f.label :num_of_children, class: "input-label" %>
-                <%= f.number_field :num_of_children,
-                                   class: "input-field",
-                                   placeholder: "Number of Children" %>
+                <%= f.number_field :num_of_children, class: "input-field", placeholder: "Number of Children" %>
               </div>
               <div class="input-container">
                 <%= f.label :payment_status, class: "input-label" %>
@@ -66,8 +54,7 @@
 
               <div class="input-container">
                 <%= f.label :total_amount, class: "input-label" %>
-                <%= f.number_field :total_amount,
-                                   class: "input-field" %>
+                <%= f.number_field :total_amount, class: "input-field" %>
               </div>
             </div>
             <hr>
@@ -76,51 +63,37 @@
                 <h3 class="title">Guest Details</h3>
                 <div class="input-container">
                   <%= guest_form.label :first_name, class: "input-label" %>
-                  <%= guest_form.text_field :first_name,
-                                            class: "input-field",
-                                            placeholder: "First Name" %>
+                  <%= guest_form.text_field :first_name, class: "input-field", placeholder: "First Name" %>
                 </div>
 
                 <div class="input-container">
                   <%= guest_form.label :last_name, class: "input-label" %>
-                  <%= guest_form.text_field :last_name,
-                                            class: "input-field",
-                                            placeholder: "Last Name" %>
+                  <%= guest_form.text_field :last_name, class: "input-field", placeholder: "Last Name" %>
                 </div>
 
                 <div class="input-container">
                   <%= guest_form.label :contact_no, class: "input-label" %>
-                  <%= guest_form.text_field :contact_no,
-                                            class: "input-field",
-                                            placeholder: "Contact Number" %>
+                  <%= guest_form.text_field :contact_no, class: "input-field", placeholder: "Contact Number" %>
                 </div>
 
                 <div class="input-container">
                   <%= guest_form.label :email, class: "input-label" %>
-                  <%= guest_form.email_field :email,
-                                             class: "input-field",
-                                             placeholder: "example@gmail.com" %>
+                  <%= guest_form.email_field :email, class: "input-field", placeholder: "example@gmail.com" %>
                 </div>
 
                 <div class="input-container">
                   <%= guest_form.label :country, class: "input-label" %>
-                  <%= guest_form.text_field :country,
-                                            class: "input-field",
-                                            placeholder: "Country" %>
+                  <%= guest_form.text_field :country, class: "input-field", placeholder: "Country" %>
                 </div>
 
                 <div class="input-container">
                   <%= guest_form.label :region, class: "input-label" %>
-                  <%= guest_form.text_field :region,
-                                            class: "input-field",
-                                            placeholder: "Region/State" %>
+                  <%= guest_form.text_field :region, class: "input-field", placeholder: "Region/State" %>
                 </div>
 
                 <div class="input-container">
                   <%= guest_form.label :city, class: "input-label" %>
-                  <%= guest_form.text_field :city,
-                                            class: "input-field",
-                                            placeholder: "City" %>
+                  <%= guest_form.text_field :city, class: "input-field", placeholder: "City" %>
                 </div>
               <% end %>
             </div>

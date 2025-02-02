@@ -10,7 +10,6 @@
         </ul>
       </div>
     <% end %>
-
     <div class="w-full flex flex-col my-3">
       <div class="my-2">
         <div class="" data-controller="avatar">
@@ -32,7 +31,7 @@
         <p class="input-label">Images:</p>
         <div class="flex flex-col items-center gap-4" data-controller="image">
           <div class="flex items-center gap-4 p-2 border-2 border-dashed rounded border-primary-regular hover:shadow-lg hover:cursor-pointer mt-2" data-action="click->image#selectImage">
-            <%= icon('fa-solid', 'image', class: "fa-2x p-2 avatar-cropper items-center text-primary-regular") %>
+            <%= icon('fa-solid', 'image', class: "fa-2x p-2 avatar-wrapper items-center text-primary-regular") %>
             <span class="text-text-color/50 text-sm">Click to attach Image</span>
           </div>
           <div class="flex flex-1 flex-wrap justify-evenly items-center gap-5" data-image-target="imagesContainer">
@@ -40,10 +39,10 @@
               <% room.images.each do |image| %>
                 <div data-image-target="existingImageContainer">
                   <div class="relative my-2">
-                    <div class="relative image-cropper">
+                    <div class="relative image-wrapper">
                       <%= image_tag(image || "https://placehold.co/200x200", class: "image", data: { image_target: "imagePreview" }) %>
                     </div>
-                    <div class="flex items-center justify-center absolute -top-4 -right-4 avatar-cropper icon hover:cursor-pointer z-10" data-action="click->image#removeExistingImage">
+                    <div class="flex items-center justify-center absolute -top-4 -right-4 avatar-wrapper icon hover:cursor-pointer z-10" data-action="click->image#removeExistingImage">
                       <%= icon('fa-solid', 'xmark', class: "text-primary-regular") %>
                     </div>
                   </div>

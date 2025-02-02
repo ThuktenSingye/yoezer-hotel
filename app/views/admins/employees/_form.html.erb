@@ -112,8 +112,9 @@
     <div>
       <p class="title">Attach Document</p>
       <div class="flex flex-col items-center gap-4" data-controller="file">
-        <div class="flex items-center gap-4 p-2 border-2 border-dashed rounded border-gray-400 hover:shadow-lg hover:cursor-pointer" data-action="click->file#selectFile">
-          <%= icon('fa-solid', 'paste', class: "fa-2x p-2 avatar-cropper items-center text-primary-regular") %>
+        <div class="flex items-center gap-4 p-2 border-2 border-dashed rounded border-gray-400 hover:shadow-lg
+          hover:cursor-pointer" data-action="click->file#selectFile">
+          <%= icon('fa-solid', 'paste', class: "fa-2x p-2 avatar-wrapper items-center text-primary-regular") %>
           <span class="text-text-color/50 text-sm">Click to attach documents</span>
         </div>
         <div class="flex flex-col items-center gap-2 w-full" data-file-target="filesContainer">
@@ -123,7 +124,8 @@
                 <div class="p-1 flex gap-1 items-center">
                   <%= icon("fa-solid", "file", class: "text-primary-regular w-6 h-6 flex items-center justify-center") %>
                   <p data-file-target="filePreview" class="w-5/6"><%= file.filename.to_s %></p>
-                  <div class="flex items-center justify-center avatar-cropper icon hover:cursor-pointer z-10" data-action="click->file#removeExistingFile">
+                  <div class="flex items-center justify-center avatar-wrapper icon hover:cursor-pointer z-10"
+                       data-action="click->file#removeExistingFile">
                     <%= icon('fa-solid', 'trash', class: "text-error") %>
                   </div>
                 </div>
