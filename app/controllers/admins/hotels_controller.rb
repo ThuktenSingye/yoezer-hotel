@@ -16,7 +16,11 @@ module Admins
       if @hotel.update(hotel_params)
         success_response
       else
-        failure_response
+        flash[:alert] = I18n.t('hotel.update.error')
+        render 'admins/hotels/edit', status: :unprocessable_content
+
+        # redirect_to edit_admins_hotel_path(@hotel)
+        # failure_response
       end
     end
 

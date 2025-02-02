@@ -10,6 +10,7 @@
         </ul>
       </div>
     <% end %>
+
     <div class="w-full flex flex-col my-3">
       <div class="my-2">
         <div class="" data-controller="avatar">
@@ -28,11 +29,11 @@
         </div>
       </div>
       <div>
-      <div>
         <p class="input-label">Images:</p>
-        <div class="flex flex-col  md:flex-row gap-2 my-2 ml-2" data-controller="image">
-          <div class="bg-background p-2 border avatar-cropper rounded hover:shadow-lg hover:cursor-pointer" data-action="click->image#selectImage">
-            <%= icon('fa-solid', 'plus', class: "fa-2x text-primary-regular") %>
+        <div class="flex flex-col items-center gap-4" data-controller="image">
+          <div class="flex items-center gap-4 p-2 border-2 border-dashed rounded border-primary-regular hover:shadow-lg hover:cursor-pointer mt-2" data-action="click->image#selectImage">
+            <%= icon('fa-solid', 'image', class: "fa-2x p-2 avatar-cropper items-center text-primary-regular") %>
+            <span class="text-text-color/50 text-sm">Click to attach Image</span>
           </div>
           <div class="flex flex-1 flex-wrap justify-evenly items-center gap-5" data-image-target="imagesContainer">
             <% if room.persisted? %>
@@ -52,7 +53,6 @@
             <% end %>
             <%= f.file_field :images, :multiple => true, accept: "image/*", data: { image_target: "imageInput", action: "change->image#addImage" }, class:"hidden" %>
           </div>
-
         </div>
       </div>
 
@@ -65,41 +65,46 @@
         <%= f.label :floor_number, class: "input-label" %>
         <%= f.number_field :floor_number, rows: 3, class: "input-field", min: 0, max:10 %>
       </div>
+
       <div class="input-container">
         <%= f.label :description, class: "input-label" %>
         <%= f.text_area :description, class: "input-field" %>
       </div>
-        <div class="input-container">
-          <%= f.label :base_price, class: "input-label" %>
-          <%= f.number_field :base_price, class: "input-field" %>
-        </div>
+
+      <div class="input-container">
+        <%= f.label :base_price, class: "input-label" %>
+        <%= f.number_field :base_price, class: "input-field" %>
+      </div>
+
       <div class="input-container">
         <%= f.label :max_no_adult, class: "input-label" %>
         <%= f.number_field :max_no_adult, class: "input-field" %>
       </div>
+
       <div class="input-container">
         <%= f.label :max_no_children, class: "input-label" %>
         <%= f.number_field :max_no_children, class: "input-field" %> ,
       </div>
+
       <div class="input-container">
         <%= f.label :status, class: "input-label" %>
-        <%= f.select :status, Room.statuses.keys.map { |d| [d.humanize, d] } %>
+        <%= f.select :status, Room.statuses.keys.map { |d| [d.humanize, d] }, {}, { disabled: @room.status == 'booked' || @room.status == 'reserved' } %>
       </div>
+
       <div class="input-container">
         <%= f.label :room_category_id, class: "input-label" %>
         <%= f.collection_select :room_category_id, RoomCategory.all, :id, :name, { prompt: "Select a Room Category" } %>
       </div>
+
+      <hr class="bg-primary-regular h-0.5">
+      <div class="flex items-center mt-4 gap-5">
+        <%= f.submit "Save", class: "btn", data: { turbo_frame: "_top"} %>
+        <% if room.persisted? %>
+          <%= link_to "Cancel", admins_hotel_room_path(@hotel, room) , class: "btn", data: { turbo_frame: "_top"} %>
+        <% else %>
+          <%= link_to "Cancel",admins_hotel_rooms_path(@hotel), class: "btn", data: { turbo_frame: "_top"} %>
+        <% end %>
       </div>
-    <hr class="bg-primary-regular h-0.5">
-    <div class="flex items-center mt-4 gap-5">
-      <%= f.submit "Save", class: "btn", data: { turbo_frame: "_top"} %>
-      <% if room.persisted? %>
-        <%= link_to "Cancel", admins_hotel_room_path(@hotel, room) , class: "btn", data: { turbo_frame: "_top"} %>
-      <% else %>
-        <%= link_to "Cancel",admins_hotel_rooms_path(@hotel), class: "btn", data: { turbo_frame: "_top"} %>
-      <% end %>
     </div>
   <% end %>
-</div>
-
 </div>

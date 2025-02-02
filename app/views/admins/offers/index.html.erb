@@ -6,7 +6,7 @@
         <%= link_to "Add", new_admins_hotel_offer_path(@hotel), class: "btn" %>
       </div>
     </div>
-    <div class="flex flex-wrap items-center justify-center gap-5 z-10 ">
+    <div class="relative flex flex-wrap items-center justify-center gap-5 z-10 ">
       <% @offers.each do |offer| %>
         <%= render "admins/offers/offer_card", offer: offer %>
       <% end %>

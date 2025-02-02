@@ -75,14 +75,15 @@
         @apply  w-11/12 md:w-2/3 text-text-color/50 font-poppins p-2 border rounded focus:outline-primary-regular;
     }
     .input-label{
-        @apply w-32 shrink-0 self-start pt-2
+        @apply w-40 shrink-0 self-start pt-2
     }
     .input-label-sm {
         @apply w-48 shrink-0 self-start
     }
-    .input-value{
-        @apply md:px-2 text-text-color/50 font-poppins;
+    .input-value {
+        @apply text-text-color/50 font-poppins text-wrap;
     }
+
     .flash {
         @apply fixed left-1/2 top-28 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-4 px-4 w-full z-50;
     }
@@ -172,5 +173,8 @@
     }
     .query-field {
         @apply bg-white p-2 mt-4 text-sm rounded border-2 focus:shadow-none focus:border-primary-regular focus:outline-none
+    }
+    .field_with_errors {
+        @apply border border-red-500
     }
 }
