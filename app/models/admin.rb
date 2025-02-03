@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Represents an admins user with authentication and profile association
 class Admin < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -5,5 +8,6 @@ class Admin < ApplicationRecord
   devise :database_authenticatable,
          :recoverable, :rememberable, :validatable
 
-  has_one :profile, as: :profileable
+  belongs_to :hotel
+  has_one :profile, as: :profileable, dependent: :destroy
 end

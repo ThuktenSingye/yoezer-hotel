@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Feedback, type: :model do
-  context "associations" do
-    it { should belong_to :hotel }
+  context 'when associating models' do
+    it { is_expected.to belong_to :hotel }
   end
 end

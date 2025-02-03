@@ -12,7 +12,7 @@
     <%= icon("fa-solid", "bars", class: "w-6") %>
   </button>
   <div
-    class="fixed z-10 inset-y-0 h-screen left-0 w-64 p-4 bg-primary-regular transform -translate-x-full
+    class="fixed z-50 inset-y-0 h-screen left-0 w-64 p-4 bg-primary-regular transform -translate-x-full
     transition-transform duration-300 md:translate-x-0 md:static md:w-64"
     data-sidebar-target="sidebar"
     data-turbo-permanent>
@@ -53,38 +53,38 @@
             data-transition-leave="transition ease-in duration-75"
             data-transition-leave-start="transform opacity-100 scale-100"
             data-transition-leave-end="transform opacity-0 scale-95">
-            <li class="sidebar-menu-row <%= current_page?(admin_hotels_path) ? "bg-white rounded" : "" %>">
-              <%= link_to admin_hotels_path, class: "w-full flex items-center" do %>
-                <%= icon("fa-solid", "house", class: "w-6 #{current_page?(admin_hotels_path) ? 'text-primary-regular' : 'text-white'}") %>
-                <span class="text-sm ml-2  <%= current_page?(admin_hotels_path) ? "text-primary-regular" : "text-white" %>">Hotel Details</span>
+            <li class="sidebar-menu-row <%= current_page?(admins_hotels_path) ? "bg-white rounded" : "" %>">
+              <%= link_to admins_hotels_path, class: "w-full flex items-center" do %>
+                <%= icon("fa-solid", "house", class: "w-6 #{current_page?(admins_hotels_path) ? 'text-primary-regular' : 'text-white'}") %>
+                <span class="text-sm ml-2  <%= current_page?(admins_hotels_path) ? "text-primary-regular" : "text-white" %>">Hotel Details</span>
               <% end %>
             </li>
 
-            <li class="sidebar-menu-row <%= current_page?(admin_hotel_amenities_path(hotel)) ? "bg-white rounded" : "" %>">
-              <%= link_to admin_hotel_amenities_path(hotel), class: "w-full flex items-center" do %>
-                <%= icon("fa-solid", "hands-holding", class: "w-6 #{current_page?(admin_hotel_amenities_path(hotel)) ? 'text-primary-regular' : 'text-white'}") %>
-                <span class="text-sm ml-2  <%= current_page?(admin_hotel_amenities_path(hotel)) ? "text-primary-regular" : "text-white" %>">Amenities</span>
+            <li class="sidebar-menu-row <%= current_page?(admins_hotel_amenities_path(hotel)) ? "bg-white rounded" : "" %>">
+              <%= link_to admins_hotel_amenities_path(hotel), class: "w-full flex items-center" do %>
+                <%= icon("fa-solid", "hands-holding", class: "w-6 #{current_page?(admins_hotel_amenities_path(hotel)) ? 'text-primary-regular' : 'text-white'}") %>
+                <span class="text-sm ml-2  <%= current_page?(admins_hotel_amenities_path(hotel)) ? "text-primary-regular" : "text-white" %>">Amenities</span>
               <% end %>
             </li>
 
-            <li class="sidebar-menu-row <%= current_page?(admin_hotel_offers_path(hotel)) ? "bg-white rounded" : "" %>">
-              <%= link_to admin_hotel_offers_path(hotel), class: "w-full flex items-center" do %>
-                <%= icon("fa-solid", "hand-holding-heart", class: "w-6 #{current_page?(admin_hotel_offers_path(hotel)) ? 'text-primary-regular' : 'text-white'}") %>
-                <span class="text-sm ml-2  <%= current_page?(admin_hotel_offers_path(hotel)) ? "text-primary-regular" : "text-white" %>">Offer</span>
+            <li class="sidebar-menu-row <%= current_page?(admins_hotel_offers_path(hotel)) ? "bg-white rounded" : "" %>">
+              <%= link_to admins_hotel_offers_path(hotel), class: "w-full flex items-center" do %>
+                <%= icon("fa-solid", "hand-holding-heart", class: "w-6 #{current_page?(admins_hotel_offers_path(hotel)) ? 'text-primary-regular' : 'text-white'}") %>
+                <span class="text-sm ml-2  <%= current_page?(admins_hotel_offers_path(hotel)) ? "text-primary-regular" : "text-white" %>">Offer</span>
               <% end %>
             </li>
 
-            <li class="sidebar-menu-row <%= current_page?(admin_hotel_feedbacks_path(hotel)) ? "bg-white rounded" : "" %>">
-              <%= link_to admin_hotel_feedbacks_path(hotel), class: "w-full flex items-center" do %>
-                <%= icon("fa-solid", "comment", class: "w-6 #{current_page?(admin_hotel_feedbacks_path(hotel)) ? 'text-primary-regular' : 'text-white'}") %>
-                <span class="text-sm ml-2  <%= current_page?(admin_hotel_feedbacks_path(hotel)) ? "text-primary-regular" : "text-white" %>">Feedback</span>
+            <li class="sidebar-menu-row <%= current_page?(admins_hotel_feedbacks_path(hotel)) ? "bg-white rounded" : "" %>">
+              <%= link_to admins_hotel_feedbacks_path(hotel), class: "w-full flex items-center" do %>
+                <%= icon("fa-solid", "comment", class: "w-6 #{current_page?(admins_hotel_feedbacks_path(hotel)) ? 'text-primary-regular' : 'text-white'}") %>
+                <span class="text-sm ml-2  <%= current_page?(admins_hotel_feedbacks_path(hotel)) ? "text-primary-regular" : "text-white" %>">Feedback</span>
               <% end %>
             </li>
 
-            <li class="sidebar-menu-row <%= current_page?(admin_hotel_hotel_galleries_path(hotel)) ? "bg-white rounded" : "" %>">
-              <%= link_to admin_hotel_hotel_galleries_path(hotel), class: "w-full flex items-center" do %>
-                <%= icon("fa-solid", "image", class: "w-6 #{current_page?(admin_hotel_hotel_galleries_path(hotel)) ? 'text-primary-regular' : 'text-white'}") %>
-                <span class="text-sm ml-2  <%= current_page?(admin_hotel_hotel_galleries_path(hotel)) ? "text-primary-regular" : "text-white" %>">Gallary</span>
+            <li class="sidebar-menu-row <%= current_page?(admins_hotel_hotel_galleries_path(hotel)) ? "bg-white rounded" : "" %>">
+              <%= link_to admins_hotel_hotel_galleries_path(hotel), class: "w-full flex items-center" do %>
+                <%= icon("fa-solid", "image", class: "w-6 #{current_page?(admins_hotel_hotel_galleries_path(hotel)) ? 'text-primary-regular' : 'text-white'}") %>
+                <span class="text-sm ml-2  <%= current_page?(admins_hotel_hotel_galleries_path(hotel)) ? "text-primary-regular" : "text-white" %>">Gallary</span>
               <% end %>
             </li>
           </ul>
@@ -111,57 +111,57 @@
             data-transition-leave="transition ease-in duration-75"
             data-transition-leave-start="transform opacity-100 scale-100"
             data-transition-leave-end="transform opacity-0 scale-95">
-            <li class="sidebar-menu-row <%= current_page?(admin_path) ? "bg-white rounded" : "" %>">
-              <%= link_to admin_path, class: "w-full flex items-center" do %>
-                <%= icon("fa-solid", "circle-info", class: "w-6 #{current_page?(admin_path) ? 'text-primary-regular' : 'text-white'}") %>
-                <span class="text-sm ml-2  <%= current_page?(admin_path) ? "text-primary-regular" : "text-white" %>">Details</span>
+            <li class="sidebar-menu-row <%= current_page?(admins_path) ? "bg-white rounded" : "" %>">
+              <%= link_to admins_path, class: "w-full flex items-center" do %>
+                <%= icon("fa-solid", "circle-info", class: "w-6 #{current_page?(admins_path) ? 'text-primary-regular' : 'text-white'}") %>
+                <span class="text-sm ml-2  <%= current_page?(admins_path) ? "text-primary-regular" : "text-white" %>">Details</span>
               <% end %>
             </li>
 
-            <li class="sidebar-menu-row<%= current_page?(admin_path) ? "bg-white rounded" : "" %>">
-              <%= link_to admin_path, class: "w-full flex items-center" do %>
-                <%= icon("fa-solid", "hands-holding-heart", class: "w-6 #{current_page?(admin_path) ? 'text-primary-regular' : 'text-white'}") %>
-                <span class="text-sm ml-2  <%= current_page?(admin_path) ? "text-primary-regular" : "text-white" %>">Room Class</span>
+            <li class="sidebar-menu-row<%= current_page?(admins_path) ? "bg-white rounded" : "" %>">
+              <%= link_to admins_path, class: "w-full flex items-center" do %>
+                <%= icon("fa-solid", "hands-holding-heart", class: "w-6 #{current_page?(admins_path) ? 'text-primary-regular' : 'text-white'}") %>
+                <span class="text-sm ml-2  <%= current_page?(admins_path) ? "text-primary-regular" : "text-white" %>">Room Class</span>
               <% end %>
             </li>
 
-            <li class="sidebar-menu-row <%= current_page?(admin_path) ? "bg-white rounded" : "" %>">
-              <%= link_to admin_path, class: "w-full flex items-center" do %>
-                <%= icon("fa-solid", "bed", class: "w-6 #{current_page?(admin_path) ? 'text-primary-regular' : 'text-white'}") %>
-                <span class="text-sm ml-2  <%= current_page?(admin_path) ? "text-primary-regular" : "text-white" %>">Bed Type</span>
+            <li class="sidebar-menu-row <%= current_page?(admins_path) ? "bg-white rounded" : "" %>">
+              <%= link_to admins_path, class: "w-full flex items-center" do %>
+                <%= icon("fa-solid", "bed", class: "w-6 #{current_page?(admins_path) ? 'text-primary-regular' : 'text-white'}") %>
+                <span class="text-sm ml-2  <%= current_page?(admins_path) ? "text-primary-regular" : "text-white" %>">Bed Type</span>
               <% end %>
             </li>
 
-            <li class="sidebar-menu-row <%= current_page?(admin_path) ? "bg-white rounded" : "" %>">
-              <%= link_to admin_path, class: "w-full flex items-center" do %>
-                <%= icon("fa-solid", "hands-holding-heart", class: "w-6 #{current_page?(admin_path) ? 'text-primary-regular' : 'text-white'}") %>
-                <span class="text-sm ml-2  <%= current_page?(admin_path) ? "text-primary-regular" : "text-white" %>">Facility</span>
+            <li class="sidebar-menu-row <%= current_page?(admins_path) ? "bg-white rounded" : "" %>">
+              <%= link_to admins_path, class: "w-full flex items-center" do %>
+                <%= icon("fa-solid", "hands-holding-heart", class: "w-6 #{current_page?(admins_path) ? 'text-primary-regular' : 'text-white'}") %>
+                <span class="text-sm ml-2  <%= current_page?(admins_path) ? "text-primary-regular" : "text-white" %>">Facility</span>
               <% end %>
             </li>
           </ul>
         </div>
       </li>
       <li class="sidebar-menu-container">
-          <%= link_to admin_path, class: "w-5/6 flex items-center py-2 px-2 mb-2 rounded hover:bg-white group
-       hover:transition ease-in-out duration-300 #{current_page?(admin_path) ? 'bg-white rounded' : ''}" do %>
-            <%= icon("fa-solid", "user-group", class: "w-6 mr-1 #{current_page?(admin_path) ? 'text-primary-regular' : 'text-white group-hover:text-primary-regular'}") %>
-            <span class="font-title tracking-wider font-semibold <%= current_page?(admin_path) ? "text-primary-regular" : "text-white group-hover:text-primary-regular" %>">Employee</span>
+          <%= link_to admins_path, class: "w-5/6 flex items-center py-2 px-2 mb-2 rounded hover:bg-white group
+       hover:transition ease-in-out duration-300 #{current_page?(admins_path) ? 'bg-white rounded' : ''}" do %>
+            <%= icon("fa-solid", "user-group", class: "w-6 mr-1 #{current_page?(admins_path) ? 'text-primary-regular' : 'text-white group-hover:text-primary-regular'}") %>
+            <span class="font-title tracking-wider font-semibold <%= current_page?(admins_path) ? "text-primary-regular" : "text-white group-hover:text-primary-regular" %>">Employee</span>
           <% end %>
       </li>
 
       <li class="sidebar-menu-container">
-          <%= link_to admin_path, class: "w-5/6 flex items-center py-2 px-2 mb-2 rounded hover:bg-white group
-       hover:transition ease-in-out duration-300 #{current_page?(admin_path) ? 'bg-white rounded' : ''}" do %>
-            <%= icon("fa-solid", "person-shelter", class: "w-6 mr-1 #{current_page?(admin_path) ? 'text-primary-regular' : 'text-white group-hover:text-primary-regular'}") %>
-            <span class="font-title tracking-wider font-semibold <%= current_page?(admin_path) ? "text-primary-regular" : "text-white group-hover:text-primary-regular" %>">Guest</span>
+          <%= link_to admins_path, class: "w-5/6 flex items-center py-2 px-2 mb-2 rounded hover:bg-white group
+       hover:transition ease-in-out duration-300 #{current_page?(admins_path) ? 'bg-white rounded' : ''}" do %>
+            <%= icon("fa-solid", "person-shelter", class: "w-6 mr-1 #{current_page?(admins_path) ? 'text-primary-regular' : 'text-white group-hover:text-primary-regular'}") %>
+            <span class="font-title tracking-wider font-semibold <%= current_page?(admins_path) ? "text-primary-regular" : "text-white group-hover:text-primary-regular" %>">Guest</span>
           <% end %>
       </li>
 
       <li class="sidebar-menu-container">
           <%= link_to destroy_admin_session_path, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "w-5/6 flex items-center py-2 px-2 mb-2 rounded hover:bg-white group
-       hover:transition ease-in-out duration-300 #{current_page?(admin_path) ? 'bg-white rounded' : ''}" do %>
-            <%= icon("fa-solid", "arrow-right-from-bracket", class: "w-6 mr-1 #{current_page?(admin_path) ? 'text-primary-regular' : 'text-white group-hover:text-primary-regular'}") %>
-            <span class="font-title tracking-wider font-semibold <%= current_page?(admin_path) ? "text-primary-regular" : "text-white group-hover:text-primary-regular" %>">Sign Out</span>
+       hover:transition ease-in-out duration-300 #{current_page?(admins_path) ? 'bg-white rounded' : ''}" do %>
+            <%= icon("fa-solid", "arrow-right-from-bracket", class: "w-6 mr-1 #{current_page?(admins_path) ? 'text-primary-regular' : 'text-white group-hover:text-primary-regular'}") %>
+            <span class="font-title tracking-wider font-semibold <%= current_page?(admins_path) ? "text-primary-regular" : "text-white group-hover:text-primary-regular" %>">Sign Out</span>
           <% end %>
       </li>
     </ul>

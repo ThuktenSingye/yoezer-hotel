@@ -1,0 +1,11 @@
+<%= link_to admins_hotel_hotel_gallery_path(@hotel, hotel_gallery) do %>
+  <div class="card-wrapper-sm card-animation card-bg mt-2 p-3 flex flex-col gap-2">
+    <div class="card-image-cropper-sm">
+      <%= image_tag(hotel_gallery&.image || "https://placehold.co/200x200", class:"object-cover w-full h-full rounded" ) %>
+    </div>
+    <div class="mb-2">
+      <h3 class="title mb-2"><%= hotel_gallery.name %></h3>
+      <p class="text-sm text-text-color/50 line-clamp-1"><%= hotel_gallery.description %></p>
+    </div>
+  </div>
+<% end %>

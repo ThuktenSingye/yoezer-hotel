@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_21_070447) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_22_120947) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -70,7 +70,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_21_070447) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "hotel_id"
     t.index ["email"], name: "index_admins_on_email", unique: true
+    t.index ["hotel_id"], name: "index_admins_on_hotel_id"
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
@@ -145,11 +147,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_21_070447) do
     t.bigint "profileable_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["cid_no"], name: "index_profiles_on_cid_no", unique: true
     t.index ["profileable_type", "profileable_id"], name: "index_profiles_on_profileable"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "admins", "hotels"
   add_foreign_key "feedbacks", "hotels"
   add_foreign_key "hotel_galleries", "hotels"
   add_foreign_key "hotel_ratings", "hotels"

@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Migration to create the addresses table with polymorphic association
 class CreateAddresses < ActiveRecord::Migration[8.0]
   def change
     create_table :addresses do |t|

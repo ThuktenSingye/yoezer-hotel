@@ -1,0 +1,45 @@
+<turbo-frame id="<%= dom_id profile %>" class="block">
+  <div class="m-4" role="region" aria-labelledby="profile-<%= dom_id profile %>">
+    <div class="flex flex-col justify-center">
+      <div class="mb-2">
+        <h2 class="title">Profile</h2>
+        <% profile_attributes = [
+          { name: "Name", value: "#{profile.first_name} #{profile.last_name}" },
+          { name: "CID No", value: profile.cid_no },
+          { name: "Contact No", value: profile.contact_no },
+          { name: "Joining Date", value: profile.date_of_joining },
+          { name: "DoB", value: profile.dob },
+          { name: "Qualification", value: profile.qualification },
+          { name: "Designation", value: profile.designation }
+        ] %>
+        <% profile_attributes.each do |attribute| %>
+          <%= render 'shared/input', input: attribute %>
+        <% end %>
+      </div>
+      <hr>
+      <div class="my-2">
+        <div>
+          <h2 class="title">Present Address</h2>
+          <% profile.addresses.where(address_type: :present).each do |addr| %>
+            <%= render 'shared/input', input: { name: "Dzongkhag", value: addr.dzongkhag } %>
+            <%= render 'shared/input', input: { name: "Gewog", value: addr.gewog } %>
+            <%= render 'shared/input', input: { name: "Address", value: addr.street_address } %>
+          <% end %>
+        </div>
+        <hr class="my-2">
+        <div class="mt-2 mb-0">
+          <h2 class="title">Permanent Address</h2>
+          <% profile.addresses.where(address_type: :permanent).each do |addr| %>
+            <%= render 'shared/input', input: { name: "Dzongkhag", value: addr.dzongkhag } %>
+            <%= render 'shared/input', input: { name: "Gewog", value: addr.gewog } %>
+            <%= render 'shared/input', input: { name: "Address", value: addr.street_address } %>
+          <% end %>
+        </div>
+      </div>
+      <hr class="bg-primary-regular h-0.5 my-2">
+      <div class="self-end mt-2">
+        <%= link_to "Edit", edit_admins_profile_path(profile), class: "btn" %>
+      </div>
+    </div>
+  </div>
+</turbo-frame>
