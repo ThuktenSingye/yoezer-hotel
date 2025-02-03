@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 require 'rails_helper'
 
@@ -46,11 +47,13 @@ RSpec.describe 'Admins::Facilities', type: :request do
       it { is_expected.to redirect_to admins_hotel_facilities_path(hotel) }
       it { expect { create_facility }.to change(Facility, :count).by(1) }
 
+      # rubocop:disable RSpec/MultipleExpectations
       it 'creates the facility with the correct attributes' do
         create_facility
         expect(Facility.last.name).to eq(valid_facility_params[:name])
         expect(Facility.last.image).to be_attached
         expect(Facility.last.image.filename.to_s).to eq(valid_facility_params[:image].original_filename)
+        # rubocop:enable RSpec/MultipleExpectations
       end
     end
 
@@ -95,11 +98,13 @@ RSpec.describe 'Admins::Facilities', type: :request do
       it { is_expected.to redirect_to admins_hotel_facilities_path(hotel) }
       it { expect { update_facility }.not_to change(Facility, :count) }
 
+      # rubocop:disable RSpec/MultipleExpectations
       it 'updates the facility with the correct name' do
         update_facility
         expect(Facility.last.name).to eq(valid_facility_params[:name])
         expect(Facility.last.image).to be_attached
         expect(Facility.last.image.filename.to_s).to eq(valid_facility_params[:image].original_filename)
+        # rubocop:enable RSpec/MultipleExpectations
       end
     end
 
@@ -132,4 +137,3 @@ RSpec.describe 'Admins::Facilities', type: :request do
     it { expect { delete_facility }.to change(Facility, :count).by(-1) }
   end
 end
-
