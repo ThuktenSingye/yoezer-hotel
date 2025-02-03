@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Method to calculate rating star
-module RatingCalculable
+module RatingCalculator
   extend ActiveSupport::Concern
 
   class_methods do

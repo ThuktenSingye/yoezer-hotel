@@ -15,12 +15,6 @@
         </button>
       <% end %>
 
-      <%#= link_to admins_hotel_bed_type_path(@hotel, bed_type), class: "hidden md:block", data: {"turbo-method": :delete, "turbo-frame": dom_id(bed_type), "turbo-confirm": "Are you sure to delete?"} do %>
-<!--        <button class="icon icon-button p-2 group-hover:bg-white hidden md:block">-->
-          <%#= icon('fa-solid', 'trash', class: "text-error") %>
-<!--        </button>-->
-      <%# end %>
-
       <%= link_to admins_hotel_bed_type_path(@hotel, bed_type), class: "hidden md:block", data: {"turbo-method": :delete, "turbo-confirm": "Are you sure to delete?", turbo_frame: "_top"} do %>
         <button class="icon icon-button p-2 group-hover:bg-white hidden md:block">
           <%= icon('fa-solid', 'trash', class: "text-error") %>
