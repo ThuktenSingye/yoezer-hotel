@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe 'Admins::Employees', type: :request do
   let!(:hotel) { FactoryBot.create(:hotel) }
   let!(:admin) { FactoryBot.create(:admin) }
-  let!(:employee) { FactoryBot.create(:employee) }
+  let!(:employee) { FactoryBot.create(:employee, hotel: hotel) }
 
   before do
     sign_in admin, scope: :admin
@@ -105,12 +105,15 @@ RSpec.describe 'Admins::Employees', type: :request do
       it { is_expected.to redirect_to admins_hotel_employee_path(hotel, employee) }
       it { expect { update_employee }.not_to change(Room, :count) }
 
+      # rubocop:disable RSpec/MultipleExpectations
       it 'updates the employee with correct employee attributes' do
         update_employee
         expect(Employee.last.email).to eq(valid_employee_params[:email])
         expect(Employee.last.documents).to be_attached
+        # rubocop:enable RSpec/MultipleExpectations
       end
 
+      # rubocop:disable RSpec/ExampleLength
       it 'updates the employee with correct profile attributes' do
         update_employee
         expect(Employee.last.profile).to have_attributes(
@@ -124,8 +127,10 @@ RSpec.describe 'Admins::Employees', type: :request do
           dob: valid_employee_params[:profile_attributes][:dob],
           qualification: valid_employee_params[:profile_attributes][:qualification]
         )
+        # rubocop:enable RSpec/ExampleLength
       end
 
+      # rubocop:disable RSpec/ExampleLength
       it 'updates the employee with correct address attributes' do
         update_employee
         expect(Employee.last.profile.addresses.first).to have_attributes(
@@ -134,6 +139,7 @@ RSpec.describe 'Admins::Employees', type: :request do
           street_address: valid_employee_params[:profile_attributes][:addresses_attributes].first[:street_address],
           address_type: valid_employee_params[:profile_attributes][:addresses_attributes].first[:address_type].to_s
         )
+        # rubocop:enable RSpec/ExampleLength
       end
     end
 
@@ -222,12 +228,15 @@ RSpec.describe 'Admins::Employees', type: :request do
       it { is_expected.to redirect_to admins_hotel_employees_path(hotel) }
       it { expect { create_employee }.to change(Employee, :count).by(1) }
 
+      # rubocop:disable RSpec/MultipleExpectations
       it 'create the employee with correct employee attributes' do
         create_employee
         expect(Employee.last.email).to eq(valid_employee_params[:email])
         expect(Employee.last.documents).to be_attached
+        # rubocop:enable RSpec/MultipleExpectations
       end
 
+      # rubocop:disable RSpec/ExampleLength
       it 'create the employee with correct profile attributes' do
         create_employee
         expect(Employee.last.profile).to have_attributes(
@@ -241,8 +250,10 @@ RSpec.describe 'Admins::Employees', type: :request do
           dob: valid_employee_params[:profile_attributes][:dob],
           qualification: valid_employee_params[:profile_attributes][:qualification]
         )
+        # rubocop:enable RSpec/ExampleLength
       end
 
+      # rubocop:disable RSpec/ExampleLength
       it 'create the employee with correct address attributes' do
         create_employee
         expect(Employee.last.profile.addresses.first).to have_attributes(
@@ -251,6 +262,7 @@ RSpec.describe 'Admins::Employees', type: :request do
           street_address: valid_employee_params[:profile_attributes][:addresses_attributes].first[:street_address],
           address_type: valid_employee_params[:profile_attributes][:addresses_attributes].first[:address_type].to_s
         )
+        # rubocop:enable RSpec/ExampleLength
       end
     end
 
