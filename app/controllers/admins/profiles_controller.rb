@@ -36,7 +36,7 @@ module Admins
                                       addresses_attributes: %i[id dzongkhag gewog street_address address_type])
     end
 
-    # rubocop:disable Metric/MethodLength
+    # rubocop:disable Metrics/MethodLength
     def success_response
       respond_to do |format|
         format.html { redirect_to admins_profiles_path }
@@ -50,7 +50,7 @@ module Admins
         end
       end
     end
-    # rubocop:enable Metric/MethodLength
+    # rubocop:enable Metrics/MethodLength
 
     def failure_response
       respond_to do |format|
