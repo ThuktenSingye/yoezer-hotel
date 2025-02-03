@@ -13,6 +13,7 @@ RSpec.describe 'Admins::RoomBedTypes', type: :request do
   end
 
   describe 'POST /create' do
+    # rubocop:disable RSpec/MultipleMemoizedHelpers
     context 'with valid params' do
       subject(:create_room_bed_type) do
         post admins_hotel_room_room_bed_types_path(hotel, room), params: { room_bed_type: valid_room_bed_type_params }
@@ -40,6 +41,7 @@ RSpec.describe 'Admins::RoomBedTypes', type: :request do
         create_room_bed_type
         expect(RoomBedType.last.bed_type_id).to eq(valid_room_bed_type_params[:bed_type_id])
       end
+      # rubocop:enable RSpec/MultipleMemoizedHelpers
     end
 
     context 'with invalid params' do
