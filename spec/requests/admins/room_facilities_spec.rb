@@ -13,6 +13,7 @@ RSpec.describe 'Admins::RoomFacilities', type: :request do
   end
 
   describe 'POST /create' do
+    # rubocop:disable RSpec/MultipleMemoizedHelpers
     context 'with valid params' do
       subject(:create_room_facility) do
         post admins_hotel_room_room_facilities_path(hotel, room), params: { room_facility: valid_room_facility_params }
@@ -52,6 +53,7 @@ RSpec.describe 'Admins::RoomFacilities', type: :request do
       it { is_expected.to redirect_to admins_hotel_room_path(hotel, room) }
       it { expect { create_room_facility }.not_to change(RoomFacility, :count) }
     end
+    # rubocop:enable RSpec/MultipleMemoizedHelpers
   end
 
   describe 'DELETE /destroy' do
