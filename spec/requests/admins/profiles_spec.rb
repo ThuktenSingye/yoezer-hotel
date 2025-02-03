@@ -36,7 +36,7 @@ RSpec.describe 'Admin::Profiles', type: :request do
 
     context 'with valid params' do
       subject(:update_profile) do
-        put admins_profile_path(profile, params: { profile: valid_profile_params })
+        put admins_profile_path(profile), params: { profile: valid_profile_params }
         response
       end
 
@@ -58,11 +58,10 @@ RSpec.describe 'Admin::Profiles', type: :request do
       it { is_expected.to have_http_status :found }
       it { is_expected.to redirect_to admins_profiles_path }
       it { expect { update_profile }.not_to change(Profile, :count) }
-      it { expect(Profile.last.avatar).to be_attached }
-      it { expect(Profile.last.avatar.filename.to_s).to eq(valid_profile_params[:avatar].original_filename) }
 
-      # rubocop:disable RSpec/ExampleLength
+      # rubocop:disable RSpec/ExampleLength, RSpec/MultipleExpectations
       it 'updates profile attributes correctly and attaches the correct avatar' do
+        update_profile
         expect(Profile.last).to have_attributes(
           first_name: valid_profile_params[:first_name],
           last_name: valid_profile_params[:last_name],
@@ -74,7 +73,9 @@ RSpec.describe 'Admin::Profiles', type: :request do
           qualification: valid_profile_params[:qualification],
           cid_no: valid_profile_params[:cid_no]
         )
-        # rubocop:enable RSpec/ExampleLength
+        expect(Profile.last.avatar).to be_attached
+        expect(Profile.last.avatar.filename.to_s).to eq(valid_profile_params[:avatar].original_filename)
+        # rubocop:enable RSpec/ExampleLength, RSpec/MultipleExpectations
       end
     end
 
