@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe 'Admins::BedTypes', type: :request do
   let!(:hotel) { FactoryBot.create(:hotel) }
   let!(:admin) { FactoryBot.create(:admin) }
-  let!(:bed_type) { FactoryBot.create(:bed_type) }
+  let!(:bed_type) { FactoryBot.create(:bed_type, hotel: hotel) }
 
   before do
     sign_in admin, scope: :admin
