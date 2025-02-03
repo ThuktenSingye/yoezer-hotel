@@ -88,6 +88,7 @@ RSpec.describe 'Admins::Rooms', type: :request do
       it { is_expected.to redirect_to admins_hotel_room_path(hotel, room) }
       it { expect { update_room }.not_to change(Room, :count) }
 
+      # rubocop:disable RSpec/ExampleLength, RSpec/MultipleExpectations
       it 'updates the room with correct attributes' do
         update_room
         expect(Room.last).to have_attributes(
@@ -100,6 +101,7 @@ RSpec.describe 'Admins::Rooms', type: :request do
         )
         expect(Room.last.image).to be_attached
         expect(Room.last.images).to be_attached
+        # rubocop:enable RSpec/ExampleLength, RSpec/MultipleExpectations
       end
     end
 
@@ -153,6 +155,7 @@ RSpec.describe 'Admins::Rooms', type: :request do
       it { is_expected.to redirect_to admins_hotel_rooms_path(hotel) }
       it { expect { create_room }.to change(Room, :count).by(1) }
 
+      # rubocop:disable RSpec/ExampleLength, RSpec/MultipleExpectations
       it 'create the room with correct attributes' do
         create_room
         expect(Room.last).to have_attributes(
@@ -165,6 +168,7 @@ RSpec.describe 'Admins::Rooms', type: :request do
         )
         expect(Room.last.image).to be_attached
         expect(Room.last.images).to be_attached
+        # rubocop:enable RSpec/ExampleLength, RSpec/MultipleExpectations
       end
     end
 
