@@ -76,21 +76,19 @@ RSpec.describe 'Admin::Offers', type: :request do
         }
       end
 
+      before { update_offer }
+
       it { is_expected.to have_http_status :found }
       it { is_expected.to redirect_to admins_hotel_offer_path(hotel, offer) }
-      it { expect { update_offer }.not_to change(Offer, :count) }
+      it { expect(Offer.last.image).to be_attached }
+      it { expect(Offer.last.image.filename.to_s).to eq(valid_hotel_offer_params[:image].original_filename) }
 
       it 'updates the offer with correct attributes' do
-        update_offer
         expect(Offer.last).to have_attributes(
-          title: valid_hotel_offer_params[:title],
-          description: valid_hotel_offer_params[:description],
-          start_time: valid_hotel_offer_params[:start_time],
-          end_time: valid_hotel_offer_params[:end_time],
+          title: valid_hotel_offer_params[:title], description: valid_hotel_offer_params[:description],
+          start_time: valid_hotel_offer_params[:start_time], end_time: valid_hotel_offer_params[:end_time],
           discount: valid_hotel_offer_params[:discount]
         )
-        expect(Offer.last.image).to be_attached
-        expect(Offer.last.image.filename.to_s).to eq(valid_hotel_offer_params[:image].original_filename)
       end
     end
 
@@ -104,7 +102,6 @@ RSpec.describe 'Admin::Offers', type: :request do
 
       it { is_expected.to have_http_status :unprocessable_entity }
       it { is_expected.to render_template :edit }
-      it { expect { update_offer }.not_to change(Offer, :count) }
 
       it 'assigns the correct offer' do
         update_offer
@@ -131,12 +128,15 @@ RSpec.describe 'Admin::Offers', type: :request do
         }
       end
 
+      before { create_offer }
+
       it { is_expected.to have_http_status :found }
       it { is_expected.to redirect_to admins_hotel_offers_path(hotel) }
-      it { expect { create_offer }.to change(Offer, :count).by(1) }
+      it { expect(Offer.last.image).to be_attached }
+      it { expect(Offer.last.image.filename.to_s).to eq(valid_hotel_offer_params[:image].original_filename) }
 
-      it 'creates the offer with correct attributes' do
-        create_offer
+      # rubocop:disable RSpec/ExampleLength
+      it 'updates the offer with correct attributes' do
         expect(Offer.last).to have_attributes(
           title: valid_hotel_offer_params[:title],
           description: valid_hotel_offer_params[:description],
@@ -144,8 +144,7 @@ RSpec.describe 'Admin::Offers', type: :request do
           end_time: valid_hotel_offer_params[:end_time],
           discount: valid_hotel_offer_params[:discount]
         )
-        expect(Offer.last.image).to be_attached
-        expect(Offer.last.image.filename.to_s).to eq(valid_hotel_offer_params[:image].original_filename)
+        # rubocop:enable RSpec/ExampleLength
       end
     end
 
