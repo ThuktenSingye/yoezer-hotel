@@ -1,0 +1,2 @@
+module Admin::HotelGalleriesHelper
+end
