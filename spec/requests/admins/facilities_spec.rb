@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 
 require 'rails_helper'
 
@@ -133,3 +132,4 @@ RSpec.describe 'Admins::Facilities', type: :request do
     it { expect { delete_facility }.to change(Facility, :count).by(-1) }
   end
 end
+
