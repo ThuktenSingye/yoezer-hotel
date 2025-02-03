@@ -3,7 +3,7 @@
 module Admins
   # Manages hotels in the admins interface
   class HotelsController < AdminsController
-    include RatingCalculable
+    include RatingCalculator
     before_action :hotel, only: %i[edit update]
 
     def index
