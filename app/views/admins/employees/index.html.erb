@@ -1,8 +1,8 @@
-<div class="mx-4">
+<div class="mx-8">
   <turbo-frame id="employee">
     <div class="card px-4 w-full mx-auto">
-      <div class="w-full flex justify-between items-center">
-        <div class="flex justify-center items-center gap-4">
+      <div class="w-full flex justify-between items-center mt-4">
+        <div class="flex flex-col lg:flex-row lg:items-center lg:gap-3">
           <h1 class="title">Employee</h1>
           <div class="flex">
             <%= form_with(url: admins_hotel_employees_path(@hotel),
@@ -13,7 +13,7 @@
             <% end %>
           </div>
         </div>
-        <div>
+        <div class="self-start lg:self-center">
           <%= link_to "Add", new_admins_hotel_employee_path(@hotel), class: "btn" %>
         </div>
       </div>

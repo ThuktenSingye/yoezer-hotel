@@ -1,30 +1,28 @@
-<div class="mx-4">
+<div class="mx-8">
   <turbo-frame id="Booking">
     <div class="card px-4 w-full mx-auto">
-      <div class="w-full flex justify-between items-center">
-        <div class="flex justify-center items-center gap-4">
-          <h1 class="title">Booking</h1>
-          <div class="flex">
-            <%= form_with url: admins_hotel_bookings_path(@hotel), method: :get,
-                          data: {turbo_frame: "booking_search_result", turbo_action: "advance", controller: "search"} do |form| %>
-              <%= form.select :status, Room.statuses.slice('reserved', 'booked').keys.map { |s| [s.humanize, s] },{ prompt: "Filter by Room Status"},
-                              class: "query-field text-primary-regular",data: { action: "change->search#search" } %>
-              <%= form.search_field :query, class: "query-field", placeholder: "Search", data: {action: "input->search#search"} %>
-            <% end %>
-          </div>
+      <div class="flex flex-col lg:flex-row lg:items-center lg:gap-2 mt-4">
+        <h1 class="title">Booking</h1>
+        <div class="flex">
+          <%= form_with url: admins_hotel_bookings_path(@hotel), method: :get,
+                        data: {turbo_frame: "booking_search_result", turbo_action: "advance", controller: "search"} do |form| %>
+            <%= form.select :status, Room.statuses.slice('reserved', 'booked').keys.map { |s| [s.humanize, s] },{ prompt: "Filter by Room Status"},
+                            class: "query-field text-primary-regular",data: { action: "change->search#search" } %>
+            <%= form.search_field :query, class: "query-field", placeholder: "Search", data: {action: "input->search#search"} %>
+          <% end %>
         </div>
-      </div>
+    </div>
       <div class="my-4">
         <div class="w-full overflow-hidden">
           <div class="bg-background p-2 border-b">
             <div class="flex justify-between items-center font-medium text-primary-dark py-2">
-              <div class="w-[20%] text-center">Room Number</div>
-              <h3 class="w-[20%] text-center hidden md:block">Room Category</h3>
-              <h3 class="w-[20%] text-center hidden lg:block">Guest Name</h3>
-              <h3 class="w-[20%] text-center hidden lg:block">Total Amounts</h3>
-              <h3 class="w-[15%] text-center hidden lg:block">Room Status</h3>
-              <h3 class="w-[20%] text-center hidden lg:block">Payment Status</h3>
-              <h3 class="w-[10%] text-center hidden md:block">Actions</h3>
+              <div class="flex-1 md:w-[15%] text-center">Room Number</div>
+              <h3 class="w-[15%] text-center hidden xl:block">Category</h3>
+              <h3 class="flex-1 md:w-[15%] text-center">Guest </h3>
+              <h3 class="w-[15%] text-center hidden lg:block">Total Amounts</h3>
+              <h3 class="w-[15%] text-center hidden xl:block">Room Status</h3>
+              <h3 class="w-[15%] text-center hidden lg:block">Payment</h3>
+              <h3 class="w-[15%] text-center hidden md:block">Actions</h3>
             </div>
           </div>
           <div>

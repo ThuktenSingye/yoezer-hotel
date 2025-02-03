@@ -30,7 +30,7 @@
 
       <div data-popover-target="popover" class="hidden fixed mt-0 right-4  bg-white border rounded shadow-lg z-50">
         <div class="flex flex-col items-start">
-          <%= link_to 'Edit', edit_admins_hotel_facility_path(@hotel, facility), class: "block px-4 py-2 underline text-secondary", data: { "turbo-frame": "amenity"} %>
+          <%= link_to 'Edit', edit_admins_hotel_facility_path(@hotel, facility), class: "block px-4 py-2 underline text-secondary", data: { "turbo-frame": "facility"} %>
           <%= link_to 'Delete', admins_hotel_facility_path(@hotel, facility), data: { turbo_method: :delete, turbo_confirm: "Are you sure to delete?", turbo_frame: "_top" }, class: "block border-t px-4 py-2 underline text-error" %>
         </div>
       </div>

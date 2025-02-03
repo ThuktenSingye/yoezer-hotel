@@ -16,7 +16,7 @@
       </div>
       <div>
         <%= link_to "Edit", edit_admins_hotel_hotel_gallery_path(@hotel, hotel_gallery),class: "btn" %>
-        <%= link_to 'Delete', admins_hotel_hotel_gallery_path(@hotel, hotel_gallery), data: { turbo_method: :delete, confirm: "Are you sure to delete?", turbo_frame: "_top" }, class: "btn" %>
+        <%= link_to 'Delete', admins_hotel_hotel_gallery_path(@hotel, hotel_gallery), data: { turbo_method: :delete, turbo_confirm: "Are you sure to delete?", turbo_frame: "_top" }, class: "btn" %>
       </div>
     </div>
   </div>

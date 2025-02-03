@@ -4,7 +4,7 @@
                   class: "icon icon-button avatar-wrapper p-1 shadow-md group-hover:bg-white") %>
     <div class="w-36">
       <%= link_to admins_hotel_employee_path(@hotel, employee), data: { turbo_frame: "_top" } do %>
-        <p class="hover:text-primary-dark hover:underline"><%= employee.profile.first_name %> <%= employee.profile.last_name %></p>
+        <p class="hover:text-primary-dark underline"><%= employee.profile.first_name %> <%= employee.profile.last_name %></p>
       <% end %>
     </div>
   </div>
