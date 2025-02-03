@@ -74,10 +74,10 @@
               <% end %>
             </li>
 
-            <li class="sidebar-menu-row <%= current_page?(admin_path) ? "bg-white rounded" : "" %>">
-              <%= link_to admin_path, class: "w-full flex items-center" do %>
-                <%= icon("fa-solid", "comment", class: "w-6 #{current_page?(admin_path) ? 'text-primary-regular' : 'text-white'}") %>
-                <span class="text-sm ml-2  <%= current_page?(admin_path) ? "text-primary-regular" : "text-white" %>">Feedback</span>
+            <li class="sidebar-menu-row <%= current_page?(admin_hotel_feedbacks_path(hotel)) ? "bg-white rounded" : "" %>">
+              <%= link_to admin_hotel_feedbacks_path(hotel), class: "w-full flex items-center" do %>
+                <%= icon("fa-solid", "comment", class: "w-6 #{current_page?(admin_hotel_feedbacks_path(hotel)) ? 'text-primary-regular' : 'text-white'}") %>
+                <span class="text-sm ml-2  <%= current_page?(admin_hotel_feedbacks_path(hotel)) ? "text-primary-regular" : "text-white" %>">Feedback</span>
               <% end %>
             </li>
 
