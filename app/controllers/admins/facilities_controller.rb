@@ -31,7 +31,6 @@ module Admins
 
     def update
       if @facility.update(facility_params)
-        # self.class.attach_image(@facility, amenity_params, :image)
         flash[:notice] = I18n.t('facility.update.success')
         redirect_to admins_hotel_facilities_path(@hotel)
       else
