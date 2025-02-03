@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe 'Admins::Bookings', type: :request do
   let!(:hotel) { FactoryBot.create(:hotel) }
   let!(:admin) { FactoryBot.create(:admin) }
-  let!(:room) { FactoryBot.create(:room) }
+  let!(:room) { FactoryBot.create(:room, hotel: hotel) }
   let!(:booking) { FactoryBot.create(:booking, hotel: hotel) }
 
   before do
@@ -93,6 +93,7 @@ RSpec.describe 'Admins::Bookings', type: :request do
       it { is_expected.to redirect_to admins_hotel_booking_path(hotel, booking) }
       it { expect { update_booking }.not_to change(Booking, :count) }
 
+      # rubocop:disable RSpec/ExampleLength
       it 'update the booking with correct booking attributes' do
         update_booking
         expect(Booking.last).to have_attributes(
@@ -101,14 +102,18 @@ RSpec.describe 'Admins::Bookings', type: :request do
           payment_status: valid_booking_params[:payment_status].to_s,
           confirmed: valid_booking_params[:confirmed]
         )
+        # rubocop:enable RSpec/ExampleLength
       end
 
+      # rubocop:disable RSpec/MultipleExpectations, Layout/LineLength
       it 'update the booking with correct date' do
         update_booking
         expect(Booking.last.checkin_date.strftime('%d/%m/%Y')).to eq(valid_booking_params[:checkin_date].strftime('%d/%m/%Y'))
         expect(Booking.last.checkout_date.strftime('%d/%m/%Y')).to eq(valid_booking_params[:checkout_date].strftime('%d/%m/%Y'))
+        # rubocop:enable RSpec/MultipleExpectations, Layout/LineLength
       end
 
+      # rubocop:disable RSpec/ExampleLength
       it 'update the booking with correct guest' do
         update_booking
         expect(Booking.last.guest).to have_attributes(
@@ -120,6 +125,7 @@ RSpec.describe 'Admins::Bookings', type: :request do
           region: valid_booking_params[:guest_attributes][:region],
           city: valid_booking_params[:guest_attributes][:city]
         )
+        # rubocop:enable RSpec/ExampleLength
       end
 
       it 'associate with correct room' do
@@ -175,6 +181,7 @@ RSpec.describe 'Admins::Bookings', type: :request do
       it { is_expected.to redirect_to admins_hotel_room_path(hotel, room) }
       it { expect { create_booking }.to change(Booking, :count).by(1) }
 
+      # rubocop:disable RSpec/ExampleLength
       it 'create the booking with correct booking attributes' do
         create_booking
         expect(Booking.last).to have_attributes(
@@ -183,14 +190,18 @@ RSpec.describe 'Admins::Bookings', type: :request do
           payment_status: valid_booking_params[:payment_status].to_s,
           confirmed: valid_booking_params[:confirmed]
         )
+        # rubocop:enable RSpec/ExampleLength
       end
 
+      # rubocop:disable RSpec/MultipleExpectations, Layout/LineLength
       it 'create the booking with correct date' do
         create_booking
         expect(Booking.last.checkin_date.strftime('%d/%m/%Y')).to eq(valid_booking_params[:checkin_date].strftime('%d/%m/%Y'))
         expect(Booking.last.checkout_date.strftime('%d/%m/%Y')).to eq(valid_booking_params[:checkout_date].strftime('%d/%m/%Y'))
+        # rubocop:enable RSpec/MultipleExpectations, Layout/LineLength
       end
 
+      # rubocop:disable RSpec/ExampleLength
       it 'create the booking with correct guest' do
         create_booking
         expect(Booking.last.guest).to have_attributes(
@@ -202,6 +213,7 @@ RSpec.describe 'Admins::Bookings', type: :request do
           region: valid_booking_params[:guest_attributes][:region],
           city: valid_booking_params[:guest_attributes][:city]
         )
+        # rubocop:enable RSpec/ExampleLength
       end
     end
 
