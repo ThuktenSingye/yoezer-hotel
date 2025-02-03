@@ -50,7 +50,9 @@
               <%= link_to "Back", admins_hotel_rooms_path(@hotel), data: { turbo_frame: "_top"} ,class: "btn" %>
             </div>
             <div>
-              <%= link_to "Edit", edit_admins_hotel_room_path(@hotel, room), class: "btn" %>
+              <% if room.status != 'booked' && room.status != 'reserved' %>
+                <%= link_to "Edit", edit_admins_hotel_room_path(@hotel, room), class: "btn" %>
+              <% end %>
               <%= link_to 'Delete', admins_hotel_room_path(@hotel, room), data: { turbo_method: :delete, turbo_confirm: "Are you sure to delete?", turbo_frame: "_top" }, class: "btn" %>
             </div>
           </div>
