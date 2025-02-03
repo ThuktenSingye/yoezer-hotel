@@ -62,6 +62,7 @@ RSpec.describe 'Admins::Guests', type: :request do
       it { is_expected.to redirect_to admins_hotel_guest_path(hotel, guest) }
       it { expect { update_guest }.not_to change(Guest, :count) }
 
+      # rubocop:disable RSpec/ExampleLength
       it 'updates the guest with the correct attributes' do
         update_guest
         expect(Guest.last).to have_attributes(
@@ -73,6 +74,7 @@ RSpec.describe 'Admins::Guests', type: :request do
           region: valid_guest_params[:region],
           city: valid_guest_params[:city]
         )
+        # rubocop:enable RSpec/ExampleLength
       end
     end
 

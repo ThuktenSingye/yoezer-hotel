@@ -29,6 +29,7 @@ Rails.application.routes.draw do
     end
     resources :profiles, only: %i[index edit update]
   end
+
   devise_for :admins, skip: [:registrations], controllers: { sessions: 'admins/sessions' }
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

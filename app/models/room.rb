@@ -2,7 +2,7 @@
 
 # Model representing a hotel room with attributes
 class Room < ApplicationRecord
-  include RatingCalculable
+  include RatingCalculator
   belongs_to :room_category
   belongs_to :hotel
   has_one_attached :image

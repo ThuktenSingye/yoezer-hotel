@@ -15,16 +15,8 @@ class BookingService
       total_amount: calculate_total_amount(booking_params[:checkin_date],
                                            booking_params[:checkout_date], @room)
     )
-
-    guest = find_guest(booking_params)
-    booking = build_booking(booking_params, guest)
-
-    if booking.save
-      booking.room.update(status: :reserved)
-      send_confirmation_email(booking) and true
-    else
-      false
-    end
+    booking = build_booking(booking_params)
+    save_and_send_email(booking)
   end
 
   def update_booking?(booking_params)
@@ -35,10 +27,9 @@ class BookingService
 
     if update_booking_and_room(booking, booking_params)
       check_and_send_update_email(booking, previous_attributes)
-      true
-    else
-      false
+      return true
     end
+    false
   end
 
   def confirm_token(id, token)
@@ -50,10 +41,9 @@ class BookingService
 
   private
 
-  def build_booking(booking_params, guest)
+  def build_booking(booking_params)
     booking = @hotel.bookings.build(booking_params)
     booking.room = @room
-    booking.guest = guest if guest.present?
     booking.guest.hotel = @hotel
     booking.generate_confirmation_token
     booking
@@ -66,10 +56,12 @@ class BookingService
     @booking
   end
 
-  def find_guest(booking_params)
-    return nil if @hotel.guests.blank?
-
-    @hotel.guests.find_by(email: booking_params[:guest_attributes][:email])
+  def save_and_send_email(booking)
+    if booking.save
+      booking.room.update(status: :reserved)
+      send_confirmation_email(booking) and true
+    end
+    false
   end
 
   def send_confirmation_email(booking)
@@ -120,10 +112,9 @@ class BookingService
       booking.room.update(status: :booked)
       total_amount = calculate_total_amount(booking_params[:checkin_date], booking_params[:checkout_date], booking.room)
       booking.update(total_amount: total_amount)
-      true
-    else
-      false
+      return true
     end
+    false
   end
 
   def check_and_send_update_email(booking, previous_attributes)

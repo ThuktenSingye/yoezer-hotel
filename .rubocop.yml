@@ -11,6 +11,8 @@ AllCops:
     - 'config/initializers/*'
     - 'db/migrate/*'
     - 'db/*'
+    - 'config/environments/*'
+    - 'config/*'
 # Overwrite or add rules to create your own house style
 #
 # # Use `[a, [b, c]]` not `[ a, [ b, c ] ]`

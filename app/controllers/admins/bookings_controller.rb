@@ -46,15 +46,14 @@ module Admins
     end
 
     def destroy
-      if @booking.room.status == 'booked' && @booking.payment_status != 'completed'
+      if room_booked_and_payment_completed?
+        return unless @booking.destroy
+
+        @booking.room.update(status: :available)
+        flash[:notice] = I18n.t('booking.destroy.success')
+      else
         flash[:alert] = I18n.t('booking.payment-missing')
-        redirect_to admins_hotel_bookings_path(@hotel) and return
       end
-
-      return unless @booking.destroy
-
-      @booking.room.update(status: :available)
-      flash[:notice] = I18n.t('booking.destroy.success')
       redirect_to admins_hotel_bookings_path(@hotel)
     end
 
@@ -79,6 +78,7 @@ module Admins
     end
 
     private
+
     def hotel
       @hotel ||= Hotel.find(params[:hotel_id])
     end
@@ -98,6 +98,10 @@ module Admins
       @booking_service ||= BookingService.new(@hotel, @room, @booking)
     end
 
+    def room_booked_and_payment_completed?
+      @booking.room.status == 'booked' && @booking.payment_status == 'completed'
+    end
+
     def confirm_booking_and_redirect
       @booking.update(confirmed: true)
       @booking.room.update(status: :booked)
@@ -114,8 +118,7 @@ module Admins
         :confirmed,
         :num_of_adult,
         :num_of_children,
-        :payment_status,
-        :room_id,
+        :payment_status, :room_id,
         guest_attributes: %i[id first_name last_name contact_no email country region city hotel_id]
       )
     end

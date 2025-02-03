@@ -46,7 +46,9 @@
               <%= link_to "Back", admins_hotel_rooms_path(@hotel), data: { turbo_frame: "_top"} ,class: "btn" %>
             </div>
             <div>
-              <%= link_to "Edit", edit_admins_hotel_room_path(@hotel, room), class: "btn" %>
+              <% if room.status != 'booked' && room.status != 'reserved' %>
+                <%= link_to "Edit", edit_admins_hotel_room_path(@hotel, room), class: "btn" %>
+              <% end %>
               <%= link_to 'Delete', admins_hotel_room_path(@hotel, room), data: { turbo_method: :delete, turbo_confirm: "Are you sure to delete?", turbo_frame: "_top" }, class: "btn" %>
             </div>
           </div>
@@ -133,7 +135,7 @@
         </div>
         <div>
           <% if room.room_facilities.blank? %>
-            <h3 class="text-text-color/50 text-center mt-4 p-2">No Bed Type!</h3>
+            <h3 class="text-text-color/50 text-center mt-4 p-2">No Room Facilities!</h3>
           <% else %>
             <% room.room_facilities.each do |room_facility| %>
               <div class="flex justify-between items-center p-3 border-b hover:bg-background group">
