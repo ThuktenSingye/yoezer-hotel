@@ -156,7 +156,11 @@ RSpec.describe 'Admins::Rooms', type: :request do
       it { expect { create_room }.to change(Room, :count).by(1) }
 
       # rubocop:disable RSpec/ExampleLength, RSpec/MultipleExpectations
+<<<<<<< Updated upstream
       it 'create the room with correct attributes' do
+=======
+      it 'updates the room with correct attributes' do
+>>>>>>> Stashed changes
         create_room
         expect(Room.last).to have_attributes(
           room_number: valid_room_params[:room_number],
