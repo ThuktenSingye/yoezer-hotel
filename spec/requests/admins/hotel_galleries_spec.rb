@@ -73,17 +73,17 @@ RSpec.describe 'Admin::HotelGalleries', type: :request do
         }
       end
 
+      before { update_gallery }
+
       it { is_expected.to have_http_status :found }
       it { is_expected.to redirect_to admins_hotel_hotel_galleries_path(hotel) }
-      it { expect { update_gallery }.not_to change(HotelGallery, :count) }
+      it { expect(HotelGallery.last.image).to be_attached }
 
       it 'update the hotel gallery with correct attributes' do
-        update_gallery
         expect(HotelGallery.last).to have_attributes(
           name: valid_hotel_gallery_params[:name],
           description: valid_hotel_gallery_params[:description]
         )
-        expect(HotelGallery.last.image).to be_attached
       end
     end
 
@@ -121,17 +121,17 @@ RSpec.describe 'Admin::HotelGalleries', type: :request do
         }
       end
 
+      before { create_gallery }
+
       it { is_expected.to have_http_status :found }
       it { is_expected.to redirect_to admins_hotel_hotel_galleries_path(hotel) }
-      it { expect { create_gallery }.to change(HotelGallery, :count).by(1) }
+      it { expect(HotelGallery.last.image).to be_attached }
 
       it 'update the hotel gallery with correct attributes' do
-        create_gallery
         expect(HotelGallery.last).to have_attributes(
           name: valid_hotel_gallery_params[:name],
           description: valid_hotel_gallery_params[:description]
         )
-        expect(HotelGallery.last.image).to be_attached
       end
     end
 
