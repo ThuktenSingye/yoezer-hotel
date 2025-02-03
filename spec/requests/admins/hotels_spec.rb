@@ -41,6 +41,7 @@ RSpec.describe 'Admins::Hotels', type: :request do
       it { is_expected.to redirect_to admins_hotels_path }
       it { expect { update_hotel }.not_to change(Hotel, :count) }
 
+      # rubocop:disable RSpec/ExampleLength
       it 'updates the hotel with the correct attributes' do
         update_hotel
         expect(Hotel.last).to have_attributes(
@@ -49,6 +50,7 @@ RSpec.describe 'Admins::Hotels', type: :request do
           contact_no: valid_hotel_params[:contact_no],
           description: valid_hotel_params[:description]
         )
+        # rubocop:enable RSpec/ExampleLength
       end
     end
 

@@ -28,8 +28,7 @@ RSpec.describe 'Admins::Addresses', type: :request do
       it 'create an address with correct attributes' do
         create_address
         expect(Address.last).to have_attributes(
-          dzongkhag: valid_address_params[:dzongkhag],
-          gewog: valid_address_params[:gewog],
+          dzongkhag: valid_address_params[:dzongkhag], gewog: valid_address_params[:gewog],
           address_type: valid_address_params[:address_type].to_s
         )
       end

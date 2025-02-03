@@ -2,7 +2,7 @@
 
 # Hotel model with validations and association
 class Hotel < ApplicationRecord
-  include RatingCalculable
+  include RatingCalculator
   validates :name, :email, :contact_no, presence: true
 
   has_many :address, as: :addressable, dependent: :destroy

@@ -132,7 +132,7 @@
         </div>
         <div>
           <% if room.room_facilities.blank? %>
-            <h3 class="text-text-color/50 text-center mt-4 p-2">No Bed Type!</h3>
+            <h3 class="text-text-color/50 text-center mt-4 p-2">No Room Facilities!</h3>
           <% else %>
             <% room.room_facilities.each do |room_facility| %>
               <div class="flex justify-between items-center p-3 border-b hover:bg-background group">
