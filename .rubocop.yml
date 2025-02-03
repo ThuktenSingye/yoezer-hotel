@@ -6,6 +6,11 @@ require:
   - rubocop-rails
 AllCops:
   NewCops: enable
+  Exclude:
+    - 'bin/bundle'
+    - 'config/initializers/*'
+    - 'db/migrate/*'
+    - 'db/*'
 # Overwrite or add rules to create your own house style
 #
 # # Use `[a, [b, c]]` not `[ a, [ b, c ] ]`
