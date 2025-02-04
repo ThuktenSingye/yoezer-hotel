@@ -35,15 +35,14 @@
         <li class="mt-2">
           <div class="sidebar-menu-container">
             <button
-              class="w-5/6 flex flex-row items-center justify-between py-2 px-2 mb-2 rounded hover:bg-white group
-            hover:transition ease-in-out duration-300"
+              class="sidebar-menu-button group justify-between"
               id="dropdown-button"
               data-action="click->sidebar#toggleHotelMenu">
               <div>
-                <%= icon("fa-solid", "hotel", class: "text-white w-6 group-hover:text-primary-regular") %>
-                <span class="font-title tracking-wider text-white font-semibold group-hover:text-primary-regular">Hotel</span>
+                <%= icon("fa-solid", "hotel", class: "sidebar-menu-icon w-6") %>
+                <span class="sidebar-menu-title">Hotel</span>
               </div>
-              <%= icon("fa-solid", "chevron-down", class: "text-white w-10 group-hover:text-primary-regular") %>
+              <%= icon("fa-solid", "chevron-down", class: "sidebar-menu-icon w-10") %>
             </button>
 
             <ul
@@ -54,38 +53,40 @@
               data-transition-leave="transition ease-in duration-75"
               data-transition-leave-start="transform opacity-100 scale-100"
               data-transition-leave-end="transform opacity-0 scale-95">
-              <li class="sidebar-menu-row <%= current_page?(admins_hotels_path) ? "bg-white rounded" : "" %>">
+              <li class="sidebar-menu-row <%= active_class_for_sidebar('admins/hotels') %>">
                 <%= link_to admins_hotels_path, class: "w-full flex items-center" do %>
-                  <%= icon("fa-solid", "house", class: "w-6 #{current_page?(admins_hotels_path) ? 'text-primary-regular' : 'text-white'}") %>
-                  <span class="text-sm ml-2  <%= current_page?(admins_hotels_path) ? "text-primary-regular" : "text-white" %>">Hotel Details</span>
+                  <%= icon("fa-solid", "building", class: "w-6 #{icon_class_for_sidebar('admins/hotels')}" ) %>
+                  <span class="text-sm ml-2 <%= icon_class_for_sidebar('admins/hotels') %>">Hotels</span>
                 <% end %>
               </li>
 
-              <li class="sidebar-menu-row <%= current_page?(admins_hotel_amenities_path(hotel)) ? "bg-white rounded" : "" %>">
+              <li class="sidebar-menu-row <%= active_class_for_sidebar('admins/amenities') %>">
                 <%= link_to admins_hotel_amenities_path(hotel), class: "w-full flex items-center" do %>
-                  <%= icon("fa-solid", "hands-holding", class: "w-6 #{current_page?(admins_hotel_amenities_path(hotel)) ? 'text-primary-regular' : 'text-white'}") %>
-                  <span class="text-sm ml-2  <%= current_page?(admins_hotel_amenities_path(hotel)) ? "text-primary-regular" : "text-white" %>">Amenities</span>
+                  <%= icon("fa-solid", "couch", class: "w-6 #{icon_class_for_sidebar('admins/amenities')}" ) %>
+                  <span class="text-sm ml-2 <%= icon_class_for_sidebar('admins/amenities') %>">Amenities</span>
                 <% end %>
               </li>
 
-              <li class="sidebar-menu-row <%= current_page?(admins_hotel_offers_path(hotel)) ? "bg-white rounded" : "" %>">
+
+              <li class="sidebar-menu-row <%= active_class_for_sidebar('admins/offers') %>">
                 <%= link_to admins_hotel_offers_path(hotel), class: "w-full flex items-center" do %>
-                  <%= icon("fa-solid", "hand-holding-heart", class: "w-6 #{current_page?(admins_hotel_offers_path(hotel)) ? 'text-primary-regular' : 'text-white'}") %>
-                  <span class="text-sm ml-2  <%= current_page?(admins_hotel_offers_path(hotel)) ? "text-primary-regular" : "text-white" %>">Offer</span>
+                  <%= icon("fa-solid", "hand-holding-heart", class: "w-6 #{icon_class_for_sidebar('admins/offers')}" ) %>
+                  <span class="text-sm ml-2 <%= icon_class_for_sidebar('admins/offers') %>">Offer</span>
                 <% end %>
               </li>
 
-              <li class="sidebar-menu-row <%= current_page?(admins_hotel_feedbacks_path(hotel)) ? "bg-white rounded" : "" %>">
+
+              <li class="sidebar-menu-row <%= active_class_for_sidebar('admins/feedbacks') %>">
                 <%= link_to admins_hotel_feedbacks_path(hotel), class: "w-full flex items-center" do %>
-                  <%= icon("fa-solid", "comment", class: "w-6 #{current_page?(admins_hotel_feedbacks_path(hotel)) ? 'text-primary-regular' : 'text-white'}") %>
-                  <span class="text-sm ml-2  <%= current_page?(admins_hotel_feedbacks_path(hotel)) ? "text-primary-regular" : "text-white" %>">Feedback</span>
+                  <%= icon("fa-solid", "comment", class: "w-6 #{icon_class_for_sidebar('admins/feedbacks')}") %>
+                  <span class="text-sm ml-2  <%= icon_class_for_sidebar('admins/feedbacks') %>">Feedback</span>
                 <% end %>
               </li>
 
-              <li class="sidebar-menu-row <%= current_page?(admins_hotel_hotel_galleries_path(hotel)) ? "bg-white rounded" : "" %>">
+              <li class="sidebar-menu-row <%= active_class_for_sidebar('admins/hotel_galleries') %>">
                 <%= link_to admins_hotel_hotel_galleries_path(hotel), class: "w-full flex items-center" do %>
-                  <%= icon("fa-solid", "image", class: "w-6 #{current_page?(admins_hotel_hotel_galleries_path(hotel)) ? 'text-primary-regular' : 'text-white'}") %>
-                  <span class="text-sm ml-2  <%= current_page?(admins_hotel_hotel_galleries_path(hotel)) ? "text-primary-regular" : "text-white" %>">Gallary</span>
+                  <%= icon("fa-solid", "image", class: "w-6 #{icon_class_for_sidebar('admins/hotel_galleries')}") %>
+                  <span class="text-sm ml-2  <%= icon_class_for_sidebar('admins/hotel_galleries')%>">Gallery</span>
                 <% end %>
               </li>
             </ul>
@@ -94,15 +95,14 @@
         <li>
           <div class="sidebar-menu-container">
             <button
-              class="w-5/6 flex flex-row items-center justify-between py-2 px-2 mb-2 rounded hover:bg-white group
-            hover:transition ease-in-out duration-300"
+              class="sidebar-menu-button group justify-between"
               id="dropdown-button"
               data-action="click->sidebar#toggleRoomMenu">
               <div>
-                <%= icon("fa-solid", "bed", class: "text-white w-6 group-hover:text-primary-regular") %>
-                <span class="font-title tracking-wider text-white font-semibold group-hover:text-primary-regular">Rooms</span>
+                <%= icon("fa-solid", "bed", class: "sidebar-menu-icon w-6") %>
+                <span class="sidebar-menu-title">Rooms</span>
               </div>
-              <%= icon("fa-solid", "chevron-down", class: "text-white w-10 group-hover:text-primary-regular") %>
+              <%= icon("fa-solid", "chevron-down", class: "sidebar-menu-icon w-10") %>
             </button>
             <ul
               data-sidebar-target="roomMenu"
@@ -112,31 +112,31 @@
               data-transition-leave="transition ease-in duration-75"
               data-transition-leave-start="transform opacity-100 scale-100"
               data-transition-leave-end="transform opacity-0 scale-95">
-              <li class="sidebar-menu-row <%= current_page?(admins_hotel_rooms_path(hotel)) ? "bg-white rounded" : "" %>">
+              <li class="sidebar-menu-row <%= active_class_for_sidebar('admins/rooms')%>">
                 <%= link_to admins_hotel_rooms_path(hotel), class: "w-full flex items-center" do %>
-                  <%= icon("fa-solid", "circle-info", class: "w-6 #{current_page?(admins_hotel_rooms_path(hotel)) ? 'text-primary-regular' : 'text-white'}") %>
-                  <span class="text-sm ml-2  <%= current_page?(admins_hotel_rooms_path(hotel)) ? "text-primary-regular" : "text-white" %>">Details</span>
+                  <%= icon("fa-solid", "circle-info", class: "w-6 #{ icon_class_for_sidebar('admins/rooms')}") %>
+                  <span class="text-sm ml-2  <%= icon_class_for_sidebar('admins/rooms')%>">Details</span>
                 <% end %>
               </li>
 
-              <li class="sidebar-menu-row<%= current_page?(admins_hotel_room_categories_path(hotel)) ? "bg-white rounded" : "" %>">
+              <li class="sidebar-menu-row <%= active_class_for_sidebar('admins/room_categories')%>">
                 <%= link_to admins_hotel_room_categories_path(hotel), class: "w-full flex items-center" do %>
-                  <%= icon("fa-solid", "hands-holding-heart", class: "w-6 #{current_page?(admins_hotel_room_categories_path(hotel)) ? 'text-primary-regular' : 'text-white'}") %>
-                  <span class="text-sm ml-2  <%= current_page?(admins_hotel_room_categories_path(hotel)) ? "text-primary-regular" : "text-white" %>">Room Class</span>
+                  <%= icon("fa-solid", "hands-holding-heart", class: "w-6 #{icon_class_for_sidebar('admins/room_categories')}") %>
+                  <span class="text-sm ml-2  <%= icon_class_for_sidebar('admins/room_categories')%>">Room Class</span>
                 <% end %>
               </li>
 
-              <li class="sidebar-menu-row <%= current_page?(admins_hotel_bookings_path(hotel)) ? "bg-white rounded" : "" %>">
+              <li class="sidebar-menu-row <%= active_class_for_sidebar('admins/bookings')%>">
                 <%= link_to admins_hotel_bookings_path(hotel), class: "w-full flex items-center" do %>
-                  <%= icon("fa-solid", "bed", class: "w-6 #{current_page?(admins_hotel_bookings_path(hotel)) ? 'text-primary-regular' : 'text-white'}") %>
-                  <span class="text-sm ml-2  <%= current_page?(admins_hotel_bookings_path(hotel)) ? "text-primary-regular" : "text-white" %>">Bookings</span>
+                  <%= icon("fa-solid", "bed", class: "w-6 #{icon_class_for_sidebar('admins/bookings')}") %>
+                  <span class="text-sm ml-2  <%= icon_class_for_sidebar('admins/bookings') %>">Bookings</span>
                 <% end %>
               </li>
 
-              <li class="sidebar-menu-row <%= current_page?(admins_hotel_facilities_path(hotel)) ? "bg-white rounded" : "" %>">
+              <li class="sidebar-menu-row <%= active_class_for_sidebar('admins/facilities')%>">
                 <%= link_to admins_hotel_facilities_path(hotel), class: "w-full flex items-center" do %>
-                  <%= icon("fa-solid", "hands-holding-heart", class: "w-6 #{current_page?(admins_hotel_facilities_path(hotel)) ? 'text-primary-regular' : 'text-white'}") %>
-                  <span class="text-sm ml-2  <%= current_page?(admins_hotel_facilities_path(hotel)) ? "text-primary-regular" : "text-white" %>">Facility</span>
+                  <%= icon("fa-solid", "hands-holding-heart", class: "w-6 #{icon_class_for_sidebar('admins/facilities')}") %>
+                  <span class="text-sm ml-2  <%= icon_class_for_sidebar('admins/facilities') %>">Facility</span>
                 <% end %>
               </li>
             </ul>
@@ -144,29 +144,26 @@
         </li>
         <li class="sidebar-menu-container">
           <%= link_to admins_hotel_employees_path(hotel), class: "w-5/6 flex items-center py-2 px-2 mb-2 rounded hover:bg-white group
-       hover:transition ease-in-out duration-300 #{current_page?(admins_hotel_employees_path(hotel)) ? 'bg-white rounded' : ''}" do %>
-            <%= icon("fa-solid", "user-group", class: "w-6 mr-1 #{current_page?(admins_hotel_employees_path(hotel)) ? 'text-primary-regular' : 'text-white group-hover:text-primary-regular'}") %>
-            <span class="font-title tracking-wider font-semibold <%= current_page?(admins_hotel_employees_path(hotel)) ? "text-primary-regular" : "text-white group-hover:text-primary-regular" %>">Employee</span>
+       hover:transition ease-in-out duration-300 #{active_class_for_sidebar('admins/employees')}" do %>
+            <%= icon("fa-solid", "user-group", class: "w-6 mr-1 #{icon_class_for_sidebar('admins/employees')} group-hover:text-primary-regular") %>
+            <span class="font-title tracking-wider font-semibold <%= icon_class_for_sidebar('admins/employees')%> group-hover:text-primary-regular">Employee</span>
           <% end %>
         </li>
 
         <li class="sidebar-menu-container">
-          <%= link_to admins_hotel_guests_path(hotel), class: "w-5/6 flex items-center py-2 px-2 mb-2 rounded hover:bg-white group
-       hover:transition ease-in-out duration-300 #{current_page?(admins_hotel_guests_path(hotel)) ? 'bg-white rounded' : ''}" do %>
-            <%= icon("fa-solid", "person-shelter", class: "w-6 mr-1 #{current_page?(admins_hotel_guests_path(hotel)) ? 'text-primary-regular' : 'text-white group-hover:text-primary-regular'}") %>
-            <span class="font-title tracking-wider font-semibold <%= current_page?(admins_hotel_guests_path(hotel)) ? "text-primary-regular" : "text-white group-hover:text-primary-regular" %>">Guest</span>
+          <%= link_to admins_hotel_guests_path(hotel), class: "sidebar-menu-button group #{active_class_for_sidebar('admins/guests')}" do %>
+            <%= icon("fa-solid", "person-shelter", class: "sidebar-menu-icon w-6 mr-1 #{icon_class_for_sidebar('admins/guests')}") %>
+            <span class="sidebar-menu-title <%= icon_class_for_sidebar('admins/guests') %>">Guest</span>
           <% end %>
         </li>
 
         <li class="sidebar-menu-container">
-          <%= link_to destroy_admin_session_path, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "w-5/6 flex items-center py-2 px-2 mb-2 rounded hover:bg-white group
-       hover:transition ease-in-out duration-300 #{current_page?(admins_path) ? 'bg-white rounded' : ''}" do %>
-            <%= icon("fa-solid", "arrow-right-from-bracket", class: "w-6 mr-1 #{current_page?(admins_path) ? 'text-primary-regular' : 'text-white group-hover:text-primary-regular'}") %>
-            <span class="font-title tracking-wider font-semibold <%= current_page?(admins_path) ? "text-primary-regular" : "text-white group-hover:text-primary-regular" %>">Sign Out</span>
+          <%= link_to destroy_admin_session_path, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "sidebar-menu-button group #{active_class_for_sidebar('admins/sessions')}" do %>
+            <%= icon("fa-solid", "arrow-right-from-bracket", class: "sidebar-menu-icon w-6 mr-1 #{icon_class_for_sidebar('admins/sessions')}") %>
+            <span class="sidebar-menu-title <%= icon_class_for_sidebar('admins/sessions') %>">Sign Out</span>
           <% end %>
         </li>
       </ul>
     </div>
   </div>
-
 </div>

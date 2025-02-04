@@ -9,7 +9,7 @@ module Admins
 
     def index
       room_query = RoomQuery.new(@hotel, params)
-      @rooms = room_query.call
+      @pagy, @rooms = pagy(room_query.call, limit: 6)
     end
 
     def show; end
