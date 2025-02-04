@@ -17,5 +17,6 @@ RSpec.describe Hotel, type: :model do
     it { is_expected.to have_many :hotel_galleries }
     it { is_expected.to have_many :offers }
     it { is_expected.to have_many :room_categories }
+    it { is_expected.to have_many :bed_types }
   end
 end

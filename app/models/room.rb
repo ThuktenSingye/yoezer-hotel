@@ -8,6 +8,8 @@ class Room < ApplicationRecord
   has_one_attached :image
   has_many_attached :images
   has_many :room_ratings, dependent: :destroy
+  has_many :room_bed_types, dependent: :destroy
+  has_many :bed_types, through: :room_bed_types, dependent: :destroy
 
   enum :status, { booked: 0, available: 1, maintenance: 2 }
 

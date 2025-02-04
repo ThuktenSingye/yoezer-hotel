@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       resources :offers
       resources :room_categories, except: :show
       resources :rooms
+      resources :bed_types, except: %i[index show]
     end
     resources :profiles, only: %i[index edit update]
   end

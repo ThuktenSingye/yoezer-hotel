@@ -7,7 +7,17 @@ module Admins
     before_action :room_category, only: %i[edit update destroy]
 
     def index
-      @pagy, @room_categories = pagy(@hotel.room_categories.order(created_at: :desc), limit: 5)
+      @room_categories_pagy, @room_categories = pagy(
+        @hotel.room_categories.order(created_at: :desc),
+        limit: 5,
+        page_param: :room_categories_page
+      )
+
+      @bed_types_pagy, @bed_types = pagy(
+        @hotel.bed_types.order(created_at: :desc),
+        limit: 5,
+        page_param: :bed_types_page
+      )
     end
 
     def new
@@ -39,7 +49,8 @@ module Admins
 
     def destroy
       @room_category.destroy
-      destroy_response
+      flash[:notice] = I18n.t('room_category.destroy.success')
+      redirect_to admins_hotel_room_categories_path(@hotel)
     end
 
     private
@@ -57,19 +68,6 @@ module Admins
 
     def room_category_params
       params.require(:room_category).permit(:name)
-    end
-
-    def destroy_response
-      respond_to do |format|
-        format.html { redirect_to admins_hotel_room_categories_path(@hotel) }
-        format.turbo_stream do
-          flash.now[:notice] = I18n.t('room_category.destroy.success')
-          render turbo_stream: [
-            turbo_stream.remove(@room_category),
-            turbo_stream.prepend('flash', partial: 'shared/flash')
-          ]
-        end
-      end
     end
   end
 end
