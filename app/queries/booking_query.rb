@@ -30,13 +30,14 @@ class BookingQuery < BaseQuery
   end
 
   def ordered_records(bookings)
+    today = Time.zone.today
     bookings.order(
       Arel.sql(
         "CASE
-        WHEN checkin_date = '#{Time.zone.today}' THEN 0
-        WHEN checkout_date = '#{Time.zone.today}' THEN 1
-        ELSE 2
-      END"
+          WHEN checkin_date = ? THEN 0
+          WHEN checkout_date = ? THEN 1
+          ELSE 2
+        END", today, today
       )
     )
   end
