@@ -1,0 +1,17 @@
+Booking Confirmation
+
+Dear <%= @booking.guest.first_name %>,
+
+Thank you for booking with us at <%= @booking.hotel.name %>! Your booking details are as follows:
+
+- Check-in Date: <%= @booking.checkin_date.strftime("%d/%m/%Y") %>
+- Check-out Date: <%= @booking.checkout_date.strftime("%d/%m/%Y") %>
+- Room: <%= @booking.room.room_category.name %>
+
+Please confirm your booking by clicking the link below:
+<%= @confirmation_link %>
+
+If you have any questions, feel free to contact us at <%= @hotel_email %>.
+
+Best regards,
+<%= @booking.hotel.name %>

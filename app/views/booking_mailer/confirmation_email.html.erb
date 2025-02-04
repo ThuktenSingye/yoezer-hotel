@@ -1,0 +1,19 @@
+<h1>Booking Confirmation</h1>
+
+<p>Dear <%= @booking.guest.first_name %>,</p>
+
+<p>Thank you for booking with us at <%= @booking.hotel.name %>! Your booking details are as follows:</p>
+
+<ul>
+  <li>Check-in Date: <%= @booking.checkin_date.strftime("%d/%m/%Y") %></li>
+  <li>Check-out Date: <%= @booking.checkout_date.strftime("%d/%m/%Y") %></li>
+  <li>Room: <%= @booking.room.room_category.name %></li>
+</ul>
+
+<p>Please confirm your booking by clicking the link below:</p>
+
+<p><%= link_to 'Confirm Booking', @confirmation_link %></p>
+
+<p>If you have any questions, feel free to contact us at <%= @hotel_email %>.</p>
+
+<p>Best regards,<br><%= @booking.hotel %></p>

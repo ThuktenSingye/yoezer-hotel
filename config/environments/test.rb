@@ -7,6 +7,11 @@
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
+  config.active_job.queue_adapter = :sidekiq
+  config.active_job.queue_name_prefix = 'booking'
+
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
 
   # While tests run files are not watched, reloading is not necessary.
   config.enable_reloading = false

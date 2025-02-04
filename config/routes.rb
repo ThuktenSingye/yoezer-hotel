@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
+require 'sidekiq/web'
 Rails.application.routes.draw do
+  mount Sidekiq::Web => '/sidekiq'
   namespace :admins do
     resources :hotels, only: %i[index edit update] do
       resources :addresses, only: %i[new create destroy]
@@ -12,7 +14,14 @@ Rails.application.routes.draw do
       resources :rooms do
         resources :room_bed_types, only: %i[create destroy]
         resources :room_facilities, only: %i[create destroy]
+        resources :bookings, only: %i[new create] do
+          member do
+            get :confirm_booking
+            patch :update_confirmation
+          end
+        end
       end
+      resources :bookings, except: %i[new create]
       resources :bed_types, except: %i[index show]
       resources :facilities
       resources :employees
@@ -20,6 +29,7 @@ Rails.application.routes.draw do
     end
     resources :profiles, only: %i[index edit update]
   end
+
   devise_for :admins, skip: [:registrations], controllers: { sessions: 'admins/sessions' }
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -35,6 +45,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
   authenticated :admins do
+    # mount Sidekiq::Web => '/sidekiq'
     root to: 'admins#index', as: :admin_root
   end
 

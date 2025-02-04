@@ -25,5 +25,6 @@ RSpec.describe Room, type: :model do
     it { is_expected.to have_one_attached :image }
     it { is_expected.to have_many(:bed_types).through(:room_bed_types).dependent(:destroy) }
     it { is_expected.to have_many(:facilities).through(:room_facilities).dependent(:destroy) }
+    it { is_expected.to have_one :booking }
   end
 end

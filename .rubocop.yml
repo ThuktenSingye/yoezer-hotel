@@ -11,6 +11,8 @@ AllCops:
     - 'config/initializers/*'
     - 'db/migrate/*'
     - 'db/*'
+    - 'config/environments/*'
+    - 'config/*'
     - 'vendor/**/*'
 # Overwrite or add rules to create your own house style
 #

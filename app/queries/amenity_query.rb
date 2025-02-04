@@ -1,27 +1,16 @@
 # frozen_string_literal: true
 
-# Amenity query
-class AmenityQuery
-  def initialize(hotel, params)
-    @hotel = hotel
-    @params = params
-  end
-
+# Amenity Query Class for searching and filtering amenities
+class AmenityQuery < BaseQuery
   def call
-    if @params[:query].present?
-      search_amenities
-    else
-      all_amenities
-    end
+    amenities = @hotel.amenities
+    amenities = search_amenities(amenities) if @params[:query].present?
+    ordered_records(amenities)
   end
 
   private
 
-  def search_amenities
-    @hotel.amenities.where('name LIKE ?', "%#{@params[:query]}%").order(created_at: :desc)
-  end
-
-  def all_amenities
-    @hotel.amenities.order(created_at: :desc)
+  def search_amenities(amenities)
+    amenities.where('name LIKE ?', "%#{@params[:query]}%")
   end
 end

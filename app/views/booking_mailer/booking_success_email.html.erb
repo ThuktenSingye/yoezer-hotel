@@ -1,0 +1,14 @@
+<!-- app/views/booking_mailer/booking_success_email.html.erb -->
+<!DOCTYPE html>
+<html>
+<body>
+<h1>Hello,<%= @booking.guest.first_name %></h1>
+<p>
+  <% @booking.hotel.name %>
+</p>
+<p>
+  Your booking has been confirmed successfully!
+</p>
+<p>Thank you for choosing our service!</p>
+</body>
+</html>

@@ -1,12 +1,7 @@
 # frozen_string_literal: true
 
 # Employee Query Class
-class EmployeeQuery
-  def initialize(hotel, params)
-    @hotel = hotel
-    @params = params
-  end
-
+class EmployeeQuery < BaseQuery
   def call
     employees = @hotel.employees.joins(:profile)
     employees = filter_by_designation(employees) if @params[:designation].present?
