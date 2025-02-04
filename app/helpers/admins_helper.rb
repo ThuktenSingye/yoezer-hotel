@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Helper Class for admins
 module AdminsHelper
   include Pagy::Frontend
 

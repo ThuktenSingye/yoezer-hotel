@@ -30,7 +30,7 @@ class BookingQuery < BaseQuery
   end
 
   def ordered_records(bookings)
-    today = Date.today
+    today = Time.zone.today
     bookings.order(
       Arel.sql(
         "CASE

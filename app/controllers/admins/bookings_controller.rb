@@ -2,6 +2,7 @@
 
 module Admins
   # Booking controller for booking CRUD operation
+  # rubocop:disable Metrics/ClassLength
   class BookingsController < AdminsController
     before_action :authenticate_admin!, except: %i[confirm_booking update_confirmation]
     before_action :hotel
@@ -35,7 +36,7 @@ module Admins
     end
 
     def update
-      booking_service = BookingService.new(@hotel, @booking.room, @booking)
+      booking_service = Bookings::BookingService.new(@hotel, @booking.room, @booking)
       if booking_service.update_booking?(booking_params, @offers)
         flash[:notice] = I18n.t('booking.update.success')
         redirect_to admins_hotel_booking_path(@hotel, @booking)
@@ -44,7 +45,6 @@ module Admins
         render :edit, status: :unprocessable_entity
       end
     end
-
 
     def destroy
       if room_booked? && !payment_completed?
@@ -95,7 +95,7 @@ module Admins
     end
 
     def booking_service
-      @booking_service ||= BookingService.new(@hotel, @room, @booking)
+      @booking_service ||= Bookings::BookingService.new(@hotel, @room, @booking)
     end
 
     def room_booked?
@@ -135,4 +135,5 @@ module Admins
       )
     end
   end
+  # rubocop:enable Metrics/ClassLength
 end

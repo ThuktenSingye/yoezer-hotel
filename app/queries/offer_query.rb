@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Query class for offer model
 class OfferQuery
   def initialize(hotel)
     @hotel = hotel
@@ -14,7 +15,7 @@ class OfferQuery
   private
 
   def search_offer(offers)
-    offers.where('start_time <= ? AND end_time >= ?', Date.today, Date.today)
+    offers.where('start_time <= ? AND end_time >= ?', Time.zone.today, Time.zone.today)
   end
 
   def ordered_records(records)
