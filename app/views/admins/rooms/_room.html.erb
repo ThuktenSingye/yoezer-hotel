@@ -59,18 +59,26 @@
     <div class="card p-4 flex flex-col gap-4">
       <div>
         <p class="title mb-2">Primary Image:</p>
-        <div class="image-wrapper md:card-wrapper-sm mx-auto">
-          <%= image_tag( room&.persisted? ? room&.image : "https://placehold.co/100x100", class: "image") %>
+        <% if room.image.present? %>
+          <div class="image-wrapper md:card-wrapper-sm mx-auto">
+            <%= image_tag(room.image.attached? ? room.image : "https://placehold.co/100x100", class: "image") %>
+          </div>
+        <% else %>
+          <p class="text-text-color/50 text-center">No Image</p>
+        <% end %>
         </div>
-      </div>
       <div>
-        <p class="title mb-2">Images:</p>
-        <div class="flex flex-wrap justify-evenly mb-2 gap-4">
+      <p class="title mb-2">Images:</p>
+      <div class="flex flex-wrap justify-evenly mb-2 gap-4">
+        <% if room.images.present? %>
           <% room.images.each do |image| %>
             <div class="image-wrapper">
-              <%= image_tag( room&.persisted? ? image : "https://placehold.co/100x100", class: "image") %>
+              <%= image_tag( image || "https://placehold.co/100x100", class: "image") %>
             </div>
           <% end %>
+        <% else %>
+        <p class="text-text-color/50">No Images</p>
+        <% end %>
         </div>
       </div>
     </div>

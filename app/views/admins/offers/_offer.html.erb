@@ -1,7 +1,7 @@
 <turbo-frame id="<%= dom_id offer %>">
   <div class="px-4 py-2 card-wrapper-md flex flex-col justify-center my-2" role="region" aria-labelledby="profile-<%= dom_id offer %>">
     <div class="card-image-wrapper-md">
-      <%= image_tag(offer&.image || "https://placehold.co/200x200", class:"image" ) %>
+      <%= image_tag(offer.image&.attached? ? offer.image : "https://placehold.co/200x200", class:"image" ) %>
     </div>
     <div class="my-2 flex flex-col gap-2">
       <h2 class="title"><%= offer.title %></h2>

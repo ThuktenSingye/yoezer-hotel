@@ -1,5 +1,5 @@
 <div class="m-4">
-  <%= form_with(model: [ :admins , @hotel, employee], local: true, class: "flex flex-col justify-center") do |f| %>
+  <%= form_with(model: [ :admins , @hotel, employee], local: true,data: { turbo: false }, class: "flex flex-col justify-center") do |f| %>
     <% if employee.errors.any? %>
       <div id="error_explanation" class="flex flex-col items-center">
         <h2 class="text-text-color/50"><%= pluralize(employee.errors.count, "error") %>:</h2>
