@@ -28,7 +28,7 @@
         </div>
       </div>
       <div>
-      <div class="">
+      <div>
         <p class="input-label">Images:</p>
         <div class="flex flex-col  md:flex-row gap-2 my-2 ml-2" data-controller="image">
           <div class="bg-background p-2 border avatar-cropper rounded hover:shadow-lg hover:cursor-pointer" data-action="click->image#selectImage">
@@ -85,11 +85,11 @@
         <%= f.label :status, class: "input-label" %>
         <%= f.select :status, Room.statuses.keys.map { |d| [d.humanize, d] } %>
       </div>
-        <div class="input-container">
-          <%= f.label :room_category_id, class: "input-label" %>
-          <%= f.collection_select :room_category_id, RoomCategory.all, :id, :name, { prompt: "Select a Room Category" } %>
-        </div>
-    </div>
+      <div class="input-container">
+        <%= f.label :room_category_id, class: "input-label" %>
+        <%= f.collection_select :room_category_id, RoomCategory.all, :id, :name, { prompt: "Select a Room Category" } %>
+      </div>
+      </div>
     <hr class="bg-primary-regular h-0.5">
     <div class="flex items-center mt-4 gap-5">
       <%= f.submit "Save", class: "btn", data: { turbo_frame: "_top"} %>

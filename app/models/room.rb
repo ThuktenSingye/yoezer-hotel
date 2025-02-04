@@ -10,6 +10,8 @@ class Room < ApplicationRecord
   has_many :room_ratings, dependent: :destroy
   has_many :room_bed_types, dependent: :destroy
   has_many :bed_types, through: :room_bed_types, dependent: :destroy
+  has_many :room_facilities, dependent: :destroy
+  has_many :facilities, through: :room_facilities, dependent: :destroy
 
   enum :status, { booked: 0, available: 1, maintenance: 2 }
 

@@ -8,7 +8,6 @@ module Admins
     before_action :room, only: %i[show edit update destroy]
 
     def index
-      # @rooms = @hotel.rooms.includes(:room_ratings).order(created_at: :desc)
       room_query = RoomQuery.new(@hotel, params)
       @rooms = room_query.call
     end
@@ -74,8 +73,7 @@ module Admins
         :max_no_adult,
         :max_no_children,
         :status,
-        :room_category_id,
-        :image, images: []
+        :room_category_id, :image, images: []
       )
     end
   end

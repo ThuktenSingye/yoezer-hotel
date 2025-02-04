@@ -6,6 +6,7 @@ module Admins
     include ImageAttachment
     before_action :hotel
     before_action :offer, only: %i[show edit update destroy]
+
     def index
       @offers = @hotel.offers.order(created_at: :desc)
     end

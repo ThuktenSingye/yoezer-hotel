@@ -15,5 +15,6 @@ RSpec.describe Facility, type: :model do
 
   context 'when associating models' do
     it { is_expected.to have_one_attached :image }
+    it { is_expected.to have_many :room_facilities }
   end
 end
