@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_22_120947) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_23_073042) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -151,6 +151,32 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_22_120947) do
     t.index ["profileable_type", "profileable_id"], name: "index_profiles_on_profileable"
   end
 
+  create_table "room_categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "hotel_id"
+    t.index ["hotel_id"], name: "index_room_categories_on_hotel_id"
+    t.index ["name"], name: "index_room_categories_on_name", unique: true
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.string "room_number"
+    t.integer "floor_number"
+    t.integer "status"
+    t.text "description"
+    t.integer "max_no_adult"
+    t.integer "max_no_children"
+    t.decimal "base_price", precision: 10, scale: 2
+    t.bigint "room_category_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "hotel_id"
+    t.index ["hotel_id"], name: "index_rooms_on_hotel_id"
+    t.index ["room_category_id"], name: "index_rooms_on_room_category_id"
+    t.index ["room_number"], name: "index_rooms_on_room_number", unique: true
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "admins", "hotels"
@@ -158,4 +184,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_22_120947) do
   add_foreign_key "hotel_galleries", "hotels"
   add_foreign_key "hotel_ratings", "hotels"
   add_foreign_key "offers", "hotels"
+  add_foreign_key "room_categories", "hotels"
+  add_foreign_key "rooms", "hotels"
+  add_foreign_key "rooms", "room_categories"
 end
