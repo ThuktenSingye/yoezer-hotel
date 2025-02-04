@@ -142,10 +142,10 @@
         </div>
       </li>
       <li class="sidebar-menu-container">
-          <%= link_to admins_path, class: "w-5/6 flex items-center py-2 px-2 mb-2 rounded hover:bg-white group
-       hover:transition ease-in-out duration-300 #{current_page?(admins_path) ? 'bg-white rounded' : ''}" do %>
-            <%= icon("fa-solid", "user-group", class: "w-6 mr-1 #{current_page?(admins_path) ? 'text-primary-regular' : 'text-white group-hover:text-primary-regular'}") %>
-            <span class="font-title tracking-wider font-semibold <%= current_page?(admins_path) ? "text-primary-regular" : "text-white group-hover:text-primary-regular" %>">Employee</span>
+          <%= link_to admins_hotel_employees_path(hotel), class: "w-5/6 flex items-center py-2 px-2 mb-2 rounded hover:bg-white group
+       hover:transition ease-in-out duration-300 #{current_page?(admins_hotel_employees_path(hotel)) ? 'bg-white rounded' : ''}" do %>
+            <%= icon("fa-solid", "user-group", class: "w-6 mr-1 #{current_page?(admins_hotel_employees_path(hotel)) ? 'text-primary-regular' : 'text-white group-hover:text-primary-regular'}") %>
+            <span class="font-title tracking-wider font-semibold <%= current_page?(admins_hotel_employees_path(hotel)) ? "text-primary-regular" : "text-white group-hover:text-primary-regular" %>">Employee</span>
           <% end %>
       </li>
 

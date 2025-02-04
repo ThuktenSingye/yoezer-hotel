@@ -1,0 +1,69 @@
+<div class="card-container mb-4">
+  <div class="card">
+    <turbo-frame id="<%= dom_id @employee %>" class="block">
+      <div class="m-4" role="region" aria-labelledby="employee-<%= dom_id @employee %>">
+        <div class="flex flex-col justify-center">
+          <div class="mb-2">
+            <% profile_attributes = [
+              { name: "Name", value: "#{@employee.profile&.first_name} #{@employee.profile&.last_name}" },
+              { name: "CID No", value: @employee.profile&.cid_no },
+              { name: "Contact No", value: @employee.profile&.contact_no },
+              { name: "Email", value: @employee.email },
+              { name: "Joining Date", value: @employee.profile&.date_of_joining },
+              { name: "DoB", value: @employee.profile&.dob },
+              { name: "Qualification", value: @employee.profile&.qualification },
+              { name: "Designation", value: @employee.profile&.designation }
+            ] %>
+            <% profile_attributes.each do |attribute| %>
+              <%= render 'shared/input', input: attribute %>
+            <% end %>
+          </div>
+          <hr>
+          <div class="mb-2">
+            <div>
+              <h2 class="title">Present Address</h2>
+              <% @employee.profile&.addresses&.where(address_type: :present)&.each do |addr| %>
+                <%= render 'shared/input', input: { name: "Dzongkhag", value: addr.dzongkhag } %>
+                <%= render 'shared/input', input: { name: "Gewog", value: addr.gewog } %>
+                <%= render 'shared/input', input: { name: "Address", value: addr.street_address } %>
+              <% end %>
+            </div>
+            <hr class="my-2">
+            <div class="mt-2 mb-0 border-b">
+              <h2 class="title">Permanent Address</h2>
+              <% @employee.profile&.addresses&.where(address_type: :permanent)&.each do |addr| %>
+                <%= render 'shared/input', input: { name: "Dzongkhag", value: addr.dzongkhag } %>
+                <%= render 'shared/input', input: { name: "Gewog", value: addr.gewog } %>
+                <%= render 'shared/input', input: { name: "Address", value: addr.street_address } %>
+              <% end %>
+            </div>
+          </div>
+          <div class="my-2">
+            <h3 class="title">Contract Files</h3>
+            <% if @employee.documents.present? %>
+              <% @employee.documents.each do |file| %>
+                <div class="p-2 flex gap-2 items-center ">
+                  <%= icon("fa-solid", "file", class: "text-primary-regular w-6 h-6 flex items-center justify-center") %>
+                  <%= link_to "#{file.filename.to_s}", rails_blob_path(file, only_path: true), target: '_blank', class: "underline text-primary-regular italic hover:text-primary-dark" %>
+                </div>
+              <% end %>
+            <% else %>
+              <p class="text-text-color/50 p-2">No Attached Documents</p>
+            <% end %>
+
+          </div>
+          <hr class="bg-primary-regular h-0.5 my-2">
+          <div class="flex justify-between items-center gap-2 mt-2">
+            <div>
+              <%= link_to "Back", admins_hotel_employees_path(@hotel), data: { turbo_frame: "_top"} ,class: "btn" %>
+            </div>
+            <div class="flex gap-2 items-center">
+              <%= link_to "Edit", edit_admins_hotel_employee_path(@hotel, @employee), class: "btn" %>
+              <%= link_to 'Delete', admins_hotel_employee_path(@hotel, @employee), data: { turbo_method: :delete, turbo_confirm: "Are you sure to delete?"}, class: "btn" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </turbo-frame>
+  </div>
+</div>

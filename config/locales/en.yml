@@ -149,3 +149,14 @@
       destroy:
         success: "Room Facility removed successfully."
 
+    employee:
+      create:
+        success: "Employee created successfully."
+        error: "Failed to create Employee."
+      update:
+        success: "Employee updated successfully."
+        error: "Failed to update Employee."
+      destroy:
+        success: "Employee removed successfully."
+      not-found: "Employee not found."
+

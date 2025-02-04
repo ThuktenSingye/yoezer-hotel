@@ -1,0 +1,8 @@
+<div class="card-container">
+  <div class="card">
+    <turbo-frame id="<%= dom_id @employee %>">
+      <h2 class="title p-4">Update Employee</h2>
+      <%= render "form", employee: @employee %>
+    </turbo-frame>
+  </div>
+</div>

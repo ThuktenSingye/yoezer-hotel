@@ -1,0 +1,51 @@
+<div class="mx-4">
+  <turbo-frame id="employee">
+    <div class="card px-4 w-full mx-auto">
+      <div class="w-full flex justify-between items-center">
+        <div class="flex justify-center items-center gap-4">
+          <h1 class="title">Employee</h1>
+          <div class="flex">
+            <%= form_with(url: admins_hotel_employees_path(@hotel),
+                          method: :get, data: { turbo_frame: "employee_search_result", turbo_action: "advance", controller: "search" }) do |form| %>
+              <%= form.select :designation, Profile.designations.keys.map { |s| [s.humanize, s] },{ prompt: "Filter by Designation"}, class: "query-field",data: { action: "change->search#search" } %>
+              <%= form.search_field :query, class: "query-field", placeholder: "Search", data: { action: "input->search#search"} %>
+            <% end %>
+          </div>
+        </div>
+        <div>
+          <%= link_to "Add", new_admins_hotel_employee_path(@hotel), class: "btn" %>
+        </div>
+      </div>
+      <div class="my-4">
+        <div class="w-full overflow-hidden">
+          <div class="bg-background p-2 border-b">
+            <div class="flex justify-between items-center font-medium text-primary-dark py-2">
+              <div class="flex-1 text-center">Name</div>
+              <h3 class="w-[20%] text-center hidden md:block">Contact No</h3>
+              <h3 class="w-[20%] text-center hidden lg:block">Designation</h3>
+              <h3 class="w-[20%] text-center hidden lg:block">Email</h3>
+              <h3 class="w-[10%] text-center hidden md:block">Actions</h3>
+            </div>
+          </div>
+          <div>
+            <turbo-frame id="employee_search_result">
+              <% if @employees.blank? %>
+                <h3 class="text-text-color/50 text-center mt-4 p-2">No Employee Data!</h3>
+              <% else %>
+                <% @employees.each do |employee| %>
+                  <turbo-frame id="employee_<%= employee.id %>">
+                    <%= render "admins/employees/employee", employee: employee %>
+                  </turbo-frame>
+                <% end %>
+              <% end %>
+            </turbo-frame>
+          </div>
+          <div class="flex justify-end items-center mt-2">
+            <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </turbo-frame>
+
+</div>
