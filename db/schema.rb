@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_23_073042) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_23_090249) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -164,10 +164,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_23_073042) do
     t.string "room_number"
     t.integer "floor_number"
     t.integer "status"
+    t.decimal "base_price", precision: 10, scale: 2
     t.text "description"
     t.integer "max_no_adult"
     t.integer "max_no_children"
-    t.decimal "base_price", precision: 10, scale: 2
     t.bigint "room_category_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

@@ -44,5 +44,10 @@ module YoezerHotel
 
     config.factory_bot.definition_file_paths = ['spec/factories']
     config.autoload_paths << Rails.root.join('app/queries')
+
+    config.active_storage.multiple_file_field_include_hidden = false
+    config.active_storage.replace_on_assign_to_many = false
+    # or this, but beware of load order, you can probably put this in an initializer ( untested)
+    ActionView::Helpers::FormHelper.multiple_file_field_include_hidden = false
   end
 end
