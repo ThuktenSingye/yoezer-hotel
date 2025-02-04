@@ -46,7 +46,7 @@
 
             <div class="input-container">
               <%= f.label :total_amount, class: "input-label" %>
-              <%= f.number_field :total_amount, class: "input-field", value: @room&.base_price %>
+              <%= f.number_field :total_amount, class: "input-field", value: "#{calculate_discounted_room_price(@room&.base_price, @offers)[:discounted_price]}" %>
             </div>
 
             <%= f.fields_for :guest do |guest_form| %>

@@ -8,7 +8,15 @@
   <div class="flex justify-between items-center">
     <div>
       <h3 class="title mb-2"><%= room.room_category.name %></h3>
-      <h2 class="text-primary-regular">Nu. <span class="font-bold text-lg"><%= room.base_price.to_i.to_s %></span></h2>
+      <div class="flex items-center gap-2">
+        <h2 class="text-primary-regular <%= 'line-through' if offers.present?%>">Nu. <span class="font-bold text-lg"><%= room.base_price.to_i.to_s %></span></h2>
+        <% if offers.present? %>
+          <h2 class="text-primary-regular">
+            Nu. <span class="font-bold text-lg"><%= calculate_discounted_room_price(room.base_price, offers)[:discounted_price] %></span>
+            <span class="text-sm">(<%= calculate_discounted_room_price(room.base_price, offers)[:total_discount] %>% off)</span>
+          </h2>
+      <% end %>
+      </div>
     </div>
     <div class="self-end">
       <p class="">

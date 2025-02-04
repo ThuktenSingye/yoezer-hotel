@@ -49,5 +49,9 @@ module YoezerHotel
     config.active_storage.replace_on_assign_to_many = false
     # or this, but beware of load order, you can probably put this in an initializer ( untested)
     ActionView::Helpers::FormHelper.multiple_file_field_include_hidden = false
+
+    # Timezone
+    config.time_zone = 'Asia/Thimphu'
+    config.active_record.default_timezone = :local
   end
 end

@@ -7,8 +7,12 @@
       </div>
     </div>
     <div class="flex flex-wrap items-center justify-center gap-5">
-      <% @offers.each do |offer| %>
-        <%= render "admins/offers/offer_card", offer: offer %>
+      <% if @offers.present? %>
+        <% @offers.each do |offer| %>
+          <%= render "admins/offers/offer_card", offer: offer %>
+        <% end %>
+      <% else %>
+        <h3 class="text-text-color/50">No Offer. Add to Create Offer!</h3>
       <% end %>
     </div>
   </div>

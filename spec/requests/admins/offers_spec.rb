@@ -69,8 +69,8 @@ RSpec.describe 'Admin::Offers', type: :request do
         {
           title: Faker::Lorem.sentence,
           description: Faker::Lorem.paragraph,
-          start_time: Faker::Time.backward(days: 30),
-          end_time: Faker::Time.forward(days: 30),
+          start_time: Faker::Date.backward(days: 30),
+          end_time: Faker::Date.forward(days: 30),
           discount: Faker::Number.between(from: 0, to: 100),
           image: Rack::Test::UploadedFile.new('spec/support/images/dog.jpg', 'image/jpeg')
         }
@@ -121,8 +121,8 @@ RSpec.describe 'Admin::Offers', type: :request do
         {
           title: Faker::Lorem.sentence,
           description: Faker::Lorem.paragraph,
-          start_time: Faker::Time.backward(days: 30),
-          end_time: Faker::Time.forward(days: 30),
+          start_time: Faker::Date.backward(days: 30),
+          end_time: Faker::Date.forward(days: 30),
           discount: Faker::Number.between(from: 0, to: 100),
           image: Rack::Test::UploadedFile.new('spec/support/images/dog.jpg', 'image/jpeg')
         }
