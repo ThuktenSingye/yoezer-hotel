@@ -8,7 +8,9 @@ module Admins
     before_action :room, only: %i[show edit update destroy]
 
     def index
-      @rooms = @hotel.rooms.order(created_at: :desc)
+      # @rooms = @hotel.rooms.includes(:room_ratings).order(created_at: :desc)
+      room_query = RoomQuery.new(@hotel, params)
+      @rooms = room_query.call
     end
 
     def show; end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_23_090249) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_25_163019) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -160,6 +160,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_23_090249) do
     t.index ["name"], name: "index_room_categories_on_name", unique: true
   end
 
+  create_table "room_ratings", force: :cascade do |t|
+    t.integer "rating", default: 0
+    t.bigint "room_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["room_id"], name: "index_room_ratings_on_room_id"
+  end
+
   create_table "rooms", force: :cascade do |t|
     t.string "room_number"
     t.integer "floor_number"
@@ -185,6 +193,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_23_090249) do
   add_foreign_key "hotel_ratings", "hotels"
   add_foreign_key "offers", "hotels"
   add_foreign_key "room_categories", "hotels"
+  add_foreign_key "room_ratings", "rooms"
   add_foreign_key "rooms", "hotels"
   add_foreign_key "rooms", "room_categories"
 end

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 # Migration to create the rooms table with necessary fields
-
 class CreateRooms < ActiveRecord::Migration[8.0]
   def change
     create_table :rooms do |t|

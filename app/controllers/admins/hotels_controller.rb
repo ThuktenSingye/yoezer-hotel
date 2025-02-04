@@ -3,11 +3,11 @@
 module Admins
   # Manages hotels in the admins interface
   class HotelsController < AdminsController
+    include RatingCalculator
     before_action :hotel, only: %i[edit update]
-    before_action :set_rating, only: %i[index update]
 
     def index
-      @hotel = Hotel.includes(:address).first
+      @hotel = Hotel.includes(:address, :hotel_ratings).first
     end
 
     def edit; end
@@ -24,15 +24,6 @@ module Admins
 
     def hotel
       @hotel ||= Hotel.find(params[:id])
-    end
-
-    def set_rating
-      @hotel_ratings = Hotel.includes(:hotel_ratings).average(:rating) || 0
-      @rating = {
-        full_stars: @hotel_ratings.to_i,
-        half_stars: @hotel_ratings - @hotel_ratings.to_i >= 0.5,
-        empty_stars: 5 - @hotel_ratings.to_i - (@hotel_ratings - @hotel_ratings.to_i ? 1 : 0)
-      }
     end
 
     def hotel_params

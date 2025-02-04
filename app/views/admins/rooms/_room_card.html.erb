@@ -1,6 +1,6 @@
 <div class="card-wrapper rounded-none card-animation card-bg relative mt-2 flex flex-col p-3 gap-2 z-0">
   <div class="w-full h-1/2">
-    <%= image_tag(room&.image&.attached? ? room.image : "https://placehold.co/200x200", class:"image" ) %>
+    <%= image_tag(room.image || "https://placehold.co/200x200", class:"image" ) %>
   </div>
   <div class="flex justify-between items-center">
     <div>
@@ -19,11 +19,14 @@
       <%= room.status.to_s.humanize %>
     </p>
   </div>
-  <hr class="bg-primary-regular h-0.5 mb-2">
-  <div class="flex flex-row justify-between items-center">
-    <div>
-      Star Rating
+  <hr class="bg-primary-regular h-0.5">
+  <div class="flex flex-row justify-between items-center mb-2">
+    <div class="flex flex-col items-center justify-center">
+      <% rating = room.room_ratings.average(:rating) || 0 %>
+      <% stars = Room.calculate_rating(rating) %>
+      <%= render 'shared/rating', rating: rating, stars: stars %>
+      <p class="font-title font-bold tracking-widest text-primary-regular text-2xl "><%= rating.to_s %></p>
     </div>
-    <%= link_to "View More", admins_hotel_room_path(@hotel, room), class:"btn" %>
+    <%= link_to "View More", admins_hotel_room_path(@hotel, room), class:"btn", data: { turbo_frame: "_top"} %>
   </div>
 </div>
