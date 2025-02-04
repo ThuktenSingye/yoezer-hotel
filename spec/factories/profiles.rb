@@ -26,11 +26,5 @@ FactoryBot.define do
         )
       end
     end
-
-    # factory :employee_profile do
-    #   after(:create) do |profile|
-    #     profile.create(:employee, profileable: profile)
-    #   end
-    # end
   end
 end

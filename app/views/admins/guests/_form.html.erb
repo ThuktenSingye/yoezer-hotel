@@ -1,0 +1,52 @@
+<div class="m-4">
+  <%= form_with(model: [ :admins , @hotel, guest], local: true, class: "flex flex-col justify-center") do |f| %>
+    <% if guest.errors.any? %>
+      <div id="error_explanation" class="flex flex-col items-center">
+        <h2 class="text-text-color/50"><%= pluralize(guest.errors.count, "error") %>:</h2>
+        <ul class="text-error">
+          <% guest.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="my-1 w-full">
+      <div class="input-container">
+        <%= f.label :first_name, class: "input-label" %>
+        <%= f.text_field :first_name, class: "input-field " %>
+      </div>
+      <div class="input-container">
+        <%= f.label :last_name, class: "input-label" %>
+        <%= f.text_field :last_name, class: "input-field" %>
+      </div>
+      <div class="input-container">
+        <%= f.label :contact_no, class: "input-label" %>
+        <%= f.text_field :contact_no, class: "input-field" %>
+      </div>
+      <div class="input-container">
+        <%= f.label :email, class: "input-label" %>
+        <%= f.email_field :email, class: "input-field " %>
+      </div>
+
+      <div class="input-container">
+        <%= f.label :country, class: "input-label" %>
+        <%= f.text_field :country, class: "input-field" %>
+      </div>
+      <div class="input-container">
+        <%= f.label :region, class: "input-label" %>
+        <%= f.text_field :region, class: "input-field" %>
+      </div>
+      <div class="input-container">
+        <%= f.label :city, class: "input-label" %>
+        <%= f.text_field :city, class: "input-field" %>
+      </div>
+    </div>
+    <hr>
+    <hr class="bg-primary-regular h-0.5">
+    <div class="flex items-center mt-4 gap-5">
+      <%= f.submit "Save", class: "btn" %>
+      <%= link_to "Cancel", admins_hotel_guest_path(@hotel, guest), class: "btn" %>
+    </div>
+  <% end %>
+</div>

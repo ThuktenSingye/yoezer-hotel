@@ -160,3 +160,11 @@
         success: "Employee removed successfully."
       not-found: "Employee not found."
 
+    guest:
+      update:
+        success: "Guest updated successfully."
+        error: "Failed to update Guest."
+      destroy:
+        success: "Guest removed successfully."
+      not-found: "Guest not found"
+

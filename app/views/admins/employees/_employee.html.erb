@@ -20,7 +20,6 @@
     <p class="break-words"><%= employee.email %></p>
   </div>
 
-
   <div class="w-[10%] text-center hidden md:block">
     <div class="flex justify-center items-center gap-4">
       <%= link_to admins_hotel_employee_path(@hotel, employee), class: "hidden md:block", data: {"turbo-method": :delete, "turbo-confirm": "Are you sure to delete?", turbo_frame: "_top"} do %>
