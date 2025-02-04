@@ -1,0 +1,39 @@
+<div class="border-b hover:bg-background group flex justify-between items-center p-2">
+  <div class="w-[20%] flex justify-center">
+    <%= image_tag((facility&.image&.attached? ? facility.image : "https://placehold.co/50x50"),
+                  class: "icon icon-button w-11 h-11 p-2 group-hover:bg-white") %>
+  </div>
+  <div class="flex-1  text-center text-gray-800">
+    <%= facility.name %>
+  </div>
+  <div class="flex-1 text-center" data-controller="popover">
+    <div
+      class="fixed inset-0 w-full h-full bg-black bg-opacity-30 z-10 hidden"
+      data-popover-target="backdrop"
+      data-action="click->popover#toggle"></div>
+
+    <div class="flex justify-center items-center gap-4">
+      <%= link_to edit_admins_hotel_facility_path(@hotel, facility), class: "hidden md:block", data: { "turbo-frame": "facility"} do %>
+        <button class="icon icon-button p-2 group-hover:bg-white">
+          <%= icon('fa-solid', 'pen-to-square', class: "text-secondary") %>
+        </button>
+      <% end %>
+
+      <%= link_to admins_hotel_facility_path(@hotel, facility), class: "hidden md:block", data: {"turbo-method": :delete, "turbo-confirm": "Are you sure to delete?", turbo_frame: "_top"} do %>
+        <button class="icon icon-button p-2 group-hover:bg-white hidden md:block">
+          <%= icon('fa-solid', 'trash', class: "text-error") %>
+        </button>
+      <% end %>
+      <button class="icon icon-button p-2 group-hover:bg-white md:hidden" data-action="click->popover#toggle">
+        <%= icon('fa-solid', 'ellipsis', class: "text-primary-regular") %>
+      </button>
+
+      <div data-popover-target="popover" class="hidden fixed mt-0 right-4  bg-white border rounded shadow-lg z-50">
+        <div class="flex flex-col items-start">
+          <%= link_to 'Edit', edit_admins_hotel_facility_path(@hotel, facility), class: "block px-4 py-2 underline text-secondary", data: { "turbo-frame": "amenity"} %>
+          <%= link_to 'Delete', admins_hotel_facility_path(@hotel, facility), data: { turbo_method: :delete, turbo_confirm: "Are you sure to delete?", turbo_frame: "_top" }, class: "block border-t px-4 py-2 underline text-error" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -125,4 +125,14 @@
         success: "Bed Type removed successfully."
       not_found: "Bed Type not found."
 
+    facility:
+      create:
+        success: "Facility created successfully."
+        error: "Failed to create Facility."
+      update:
+        success: "Facility updated successfully."
+        error: "Failed to update Facility."
+      destroy:
+        success: "Facility removed successfully."
+
 
