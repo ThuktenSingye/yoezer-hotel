@@ -18,6 +18,8 @@
     <link rel="apple-touch-icon" href="/icon.png">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css">
     <link rel="stylesheet" href="https://ga.jspm.io/npm:flatpickr@4.6.9/dist/flatpickr.min.css">
+    <%#= stylesheet_link_tag "https://unpkg.com/swiper/swiper-bundle.min.css" %>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
@@ -25,10 +27,11 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="bg-background font-body text-text-color text-sm md:text-base">
+  <body class="bg-background font-poppins text-text-color text-sm md:text-base">
     <%= render 'shared/header' %>
     <main class="w-full">
       <%= yield %>
     </main>
+    <%= render 'shared/footer' %>
   </body>
 </html>

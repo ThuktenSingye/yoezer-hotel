@@ -3,9 +3,11 @@ import '@hotwired/turbo-rails';
 import 'controllers';
 import { Application } from '@hotwired/stimulus';
 import Flatpickr from 'stimulus-flatpickr';
+// import Swiper from 'swiper';
 
 const application = Application.start();
 application.register('flatpickr', Flatpickr);
+// application.register('swiper', Swiper)
 
 function handleViewTransition(event) {
   if (document.startViewTransition) {

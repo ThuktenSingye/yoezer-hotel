@@ -1,14 +1,33 @@
-<div class="w-full flex flex-col justify-center border-box h-[100px]">
-  <div class="fw-full flex flex-row items-center px-4">
-    <div class="self-start">
-      <%= image_tag("logo.jpg", class: "avatar-wrapper rounded-full") %>
-    </div>
-    <div class="flex-grow flex justify-center gap-10">
-      <%= link_to "Home", root_path, class: "hover:text-primary-regular" %>
-      <%= link_to "Explore", root_path, class: "hover:text-primary-regular" %>
-      <%= link_to "Rooms", root_path, class: "hover:text-primary-regular" %>
-      <%= link_to "About Us", root_path, class: "hover:text-primary-regular" %>
-      <%= link_to "Contact Us", root_path, class: "hover:text-primary-regular" %>
+<div class="relative w-full h-[50vh] md:h-[40rem]">
+
+  <div class="absolute inset-0 w-full h-full overflow-hidden">
+    <%= image_tag('banner.jpg', class: "object-cover w-full h-full") %>
+  </div>
+
+  <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+
+  <div class="absolute inset-0 flex flex-col items-center justify-center text-white gap-4 md:gap-10 px-4 text-center">
+    <h1 class="text-4xl md:text-6xl lg:text-8xl font-bold font-title">YOEZER HOTEL</h1>
+    <h1 class="text-4xl md:text-6xl lg:text-8xl font-bold font-title">YOUR HOME</h1>
+    <p class="text-sm md:text-base lg:text-lg">Every moment feels like the first time in paradise view</p>
+    <div class="mt-4 md:mt-6">
+      <%= link_to "Book Now", root_path, class: "bg-white rounded-sm hover:shadow-lg rounded-none text-primary-regular hover:bg-primary-regular
+       hover:text-white transition duration-300 px-6 py-2 md:px-8 md:py-3 text-lg md:text-xl" %>
     </div>
   </div>
+  <header class="absolute inset-0 text-white top-0 w-full flex flex-col justify-center border-box h-[100px]">
+    <div class="fw-full flex flex-row items-center px-4">
+      <div class="self-start">
+        <%= image_tag("logo.jpg", class: "avatar-wrapper rounded-full") %>
+      </div>
+      <div class="flex-grow flex justify-center gap-10">
+        <%= link_to "Home", root_path, class: "cursor-pointer hover:text-white hover:scale-105 transition duration-300" %>
+        <%= link_to "Explore", root_path, class: "cursor-pointer hover:text-white hover:scale-105 transition duration-300" %>
+        <%= link_to "Rooms", root_path, class: "cursor-pointer hover:text-white hover:scale-105 transition duration-300" %>
+        <%= link_to "About Us", root_path, class: "cursor-pointer hover:text-white hover:scale-105 transition duration-300" %>
+        <%= link_to "Contact Us", root_path, class: "cursor-pointer hover:text-white hover:scale-105 transition duration-300" %>
+      </div>
+    </div>
+  </header>
 </div>
+

@@ -1,4 +1,4 @@
-<div class="relative w-full lg:h-[400px] flex flex-col lg:flex-row lg:items-start lg:gap-8  bg-white shadow-md hover:shadow-lg rounded-sm">
+<div class="relative w-full lg:h-[400px] flex flex-col lg:flex-row lg:items-start lg:gap-8  bg-white shadow-md  rounded-sm">
   <div class="relative w-full lg:w-[35%] shrink-0 h-full ">
     <%= image_tag((offer&.image&.attached? ? offer.image : "https://placehold.co/50x50"),
                   class: "image rounded-sm") %>
@@ -11,7 +11,7 @@
   <div class="p-4">
     <div>
       <h3 class="title text-2xl"><%= offer.title %></h3>
-      <p class="text-text-color/50 mt-2 lg:mr-8 text-balance text-sm xl:text-base overflow-hidden whitespace-nowrap text-ellipsis">
+      <p class="line-clamp-5 text-text-color/50 mt-2 lg:mr-8 text-balance text-sm xl:text-base text-ellipsis">
         <%= offer.description %>
       </p>
     </div>
