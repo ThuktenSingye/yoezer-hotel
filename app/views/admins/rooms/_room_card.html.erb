@@ -7,7 +7,7 @@
   </div>
   <div class="flex justify-between items-center">
     <div>
-      <h3 class="title mb-2"><%= room.room_category.name %></h3>
+      <h3 class="title mb-2"><%= room.room_category&.name %></h3>
       <div class="flex items-center gap-2">
         <h2 class="text-primary-regular <%= 'line-through' if offers.present?%>">Nu. <span class="font-bold text-lg"><%= room.base_price.to_i.to_s %></span></h2>
         <% if offers.present? %>

@@ -11,6 +11,18 @@
       </div>
     <% end %>
 
+    <div class="my-2 p-2">
+      <div class="flex flex-col" data-controller="avatar">
+        <div class="relative flex flex-row justify-center shrink-0">
+          <%= image_tag((room_category&.image&.attached? ? room_category.image : "https://placehold.co/200x200"),
+                        class: "image-md", data: { avatar_target: "imagePreview"}) %>
+          <div class="self-start ml-2 icon p-4 hover:cursor-pointer" data-action="click->avatar#selectImage">
+            <%= icon('fa-solid', 'pen-to-square', class: "text-primary-regular") %>
+          </div>
+          <%= f.file_field :image, accept: "image/*", data: {avatar_target: "avatarUpload", action: "change->avatar#showPreview"}, class: "hidden" %>
+        </div>
+      </div>
+    </div>
     <div class="my-1 w-full">
       <div class="input-container">
         <%= f.label :name, class: "input-label" %>

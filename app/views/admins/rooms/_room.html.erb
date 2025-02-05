@@ -5,7 +5,7 @@
         <div class="flex flex-col gap-4 ">
           <div class="flex flex-col gap-2">
             <div class="flex justify-between items-center">
-              <h2 class="title"><%= room.room_category.name %></h2>
+              <h2 class="title"><%= room.room_category&.name %></h2>
               <p class="absolute top-0 right-0 p-2 text-white  <%= status_class(room.status) %>">
                 <%= room.status.to_s.humanize %>
               </p>

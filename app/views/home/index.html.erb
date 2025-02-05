@@ -17,22 +17,32 @@
 
 <div class="w-full my-4">
   <div class="px-6 lg:px-12 mx-6 lg:mx-12 py-4">
-    <h1 class="text-4xl font-title text-primary-regular text-center mb-8">Our Facilities</h1>
+    <h1 class="text-4xl font-title text-primary-regular text-center mb-8">FACILITIES</h1>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 justify-items-center">
       <% @amenities.each do |amenity| %>
         <%= render 'home/amenity_card', amenity: amenity %>
+      <% end %>
+    </div>
+
+  </div>
+
+
+  <div class="px-6 lg:px-12 mx-6 lg:mx-12 py-4">
+    <h1 class="text-4xl font-title text-primary-regular text-center mb-8">ROOMS</h1>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 justify-items-center">
+      <% @room_categories.each do |room_category| %>
+        <%= render 'home/room_category_card', room_category: room_category %>
       <% end %>
     </div>
   </div>
 
   <div class="px-6 lg:px-12 mx-6 lg:mx-12 py-4">
-    <h1 class="text-4xl font-title text-primary-regular text-center mb-8">Our Rooms</h1>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 justify-items-center">
-      <% @amenities.each do |amenity| %>
-        <%= render 'home/amenity_card', amenity: amenity %>
+    <h1 class="text-4xl font-title text-primary-regular text-center mb-8">OFFER</h1>
+    <div class="px-6">
+      <% @offers.each do |offer| %>
+        <%= render 'home/offer_card', offer: offer %>
       <% end %>
     </div>
   </div>
-
 
 </div>

@@ -1,4 +1,8 @@
 <div class="border-b hover:bg-background group flex justify-between items-center p-2">
+  <div class="w-[20%] flex justify-center">
+    <%= image_tag((room_category&.image&.attached? ? room_category.image : "https://placehold.co/50x50"),
+                  class: "avatar avatar-wrapper") %>
+  </div>
   <div class="flex-1  text-center">
     <%= room_category.name %>
   </div>
