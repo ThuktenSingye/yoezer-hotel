@@ -36,7 +36,7 @@
 
 @layer components {
     .btn{
-        @apply font-title tracking-wider px-4 py-2 bg-primary-regular text-white rounded hover:bg-primary-dark;
+        @apply font-title tracking-wider px-4 py-2 bg-primary-regular text-white rounded hover:bg-primary-dark transition duration-300;
     }
     .sidebar-menu-container{
         @apply flex flex-col items-center;
