@@ -44,6 +44,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "home#index"
+  get "explore" => "explore#index"
 
   authenticated :admins do
     # mount Sidekiq::Web => '/sidekiq'
