@@ -192,11 +192,24 @@
         @apply border border-red-500
     }
 
-    /*    User   */
-    .shared-container {
-       @apply  max-width: 1200px margin-left: auto;
-        margin-right: auto;
-        padding-left: 1.5rem; /* Equivalent to px-6 in Tailwind */
-        padding-right: 1.5rem; /* Equivalent to px-6 in Tailwind */
+    /*    User Home   */
+    .user-heading-title {
+        @apply text-4xl md:text-6xl lg:text-8xl font-bold font-title
+    }
+    .user-title {
+        @apply text-4xl font-title text-primary-regular text-center mb-8
+    }
+
+    .user-card-layout {
+        @apply flex flex-wrap justify-center md:justify-evenly lg:justify-center gap-12
+    }
+    .user-card{
+        @apply  bg-white shadow-md  rounded-sm
+    }
+    .absolute-layout{
+        @apply absolute inset-0 rounded-none flex flex-col items-center justify-center
+    }
+    .user-nav-link {
+        @apply cursor-pointer hover:text-white hover:scale-105 transition duration-300
     }
 }

@@ -1,26 +1,32 @@
 <div class="w-full my-8">
   <div class="w-full md:w-5/6 mx-auto flex flex-col justify-center gap-10">
-
-    <div class="w-full my-4">
-      <h1 class="text-4xl font-title text-primary-regular text-center mb-8">FACILITIES</h1>
-      <div class="flex flex-wrap justify-center md:justify-evenly lg:justify-center gap-12">
+    <div class="w-full my-4"
+         data-aos="fade-up"
+         data-aos-duration="1000">
+      <h1 class="user-title">FACILITIES</h1>
+      <div class="user-card-layout">
           <% @amenities.each do |amenity| %>
             <%= render 'home/amenity_card', amenity: amenity %>
           <% end %>
       </div>
     </div>
 
-    <div class="w-full my-4">
-      <h1 class="text-4xl font-title text-primary-regular text-center mb-8">ROOMS</h1>
-      <div class="flex flex-wrap justify-center md:justify-evenly lg:justify-center gap-12">
+    <div class="w-full my-4"
+         data-aos="fade-up"
+         data-aos-duration="1000">
+      <h1 class="user-title">ROOMS</h1>
+      <div class="user-card-layout">
         <% @room_categories.each do |room_category| %>
           <%= render 'home/room_category_card', room_category: room_category %>
         <% end %>
       </div>
     </div>
 
-    <div class="w-full my-4">
-      <h1 class="text-4xl font-title text-primary-regular text-center mb-8">OFFER</h1>
+    <div class="w-full my-4"
+         data-aos="fade-up"
+         data-aos-duration="1000"
+         data-aos-offset="0">
+      <h1 class="user-title">OFFER</h1>
       <div class="px-6 lg:p-0">
         <% @offers.each do |offer| %>
           <%= render 'home/offer_card', offer: offer %>
@@ -28,14 +34,17 @@
       </div>
     </div>
 
-    <div class="w-full my-4">
+    <div class="w-full my-4"
+         data-aos="fade-up"
+         data-aos-duration="1000"
+         data-aos-offset="0">
       <div class="px-6 flex flex-col items-center justify-center gap-10">
-        <p class="text-text-color/50 text-center text-balance">Enjoy the luxurious room with great experience and the hotel is all about
+        <p class="text-text-color/50 text-center text-balance">
+          Enjoy the luxurious room with great experience and the hotel is all about
           including room booking and providing hotel information so customer can book.
           Enjoy the luxurious room with great experience and the hotel is all about
           including room booking and providing hotel information so customer can book.
         </p>
-
         <%= link_to "About Us", root_path, class: "btn" %>
       </div>
     </div>

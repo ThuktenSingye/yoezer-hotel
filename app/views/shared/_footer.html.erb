@@ -1,6 +1,6 @@
 <footer class="w-full lg:h-[350px] bg-primary-regular py-12 text-white/60 flex flex-col items-center gap-2">
   <div class="w-[90%] mx-auto flex-grow">
-    <div class="flex flex-col lg:flex-row lg:justify-evenly lg:items-start w-full gap-4">
+    <div class="w-full flex flex-col lg:flex-row lg:justify-evenly lg:items-start gap-4">
       <div class="flex flex flex-col items-center gap-4 mb-4">
         <div class="w-24 h-24">
           <%= image_tag("logo.jpg", class: "w-full h-full rounded-full") %>
@@ -11,10 +11,10 @@
         <div class="flex flex-col items-start gap-4">
           <h3 class="font-title text-2xl text-white">DISCOVER</h3>
           <div class="flex flex-col gap-1">
-            <p class="cursor-pointer hover:text-white hover:scale-105 transition duration-300">Home</p>
-            <p class="cursor-pointer hover:text-white hover:scale-105 transition duration-300">Explore</p>
-            <p class="cursor-pointer hover:text-white hover:scale-105 transition duration-300">Rooms</p>
-            <p class="cursor-pointer hover:text-white hover:scale-105 transition duration-300">About</p>
+            <p class="user-nav-link">Home</p>
+            <p class="user-nav-link">Explore</p>
+            <p class="user-nav-link">Rooms</p>
+            <p class="user-nav-link">About</p>
           </div>
         </div>
 
@@ -23,9 +23,9 @@
             <h3 class="font-title text-2xl text-white">CONTACT US</h3>
             <% address = @hotel.address.first %>
             <div class="flex flex-col gap-1">
-              <p class="cursor-pointer hover:text-white hover:scale-105 transition duration-300"><%= address.dzongkhag %>, <%= address.street_address %></p>
-              <p class="cursor-pointer hover:text-white hover:scale-105 transition duration-300">T: <%= @hotel.contact_no %></p>
-              <p class="cursor-pointer hover:text-white hover:scale-105 transition duration-300">E: <%= @hotel.email %></p>
+              <p class="user-nav-link"><%= address.dzongkhag %>, <%= address.street_address %></p>
+              <p class="user-nav-link">T: <%= @hotel.contact_no %></p>
+              <p class="user-nav-link">E: <%= @hotel.email %></p>
             </div>
           </div>
         <% end %>
@@ -33,16 +33,16 @@
         <div class="flex flex-col items-start gap-4">
           <h3 class="font-title text-2xl text-white">EXPLORE</h3>
           <div class="flex flex-col gap-1">
-            <p class="cursor-pointer hover:text-white hover:scale-105 transition duration-300">Terms & Conditions</p>
+            <p class="user-nav-link">Terms & Conditions</p>
           </div>
         </div>
       </div>
     </div>
 
     <div class="flex justify-center gap-10 p-4 my-2">
-      <%= icon('fa-brands', 'facebook-f', class: "cursor-pointer hover:text-white hover:scale-105 transition duration-300") %>
-      <%= icon('fa-brands', 'instagram', class: "cursor-pointer hover:text-white hover:scale-105 transition duration-300") %>
-      <%= icon('fa-brands', 'twitter', class: "cursor-pointer hover:text-white hover:scale-105 transition duration-300") %>
+      <%= icon('fa-brands', 'facebook-f', class: "user-nav-link") %>
+      <%= icon('fa-brands', 'instagram', class: "user-nav-link") %>
+      <%= icon('fa-brands', 'twitter', class: "user-nav-link") %>
     </div>
   </div>
 
