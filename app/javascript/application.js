@@ -7,7 +7,6 @@ import AOS from 'aos';
 
 const application = Application.start();
 application.register('flatpickr', Flatpickr);
-// application.register('swiper', Swiper)
 
 document.addEventListener("turbo:load", () => {
   AOS.init();
