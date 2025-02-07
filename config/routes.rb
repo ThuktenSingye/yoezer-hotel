@@ -2,6 +2,7 @@
 
 require 'sidekiq/web'
 Rails.application.routes.draw do
+  get "hotels/show"
   mount Sidekiq::Web => '/sidekiq'
   namespace :admins do
     resources :hotels, only: %i[index edit update] do
@@ -43,7 +44,9 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Defines the root path route ("/")
-  root "home#index"
+  # root "home#show"
+  get '/:location', to: 'home#show', constraints: { location: /[a-zA-Z0-9]+/ }
+  root 'home#show'
 
   authenticated :admins do
     # mount Sidekiq::Web => '/sidekiq'

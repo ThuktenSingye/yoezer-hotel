@@ -41,7 +41,6 @@ module YoezerHotel
 
     # Don't generate system test files.
     config.generators.system_tests = nil
-
     config.factory_bot.definition_file_paths = ['spec/factories']
     config.autoload_paths << Rails.root.join('app/queries')
 
