@@ -43,6 +43,9 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Defines the root path route ("/")
+  # root "home#show"
+  get '/:location', to: 'home#show', constraints: { location: /[a-zA-Z0-9]+/ }
+  root 'home#show'
   root "home#index"
   get "explore" => "explore#index"
 
