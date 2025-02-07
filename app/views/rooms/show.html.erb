@@ -33,12 +33,14 @@
     <div class="w-full my-4 p-6"
          data-aos="fade-up"
          data-aos-duration="1000">
-      <h1 class="user-title">FACILITIES</h1>
-      <div class="user-card-layout">
-        <% @room.room_facilities.each do |room_facility| %>
-          <%= render 'rooms/facility_card', room_facility: room_facility %>
-        <% end %>
-      </div>
+      <% if @room.room_facilities.present? %>
+        <h1 class="user-title">FACILITIES</h1>
+        <div class="user-card-layout">
+          <% @room.room_facilities.each do |room_facility| %>
+            <%= render 'rooms/facility_card', room_facility: room_facility %>
+          <% end %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
