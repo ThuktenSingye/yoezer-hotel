@@ -43,10 +43,13 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Defines the root path route ("/")
+  constraints subdomain: /[a-zA-Z0-9]+/ do
+    get '/', to: 'home#show', as: :home
+    get '/explore', to: 'explore#index', as: :explore
+    resources :rooms, only: [:index, :show]
+  end
 
-  root "home#index"
-  get "explore" => "explore#index"
-  resources :rooms, only: [:index, :show]
+  root 'home#show'
 
   authenticated :admins do
     # mount Sidekiq::Web => '/sidekiq'
