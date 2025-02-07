@@ -1,0 +1,90 @@
+<div class="relative w-full h-[80vh] lg:h-screen" data-aos="zoom-in-out" data-aos-duration="2000">
+  <div class="absolute inset-0 w-full h-full" data-aos="zoom-out-down" data-aos-duration="3000">
+    <%= image_tag(@room.image.attached? ? @room.image: "https://placehold.co/50x50", class: "object-cover w-full h-full") %>
+  </div>
+  <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+
+  <div class="absolute-layout text-white gap-4 md:gap-10 px-4 text-center">
+    <h1 class="user-heading-title">YOUR ROOM</h1>
+  </div>
+</div>
+
+<!-- Carousel for primary image-->
+
+
+<div class="w-full my-8">
+  <div class="w-full md:w-5/6 mx-auto">
+    <div class="w-full my-4 flex flex-col gap-10 p-6"
+         data-aos="fade-up"
+         data-aos-duration="1000"
+         data-aos-offset="0">
+      <div class="w-full flex flex-col lg:flex-row lg:justify-between lg:items-start gap-10">
+        <div class="flex-1 flex flex-col items-center lg:items-start">
+          <h3 class="user-title mb-4"><%= @room.room_category.name %></h3>
+          <div class="mb-2">
+            <% rating = @room.room_ratings.average(:rating) || 0 %>
+            <% stars = Room.calculate_rating(rating) %>
+            <%= render 'shared/rating', rating: rating, stars: stars %>
+          </div>
+          <p class="line-clamp-4 text-ellipsis text-balance text-center lg:text-start leading-[1.8]"><%= @room.description %></p>
+
+          <!-- Adult, Children, and Bed Types Section -->
+          <div class="w-full mt-4 space-y-2">
+            <div class="flex items-center justify-center gap-4">
+              <div class="flex flex-1 items-center gap-2">
+                <i class="fas fa-user text-primary-regular text-lg"></i>
+                <p class="text-sm sm:text-base"><%= @room.max_no_adult %> Adults</p>
+              </div>
+
+              <!-- Max Number of Children -->
+              <div class="flex flex-1 items-center gap-2">
+                <i class="fas fa-child text-primary-regular text-lg"></i>
+                <p class="text-sm sm:text-base"><%= @room.max_no_children %> Children</p>
+              </div>
+            </div>
+
+            <!-- Bed Types -->
+            <div class="flex items-center justify-center gap-4">
+              <% @room.bed_types&.each do |bed_type| %>
+                <div class="flex flex-1 items-center gap-2">
+                  <i class="fas fa-bed text-primary-regular text-lg"></i>
+                  <p class="text-sm sm:text-base"><%= bed_type&.name %></p>
+                </div>
+              <% end %>
+            </div>
+
+          </div>
+
+          <!-- Reservation and Price Section -->
+          <div class="w-full flex justify-between items-center mt-4">
+            <% if @room.status == 'available' %>
+              <div class="flex items-center">
+                <%= link_to "Reservation", rooms_path, data: { turbo_frame: "_top" }, class: "user-btn" %>
+              </div>
+            <% end %>
+
+            <div>
+              <h2 class="text-primary-regular">
+                Nu. <span class="font-bold text-2lg <%= 'line-through' if @offers.present? %>"><%= @room.base_price.to_i.to_s %></span>
+                <span class="text-sm">(<%= calculate_discounted_room_price(@room.base_price, @offers)[:total_discount] %>% off)</span>
+              </h2>
+
+              <% if @offers.present? %>
+                <h2 class="text-primary-regular">
+                  Nu. <span class="font-bold text-2xl"><%= calculate_discounted_room_price(@room.base_price, @offers)[:discounted_price] %></span>/night
+                </h2>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+        <div class="w-full mx-auto sm:w-3/4 md:w-4/5 lg:w-1/2 h-[300px] md:h-[400px] overflow-hidden">
+          <%= image_tag(@room.image.attached? ? @room.image : "https://placehold.co/500x300",
+                        class: "object-cover w-full h-full transition-transform duration-1000 hover:scale-105") %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

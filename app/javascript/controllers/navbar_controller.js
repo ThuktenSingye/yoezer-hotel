@@ -14,7 +14,7 @@ export default class extends Controller {
   }
 
   toggleNavBarMenu() {
-    this.navbarMenuTarget.classList.toggle("-translate-x-full");
+    // this.navbarMenuTarget.classList.toggle("-translate-x-full");
     this.toggleBodyScroll();
     this.isNavBarOpen = !this.isNavBarOpen;
   }

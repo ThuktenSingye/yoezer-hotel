@@ -204,7 +204,7 @@
     }
 
     .user-card-layout {
-        @apply flex flex-wrap justify-center md:justify-evenly lg:justify-center gap-12
+        @apply flex flex-wrap justify-center md:justify-evenly lg:justify-center gap-8
     }
     .user-card{
         @apply  bg-white shadow-md  rounded-sm
@@ -214,5 +214,8 @@
     }
     .user-nav-link {
         @apply cursor-pointer hover:text-white hover:scale-105 transition duration-300
+    }
+    .user-btn {
+        @apply border border-primary-regular bg-white text-primary-regular hover:bg-primary-regular hover:text-white rounded-none px-4 py-2 transition duration-300;
     }
 }
