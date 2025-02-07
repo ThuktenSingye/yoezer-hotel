@@ -2,7 +2,6 @@
 
 require 'sidekiq/web'
 Rails.application.routes.draw do
-  get "hotels/show"
   mount Sidekiq::Web => '/sidekiq'
   namespace :admins do
     resources :hotels, only: %i[index edit update] do
