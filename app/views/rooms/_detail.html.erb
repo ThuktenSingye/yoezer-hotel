@@ -1,0 +1,54 @@
+<div class="user-card-container flex-1 flex flex-col items-center lg:items-start border p-4">
+  <h3 class="user-title mb-4"><%= room.room_category.name %></h3>
+  <div class="mb-2">
+    <% rating = room.room_ratings.average(:rating) || 0 %>
+    <% stars = Room.calculate_rating(rating) %>
+    <%= render 'shared/rating', rating: rating, stars: stars %>
+  </div>
+  <p class="user-description"><%= room.description %></p>
+
+  <div class="w-full mt-4 flex justify-start items-center">
+    <div class="flex flex-1 flex-col items-center lg:items-start justify-center gap-4">
+      <div class="flex items-center gap-2">
+        <%= icon('fa-solid', 'user', class: "user-room-detail-icon") %>
+        <p class="text-sm sm:text-base"><%= room.max_no_adult %> Adults</p>
+      </div>
+      <div class="flex items-center gap-2">
+        <%= icon('fa-solid', 'children', class: "user-room-detail-icon") %>
+        <p class="text-sm sm:text-base"><%= room.max_no_children %> Children</p>
+      </div>
+    </div>
+
+    <div class="flex flex-1 flex-col items-center lg:items-start justify-center gap-4 pb-2">
+      <% room.room_bed_types&.each do |bed_type| %>
+        <div class="flex items-center gap-2">
+          <%= icon('fa-solid', 'bed', class: "user-room-detail-icon") %>
+          <p class="text-sm sm:text-base"><%= bed_type.num_of_bed %> <%= bed_type.bed_type.name %></p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="w-full justify-end mt-4 gap-3">
+    <div class="flex justify-between items-end">
+      <% if room.status == 'available' %>
+        <div class="flex items-center">
+          <%= link_to "Reservation", rooms_path, data: { turbo_frame: "_top" }, class: "user-btn" %>
+        </div>
+      <% end %>
+
+      <div>
+        <h2 class="text-primary-regular">
+          Nu. <span class="font-bold text-2lg <%= 'line-through' if @offers.present? %>"><%= room.base_price.to_i.to_s %></span>
+          <span class="text-sm">(<%= calculate_discounted_room_price(room.base_price, @offers)[:total_discount] %>% off)</span>
+        </h2>
+
+        <% if @offers.present? %>
+          <h2 class="text-primary-regular">
+            Nu. <span class="font-bold text-2xl"><%= calculate_discounted_room_price(room.base_price, @offers)[:discounted_price] %></span>/night
+          </h2>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

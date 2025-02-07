@@ -32,7 +32,7 @@
         <% else %>
           <div class="user-card-layout">
             <% @rooms.each do |room| %>
-              <%= render 'rooms/room_card', room: room , offers: @offers%>
+              <%= render 'rooms/card', room: room , offers: @offers%>
             <% end %>
           </div>
           <div class="flex justify-center my-4">

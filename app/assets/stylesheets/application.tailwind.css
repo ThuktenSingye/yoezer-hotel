@@ -218,4 +218,13 @@
     .user-btn {
         @apply border border-primary-regular bg-white text-primary-regular hover:bg-primary-regular hover:text-white rounded-none px-4 py-2 transition duration-300;
     }
+    .user-room-detail-icon {
+        @apply text-primary-regular text-lg w-6 text-center
+    }
+    .user-card-container {
+        @apply w-full mx-auto sm:w-3/4 md:w-4/5 lg:w-1/2 h-[300px] md:h-[400px] overflow-hidden
+    }
+    .user-description{
+        @apply line-clamp-4 text-ellipsis text-balance text-center lg:text-start leading-[1.8]
+    }
 }

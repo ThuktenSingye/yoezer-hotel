@@ -1,15 +1,24 @@
-class RoomsController < ApplicationController
-  def index
+# frozen_string_literal: true
 
-    @hotel = Hotel.first
-    # @rooms = Room.includes(:room_category).all
-    @pagy , @rooms = pagy(RoomQuery.new(@hotel, params).call, limit: 6 )
-    @room_category = RoomCategory.all
-    @offers = Offer.all
+# Room Controller for User
+class RoomsController < HomeController
+  before_action :room, only: [:show]
+  before_action :offers
+
+  def index
+    @pagy, @rooms = pagy(RoomQuery.new(@hotel, params).call, limit: 6)
+    @room_category = @hotel.room_categories.all
   end
 
-  def show
-    @room ||= Room.find(params[:id])
-    @offers = Offer.all
+  def show; end
+
+  private
+
+  def room
+    @room ||= @hotel.rooms.find(params[:id])
+  end
+
+  def offers
+    @offers ||= @hotel.offers.all
   end
 end
