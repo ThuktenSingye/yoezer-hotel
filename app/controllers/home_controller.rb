@@ -14,17 +14,19 @@ class HomeController < ApplicationController
   private
 
   def hotel
-    @hotel = find_hotel
+    @hotel ||= find_hotel
   end
 
   def find_hotel
-    if params[:location].present?
-      Hotel.joins(:address).where('lower(replace(addresses.dzongkhag, \' \', \'\')) = ?',
-                                  params[:location].to_s.downcase).first
+    if request.subdomain.present?
+      Hotel.find_by(subdomain: request.subdomain) || default_hotel
     else
-      # Default Hotel
-      default_hotel_id = 1
-      Hotel.find(default_hotel_id)
+      default_hotel
     end
+  end
+
+  def default_hotel
+    default_hotel_id = 1
+    Hotel.find(default_hotel_id)
   end
 end
