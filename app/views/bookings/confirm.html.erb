@@ -1,0 +1,46 @@
+<div class="relative w-full h-[80vh] lg:h-screen" data-aos="zoom-in-out" data-aos-duration="2000">
+  <div class="absolute inset-0 w-full h-full" data-aos="zoom-out-down" data-aos-duration="3000">
+    <%= image_tag(@booking.room.image.attached? ? @booking.room.image: "https://placehold.co/50x50", class: "object-cover w-full h-full") %>
+  </div>
+  <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+
+  <div class="absolute-layout text-white gap-4 md:gap-10 px-4 text-center">
+    <h1 class="user-heading-title">YOUR HOME</h1>
+  </div>
+</div>
+
+<div class="card-container my-10">
+  <div class="card">
+    <div class="relative p-4 ">
+      <div class="flex flex-col gap-4 ">
+        <div class="flex flex-col gap-2">
+          <div class="mb-2">
+            <h2 class="title">Booking Confirmation</h2>
+            <% booking_attributes = [
+              { name: "Booking Number", value: "#{@booking.id}" },
+              { name: "Check-in Date", value: @booking.checkin_date.strftime("%b %d, %Y") },
+              { name: "Check-out Date", value: @booking.checkout_date.strftime("%b %d, %Y") },
+              { name: "Room Number", value: @booking.room.room_number },
+              { name: "Room Category", value: @booking.room.room_category.name },
+            ] %>
+            <% booking_attributes.each do |attribute| %>
+              <%= render 'shared/input', input: attribute %>
+            <% end %>
+          </div>
+
+          <hr class="bg-primary-regular h-0.5">
+          <div class="flex justify-between items-center mt-2 gap-2">
+            <% if @booking.confirmed? %>
+             <p class="text-error">You have already confirmed the booking. Thank you</p>
+            <% else %>
+              <%= button_to "Confirm Booking",  update_confirmation_room_booking_path(@room, @booking,token: @booking.confirmation_token),
+                            class: "btn btn-primary",  method: :patch, data: { target: "_top", turbo:false, turbo_confirm: "Are you sure you want to confirm this booking?" } %>
+              <%= link_to "Cancel Booking", room_booking_path(@room, @booking), data: { turbo_method: :delete, turbo_confirm: "Are you sure to Cancel Booking?"}, class: "btn" %>
+            <% end %>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

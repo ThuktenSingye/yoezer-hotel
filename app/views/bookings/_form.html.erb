@@ -1,0 +1,87 @@
+
+<%= form_with(model: [ @room , booking], local: true,data: { turbo: false }, class: "flex flex-col justify-center") do |f| %>
+  <% if booking.errors.any? %>
+    <div id="error_explanation" class="flex flex-col items-center">
+      <h2 class="text-text-color/50"><%= pluralize(booking.errors.count, "error") %>:</h2>
+      <ul class="text-error">
+        <% booking.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="flex flex-col lg:flex-row lg:justify-center lg:items-center gap-4" data-controller="reservation-date-validation">
+    <%= f.text_field :checkin_date,
+                     data: { controller: "flatpickr", reservation_date_validation_target: "checkinDate", flatpickr_date_format: "Y-m-d", flatpickr_min_date: Date.today.to_s, flatpickr_disable_mobile: true  },
+                     class: "user-reservation-input-field ", placeholder: "CheckIn" %>
+    <%= f.text_field :checkout_date,
+                     data: { controller: "flatpickr",reservation_date_validation_target: "checkoutDate", flatpickr_date_format: "Y-m-d", flatpickr_min_date: Date.tomorrow.to_s },
+                     class: "user-reservation-input-field ", flatpickr_min_date: Date.today.to_s, placeholder: "CheckOut" %>
+    <%= f.number_field :num_of_adult, class: "user-reservation-input-field", placeholder: "Adults" %>
+    <%= f.number_field :num_of_children, class: "user-reservation-input-field", placeholder: "Children" %>
+
+    <div class="input-container hidden">
+      <%= f.hidden_field :payment_status, { value: 'pending', class: "input-field" } %>
+    </div>
+
+    <div data-controller="dialog" data-action="click->dialog#backdropClose">
+      <dialog data-dialog-target="dialog" data-reservation-date-validation-target="dialog" class="bg-white w-full md:w-3/4 lg:w-2/3 xl:w-1/2 p-6 z-10">
+        <%= f.fields_for :guest do |guest_form| %>
+          <div class="flex flex-col gap-4">
+            <h3 class="user-title mb-4">Enter Your Details</h3>
+            <div class="user-reservation-input-layout">
+              <div class="user-reservation-input-section">
+                <%= guest_form.label :first_name, class: "user-reservation-form-label" %>
+                <%= guest_form.text_field :first_name, class: "user-reservation-input-field w-full", placeholder: "First Name" %>
+              </div>
+
+              <div class="user-reservation-input-section">
+                <%= guest_form.label :last_name, class: "user-reservation-form-label" %>
+                <%= guest_form.text_field :last_name, class: "user-reservation-input-field w-full", placeholder: "Last Name" %>
+              </div>
+            </div>
+            <div class="user-reservation-input-layout">
+              <div class="user-reservation-input-section">
+                <%= guest_form.label :contact_no, class: "user-reservation-form-label" %>
+                <%= guest_form.text_field :contact_no, class: "user-reservation-input-field w-full", placeholder: "Contact Number" %>
+              </div>
+
+              <div class="user-reservation-input-section">
+                <%= guest_form.label :country, class: "user-reservation-form-label" %>
+                <%= guest_form.text_field :country, class: "user-reservation-input-field w-full", placeholder: "Country" %>
+              </div>
+            </div>
+            <div class="user-reservation-input-layout">
+
+              <div class="user-reservation-input-section">
+                <%= guest_form.label :region, class: "user-reservation-form-label" %>
+                <%= guest_form.text_field :region, class: "user-reservation-input-field w-full", placeholder: "Region/State" %>
+              </div>
+
+              <div class="user-reservation-input-section">
+                <%= guest_form.label :city, class: "user-reservation-form-label" %>
+                <%= guest_form.text_field :city, class: "user-reservation-input-field w-full", placeholder: "City" %>
+              </div>
+            </div>
+            <div class="user-reservation-input-section lg:w-1/2 lg:pr-2">
+              <%= guest_form.label :email, class: "user-reservation-form-label" %>
+              <%= guest_form.email_field :email, class: "user-reservation-input-field w-full", placeholder: "example@gmail.com" %>
+            </div>
+          </div>
+        <% end %>
+        <hr class="bg-primary-regular h-0.5 mt-4"/>
+        <div class="flex items-center mt-4 gap-5">
+          <%= f.submit "Book", class: "btn" %>
+          <% if booking.persisted? %>
+            <%= link_to "Cancel", room_booking_path(@room, booking), class: "btn", data: { turbo_frame: "_top"} %>
+          <% else %>
+            <%= link_to "Cancel", room_path(@room), class: "btn", data: { turbo_frame: "_top"} %>
+          <% end %>
+        </div>
+      </dialog>
+      <div>
+        <button type="button" class="user-btn p-3" data-action="click->reservation-date-validation#validateDates">Reservation</button>
+      </div>
+    </div>
+  </div>
+<% end %>

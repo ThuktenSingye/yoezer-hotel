@@ -6,11 +6,11 @@ class BookingMailer < ApplicationMailer
     @booking = booking
     @guest_email = booking.guest.email
     @hotel_email = booking.hotel.email
-    @confirmation_link = confirm_booking_admins_hotel_room_booking_url(
-      hotel_id: booking.room.hotel.id,
+    @confirmation_link = confirm_room_booking_url(
+      subdomain: booking.hotel.subdomain,
       room_id: booking.room.id,
       id: booking.id,
-      token: booking.confirmation_token
+      token: booking.confirmation_token,
     )
     mail(to: @guest_email, subject: I18n.t('booking.confirmation-email-subject'), from: @hotel_email)
   end

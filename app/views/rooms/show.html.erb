@@ -9,21 +9,27 @@
   </div>
 </div>
 
-<!-- Carousel for primary image-->
-
-
 <div class="w-full my-8">
   <div class="w-full md:w-5/6 mx-auto">
+    <% if @room.status == 'available' %>
+      <div class="w-full my-4 p-6"
+           data-aos="fade-up"
+           data-aos-duration="1000">
+        <div class="user-card-container h-auto py-2 lg:w-full md:h-auto">
+          <%= render 'bookings/form', booking: @booking %>
+        </div>
+      </div>
+    <% end %>
+
     <div
       class="w-full my-4 flex flex-col gap-10 p-6"
       data-aos="fade-up"
       data-aos-duration="1000"
-      data-aos-offset="0"
-    >
+      data-aos-offset="0">
       <h1 class="user-title mb-0">ROOM</h1>
       <div class="w-full flex flex-col lg:flex-row lg:justify-between lg:items-center gap-8">
         <%= render "rooms/detail", room: @room %>
-        <div class="w-full mx-auto sm:w-3/4 md:w-4/5 lg:w-1/2 h-[300px] md:h-[400px] overflow-hidden">
+        <div class="user-card-container">
           <%= image_tag(@room.image.attached? ? @room.image : "https://placehold.co/500x300",
                         class: "object-cover w-full h-full transition-transform duration-1000 hover:scale-105") %>
         </div>
@@ -42,7 +48,7 @@
         </div>
       <% end %>
     </div>
+
+
   </div>
 </div>
-
-

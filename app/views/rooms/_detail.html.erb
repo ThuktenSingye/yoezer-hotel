@@ -31,12 +31,6 @@
 
   <div class="w-full justify-end mt-4 gap-3">
     <div class="flex justify-between items-end">
-      <% if room.status == 'available' %>
-        <div class="flex items-center">
-          <%= link_to "Reservation", rooms_path, data: { turbo_frame: "_top" }, class: "user-btn" %>
-        </div>
-      <% end %>
-
       <div>
         <h2 class="text-primary-regular">
           Nu. <span class="font-bold text-2lg <%= 'line-through' if @offers.present? %>"><%= room.base_price.to_i.to_s %></span>
@@ -49,6 +43,9 @@
           </h2>
         <% end %>
       </div>
+      <p class="p-2 text-white <%= status_class(room.status) %>">
+        <%= room.status.to_s.humanize %>
+      </p>
     </div>
   </div>
 </div>

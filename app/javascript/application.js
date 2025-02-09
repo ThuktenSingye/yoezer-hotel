@@ -4,9 +4,11 @@ import 'controllers';
 import { Application } from '@hotwired/stimulus';
 import Flatpickr from 'stimulus-flatpickr';
 import AOS from 'aos';
+import Dialog from '@stimulus-components/dialog'
 
 const application = Application.start();
 application.register('flatpickr', Flatpickr);
+application.register('dialog', Dialog)
 
 document.addEventListener("turbo:load", () => {
   AOS.init();

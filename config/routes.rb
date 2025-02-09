@@ -14,12 +14,7 @@ Rails.application.routes.draw do
       resources :rooms do
         resources :room_bed_types, only: %i[create destroy]
         resources :room_facilities, only: %i[create destroy]
-        resources :bookings, only: %i[new create] do
-          member do
-            get :confirm_booking
-            patch :update_confirmation
-          end
-        end
+        resources :bookings, only: %i[new create]
       end
       resources :bookings, except: %i[new create]
       resources :bed_types, except: %i[index show]
@@ -46,7 +41,15 @@ Rails.application.routes.draw do
   constraints subdomain: /[a-zA-Z0-9]+/ do
     get '/', to: 'home#show', as: :home
     get '/explore', to: 'explore#index', as: :explore
-    resources :rooms, only: [:index, :show]
+    resources :rooms, only: [:index, :show] do
+      resources :bookings, controller: "bookings" do
+        member do
+          get :confirm
+          patch :update_confirmation
+          delete :destroy
+        end
+      end
+    end
   end
 
   root 'home#show'
