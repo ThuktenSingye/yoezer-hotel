@@ -1,0 +1,5 @@
+<turbo-frame id="room_status_<%= room.id %>">
+  <p class="p-2 text-white <%= status_class(room.status) %>">
+    <%= room.status.to_s.humanize %>
+  </p>
+</turbo-frame>

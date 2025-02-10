@@ -26,7 +26,7 @@ class HomeController < ApplicationController
   end
 
   def default_hotel
-    default_hotel_id = 1
+    default_hotel_id = 3
     Hotel.find(default_hotel_id)
   end
 end

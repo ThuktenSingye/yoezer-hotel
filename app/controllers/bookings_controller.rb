@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
+# Booking controller for guest
 class BookingsController < HomeController
-  before_action :room, only: %i[new create confirm destroy update_confirmation]
+  before_action :room
   before_action :offers
   before_action :booking_service, only: %i[create confirm update_confirmation]
   before_action :booking, only: %i[destroy confirm update_confirmation]
-
 
   def index; end
 
@@ -12,11 +14,11 @@ class BookingsController < HomeController
   def create
     result = @booking_service.create_booking(booking_params, @offers)
     if result
-      flash[:notice] = I18n.t('booking.create.success')
+      create_response
     else
       flash[:alert] = I18n.t('booking.create.error')
+      redirect_to room_path(@room)
     end
-    redirect_to room_path(@room)
   end
 
   def destroy
@@ -89,6 +91,16 @@ class BookingsController < HomeController
     redirect_to room_path(@room)
   end
 
+  def create_response
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: [
+          turbo_stream.replace("room_status_#{@room.id}", partial: 'rooms/room_status', locals: { room: @room }),
+          turbo_stream.replace('booking_form')
+        ]
+      end
+    end
+  end
 
   def booking_params
     params.require(:booking).permit(

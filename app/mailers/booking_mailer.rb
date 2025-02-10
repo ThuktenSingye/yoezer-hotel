@@ -10,7 +10,7 @@ class BookingMailer < ApplicationMailer
       subdomain: booking.hotel.subdomain,
       room_id: booking.room.id,
       id: booking.id,
-      token: booking.confirmation_token,
+      token: booking.confirmation_token
     )
     mail(to: @guest_email, subject: I18n.t('booking.confirmation-email-subject'), from: @hotel_email)
   end

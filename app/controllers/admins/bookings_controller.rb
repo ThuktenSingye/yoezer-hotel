@@ -2,13 +2,11 @@
 
 module Admins
   # Booking controller for booking CRUD operation
-  # rubocop:disable Metrics/ClassLength
   class BookingsController < AdminsController
-    before_action :authenticate_admin!, except: %i[confirm_booking update_confirmation]
     before_action :hotel
-    before_action :room, only: %i[new create confirm_booking update_confirmation]
-    before_action :booking, only: %i[edit show update destroy confirm_booking update_confirmation]
-    before_action :booking_service, only: %i[create update_confirmation]
+    before_action :room, only: %i[new create]
+    before_action :booking, only: %i[edit show update destroy]
+    before_action :booking_service, only: %i[create]
     before_action :offers
 
     def index
@@ -55,26 +53,6 @@ module Admins
       end
 
       redirect_to admins_hotel_bookings_path(@hotel)
-    end
-
-    def confirm_booking
-      if @booking.confirmation_token == params[:token]
-        render :'admins/bookings/confirm'
-      else
-        flash[:alert] = I18n.t('booking.invalid-confirmation')
-        redirect_to admins_hotel_room_path(@hotel, @room)
-      end
-    end
-
-    def update_confirmation
-      result = @booking_service.confirm_token(params[:id], params[:token])
-
-      if result[:valid]
-        confirm_booking_and_redirect
-      else
-        flash[:alert] = result[:error]
-        redirect_to admins_hotel_room_path(@hotel, @room)
-      end
     end
 
     private
@@ -135,5 +113,4 @@ module Admins
       )
     end
   end
-  # rubocop:enable Metrics/ClassLength
 end

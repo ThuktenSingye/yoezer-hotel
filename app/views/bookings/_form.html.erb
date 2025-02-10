@@ -1,6 +1,4 @@
-
-<%= form_with(model: [ @room , booking], local: true,data: { turbo: false }, class: "flex flex-col justify-center") do |f| %>
-  <% if booking.errors.any? %>
+<%= form_with(model: [@room, booking], local: true, class: "flex flex-col justify-center", id: "bookingForm", data: { success_dialog_target: "form" }) do |f| %>  <% if booking.errors.any? %>
     <div id="error_explanation" class="flex flex-col items-center">
       <h2 class="text-text-color/50"><%= pluralize(booking.errors.count, "error") %>:</h2>
       <ul class="text-error">
@@ -10,7 +8,7 @@
       </ul>
     </div>
   <% end %>
-  <div class="flex flex-col lg:flex-row lg:justify-center lg:items-center gap-4" data-controller="reservation-date-validation">
+  <div  class="flex flex-col lg:flex-row lg:justify-center lg:items-center gap-4" data-controller="reservation-date-validation">
     <%= f.text_field :checkin_date,
                      data: { controller: "flatpickr", reservation_date_validation_target: "checkinDate", flatpickr_date_format: "Y-m-d", flatpickr_min_date: Date.today.to_s, flatpickr_disable_mobile: true  },
                      class: "user-reservation-input-field ", placeholder: "CheckIn" %>
@@ -25,7 +23,7 @@
     </div>
 
     <div data-controller="dialog" data-action="click->dialog#backdropClose">
-      <dialog data-dialog-target="dialog" data-reservation-date-validation-target="dialog" class="bg-white w-full md:w-3/4 lg:w-2/3 xl:w-1/2 p-6 z-10">
+      <dialog data-dialog-target="dialog" data-success-dialog-target="dialog" data-reservation-date-validation-target="dialog" class="bg-white w-full md:w-3/4 lg:w-2/3 xl:w-1/2 p-6 z-10">
         <%= f.fields_for :guest do |guest_form| %>
           <div class="flex flex-col gap-4">
             <h3 class="user-title mb-4">Enter Your Details</h3>
@@ -71,7 +69,7 @@
         <% end %>
         <hr class="bg-primary-regular h-0.5 mt-4"/>
         <div class="flex items-center mt-4 gap-5">
-          <%= f.submit "Book", class: "btn" %>
+          <%= f.submit "Book", class: "btn", data: { action: "click->success-dialog#showSuccessDialog"} %>
           <% if booking.persisted? %>
             <%= link_to "Cancel", room_booking_path(@room, booking), class: "btn", data: { turbo_frame: "_top"} %>
           <% else %>
@@ -80,8 +78,10 @@
         </div>
       </dialog>
       <div>
-        <button type="button" class="user-btn p-3" data-action="click->reservation-date-validation#validateDates">Reservation</button>
+        <button type="button" class="user-btn w-full p-3" data-action="click->reservation-date-validation#validateDates">Reservation</button>
       </div>
     </div>
   </div>
 <% end %>
+
+
