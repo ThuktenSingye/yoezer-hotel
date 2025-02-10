@@ -15,13 +15,13 @@
          data-aos="fade-up"
          data-aos-duration="1000">
       <h1 class="user-title mb-0">ROOMS</h1>
-      <div class="w-96 md:w-full mx-auto">
+      <div class="w-96 md:w-full mx-auto mb-2">
         <div class="md:p-6">
           <%= form_with(url: rooms_path(@hotel),
-                        method: :get, class: "w-full flex flex-col justify-center items-center md:flex-row md:justify-center md:items-center md:gap-4", data: { turbo_frame: "room_search_result", turbo_action: "advance", controller: "search" }) do |form| %>
-            <%= form.select :status, @hotel.rooms.statuses.keys.map { |s| [s.humanize, s] }, { prompt: "Filter by Status" }, class: "query-field text-primary-regular w-full md:w-48", data: { action: "change->search#search" } %>
-            <%= form.collection_select :room_category_id, @room_category, :id, :name, { prompt: "Filter by Category" }, class: "query-field text-primary-regular w-full md:w-48", data: { action: "change->search#search" } %>
-            <%= form.search_field :query, class: "query-field w-full md:w-48", placeholder: "Search by Price", data: { action: "input->search#search" } %>
+                        method: :get, class: "w-full flex flex-col justify-center items-center md:flex-row md:justify-center md:items-center gap-4", data: { turbo_frame: "room_search_result", turbo_action: "advance", controller: "search" }) do |form| %>
+            <%= form.select :status, @hotel.rooms.statuses.keys.map { |s| [s.humanize, s] }, { prompt: "Filter by Status" }, class: "user-search-field", data: { action: "change->search#search" } %>
+            <%= form.collection_select :room_category_id, @room_category, :id, :name, { prompt: "Filter by Category" }, class: "user-search-field", data: { action: "change->search#search" } %>
+            <%= form.search_field :query, class: "user-search-field", placeholder: "Search by Price", data: { action: "input->search#search" } %>
           <% end %>
         </div>
       </div>

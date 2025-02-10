@@ -37,6 +37,6 @@
       <%= render 'shared/rating', rating: rating, stars: stars %>
       <p class="font-title font-bold tracking-widest text-primary-regular text-2xl "><%= rating.to_s %></p>
     </div>
-    <%= link_to "View More",room_path(room), class:"btn rounded-none hover:scale-105 ", data: { turbo_frame: "_top"} %>
+    <%= link_to "View More",room_path(room), class:"user-btn", data: { turbo_frame: "_top"} %>
   </div>
 </div>

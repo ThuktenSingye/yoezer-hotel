@@ -227,6 +227,9 @@
     .user-description{
         @apply line-clamp-4 text-ellipsis text-balance text-center lg:text-start leading-[1.8]
     }
+    .user-search-field{
+        @apply  w-full lg:w-48 bg-white p-4 text-sm text-text-color/50 focus:shadow-none focus:outline-none rounded-none border  border-primary-regular;
+    }
 
     .user-reservation-input-layout {
         @apply flex justify-between items-center gap-4
