@@ -10,10 +10,10 @@
   <% end %>
   <div  class="flex flex-col lg:flex-row lg:justify-center lg:items-center gap-4" data-controller="reservation-date-validation">
     <%= f.text_field :checkin_date,
-                     data: { controller: "flatpickr", reservation_date_validation_target: "checkinDate", flatpickr_date_format: "Y-m-d", flatpickr_min_date: Date.today.to_s, flatpickr_disable_mobile: true  },
+                     data: { controller: "flatpickr", reservation_date_validation_target: "checkinDate", flatpickr_date_format: "Y-m-d", flatpickr_min_date: Date.today.strftime("%Y-%m-%d"), flatpickr_disable_mobile: true  },
                      class: "user-reservation-input-field ", placeholder: "CheckIn" %>
     <%= f.text_field :checkout_date,
-                     data: { controller: "flatpickr",reservation_date_validation_target: "checkoutDate", flatpickr_date_format: "Y-m-d", flatpickr_min_date: Date.tomorrow.to_s },
+                     data: { controller: "flatpickr",reservation_date_validation_target: "checkoutDate", flatpickr_date_format: "Y-m-d", flatpickr_min_date: Date.tomorrow.strftime("%Y-%m-%d") },
                      class: "user-reservation-input-field ", flatpickr_min_date: Date.today.to_s, placeholder: "CheckOut" %>
     <%= f.number_field :num_of_adult, class: "user-reservation-input-field", placeholder: "Adults" %>
     <%= f.number_field :num_of_children, class: "user-reservation-input-field", placeholder: "Children" %>
