@@ -30,11 +30,23 @@
       data-aos-duration="1000"
       data-aos-offset="0">
       <h1 class="user-title mb-0">ROOM</h1>
-      <div class="w-full flex flex-col lg:flex-row lg:justify-between lg:items-center gap-8">
+      <div class="w-full flex flex-col lg:flex-row lg:justify-between lg:items-center gap-8" >
         <%= render "rooms/detail", room: @room %>
-        <div class="user-card-container">
-          <%= image_tag(@room.image.attached? ? @room.image : "https://placehold.co/500x300",
-                        class: "object-cover w-full h-full transition-transform duration-1000 hover:scale-105") %>
+        <div class="relative user-card-container" data-controller="slideshow">
+
+          <% @room.images.each do |image| %>
+            <div data-slideshow-target="slide" class="w-full h-full duration-1000 opacity-100">
+              <%= image_tag(image || "https://placehold.co/500x300", class: "object-cover w-full h-full") %>
+            </div>
+          <% end %>
+          <div class="absolute inset-0 rounded-none flex justify-between">
+            <button data-action="click->slideshow#prev">
+              <%= icon('fa-solid', 'chevron-left', class: "fa-2x text-white") %>
+            </button>
+            <button data-action="click->slideshow#next">
+              <%= icon('fa-solid', 'chevron-right', class: "fa-2x text-white") %>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -75,9 +87,6 @@
         <hr class="bg-primary-regular w-full h-0.5 mb-4"/>
         <h1 class="user-title mb-0"><%= @room.hotel.name.humanize %> Hotel</h1>
       </div>
-
     </div>
-
-
   </div>
 </div>
