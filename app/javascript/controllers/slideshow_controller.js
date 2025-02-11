@@ -1,5 +1,4 @@
 import { Controller } from "@hotwired/stimulus"
-import { toggle} from "el-transition";
 
 export default class extends Controller {
   static targets = ["slide"]
@@ -7,7 +6,6 @@ export default class extends Controller {
   connect() {
     this.index = 0
     this.showCurrentSlide()
-    this.startAutoSlide()
   }
 
   next() {
@@ -22,7 +20,8 @@ export default class extends Controller {
 
   showCurrentSlide() {
     this.slideTargets.forEach((slide, i) => {
-      slide.classList.toggle("hidden", i !== this.index)
+      slide.classList.toggle("opacity-100", i === this.index)
+      slide.classList.toggle("opacity-0", i !== this.index)
     })
   }
 
