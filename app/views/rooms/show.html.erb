@@ -10,8 +10,9 @@
 </div>
 
 <div class="w-full my-8">
-  <div class="w-full md:w-5/6 mx-auto"  data-controller="success-dialog">
+  <div class="w-full md:w-5/6 mx-auto"  data-controller="booking">
     <%= render 'shared/booking_success' %>
+    <%= render 'shared/booking_error' %>
     <% if @room.status == 'available' %>
       <div class="w-full my-4 p-6"
            id="booking_form"

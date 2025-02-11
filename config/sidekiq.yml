@@ -5,4 +5,5 @@
   - mailers
   - booking_default
   - booking_mailers
+  - booking_cleanup_queue
 

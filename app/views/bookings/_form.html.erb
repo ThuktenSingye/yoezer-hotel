@@ -1,36 +1,28 @@
-<%= form_with(model: [@room, booking], local: true, class: "flex flex-col justify-center", id: "bookingForm", data: { success_dialog_target: "form" }) do |f| %>  <% if booking.errors.any? %>
-    <div id="error_explanation" class="flex flex-col items-center">
-      <h2 class="text-text-color/50"><%= pluralize(booking.errors.count, "error") %>:</h2>
-      <ul class="text-error">
-        <% booking.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-  <div  class="flex flex-col lg:flex-row lg:justify-center lg:items-center gap-4" data-controller="reservation-date-validation">
+<%= form_with(model: [@room, booking], class: "flex flex-col justify-center", id: "bookingForm", data: { booking_target: "form", turbo: false }) do |f| %>
+  <div  class="flex flex-col lg:flex-row lg:justify-center lg:items-center gap-4" data-controller="date-validation">
     <%= f.text_field :checkin_date,
-                     data: { controller: "flatpickr", reservation_date_validation_target: "checkinDate", flatpickr_date_format: "Y-m-d", flatpickr_min_date: Date.today.strftime("%Y-%m-%d"), flatpickr_disable_mobile: true  },
-                     class: "user-reservation-input-field ", placeholder: "CheckIn" %>
+                     data: { controller: "flatpickr", flatpickr_date_format: "Y-m-d", flatpickr_min_date: Date.today.strftime("%Y-%m-%d"), date_validation_target: "checkinDate"},
+
+                     class: "user-reservation-input-field ", placeholder: "CheckIn"%>
     <%= f.text_field :checkout_date,
-                     data: { controller: "flatpickr",reservation_date_validation_target: "checkoutDate", flatpickr_date_format: "Y-m-d", flatpickr_min_date: Date.tomorrow.strftime("%Y-%m-%d") },
-                     class: "user-reservation-input-field ", flatpickr_min_date: Date.today.to_s, placeholder: "CheckOut" %>
-    <%= f.number_field :num_of_adult, class: "user-reservation-input-field", data: { reservation_date_validation_target: "numOfAdult" }, placeholder: "Adults" %>
-    <%= f.number_field :num_of_children, class: "user-reservation-input-field", data: { reservation_date_validation_target: "numOfChildren" },  placeholder: "Children" %>
+                     data: { controller: "flatpickr", flatpickr_date_format: "Y-m-d", flatpickr_min_date: Date.tomorrow.strftime("%Y-%m-%d"), date_validation_target: "checkoutDate" },
+                     class: "user-reservation-input-field ", flatpickr_min_date: Date.today.to_s, placeholder: "CheckOut"%>
+    <%= f.number_field :num_of_adult, class: "user-reservation-input-field", min:0, max: 5, placeholder: "Adults", data: {date_validation_target: "numOfAdult"} %>
+    <%= f.number_field :num_of_children, class: "user-reservation-input-field", min:0, max:5, placeholder: "Children", data: { date_validation_target: "numOfChildren"}  %>
 
     <div class="input-container hidden">
       <%= f.hidden_field :payment_status, { value: hotel.bookings.payment_statuses.key(0), class: "input-field" } %>
     </div>
 
     <div data-controller="dialog" data-action="click->dialog#backdropClose">
-      <dialog data-dialog-target="dialog" data-success-dialog-target="dialog" data-reservation-date-validation-target="dialog" class="bg-white w-full md:w-3/4 lg:w-2/3 xl:w-1/2 p-6 z-10">
+      <dialog data-dialog-target="dialog" data-date-validation-target="dialog" data-booking-target="dialog" class="bg-white w-full md:w-3/4 lg:w-2/3 xl:w-1/2 p-6 z-10">
         <%= f.fields_for :guest do |guest_form| %>
           <div class="flex flex-col gap-4">
             <h3 class="user-title mb-4">Enter Your Details</h3>
             <div class="user-reservation-input-layout">
               <div class="user-reservation-input-section">
                 <%= guest_form.label :first_name, class: "user-reservation-form-label" %>
-                <%= guest_form.text_field :first_name, class: "user-reservation-input-field w-full", placeholder: "First Name" %>
+                <%= guest_form.text_field :first_name, class: "user-reservation-input-field w-full", placeholder: "First Name", required: true %>
               </div>
 
               <div class="user-reservation-input-section">
@@ -41,7 +33,7 @@
             <div class="user-reservation-input-layout">
               <div class="user-reservation-input-section">
                 <%= guest_form.label :contact_no, class: "user-reservation-form-label" %>
-                <%= guest_form.text_field :contact_no, class: "user-reservation-input-field w-full", placeholder: "Contact Number" %>
+                <%= guest_form.text_field :contact_no, class: "user-reservation-input-field w-full", placeholder: "Contact Number", required: true %>
               </div>
 
               <div class="user-reservation-input-section">
@@ -63,13 +55,13 @@
             </div>
             <div class="user-reservation-input-section lg:w-1/2 lg:pr-2">
               <%= guest_form.label :email, class: "user-reservation-form-label" %>
-              <%= guest_form.email_field :email, class: "user-reservation-input-field w-full", placeholder: "example@gmail.com" %>
+              <%= guest_form.email_field :email, class: "user-reservation-input-field w-full", placeholder: "example@gmail.com", required: true %>
             </div>
           </div>
         <% end %>
         <hr class="bg-primary-regular h-0.5 mt-4"/>
         <div class="flex items-center mt-4 gap-5">
-          <%= f.submit "Book", class: "btn", data: { action: "click->success-dialog#showSuccessDialog"} %>
+          <%= f.submit "Book", class: "btn", data: { action: "click->booking#handleSubmit"} %>
           <% if booking.persisted? %>
             <%= link_to "Cancel", room_booking_path(@room, booking), class: "btn", data: { turbo_frame: "_top"} %>
           <% else %>
@@ -78,7 +70,7 @@
         </div>
       </dialog>
       <div>
-        <button type="button" class="user-btn w-full p-3" data-action="click->reservation-date-validation#validateDates">Reservation</button>
+        <button type="button" class="user-btn w-full p-3" data-action="click->date-validation#validate">Reservation</button>
       </div>
     </div>
   </div>

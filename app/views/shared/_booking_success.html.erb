@@ -1,4 +1,4 @@
-<dialog id="successDialog" class="bg-white w-full md:w-3/4 lg:w-2/3 xl:w-1/2 p-6 z-10" data-success-dialog-target="successDialog">
+<dialog id="successDialog" class="bg-white w-full md:w-3/4 lg:w-2/3 xl:w-1/2 p-6 z-10" data-booking-target="successDialog">
   <div class="flex flex-col items-center ">
     <div class="avatar-wrapper">
       <%= image_tag('success.gif', class: "object-cover w-full h-full rounded-full") %>
@@ -7,6 +7,6 @@
     <p>Your booking has been successfully created. Please check your email to confirm your reservation.</p>
   </div>
   <div class="flex justify-center items-center mt-4 gap-5">
-    <button type="button" class="user-btn " data-action="click->success-dialog#closeSuccessDialog">Close</button>
+    <button type="button" class="user-btn " data-action="click->booking#closeSuccessDialog">Close</button>
   </div>
 </dialog>

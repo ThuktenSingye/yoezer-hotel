@@ -185,7 +185,7 @@
       not-found: "Booking not found."
       confirmed: "Booking Confirm.Thank you. Enjoy your Stay!"
       invalid-confirmation: "Invalid Confirmation Token!"
-      expired: "Confirmation Link Expired!"
+      expired: "Your confirmation link has expired. Please request a new one!"
       confirmation-email-subject: "Room Booking Confirmation Email"
       success-email-subject: "Booking Confirmation Successful"
       update-email-subject: "Booking Detail Update"

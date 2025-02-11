@@ -14,10 +14,9 @@ class BookingsController < HomeController
   def create
     result = @booking_service.create_booking(booking_params, @offers)
     if result
-      create_response
+      render json: { ok: true }, status: :ok
     else
-      flash[:alert] = I18n.t('booking.create.error')
-      redirect_to room_path(@room)
+      render json: { ok: false }, status: :unprocessable_entity
     end
   end
 
@@ -34,11 +33,10 @@ class BookingsController < HomeController
 
   def confirm
     result = @booking_service.confirm_token(params[:id], params[:token])
-
     if result[:valid] && @booking.confirmation_token == params[:token]
       render :confirm
     else
-      flash[:alert] = I18n.t('booking.invalid-confirmation')
+      flash[:alert] = I18n.t('booking.expired')
       redirect_to room_path(@room)
     end
   end
@@ -89,17 +87,6 @@ class BookingsController < HomeController
     BookingMailer.booking_success_email(@booking).deliver_later(queue: 'mailers')
     flash[:notice] = I18n.t('booking.confirmed')
     redirect_to room_path(@room)
-  end
-
-  def create_response
-    respond_to do |format|
-      format.turbo_stream do
-        render turbo_stream: [
-          turbo_stream.replace("room_status_#{@room.id}", partial: 'rooms/room_status', locals: { room: @room }),
-          turbo_stream.replace('booking_form')
-        ]
-      end
-    end
   end
 
   def booking_params
