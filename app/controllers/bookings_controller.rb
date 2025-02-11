@@ -110,6 +110,7 @@ class BookingsController < HomeController
       :num_of_adult,
       :num_of_children,
       :room_id,
+      :payment_status,
       guest_attributes: %i[id first_name last_name contact_no email country region city hotel_id]
     )
   end

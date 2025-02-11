@@ -15,11 +15,11 @@
     <%= f.text_field :checkout_date,
                      data: { controller: "flatpickr",reservation_date_validation_target: "checkoutDate", flatpickr_date_format: "Y-m-d", flatpickr_min_date: Date.tomorrow.strftime("%Y-%m-%d") },
                      class: "user-reservation-input-field ", flatpickr_min_date: Date.today.to_s, placeholder: "CheckOut" %>
-    <%= f.number_field :num_of_adult, class: "user-reservation-input-field", placeholder: "Adults" %>
-    <%= f.number_field :num_of_children, class: "user-reservation-input-field", placeholder: "Children" %>
+    <%= f.number_field :num_of_adult, class: "user-reservation-input-field", data: { reservation_date_validation_target: "numOfAdult" }, placeholder: "Adults" %>
+    <%= f.number_field :num_of_children, class: "user-reservation-input-field", data: { reservation_date_validation_target: "numOfChildren" },  placeholder: "Children" %>
 
     <div class="input-container hidden">
-      <%= f.hidden_field :payment_status, { value: 'pending', class: "input-field" } %>
+      <%= f.hidden_field :payment_status, { value: hotel.bookings.payment_statuses.key(0), class: "input-field" } %>
     </div>
 
     <div data-controller="dialog" data-action="click->dialog#backdropClose">
