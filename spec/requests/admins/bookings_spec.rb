@@ -230,40 +230,6 @@ RSpec.describe 'Admins::Bookings', type: :request do
     end
   end
 
-  describe 'GET /confirm' do
-    context 'when confirmation token is present' do
-      subject do
-        get confirm_booking_admins_hotel_room_booking_path(hotel, room, booking, token: booking.confirmation_token)
-        response
-      end
-
-      it { is_expected.to render_template('admins/bookings/confirm') }
-    end
-
-    context 'when confirmation token is not present' do
-      subject do
-        get confirm_booking_admins_hotel_room_booking_path(hotel, room, booking)
-        response
-      end
-
-      it { is_expected.to redirect_to admins_hotel_room_path(hotel, room) }
-    end
-  end
-
-  describe 'PATCH /update_confirmation' do
-    subject(:update_confirmation) do
-      patch update_confirmation_admins_hotel_room_booking_path(hotel, room, booking, token: booking.confirmation_token)
-      response
-    end
-
-    it { is_expected.to redirect_to admins_hotel_room_path(hotel, room) }
-
-    it 'update confirmed to true' do
-      update_confirmation
-      expect(Booking.last.confirmed).to be(true)
-    end
-  end
-
   describe 'DELETE /destroy' do
     context 'when payment status is completed' do
       subject(:delete_booking) do

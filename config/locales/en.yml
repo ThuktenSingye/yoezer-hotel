@@ -149,6 +149,11 @@
       destroy:
         success: "Room Facility removed successfully."
 
+    room_rating:
+      create:
+        success: "Thank you for Rating Us."
+        error: "Something went wrong!."
+
     employee:
       create:
         success: "Employee created successfully."

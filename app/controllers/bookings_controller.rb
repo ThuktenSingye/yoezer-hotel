@@ -39,7 +39,7 @@ class BookingsController < HomeController
       render :confirm
     else
       flash[:alert] = I18n.t('booking.invalid-confirmation')
-      redirect_to admins_hotel_room_path(@hotel, @room)
+      redirect_to room_path(@room)
     end
   end
 

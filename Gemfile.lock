@@ -158,6 +158,9 @@ GEM
       actionpack (>= 6.0.0)
       activesupport (>= 6.0.0)
       railties (>= 6.0.0)
+    inline_svg (1.10.0)
+      activesupport (>= 3.0)
+      nokogiri (>= 1.6)
     io-console (0.8.0)
     irb (1.14.3)
       rdoc (>= 4.0.0)
@@ -461,6 +464,7 @@ DEPENDENCIES
   font-awesome-sass
   image_processing (~> 1.2)
   importmap-rails
+  inline_svg
   jbuilder
   kamal
   pagy (~> 9.3)

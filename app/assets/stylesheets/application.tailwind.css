@@ -283,5 +283,12 @@
     body:has(dialog[data-dialog-target="dialog"][open]) {
         @apply overflow-hidden;
     }
+    .star {
+        @apply text-rating
+    }
+
+    .star.active {
+        @apply text-rating
+    }
 
 }

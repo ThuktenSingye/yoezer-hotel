@@ -49,6 +49,7 @@ Rails.application.routes.draw do
           delete :destroy
         end
       end
+      resources :room_rating, only: [:create]
     end
   end
 
