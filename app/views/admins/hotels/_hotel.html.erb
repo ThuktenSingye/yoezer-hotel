@@ -1,58 +1,73 @@
 <turbo-frame id="<%= dom_id hotel %>" class="block">
-  <div class="m-4" role="region" aria-labelledby="hotel-info-<%= dom_id hotel %>">
-    <div class="flex flex-col justify-center">
-      <div class="mb-2">
-        <h2 class="title">Hotel Info</h2>
-        <%= render 'shared/input', input: { name: "Name", value: hotel.name } %>
-        <p class="input-container">
-          <span class="input-label">Description</span>
-          <span class="flex-grow break-words text-wrap input-value"><%= hotel.description %></span>
-        </p>
-        <%= render 'shared/input', input: { name: "Email", value: hotel.email } %>
-        <%= render 'shared/input', input: { name: "Contact No", value: hotel.contact_no } %>
-      </div>
-      <hr>
-      <div class="my-2">
-        <div class="flex flex-row justify-between items-center">
-          <h2 class="title">Address</h2>
-          <%=
-            link_to "Add",
-            new_admins_hotel_address_path(hotel),
-            data: { "turbo-frame": "new_address" },
-            class: "btn"
-          %>
+  <div class="card hover:shadow-lg">
+    <div class="m-4" role="region" aria-labelledby="hotel-info-<%= dom_id hotel %>">
+      <div class="flex flex-col justify-center">
+        <div class="mb-2">
+          <h2 class="title">Hotel Info</h2>
+          <%= render 'shared/input', input: { name: "Name", value: hotel.name } %>
+          <p class="input-container">
+            <span class="input-label">Description</span>
+            <span class="flex-grow break-words text-wrap input-value"><%= hotel.description %></span>
+          </p>
+          <%= render 'shared/input', input: { name: "Email", value: hotel.email } %>
+          <%= render 'shared/input', input: { name: "Contact No", value: hotel.contact_no } %>
         </div>
-        <turbo-frame id="new_address">
-          <% hotel.address.each do |addr| %>
-            <turbo-frame id="<%= dom_id addr %>">
-              <div class="flex flex-col md:flex-row md:items-center md:justify-between py-2">
-                <div>
-                  <%= render 'shared/input', input: { name: "Dzongkhag", value: addr&.dzongkhag } %>
-                  <%= render 'shared/input', input: { name: "Gewog", value: addr&.gewog } %>
-                  <%= render 'shared/input', input: { name: "Street Address", value: addr&.street_address } %>
+        <hr>
+        <div class="my-2">
+          <div class="flex flex-row justify-between items-center">
+            <h2 class="title">Address</h2>
+            <%=
+              link_to "Add",
+                      new_admins_hotel_address_path(hotel),
+                      data: { "turbo-frame": "new_address" },
+                      class: "btn"
+            %>
+          </div>
+          <turbo-frame id="new_address">
+            <% hotel.address.each do |addr| %>
+              <turbo-frame id="<%= dom_id addr %>">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between py-2">
+                  <div>
+                    <%= render 'shared/input', input: { name: "Dzongkhag", value: addr&.dzongkhag } %>
+                    <%= render 'shared/input', input: { name: "Gewog", value: addr&.gewog } %>
+                    <%= render 'shared/input', input: { name: "Street Address", value: addr&.street_address } %>
+                  </div>
+                  <div class="self-start ml-2 md:self-end ">
+                    <%= button_to "Delete", admins_hotel_address_path(hotel, addr),
+                                  method: :delete,
+                                  data: { "turbo-frame": dom_id(addr), turbo_confirm: "Are you sure?" },
+                                  class: "btn" %>
+                  </div>
                 </div>
-                <div class="self-start ml-2 md:self-end ">
-                  <%= button_to "Delete", admins_hotel_address_path(hotel, addr),
-                                method: :delete,
-                                data: { "turbo-frame": dom_id(addr), turbo_confirm: "Are you sure?" },
-                                class: "btn" %>
-                </div>
-              </div>
-            </turbo-frame>
-            <hr class="last:hidden my-2">
-        <% end %>
-        </turbo-frame>
-      </div>
-      <hr class="bg-primary-regular h-0.5">
-      <div class="flex flex-row justify-between items-center mt-4">
-        <div class="flex flex-col items-center justify-center">
-          <% rating = hotel.hotel_ratings.average(:rating) || 0 %>
-          <% stars = Room.calculate_rating(rating) %>
-          <%= render 'shared/rating', rating: rating, stars: stars %>
-          <p class="font-title font-bold tracking-widest text-primary-regular text-2xl "><%= rating.to_s %></p>
+              </turbo-frame>
+              <hr class="last:hidden my-2">
+            <% end %>
+          </turbo-frame>
         </div>
-        <%= link_to "Edit", edit_admins_hotel_path(hotel), class: "btn" %>
+        <hr class="bg-primary-regular h-0.5">
+        <div class="flex flex-row justify-between items-center mt-4">
+          <div class="flex flex-col items-center justify-center">
+            <% rating = hotel.hotel_ratings.average(:rating) || 0 %>
+            <% stars = Room.calculate_rating(rating) %>
+            <%= render 'shared/rating', rating: rating, stars: stars %>
+            <p class="font-title font-bold tracking-widest text-primary-regular text-2xl "><%= rating.to_s %></p>
+          </div>
+          <%= link_to "Edit", edit_admins_hotel_path(hotel), class: "btn" %>
+        </div>
       </div>
     </div>
   </div>
+
+  <% if @hotel.images.present? %>
+    <div class="card p-4 flex flex-col gap-4">
+      <p class="title mb-2">Images:</p>
+      <div class="flex flex-wrap justify-evenly mb-2 gap-4">
+        <% @hotel.images.each do |image| %>
+          <div class="image-wrapper">
+            <%= image_tag( image || "https://placehold.co/100x100", class: "image") %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
 </turbo-frame>

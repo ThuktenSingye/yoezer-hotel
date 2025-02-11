@@ -20,4 +20,5 @@ class Hotel < ApplicationRecord
   has_many :employees, dependent: :destroy
   has_many :guests, dependent: :destroy
   has_many :bookings, dependent: :destroy
+  has_many_attached :images, dependent: :destroy
 end
