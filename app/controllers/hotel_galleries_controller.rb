@@ -1,0 +1,2 @@
+class HotelGalleriesController < HomeController
+end
