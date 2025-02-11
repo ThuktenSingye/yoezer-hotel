@@ -13,11 +13,10 @@
   </div>
 </div>
 
-
 <div class="w-full my-8">
   <div class="w-full md:w-5/6 mx-auto">
-    <div class="w-full my-4 mx-auto" data-aos="fade-up" data-aos-duration="1000">
-      <div class="grid grid-cols-3 place-content-between gap-4">
+    <div class="w-full my-4 p-6 mx-auto" data-aos="fade-up" data-aos-duration="1000">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-content-between gap-4">
         <% @hotel.images.each_with_index do |image, index| %>
           <% case index % 8 %>
         <% when 0 %>
@@ -25,11 +24,11 @@
               <%= image_tag(image || "https://placehold.co/200x200", class: "object-cover w-full h-full") %>
             </div>
           <% when 1 %>
-            <div class="col-span-2 h-[300px]" data-aos="fade-up" data-aos-duration="1000">
+            <div class="col-span-1 lg:col-span-2 h-[300px]" data-aos="fade-up" data-aos-duration="1000">
               <%= image_tag(image || "https://placehold.co/200x200", class: "object-cover w-full h-full") %>
             </div>
           <% when 2 %>
-            <div class="w-full row-span-2" data-aos="fade-up" data-aos-duration="1000">
+            <div class="w-full row-span-1 lg:row-span-2 lg:h-auto h-[300px]" data-aos="fade-up" data-aos-duration="1000">
               <%= image_tag(image || "https://placehold.co/200x200", class: "object-cover w-full h-full") %>
             </div>
           <% when 3 %>
@@ -37,7 +36,7 @@
               <%= image_tag(image || "https://placehold.co/200x200", class: "object-cover w-full h-full") %>
             </div>
           <% when 4 %>
-            <div class="w-full row-span-2" data-aos="fade-up" data-aos-duration="1000">
+            <div class="w-full row-span-1 lg:row-span-2 lg:h-auto h-[300px]" data-aos="fade-up" data-aos-duration="1000">
               <%= image_tag(image || "https://placehold.co/200x200", class: "object-cover w-full h-full") %>
             </div>
           <% when 5 %>
@@ -45,14 +44,10 @@
               <%= image_tag(image || "https://placehold.co/200x200", class: "object-cover w-full h-full") %>
             </div>
           <% when 6 %>
-            <div class="col-span-2 h-[300px]" data-aos="fade-up" data-aos-duration="1000">
+            <div class="col-span-1 lg:col-span-2 h-[300px]" data-aos="fade-up" data-aos-duration="1000">
               <%= image_tag(image || "https://placehold.co/200x200", class: "object-cover w-full h-full") %>
             </div>
           <% when 7 %>
-            <div class="w-full h-[300px]" data-aos="fade-up" data-aos-duration="1000">
-              <%= image_tag(image || "https://placehold.co/200x200", class: "object-cover w-full h-full") %>
-            </div>
-          <% when 8 %>
             <div class="w-full h-[300px]" data-aos="fade-up" data-aos-duration="1000">
               <%= image_tag(image || "https://placehold.co/200x200", class: "object-cover w-full h-full") %>
             </div>
@@ -61,6 +56,8 @@
       </div>
     </div>
   </div>
+</div>
+
 </div>
 
 
