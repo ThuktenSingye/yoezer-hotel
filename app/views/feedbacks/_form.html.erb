@@ -1,0 +1,24 @@
+<%= form_with(model: feedback, local: true, class: "flex flex-col justify-center") do |f| %>
+  <div  class="flex flex-col gap-4" data-controller="date-validation">
+    <div class="user-reservation-input-layout">
+      <div class="user-reservation-input-section  ">
+        <%= f.label :name, class: "user-reservation-form-label" %>
+        <%= f.text_field :name, class: "user-reservation-input-field w-full", placeholder: "Name", required: true%>
+      </div>
+
+      <div class="user-reservation-input-section">
+        <%= f.label :email, class: "user-reservation-form-label" %>
+        <%= f.email_field :email, class: "user-reservation-input-field w-full", placeholder: "Email", required: true%>
+      </div>
+    </div>
+
+    <div class="user-reservation-input-section">
+      <%= f.label :feedback, class: "user-reservation-form-label" %>
+      <%= f.textarea :feedback, class: "user-reservation-input-field w-full" , placeholder: "Field", required: true%>
+    </div>
+
+    <%= f.submit "Submit", class: "user-btn cursor-pointer p-4"%>
+  </div>
+<% end %>
+
+

@@ -33,7 +33,6 @@
       <div class="w-full flex flex-col lg:flex-row lg:justify-between lg:items-center gap-8" >
         <%= render "rooms/detail", room: @room %>
         <div class="relative user-card-container" data-controller="slideshow">
-
           <% @room.images.each do |image| %>
             <div data-slideshow-target="slide" class="w-full h-full duration-1000 opacity-100">
               <%= image_tag(image || "https://placehold.co/500x300", class: "object-cover w-full h-full") %>
@@ -63,12 +62,11 @@
         </div>
       <% end %>
     </div>
+
     <div class="w-full my-4 p-6"
          data-aos="fade-up"
          data-aos-duration="1000">
-
       <div class="flex flex-col gap-3 justify-center items-center">
-
         <p class="text-primary-regular text-2xl font-title text-center">Enjoyed your stay? Leave a rating!</p>
         <div class="flex justify-center gap-4 items-center" data-controller="room-rating">
           <% Room::MAX_RATING.times do |n| %>

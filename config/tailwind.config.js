@@ -20,6 +20,7 @@ module.exports = {
         'error': '#FF543E',
         'rating': '#FFCE31',
         'white': '#FFFFFF',
+        'tertiary': '#153448',
         'text-color': '#1C1C1C'
       },
       fontFamily: {
