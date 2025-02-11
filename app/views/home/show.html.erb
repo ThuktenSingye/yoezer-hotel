@@ -17,39 +17,47 @@
 
 <div class="w-full my-8">
   <div class="w-full md:w-5/6 mx-auto flex flex-col justify-center gap-10">
-    <div class="w-full my-4"
-         data-aos="fade-up"
-         data-aos-duration="1000">
-      <h1 class="user-title">FACILITIES</h1>
-      <div class="user-card-layout">
-        <% @amenities.each do |amenity| %>
-          <%= render 'home/amenity_card', amenity: amenity %>
-        <% end %>
+    <% if @amenities.present? %>
+      <div class="w-full my-4"
+           data-aos="fade-up"
+           data-aos-duration="1000">
+          <h1 class="user-title">FACILITIES</h1>
+          <div class="user-card-layout">
+            <% @amenities.each do |amenity| %>
+              <%= render 'home/amenity_card', amenity: amenity %>
+            <% end %>
+          </div>
       </div>
-    </div>
+    <% end %>
 
-    <div class="w-full my-4"
-         data-aos="fade-up"
-         data-aos-duration="1000">
-      <h1 class="user-title">ROOMS</h1>
-      <div class="user-card-layout">
-        <% @room_categories.each do |room_category| %>
-          <%= render 'home/room_category_card', room_category: room_category %>
-        <% end %>
+    <% if @room_categories.present? %>
+      <div class="w-full my-4"
+           data-aos="fade-up"
+           data-aos-duration="1000">
+        <h1 class="user-title">ROOMS</h1>
+        <div class="user-card-layout">
+          <% @room_categories.each do |room_category| %>
+            <%= render 'home/room_category_card', room_category: room_category %>
+          <% end %>
+        </div>
       </div>
-    </div>
+    <% end %>
 
-    <div class="w-full my-4"
-         data-aos="fade-up"
-         data-aos-duration="1000"
-         data-aos-offset="0">
-      <h1 class="user-title">OFFER</h1>
-      <div class="px-6 lg:p-0">
-        <% @offers.each do |offer| %>
-          <%= render 'home/offer_card', offer: offer %>
-        <% end %>
+
+    <% if @offers.present? %>
+      <div class="w-full my-4"
+           data-aos="fade-up"
+           data-aos-duration="1000"
+           data-aos-offset="0">
+        <h1 class="user-title">OFFER</h1>
+        <div class="px-6 lg:p-0">
+          <% @offers.each do |offer| %>
+            <%= render 'home/offer_card', offer: offer %>
+          <% end %>
+        </div>
       </div>
-    </div>
+    <% end %>
+
 
     <div class="w-full my-4"
          data-aos="fade-up"

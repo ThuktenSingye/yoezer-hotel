@@ -14,18 +14,10 @@ export default class extends Controller {
   }
 
   toggleNavBarMenu() {
-    // this.navbarMenuTarget.classList.toggle("-translate-x-full");
-    this.toggleBodyScroll();
+    this.navbarMenuTarget.classList.toggle("-translate-x-full");
     this.isNavBarOpen = !this.isNavBarOpen;
   }
 
-  toggleBodyScroll() {
-    if (document.body.classList.contains('overflow-hidden')) {
-      document.body.classList.remove('overflow-hidden', 'h-screen', 'fixed', 'w-full');
-    } else {
-      document.body.classList.add('overflow-hidden', 'h-screen', 'fixed', 'w-full');
-    }
-  }
 
   handleResize() {
     if (window.innerWidth >= 768) {
