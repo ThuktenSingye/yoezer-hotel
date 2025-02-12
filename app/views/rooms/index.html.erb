@@ -21,7 +21,7 @@
                         method: :get, class: "w-full flex flex-col justify-center items-center md:flex-row md:justify-center md:items-center gap-4", data: { turbo_frame: "room_search_result", turbo_action: "advance", controller: "search" }) do |form| %>
             <%= form.select :status, @hotel.rooms.statuses.keys.map { |s| [s.humanize, s] }, { prompt: "Filter by Status" }, class: "user-search-field", data: { action: "change->search#search" } %>
             <%= form.collection_select :room_category_id, @room_category, :id, :name, { prompt: "Filter by Category" }, class: "user-search-field", data: { action: "change->search#search" } %>
-            <%= form.search_field :query, class: "user-search-field", placeholder: "Search by Price", data: { action: "input->search#search" } %>
+            <%= form.select :query, [['1000 - 1500', '1000-1500'], ['1500 - 2000', '1500-2000'], ['2000 +', '2000+']], { prompt: "Filter by Price/night" }, class: "user-search-field", data: { action: "input->search#search" } %>
           <% end %>
         </div>
       </div>

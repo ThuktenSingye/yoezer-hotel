@@ -3,12 +3,15 @@
 # User Feedback Controller
 class FeedbacksController < HomeController
   def create
+    @guest = @hotel.guests.find_by(email: feedback_params[:email])
     @feedback = @hotel.feedbacks.new(feedback_params)
-    if @feedback.save
+
+    if @guest && @feedback.save
       flash[:notice] = I18n.t('feedback.create.success')
     else
       flash[:alert] = I18n.t('feedback.create.error')
     end
+
     redirect_to contact_path
   end
 

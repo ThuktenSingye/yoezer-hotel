@@ -11,7 +11,7 @@ class BookingCleanupWorker
     booking = hotel.bookings.find(booking_id)
     return unless booking
 
-    if booking.payment_status == 'pending' && booking.room.status != 'booked'
+    if booking.room.status != 'booked'
       booking.destroy
       booking.room&.update(status: :available)
     end
