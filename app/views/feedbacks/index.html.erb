@@ -5,63 +5,66 @@
   <div class="absolute inset-0 bg-black bg-opacity-50"></div>
 
   <div class="absolute-layout text-white gap-4 md:gap-10 px-4 text-center">
-    <h1 class="user-heading-title">YOUR ROOM</h1>
-  </div>
-</div>
-<div class="w-full flex flex-col"
-     data-aos="fade-up"
-     data-aos-duration="1000"
-     data-aos-offset="0">
-  <h1 class="text-primary-regular text-2xl font-title text-center mb-2">Please Leave Your Feedback</h1>
-  <div class="relative user-card-container h-auto" >
-    <%= render "feedbacks/form", feedback: @feedback %>
+    <h1 class="user-heading-title">YOUR FEEDBACK</h1>
   </div>
 </div>
 
-<div class="w-full"
-     data-aos="fade-up"
-     data-aos-duration="1000">
-  <div class="flex flex-col gap-3 justify-center items-center">
-    <p class="text-primary-regular text-2xl font-title text-center">Enjoyed your stay? Leave a rating!</p>
+<div class="w-full my-4">
+  <div class="flex flex-col gap-3 justify-center items-center p-6"
+       data-aos="fade-right"
+       data-aos-duration="1000">
+    <p class="text-primary-dark text-2xl font-title text-center">Rate Your Hotel Experience!</p>
     <div class="flex justify-center gap-4 items-center" data-controller="room-rating">
       <% Room::MAX_RATING.times do |n| %>
         <%= button_to hotels_rating_index_path,
                       method: :post,
-                      params: { hotel_rating: { rating: n + 1 } },
-                      class: "mx-1 star-button ",
+                      params: { hotel_rating: { rating: n + 1, guest_id: @guest.id } },
+                      class: "mx-1 star-button",
                       data: {
                         room_rating_target: "starButton",
                         action: "mouseover->room-rating#mouseOver mouseout->room-rating#mouseOut"
                       } do %>
-          <%= icon("fa-solid", "star", class: "star text-rating md:text-text-color/20 star hover:scale-105 transition duration-300", data: {room_rating_target: "star"}) %>
+          <%= icon("fa-solid", "star", class: "star text-text-color/20 hover:scale-105 transition duration-300", data: { room_rating_target: "star" }) %>
         <% end %>
       <% end %>
     </div>
-    <hr class="bg-primary-regular w-full h-0.5 mb-4"/>
-    <h1 class="user-title mb-0"><%= @hotel.name.humanize %> Hotel</h1>
   </div>
-</div>
-<div class="w-full my-4 p-6"
-     data-aos="fade-up"
-     data-aos-duration="1000">
-  <div class="flex flex-col gap-3 justify-center items-center">
-    <p class="text-primary-regular text-2xl font-title text-center">Enjoyed your stay? Leave a rating!</p>
-    <div class="flex justify-center gap-4 items-center" data-controller="room-rating">
-      <% Room::MAX_RATING.times do |n| %>
-        <%= button_to room_room_rating_index_path(@room),
-                      method: :post,
-                      params: { room_rating: { rating: n + 1 } },
-                      class: "mx-1 star-button ",
-                      data: {
-                        room_rating_target: "starButton",
-                        action: "mouseover->room-rating#mouseOver mouseout->room-rating#mouseOut"
-                      } do %>
-          <%= icon("fa-solid", "star", class: "star text-rating md:text-text-color/20 star hover:scale-105 transition duration-300", data: {room_rating_target: "star"}) %>
-        <% end %>
-      <% end %>
+  <hr class="w-full border-1 border-primary-regular mb-4"/>
+  <div class="w-full my-4 flex flex-col p-6"
+       data-aos="fade-up"
+       data-aos-duration="1000">
+    <div class="flex flex-col items-center">
+      <h1 class="text-primary-dark text-2xl font-title text-center mb-2">Please Leave Your Feedback</h1>
+      <div class="relative user-card-container h-auto" >
+        <%= render "feedbacks/form", feedback: @feedback, guest: @guest %>
+      </div>
     </div>
-    <hr class="bg-primary-regular w-full h-0.5 mb-4"/>
-    <h1 class="user-title mb-0"><%= @room.hotel.name.humanize %> Hotel</h1>
   </div>
+
+
+  <div class="w-full flex flex-col justify-center items-center p-6"
+       data-aos="fade-left"
+       data-aos-duration="1000">
+    <div class="flex flex-col gap-3 justify-center items-center">
+      <p class="text-primary-dark text-2xl font-title text-center">How Was Your Room?</p>
+      <div class="flex justify-center gap-4 items-center" data-controller="room-rating">
+        <% Room::MAX_RATING.times do |n| %>
+          <%= button_to room_room_rating_index_path(@room),
+                        method: :post,
+                        params: { room_rating: { rating: n + 1, guest_id: @guest.id } },
+                        class: "mx-1 star-button ",
+                        data: {
+                          room_rating_target: "starButton",
+                          action: "mouseover->room-rating#mouseOver mouseout->room-rating#mouseOut"
+                        } do %>
+            <%= icon("fa-solid", "star", class: "star text-text-color/20 star hover:scale-105 transition duration-300", data: {room_rating_target: "star"}) %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <hr class="w-full border-1 border-primary-regular mb-4"/>
+  <h1 class="user-title"><%= @room.hotel.name.humanize %> Hotel</h1>
 </div>
+
 

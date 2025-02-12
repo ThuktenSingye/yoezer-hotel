@@ -67,6 +67,8 @@
         error: "Something went wrong. Please book first before submitting."
       destroy:
         success: "Feedback removed successfully."
+      already_given: "You have already given feedback. Thank You!."
+      token_expired: "Invalid Token or Token Expired. Cannot Provide Feedback."
 
     gallery:
       create:
@@ -152,10 +154,11 @@
       destroy:
         success: "Room Facility removed successfully."
 
-    room_rating:
+    rating:
       create:
         success: "Thank you for Rating Us."
         error: "Something went wrong!."
+      already_rated: "You have already rated. Thank you!"
 
     employee:
       create:

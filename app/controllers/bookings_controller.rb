@@ -13,11 +13,9 @@ class BookingsController < HomeController
 
   def create
     result = @booking_service.create_booking(booking_params, @offers)
+
     if result[:success]
-      booking = result[:booking]
-      # checkout_time = booking.checkout_date.to_datetime.advance(days: -1).end_of_day
-      BookingCleanupWorker.perform_at(booking.confirmation_expires_at, booking.hotel.id, booking.id)
-      FeedbackWorker.perform_at(3.minutes.from_now, booking.hotel.id, booking.id)
+      schedule_background_jobs(result[:booking])
       render json: { ok: true }, status: :ok
     else
       render json: { ok: false }, status: :unprocessable_entity
@@ -91,6 +89,11 @@ class BookingsController < HomeController
     BookingMailer.booking_success_email(@booking).deliver_later(queue: 'mailers')
     flash[:notice] = I18n.t('booking.confirmed')
     redirect_to room_path(@room)
+  end
+
+  def schedule_background_jobs(booking)
+    BookingCleanupWorker.perform_at(booking.confirmation_expires_at, booking.hotel.id, booking.id)
+    FeedbackWorker.perform_at(3.minutes.from_now, booking.hotel.id, booking.id)
   end
 
   def booking_params

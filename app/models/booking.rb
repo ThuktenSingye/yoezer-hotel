@@ -2,7 +2,6 @@
 
 # Booking model
 class Booking < ApplicationRecord
-
   belongs_to :guest
   belongs_to :room
   belongs_to :hotel
@@ -25,6 +24,7 @@ class Booking < ApplicationRecord
     SecureRandom.urlsafe_base64(nil, false)
   rescue ActiveRecord::RecordNotUnique
     raise if (retries += 1) > attempts
+
     retry
   end
 end

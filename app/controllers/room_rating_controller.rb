@@ -5,22 +5,32 @@ class RoomRatingController < HomeController
   before_action :room
 
   def create
-    @room_rating = @room.room_ratings.new(room_rating_params)
-    if @room_rating.save
-      flash[:notice] = I18n.t('room_rating.create.success')
+    @room_rating = @room.room_ratings.find_or_initialize_by(guest_id: room_rating_params[:guest_id])
+
+    if @room_rating.persisted?
+      flash[:alert] = I18n.t('rating.already_rated')
     else
-      flash[:alert] = I18n.t('room_rating.create.error')
+      save_room_rating
     end
-    redirect_to room_path(@room)
+
+    redirect_to request.referer
   end
 
   private
+
+  def save_room_rating
+    if @room_rating.update(room_rating_params)
+      flash[:notice] = I18n.t('rating.create.success')
+    else
+      flash[:alert] = I18n.t('rating.create.error')
+    end
+  end
 
   def room
     @room ||= @hotel.rooms.find(params[:room_id])
   end
 
   def room_rating_params
-    params.require(:room_rating).permit(:rating)
+    params.require(:room_rating).permit(:rating, :guest_id)
   end
 end

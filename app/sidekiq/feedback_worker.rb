@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Feedback Worker Job
 class FeedbackWorker
   include Sidekiq::Job
 

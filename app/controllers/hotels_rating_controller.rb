@@ -3,18 +3,28 @@
 # Hotel Rating Controller
 class HotelsRatingController < HomeController
   def create
-    @hotel_rating = @hotel.hotel_ratings.new(hotel_rating_params)
-    if @hotel_rating.save
-      flash[:notice] = I18n.t('room_rating.create.success')
-    else
-      flash[:alert] = I18n.t('room_rating.create.error')
+    if @hotel.hotel_ratings.exists?(guest_id: hotel_rating_params[:guest_id])
+      flash[:alert] = I18n.t('rating.already_rated')
+      return redirect_to request.referer
     end
-    redirect_to contact_path
+
+    save_hotel_rating
+    redirect_to request.referer
   end
 
   private
 
+  def save_hotel_rating
+    @hotel_rating = @hotel.hotel_ratings.new(hotel_rating_params)
+
+    if @hotel_rating.save
+      flash[:notice] = I18n.t('rating.create.success')
+    else
+      flash[:alert] = I18n.t('rating.create.error')
+    end
+  end
+
   def hotel_rating_params
-    params.require(:hotel_rating).permit(:rating)
+    params.require(:hotel_rating).permit(:rating, :guest_id)
   end
 end

@@ -1,5 +1,7 @@
-class CheckoutMailer < ApplicationMailer
+# frozen_string_literal: true
 
+# Checkout Mailer Class
+class CheckoutMailer < ApplicationMailer
   def checkout_email(booking)
     @booking = booking
     @guest_email = booking.guest.email
