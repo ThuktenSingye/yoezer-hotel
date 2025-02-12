@@ -62,6 +62,9 @@
         success: "Amenity removed successfully."
 
     feedback:
+      create:
+        success: "Thank you for your feedback."
+        error: "Something went wrong. Please try again."
       destroy:
         success: "Feedback removed successfully."
 

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Hotel Rating Controller
 class HotelsRatingController < HomeController
   def create
     @hotel_rating = @hotel.hotel_ratings.new(hotel_rating_params)
