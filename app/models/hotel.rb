@@ -21,4 +21,8 @@ class Hotel < ApplicationRecord
   has_many :guests, dependent: :destroy
   has_many :bookings, dependent: :destroy
   has_many_attached :images, dependent: :destroy
+
+  def generate_feedback_token
+    self.feedback_token = GenerateToken.generate_unique_token
+  end
 end

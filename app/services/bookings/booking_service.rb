@@ -18,8 +18,10 @@ module Bookings
         @room,
         offers
       )
+
       booking_params[:total_amount] = total_amount
       booking = Bookings::BookingBuilder.new(@hotel, @room, booking_params).build
+
       save_and_send_email(booking)
     end
 

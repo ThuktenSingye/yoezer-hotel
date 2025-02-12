@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_07_091655) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_12_123424) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -110,6 +110,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_07_091655) do
     t.bigint "hotel_id"
     t.datetime "confirmation_sent_at", default: -> { "CURRENT_TIMESTAMP" }
     t.datetime "confirmation_expires_at"
+    t.string "feedback_token"
+    t.datetime "feedback_expires_at"
+    t.index ["feedback_token"], name: "index_bookings_on_feedback_token"
     t.index ["guest_id"], name: "index_bookings_on_guest_id"
     t.index ["hotel_id"], name: "index_bookings_on_hotel_id"
     t.index ["room_id"], name: "index_bookings_on_room_id"

@@ -14,6 +14,7 @@ module Bookings
       booking.room = @room
       booking.guest.hotel = @hotel
       booking.generate_confirmation_token
+      booking.generate_feedback_token
       booking
     end
   end

@@ -14,10 +14,10 @@ class BookingsController < HomeController
   def create
     result = @booking_service.create_booking(booking_params, @offers)
     if result[:success]
-      booking_id = result[:booking].id
-      hotel_id = result[:booking].hotel.id
-      expires_at = result[:booking].confirmation_expires_at
-      BookingCleanupWorker.perform_at(expires_at, hotel_id, booking_id)
+      booking = result[:booking]
+      checkout_time = booking.checkout_date.to_datetime.advance(days: -1).end_of_day
+      BookingCleanupWorker.perform_at(booking.confirmation_expires_at, booking.hotel.id, booking.id)
+      FeedbackWorker.perform_at(checkout_time, booking)
       render json: { ok: true }, status: :ok
     else
       render json: { ok: false }, status: :unprocessable_entity
