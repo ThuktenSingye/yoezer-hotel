@@ -21,4 +21,8 @@ FactoryBot.define do
     num_of_adult { nil }
     num_of_children { nil }
   end
+
+  trait :pending_payment do
+    payment_status { :pending }
+  end
 end

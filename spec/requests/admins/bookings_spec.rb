@@ -243,13 +243,11 @@ RSpec.describe 'Admins::Bookings', type: :request do
 
     context 'when payment status is other than completed' do
       subject(:delete_booking) do
-        delete admins_hotel_booking_path(hotel, booking)
+        delete admins_hotel_booking_path(hotel, invalid_booking)
         response
       end
 
-      before do
-        booking.update(payment_status: 'pending')
-      end
+      let(:invalid_booking) { FactoryBot.create(:booking, :pending_payment, hotel: hotel) }   A
 
       it { is_expected.to redirect_to admins_hotel_bookings_path(hotel) }
       it { expect { delete_booking }.not_to change(Booking, :count) }
