@@ -5,7 +5,7 @@ class CheckoutMailer < ApplicationMailer
     @guest_email = booking.guest.email
     @hotel_email = booking.hotel.email
     @feedback_link = feedbacks_url(
-      subdomain: @hotel.subdomain,
+      subdomain: @booking.hotel.subdomain,
       token: @booking.feedback_token,
       booking_id: @booking.id
     )

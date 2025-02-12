@@ -15,9 +15,9 @@ class BookingsController < HomeController
     result = @booking_service.create_booking(booking_params, @offers)
     if result[:success]
       booking = result[:booking]
-      checkout_time = booking.checkout_date.to_datetime.advance(days: -1).end_of_day
+      # checkout_time = booking.checkout_date.to_datetime.advance(days: -1).end_of_day
       BookingCleanupWorker.perform_at(booking.confirmation_expires_at, booking.hotel.id, booking.id)
-      FeedbackWorker.perform_at(checkout_time, booking)
+      FeedbackWorker.perform_at(3.minutes.from_now, booking.hotel.id, booking.id)
       render json: { ok: true }, status: :ok
     else
       render json: { ok: false }, status: :unprocessable_entity

@@ -4,8 +4,9 @@
 class FeedbacksController < HomeController
 
   def index
-    @hotel = Hotel.find(params[:hotel_id])
+    @feedback = @hotel.feedbacks.new
     @booking = @hotel.bookings.find_by(id: params[:booking_id],feedback_token: params[:token])
+    # binding.pry
     if @booking && validate_feedback_link(@booking)
       @room = @booking.room
     else
