@@ -39,6 +39,10 @@ module YoezerHotel
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
 
+
+    config.hosts << /.*\.lvh\.me/
+    config.hosts << "lvh.me"
+
     # Don't generate system test files.
     config.generators.system_tests = nil
     config.factory_bot.definition_file_paths = ['spec/factories']

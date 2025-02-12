@@ -35,10 +35,9 @@
         <div class="relative user-card-container overflow-hidden" data-controller="slideshow">
           <% @room.images.each_with_index do |image, index| %>
             <div data-slideshow-target="slide"
-                 class="absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out
-               <%= index == 0 ? 'opacity-100' : 'opacity-0' %>">
-                    <%= image_tag(image || "https://placehold.co/500x300", class: "object-cover w-full h-full") %>
-                  </div>
+                 class="absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out <%= index == 0 ? 'opacity-100' : 'opacity-0' %>">
+              <%= image_tag(image || "https://placehold.co/500x300", class: "object-cover w-full h-full") %>
+            </div>
           <% end %>
           <div class="absolute inset-0 flex justify-between items-center px-4">
             <button data-action="click->slideshow#prev">

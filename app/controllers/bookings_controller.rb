@@ -13,7 +13,11 @@ class BookingsController < HomeController
 
   def create
     result = @booking_service.create_booking(booking_params, @offers)
-    if result
+    if result[:success]
+      booking_id = result[:booking].id
+      hotel_id = result[:booking].hotel.id
+      expires_at = result[:booking].confirmation_expires_at
+      BookingCleanupWorker.perform_at(expires_at, hotel_id, booking_id)
       render json: { ok: true }, status: :ok
     else
       render json: { ok: false }, status: :unprocessable_entity

@@ -64,7 +64,7 @@ module Bookings
       if booking.save
         booking.room.update(status: :reserved)
         Bookings::BookingMailerService.send_confirmation_email(booking)
-        return true
+        return { success: true, booking: booking.reload }
       end
       false
     end

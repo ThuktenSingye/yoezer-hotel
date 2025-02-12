@@ -9,14 +9,22 @@
     <h1 class="user-heading-title">YOUR HOME</h1>
     <p class="text-sm md:text-base lg:text-lg">Every moment feels like the first time in paradise view</p>
     <div class="mt-4 md:mt-6">
-      <%= link_to "Book Now", root_path, class: "bg-white rounded-sm hover:shadow-lg rounded-none text-primary-regular hover:bg-primary-regular hover:text-white
-      transition duration-300 px-6 py-2 md:px-8 md:py-3 text-lg md:text-xl" %>
+      <%= link_to "Book Now", root_path, class: "user-btn" %>
     </div>
   </div>
 </div>
 
+
 <div class="w-full my-8">
   <div class="w-full md:w-5/6 mx-auto flex flex-col justify-center gap-10">
+    
+    <div class="w-full my-4 flex flex-col gap-10 p-6"
+         data-aos="fade-up"
+         data-aos-duration="1000"
+         data-aos-offset="0">
+        <%= render 'home/welcome', hotel: @hotel %>
+    </div>
+
     <% if @amenities.present? %>
       <div class="w-full my-4"
            data-aos="fade-up"
@@ -58,21 +66,39 @@
       </div>
     <% end %>
 
+    <% if @hotel.feedbacks.present? %>
+      <div class="w-full my-4 p-6"
+           data-aos="fade-up"
+           data-aos-duration="1000"
+           data-aos-offset="0">
+        <h1 class="user-title mb-4 text-center">TESTIMONIAL</h1>
+        <div class="relative user-card-container lg:w-3/4 h-[150px] overflow-hidden" data-controller="slideshow">
+          <% @hotel.feedbacks.limit(5).each_with_index do |feedback, index| %>
+            <div data-slideshow-target="slide"
+                 class="absolute inset-0 w-full h-full flex items-center justify-center transition-opacity duration-1000 ease-in-out <%= index == 0 ? 'opacity-100' : 'opacity-0' %>">
+              <%= render 'home/testimonial_card', feedback: feedback %>
+            </div>
+          <% end %>
 
-    <div class="w-full my-4"
+          <div class="absolute inset-0 flex justify-between items-center">
+            <button data-action="click->slideshow#prev">
+              <%= icon('fa-solid', 'chevron-left', class: "fa-2x text-text-color/20") %>
+            </button>
+            <button data-action="click->slideshow#next">
+              <%= icon('fa-solid', 'chevron-right', class: "fa-2x text-text-color/20") %>
+            </button>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="w-full flex justify-center"
          data-aos="fade-up"
          data-aos-duration="1000"
          data-aos-offset="0">
-      <div class="px-6 flex flex-col items-center justify-center gap-10">
-        <p class="text-text-color/50 text-center text-balance">
-          Enjoy the luxurious room with great experience and the hotel is all about
-          including room booking and providing hotel information so customer can book.
-          Enjoy the luxurious room with great experience and the hotel is all about
-          including room booking and providing hotel information so customer can book.
-        </p>
-        <%= link_to "About Us", root_path, class: "btn" %>
-      </div>
+      <%= link_to "Contact Us", contact_path, class: "user-btn" %>
     </div>
-
   </div>
 </div>
+
+

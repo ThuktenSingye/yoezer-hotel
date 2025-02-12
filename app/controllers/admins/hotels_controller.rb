@@ -38,6 +38,5 @@ module Admins
                                     address_attributes: %i[id dzongkhag gewog street_address],
                                     images: [])
     end
-
   end
 end

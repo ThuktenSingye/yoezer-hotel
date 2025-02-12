@@ -1,0 +1,22 @@
+<div class="w-full flex flex-col lg:flex-row lg:justify-between lg:items-center gap-10">
+
+  <div
+    class="user-card-container xl:w-[300px] hidden xl:block "
+    data-aos="fade-right"
+    data-aos-duration="1000"
+  >
+    <%= image_tag( "banner.jpg" ,class: "object-cover w-full h-full transition-transform duration-1000 hover:scale-105") %>
+  </div>
+  <div class="flex-1 flex flex-col" data-aos="fade-up" data-aos-duration="2000">
+    <h3 class="user-title">Welcome To <%= hotel.name.humanize %> Hotel</h3>
+    <p class="user-description text-balance text-text-color/50 text-center line-clamp-none"><%= hotel.description %></p>
+  </div>
+
+  <div
+    class="user-card-container xl:w-[300px]"
+    data-aos="fade-left"
+    data-aos-duration="1000"
+  >
+    <%= image_tag( "banner.jpg" ,class: "object-cover w-full h-full transition-transform duration-1000 hover:scale-105") %>
+  </div>
+</div>

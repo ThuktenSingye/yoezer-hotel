@@ -12,7 +12,12 @@ class BookingMailer < ApplicationMailer
       id: booking.id,
       token: booking.confirmation_token
     )
-    mail(to: @guest_email, subject: I18n.t('booking.confirmation-email-subject'), from: @hotel_email)
+    begin
+      @booking = Booking.find(@booking.id)
+      mail(to: @guest_email, subject: I18n.t('booking.confirmation-email-subject'), from: @hotel_email)
+    rescue ActiveRecord::RecordNotFound
+      Rails.logger.warn("Booking with ID #{booking.id} not found.  Skipping confirmation email.")
+    end
   end
 
   def booking_success_email(booking)

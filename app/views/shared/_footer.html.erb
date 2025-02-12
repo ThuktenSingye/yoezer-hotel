@@ -11,10 +11,11 @@
         <div class="flex flex-col items-start gap-4">
           <h3 class="font-title text-2xl text-white">DISCOVER</h3>
           <div class="flex flex-col gap-1">
-            <p class="user-nav-link">Home</p>
-            <p class="user-nav-link">Explore</p>
-            <p class="user-nav-link">Rooms</p>
-            <p class="user-nav-link">About</p>
+            <%= link_to "Home", home_path, class: "user-nav-link" %>
+            <%= link_to "Explore", explore_path, class: "user-nav-link" %>
+            <%= link_to "Rooms", rooms_path, class: "user-nav-link" %>
+            <%= link_to "Gallery", gallery_path, class: "user-nav-link" %>
+            <%= link_to "Contact Us", contact_path, class: "user-nav-link" %>
           </div>
         </div>
 
@@ -25,7 +26,9 @@
             <div class="flex flex-col gap-1">
               <p class="user-nav-link"><%= address.dzongkhag %>, <%= address.street_address %></p>
               <p class="user-nav-link">T: <%= @hotel.contact_no %></p>
-              <p class="user-nav-link">E: <%= @hotel.email %></p>
+              <p class="user-nav-link">
+                E: <a href="mailto:<%= @hotel.email %>" class="user-nav-link"><%= @hotel.email %></a>
+              </p>
             </div>
           </div>
         <% end %>
