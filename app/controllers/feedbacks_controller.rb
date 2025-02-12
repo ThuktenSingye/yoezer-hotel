@@ -1,11 +1,12 @@
-class FeedbacksController < HomeController
+# frozen_string_literal: true
 
+class FeedbacksController < HomeController
   def create
     @feedback = @hotel.feedbacks.new(feedback_params)
     if @feedback.save
-      flash[:notice] = "Thank you for your feedback."
+      flash[:notice] = 'Thank you for your feedback.'
     else
-      flash[:alert] = "Something went wrong. Please try again."
+      flash[:alert] = 'Something went wrong. Please try again.'
     end
     redirect_to contact_path
   end
