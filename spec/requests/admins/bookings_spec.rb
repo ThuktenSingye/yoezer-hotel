@@ -247,7 +247,7 @@ RSpec.describe 'Admins::Bookings', type: :request do
         response
       end
 
-      let(:invalid_booking) { FactoryBot.create(:booking, :pending_payment, hotel: hotel) }
+      let(:invalid_booking) { FactoryBot.create(:booking, :pending_payment, hotel: hotel) }   A
 
       it { is_expected.to redirect_to admins_hotel_bookings_path(hotel) }
       it { expect { delete_booking }.not_to change(Booking, :count) }
