@@ -4,7 +4,6 @@ module Admins
   # Manages galleries for hotels in the admins interface
   class HotelGalleriesController < AdminsController
     include ImageAttachment
-    before_action :hotel
     before_action :hotel_gallery, only: %i[show edit update destroy]
 
     def index
@@ -23,7 +22,7 @@ module Admins
       @hotel_gallery = @hotel.hotel_galleries.new(hotel_gallery_params)
       if @hotel_gallery.save
         flash[:notice] = I18n.t('gallery.create.success')
-        redirect_to admins_hotel_hotel_galleries_path(@hotel)
+        redirect_to admins_hotel_galleries_path
       else
         flash[:alert] = I18n.t('gallery.create.error')
         render :new, status: :unprocessable_entity
@@ -34,7 +33,7 @@ module Admins
       if @hotel_gallery.update(hotel_gallery_params.except(:image))
         self.class.attach_image(@hotel_gallery, hotel_gallery_params, :image)
         flash[:notice] = I18n.t('gallery.update.success')
-        redirect_to admins_hotel_hotel_galleries_path(@hotel)
+        redirect_to admins_hotel_gallery_path(@hotel_gallery)
       else
         flash[:alert] = I18n.t('gallery.update.error')
         render :edit, status: :unprocessable_entity
@@ -44,20 +43,16 @@ module Admins
     def destroy
       @hotel_gallery.destroy
       flash[:notice] = I18n.t('gallery.destroy.success')
-      redirect_to admins_hotel_hotel_galleries_path(@hotel)
+      redirect_to admins_hotel_galleries_path
     end
 
     private
-
-    def hotel
-      @hotel ||= Hotel.find(params[:hotel_id])
-    end
 
     def hotel_gallery
       @hotel_gallery = HotelGallery.find(params[:id])
     rescue ActiveRecord::RecordNotFound
       flash.now[:alert] = I18n.t('gallery.not_found')
-      redirect_to admins_hotel_hotel_galleries_path(@hotel)
+      redirect_to admins_hotel_galleries_path
     end
 
     def hotel_gallery_params

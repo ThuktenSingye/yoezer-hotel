@@ -1,5 +1,5 @@
 <div class="m-4">
-    <%= form_with(model: [:admins, @hotel, hotel_gallery], local: true, class: "flex flex-col justify-center") do |f| %>
+    <%= form_with(model: [:admins, hotel_gallery], local: true, class: "flex flex-col justify-center") do |f| %>
     <% if hotel_gallery.errors.any? %>
       <div id="error_explanation" class="flex flex-col items-center">
         <h2 class="text-text-color/50"><%= pluralize(hotel_gallery.errors.count, "error") %> prohibited profile from being update:</h2>
@@ -38,9 +38,9 @@
     <div class="flex items-center mt-4 gap-5">
       <%= f.submit "Save", class: "btn", data: { turbo_frame: "_top"} %>
       <% if hotel_gallery.persisted? %>
-        <%= link_to "Cancel", admins_hotel_hotel_gallery_path(@hotel, hotel_gallery), class: "btn", data: { turbo_frame: "_top"} %>
+        <%= link_to "Cancel", admins_hotel_gallery_path(hotel_gallery), class: "btn", data: { turbo_frame: "_top"} %>
       <% else %>
-        <%= link_to "Cancel", admins_hotel_hotel_galleries_path(@hotel), class: "btn", data: { turbo_frame: "_top"} %>
+        <%= link_to "Cancel", admins_hotel_galleries_path, class: "btn", data: { turbo_frame: "_top"} %>
       <% end %>
     </div>
   <% end %>
