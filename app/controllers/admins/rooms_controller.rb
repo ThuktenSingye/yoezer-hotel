@@ -54,7 +54,7 @@ module Admins
       @room ||= @hotel.rooms.find(params[:id])
     rescue ActiveRecord::RecordNotFound
       flash.now[:alert] = I18n.t('room.not_found')
-      redirect_to  admins_rooms_path
+      redirect_to admins_rooms_path
     end
 
     def offers

@@ -5,4 +5,8 @@ FactoryBot.define do
     rating { 1 }
     hotel { nil }
   end
+
+  trait :invalid_hotel_rating do
+    rating { nil }
+  end
 end

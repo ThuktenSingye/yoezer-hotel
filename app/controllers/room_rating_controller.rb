@@ -13,7 +13,7 @@ class RoomRatingController < HomeController
       save_room_rating
     end
 
-    redirect_to request.referer
+    redirect_to request.referer || home_path
   end
 
   private

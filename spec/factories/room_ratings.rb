@@ -5,4 +5,8 @@ FactoryBot.define do
     rating { 1 }
     room { nil }
   end
+
+  trait :invalid_room_rating do
+    rating { nil }
+  end
 end

@@ -2,7 +2,6 @@
 
 # Home Controller
 class HomeController < ApplicationController
-
   def show
     @amenities = @hotel.amenities.all
     @room_categories = @hotel.room_categories.limit(4)

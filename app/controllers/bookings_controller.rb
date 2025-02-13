@@ -7,14 +7,15 @@ class BookingsController < HomeController
   before_action :booking_service, only: %i[create confirm update_confirmation]
   before_action :booking, only: %i[destroy confirm update_confirmation]
 
-  def index; end
-
-  def new; end
+  def new
+    @booking = @hotel.bookings.new
+    @booking.build_guest
+  end
 
   def create
     result = @booking_service.create_booking(booking_params, @offers)
 
-    if result[:success]
+    if result && result[:success]
       schedule_background_jobs(result[:booking])
       render json: { ok: true }, status: :ok
     else
@@ -49,7 +50,7 @@ class BookingsController < HomeController
     if result
       flash[:notice] = I18n.t('booking.confirmed')
     else
-      flash[:alert] = result[:error]
+      flash[:alert] = I18n.t('booking.update.error')
     end
     redirect_to room_path(@room)
   end

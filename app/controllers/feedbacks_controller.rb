@@ -14,15 +14,12 @@ class FeedbacksController < HomeController
   end
 
   def create
-    @guest = @hotel.guests.find_by(email: feedback_params[:email])
-
     if feedback_already_exists?
       flash[:alert] = I18n.t('feedback.already_given')
     else
       save_feedback
     end
-
-    redirect_to request.referer
+    redirect_to request.referer || home_path
   end
 
   private
@@ -34,7 +31,7 @@ class FeedbacksController < HomeController
   def save_feedback
     @feedback = @hotel.feedbacks.new(feedback_params)
 
-    if @guest && @feedback.save
+    if @feedback.save
       flash[:notice] = I18n.t('feedback.create.success')
     else
       flash[:alert] = I18n.t('feedback.create.error')

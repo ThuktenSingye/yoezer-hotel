@@ -12,7 +12,7 @@ class BookingQuery < BaseQuery
   end
 
   def search_by_checkout_date
-    bookings = @hotel.bookings.where(checkout_date: Date.today)
+    @hotel.bookings.where(checkout_date: Time.zone.today)
   end
 
   private

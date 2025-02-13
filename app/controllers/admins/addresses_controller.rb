@@ -33,7 +33,7 @@ module Admins
       @address ||= Address.find(params[:id])
     rescue ActiveRecord::RecordNotFound
       flash[:alert] = I18n.t('address.not_found')
-      redirect_to admins_path
+      redirect_to admins_admin_root_path
     end
 
     def success_response

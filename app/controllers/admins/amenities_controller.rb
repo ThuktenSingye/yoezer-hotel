@@ -39,7 +39,6 @@ module Admins
       end
     end
 
-
     def destroy
       @amenity.destroy
       destroy_response

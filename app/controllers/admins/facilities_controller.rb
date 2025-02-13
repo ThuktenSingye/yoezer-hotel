@@ -46,7 +46,6 @@ module Admins
 
     private
 
-
     def facility
       @facility ||= @hotel.facilities.find(params[:id])
     end

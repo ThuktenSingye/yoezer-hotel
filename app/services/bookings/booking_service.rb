@@ -81,7 +81,7 @@ module Bookings
         Bookings::BookingMailerService.send_confirmation_email(booking)
         return { success: true, booking: booking.reload }
       end
-      false
+      { success: false, booking: booking }
     end
 
     def validate_confirmation_link(booking)

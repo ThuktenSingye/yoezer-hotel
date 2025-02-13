@@ -32,7 +32,7 @@ RSpec.describe 'Admins::Hotels', type: :request do
   describe 'PUT /update' do
     context 'with valid params' do
       subject(:update_hotel) do
-        put admins_hotel_path , params: { hotel: valid_hotel_params }
+        put admins_hotel_path, params: { hotel: valid_hotel_params }
         response
       end
 
