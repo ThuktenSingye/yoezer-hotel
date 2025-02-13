@@ -13,6 +13,7 @@ class BookingCleanupWorker
 
     if booking.room.status != 'booked'
       booking.destroy
+      booking.guest.destroy
       booking.room&.update(status: :available)
     end
   rescue ActiveRecord::RecordNotFound

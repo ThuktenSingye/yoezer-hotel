@@ -2,7 +2,7 @@
 
 <p>Dear <%= @booking.guest.first_name %>,</p>
 
-<p>Thank you for booking with us at <%= @booking.hotel.name %>! Your booking update details are as follows:</p>
+<p>Thank you for booking with us at <%= @hotel.name %>! Your booking update details are as follows:</p>
 
 <ul>
   <li>Check-in Date: <%= @booking.checkin_date.strftime("%d/%m/%Y") %></li>
@@ -11,6 +11,6 @@
   <li>Room: <%= @booking.room.room_category.name %></li>
 </ul>
 
-<p>If you have any questions, feel free to contact us at <%= @booking.hotel.email %>.</p>
+<p>If you have any questions, feel free to contact us at <%= @hotel.email %>.</p>
 
-<p>Best regards,<br><%= @booking.hotel.name %></p>
+<p>Best regards,<br><%= @hotel.name %></p>

@@ -33,8 +33,8 @@
     <div class="flex justify-between items-end">
       <div>
         <h2 class="text-primary-regular">
-          Nu. <span class="font-bold text-2xl <%= 'line-through' if @offers.present? %>"><%= room.base_price.to_i.to_s %></span>
-          <span class="text-sm">(<%= calculate_discounted_room_price(room.base_price, @offers)[:total_discount] %>% off)</span>
+          Nu. <span class="font-bold text-2xl <%= 'line-through text-base' if @offers.present? %>"><%= room.base_price.to_i.to_s %></span>
+          <span class="text-sm">(<%= calculate_discounted_room_price(room.base_price, @offers)[:total_discount] if @offers.present? %>% off)</span>
         </h2>
 
         <% if @offers.present? %>

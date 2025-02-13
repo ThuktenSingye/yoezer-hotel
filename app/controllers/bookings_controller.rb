@@ -46,12 +46,12 @@ class BookingsController < HomeController
   def update_confirmation
     result = @booking_service.confirm_token(params[:id], params[:token])
 
-    if result[:valid]
-      confirm_booking_and_redirect
+    if result
+      flash[:notice] = I18n.t('booking.confirmed')
     else
       flash[:alert] = result[:error]
-      redirect_to room_path(@room)
     end
+    redirect_to room_path(@room)
   end
 
   private
@@ -81,14 +81,6 @@ class BookingsController < HomeController
 
   def payment_completed?
     @booking.payment_status == 'completed'
-  end
-
-  def confirm_booking_and_redirect
-    @booking.update(confirmed: true)
-    @booking.room.update(status: :booked)
-    BookingMailer.booking_success_email(@booking).deliver_later(queue: 'mailers')
-    flash[:notice] = I18n.t('booking.confirmed')
-    redirect_to room_path(@room)
   end
 
   def schedule_background_jobs(booking)

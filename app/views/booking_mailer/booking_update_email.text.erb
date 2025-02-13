@@ -2,14 +2,14 @@ Booking Confirmation
 
 Dear <%= @booking.guest.first_name %>,
 
-Thank you for booking with us at <%= @booking.hotel.name %>! Your booking update details are as follows:
+Thank you for booking with us at <%= @hotel.name %>! Your booking update details are as follows:
 
 - Check-in Date: <%= @booking.checkin_date.strftime("%d/%m/%Y") %>
 - Check-out Date: <%= @booking.checkout_date.strftime("%d/%m/%Y") %>
 - Room Number: <%= @booking.room.room_number %>
 - Room Category: <%= @booking.room.room_category.name %>
 
-If you have any questions, feel free to contact us at <%= @booking.hotel.email %>.
+If you have any questions, feel free to contact us at <%= @hotel.email %>.
 
 Best regards,
-<%= @booking.hotel.name %>
+<%= @hotel.name %>

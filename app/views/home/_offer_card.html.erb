@@ -1,16 +1,15 @@
-<div class="relative w-full lg:h-[400px] flex flex-col lg:flex-row lg:items-start lg:gap-8 user-card">
-  <div class="relative w-full lg:w-[35%] shrink-0 h-full ">
-    <%= image_tag((offer&.image&.attached? ? offer.image : "https://placehold.co/50x50"),
-                  class: "image rounded-sm") %>
-    <div class="absolute inset-0 bg-primary-regular bg-opacity-10"></div>
+<div class="w-full flex flex-col lg:flex-row lg:justify-between lg:items-center gap-8 p-6" >
+  <div class="relative user-card-container overflow-hidden">
+    <div class="relative w-full h-full ">
+      <%= image_tag((offer&.image&.attached? ? offer.image : "https://placehold.co/50x50"),
+                    class: "image rounded-none") %>
+      <div class="absolute inset-0 bg-primary-regular bg-opacity-10"></div>
+    </div>
   </div>
-  <div class="absolute right-0  border-l-transparent border-l-[100px] border-r-transparent border-t-[100px] border-primary-regular">
-  </div>
-  <p class="absolute right-0 top-6 text-white transform font-medium rotate-45">Discount</p>
 
-  <div class="p-4">
+  <div class="p-4 user-card-container flex flex-col flex-grow border">
     <div>
-      <h3 class="title text-2xl"><%= offer.title %></h3>
+      <h3 class="title"><%= offer.title %></h3>
       <p class="line-clamp-5 text-text-color/50 mt-2 lg:mr-8 text-balance text-sm xl:text-base text-ellipsis">
         <%= offer.description %>
       </p>
@@ -24,12 +23,15 @@
     <div class="flex flex-col gap-2 my-2 lg:my-4 ">
       <p class="flex">
         <span class="w-32">Offer Start On:</span>
-        <span class="text-primary-regular font-semibold"><%= offer.start_time.strftime("%a %e, %b, %Y") %></span>
+        <span class=""><%= offer.start_time.strftime("%a %e, %b, %Y") %></span>
       </p>
       <p class="flex">
         <span class="w-32">Offer Ends On:</span>
-        <span class="text-primary-regular font-semibold"><%= offer.end_time.strftime("%a %e, %b, %Y") %></span>
+        <span class=""><%= offer.end_time.strftime("%a %e, %b, %Y") %></span>
       </p>
     </div>
   </div>
+
 </div>
+
+

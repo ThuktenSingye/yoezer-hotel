@@ -88,14 +88,6 @@ module Admins
       @booking.room.status == 'booked' && @booking.payment_status == 'completed'
     end
 
-    def confirm_booking_and_redirect
-      @booking.update(confirmed: true)
-      @booking.room.update(status: :booked)
-      BookingMailer.booking_success_email(@booking).deliver_later(queue: 'mailers')
-      flash[:notice] = I18n.t('booking.confirmed')
-      redirect_to admins_hotel_room_path(@hotel, @room)
-    end
-
     def offers
       @offers = OfferQuery.new(@hotel).call
     end

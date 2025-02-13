@@ -43,7 +43,14 @@ module Bookings
       booking = @hotel.bookings.find_by(id: id, confirmation_token: token)
       return { valid: false, error: I18n.t('booking.invalid-confirmation') } unless booking && !booking.confirmed?
 
-      validate_confirmation_link(booking) ? { valid: true } : { valid: false, error: I18n.t('booking.expired') }
+      if validate_confirmation_link(booking)
+        booking.update(confirmed: true)
+        booking.room.update(status: :booked)
+        Bookings::BookingMailerService.send_booking_success_email(booking).deliver_later(queue: 'mailers')
+        return true
+      end
+      false
+      # validate_confirmation_link(booking) ? { valid: true } : { valid: false, error: I18n.t('booking.expired') }
     end
 
     private
