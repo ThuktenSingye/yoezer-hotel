@@ -13,13 +13,13 @@
       data-action="click->popover#toggle"></div>
 
     <div class="flex justify-center items-center gap-4">
-      <%= link_to edit_admins_hotel_facility_path(@hotel, facility), class: "hidden md:block", data: { "turbo-frame": "facility"} do %>
+      <%= link_to edit_admins_facility_path(facility), class: "hidden md:block", data: { "turbo-frame": "facility"} do %>
         <button class="icon icon-button p-2 group-hover:bg-white">
           <%= icon('fa-solid', 'pen-to-square', class: "text-secondary") %>
         </button>
       <% end %>
 
-      <%= link_to admins_hotel_facility_path(@hotel, facility), class: "hidden md:block", data: {"turbo-method": :delete, "turbo-confirm": "Are you sure to delete?", turbo_frame: "_top"} do %>
+      <%= link_to admins_facility_path(facility), class: "hidden md:block", data: {"turbo-method": :delete, "turbo-confirm": "Are you sure to delete?", turbo_frame: "_top"} do %>
         <button class="icon icon-button p-2 group-hover:bg-white hidden md:block">
           <%= icon('fa-solid', 'trash', class: "text-error") %>
         </button>
@@ -30,8 +30,8 @@
 
       <div data-popover-target="popover" class="hidden fixed mt-0 right-4  bg-white border rounded shadow-lg z-50">
         <div class="flex flex-col items-start">
-          <%= link_to 'Edit', edit_admins_hotel_facility_path(@hotel, facility), class: "block px-4 py-2 underline text-secondary", data: { "turbo-frame": "facility"} %>
-          <%= link_to 'Delete', admins_hotel_facility_path(@hotel, facility), data: { turbo_method: :delete, turbo_confirm: "Are you sure to delete?", turbo_frame: "_top" }, class: "block border-t px-4 py-2 underline text-error" %>
+          <%= link_to 'Edit', edit_admins_facility_path(facility), class: "block px-4 py-2 underline text-secondary", data: { "turbo-frame": "facility"} %>
+          <%= link_to 'Delete', admins_facility_path(facility), data: { turbo_method: :delete, turbo_confirm: "Are you sure to delete?", turbo_frame: "_top" }, class: "block border-t px-4 py-2 underline text-error" %>
         </div>
       </div>
     </div>

@@ -4,7 +4,6 @@ module Admins
   # Room Facility Controller
   class FacilitiesController < AdminsController
     include ImageAttachment
-    before_action :hotel
     before_action :facility, only: %i[edit update destroy]
 
     def index
@@ -22,7 +21,7 @@ module Admins
       @facility = @hotel.facilities.new(facility_params)
       if @facility.save
         flash[:notice] = I18n.t('facility.create.success')
-        redirect_to admins_hotel_facilities_path(@hotel)
+        redirect_to admins_facilities_path
       else
         flash[:alert] = I18n.t('facility.create.error')
         render :new, status: :unprocessable_content
@@ -32,7 +31,7 @@ module Admins
     def update
       if @facility.update(facility_params)
         flash[:notice] = I18n.t('facility.update.success')
-        redirect_to admins_hotel_facilities_path(@hotel)
+        redirect_to admins_facilities_path
       else
         flash[:alert] = I18n.t('amenity.update.error')
         render :edit, status: :unprocessable_content
@@ -42,14 +41,11 @@ module Admins
     def destroy
       @facility.destroy
       flash[:notice] = I18n.t('facility.destroy.success')
-      redirect_to admins_hotel_facilities_path(@hotel)
+      redirect_to admins_facilities_path
     end
 
     private
 
-    def hotel
-      @hotel ||= Hotel.find(params[:hotel_id])
-    end
 
     def facility
       @facility ||= @hotel.facilities.find(params[:id])
