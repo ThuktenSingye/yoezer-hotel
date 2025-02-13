@@ -34,7 +34,7 @@
           <div class="flex justify-between items-center mt-2 ">
             <% if room.status == 'available' %>
               <div class="flex items-center">
-                <%= link_to "Reservation", new_admins_hotel_room_booking_path(@hotel, room), data: { turbo_frame: "_top"} ,class: "btn" %>
+                <%= link_to "Reservation", new_admins_room_booking_path(room), data: { turbo_frame: "_top"} ,class: "btn" %>
               </div>
             <% end %>
 
@@ -51,19 +51,18 @@
           <hr class="bg-primary-regular h-0.5">
           <div class="flex justify-between items-center mt-2 gap-2">
             <div>
-              <%= link_to "Back", admins_hotel_rooms_path(@hotel), data: { turbo_frame: "_top"} ,class: "btn" %>
+              <%= link_to "Back", admins_rooms_path, data: { turbo_frame: "_top"} ,class: "btn" %>
             </div>
             <div>
               <% if room.status != 'booked' && room.status != 'reserved' %>
-                <%= link_to "Edit", edit_admins_hotel_room_path(@hotel, room), class: "btn" %>
+                <%= link_to "Edit", edit_admins_room_path(room), class: "btn" %>
               <% end %>
-              <%= link_to 'Delete', admins_hotel_room_path(@hotel, room), data: { turbo_method: :delete, turbo_confirm: "Are you sure to delete?", turbo_frame: "_top" }, class: "btn" %>
+              <%= link_to 'Delete', admins_room_path(room), data: { turbo_method: :delete, turbo_confirm: "Are you sure to delete?", turbo_frame: "_top" }, class: "btn" %>
             </div>
           </div>
         </div>
       </div>
     </div>
-
     <div class="card p-4 flex flex-col gap-4">
       <div>
         <p class="title mb-2">Primary Image:</p>
@@ -95,7 +94,7 @@
       <div>
         <p class="title mb-2">Bed Type</p>
         <div>
-          <%= form_with(model: RoomBedType.new, url: admins_hotel_room_room_bed_types_path(@hotel, room), method: :post, local: true) do |form| %>
+          <%= form_with(model: RoomBedType.new, url: admins_room_room_bed_types_path(room), method: :post, local: true) do |form| %>
             <div class="flex justify-between gap-4">
               <%= form.collection_select :bed_type_id, BedType.all, :id, :name, { prompt: "Add Bed Type" }, class: "input-field bg-white" %>
               <%= form.number_field :num_of_bed, value: nil, placeholder: "Number of bed", min: 1, max: 10, class: "input-field" %>
@@ -119,7 +118,7 @@
               <div class="flex justify-between items-center p-3 border-b hover:bg-background group">
                 <p class="w-[20%] text-center"><%= room_bed_type.bed_type.name %></p>
                 <p class="flex-1 text-center"><%= room_bed_type.num_of_bed %></p>
-                <%= link_to admins_hotel_room_room_bed_type_path(@hotel, room, room_bed_type), class: "w-[20%] text-center", data: {"turbo-method": :delete, "turbo-confirm": "Are you sure to delete?"} do %>
+                <%= link_to admins_room_room_bed_type_path(room, room_bed_type), class: "w-[20%] text-center", data: {"turbo-method": :delete, "turbo-confirm": "Are you sure to delete?"} do %>
                   <button class="icon icon-button p-2 group-hover:bg-white text-center">
                     <%= icon('fa-solid', 'trash', class: "text-error") %>
                   </button>
@@ -135,7 +134,7 @@
       <div>
         <p class="title mb-2">Room Facility</p>
         <div>
-          <%= form_with(model: RoomFacility.new, url: admins_hotel_room_room_facilities_path(@hotel, room), method: :post, local: true) do |form| %>
+          <%= form_with(model: RoomFacility.new, url: admins_room_room_facilities_path(room), method: :post, local: true) do |form| %>
             <div class="flex justify-between gap-4">
               <%= form.collection_select :facility_id, Facility.all, :id, :name, { prompt: "Add Facility" }, class: "input-field bg-white" %>
               <%= form.submit "add", class: "btn cursor-pointer" %>
@@ -160,7 +159,7 @@
                                 class: "icon icon-button w-11 h-11 p-2 group-hover:bg-white") %>
                 </div>
                 <p class="flex-1 text-center"><%= room_facility.facility.name %></p>
-                <%= link_to admins_hotel_room_room_facility_path(@hotel, room, room_facility), class: "w-[20%] text-center", data: {"turbo-method": :delete, "turbo-confirm": "Are you sure to delete?"} do %>
+                <%= link_to admins_room_room_facility_path(room, room_facility), class: "w-[20%] text-center", data: {"turbo-method": :delete, "turbo-confirm": "Are you sure to delete?"} do %>
                   <button class="icon icon-button p-2 group-hover:bg-white text-center">
                     <%= icon('fa-solid', 'trash', class: "text-error") %>
                   </button>

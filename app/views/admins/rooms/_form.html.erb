@@ -1,5 +1,5 @@
 <div class="m-4">
-  <%= form_with(model: [:admins, @hotel, room], local: true, class: "flex flex-col justify-center") do |f| %>
+  <%= form_with(model: [:admins, room], local: true, class: "flex flex-col justify-center") do |f| %>
     <% if room.errors.any? %>
       <div id="error_explanation" class="flex flex-col items-center">
         <h2 class="text-text-color/50"><%= pluralize(room.errors.count, "error") %>!:</h2>
@@ -99,9 +99,9 @@
       <div class="flex items-center mt-4 gap-5">
         <%= f.submit "Save", class: "btn", data: { turbo_frame: "_top"} %>
         <% if room.persisted? %>
-          <%= link_to "Cancel", admins_hotel_room_path(@hotel, room) , class: "btn", data: { turbo_frame: "_top"} %>
+          <%= link_to "Cancel", admins_room_path(room) , class: "btn", data: { turbo_frame: "_top"} %>
         <% else %>
-          <%= link_to "Cancel",admins_hotel_rooms_path(@hotel), class: "btn", data: { turbo_frame: "_top"} %>
+          <%= link_to "Cancel",admins_rooms_path, class: "btn", data: { turbo_frame: "_top"} %>
         <% end %>
       </div>
     </div>

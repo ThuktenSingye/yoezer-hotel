@@ -6,7 +6,7 @@ class RoomQuery < BaseQuery
     rooms = @hotel.rooms
     rooms = filter_by_status(rooms) if @params[:status].present?
     rooms = filter_by_category(rooms) if @params[:room_category_id].present?
-    rooms = filter_by_query(rooms) if @params[:query].present?
+    rooms = filter_by_price(rooms) if @params[:query].present?
 
     ordered_records(rooms.includes(:room_ratings))
   end
@@ -25,7 +25,7 @@ class RoomQuery < BaseQuery
     rooms.where(room_category_id: @params[:room_category_id])
   end
 
-  def filter_by_query(rooms)
+  def filter_by_price(rooms)
     query = @params[:query].strip
 
     if query.match?(/^\d+-\d+$/)
