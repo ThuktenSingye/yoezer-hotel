@@ -1,4 +1,4 @@
-<%= link_to admins_hotel_offer_path(@hotel, offer) do %>
+<%= link_to admins_offer_path(offer) do %>
   <div class="card-wrapper card-animation card-bg mt-2 p-3 flex flex-col gap-2">
     <div class="w-full h-1/2">
       <%= image_tag(offer&.image&.attached? ? offer.image : "https://placehold.co/200x200", class:"image rounded-none" ) %>
@@ -24,5 +24,4 @@
       </div>
     </div>
     </div>
-
 <% end %>

@@ -1,9 +1,12 @@
 <div class="mx-4">
   <div class="w-full mx-auto">
+    <div id="flash" class="flash">
+      <%= render "shared/flash" %>
+    </div>
     <div class="w-full flex justify-between items-center my-4">
       <h1 class="title mx-4"> Hotel Offer</h1>
       <div class="self-end">
-        <%= link_to "Add", new_admins_hotel_offer_path(@hotel), class: "btn" %>
+        <%= link_to "Add", new_admins_offer_path, class: "btn" %>
       </div>
     </div>
     <div class="flex flex-wrap items-center justify-center gap-5">

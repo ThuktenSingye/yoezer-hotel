@@ -1,5 +1,5 @@
 <div class="m-4 z-0">
-  <%= form_with(model: [:admins, @hotel, offer], local: true, class: "flex flex-col justify-center") do |f| %>
+  <%= form_with(model: [:admins, offer], local: true, class: "flex flex-col justify-center") do |f| %>
     <% if offer.errors.any? %>
       <div id="error_explanation" class="flex flex-col items-center">
         <h2 class="text-text-color/50"><%= pluralize(offer.errors.count, "error") %>!:</h2>
@@ -15,10 +15,12 @@
       <div class="my-2">
         <div class="flex flex-col" data-controller="avatar">
           <div class="relative flex flex-row justify-center shrink-0 my-2 ml-2 gap-2">
-            <%= image_tag(offer&.image&.attached? ? offer.image : "https://placehold.co/200x200", class:"image-md", data: {avatar_target: "imagePreview"} ) %>
-            <div class="self-start icon p-4 hover:cursor-pointer" data-action="click->avatar#selectImage">
-              <%= icon('fa-solid', 'pen-to-square', class: "text-primary-regular") %>
-            </div>
+            <%# if offer.persisted? %>
+              <%= image_tag(offer&.image&.attached? ? offer.image : "https://placehold.co/200x200", class:"image-md", data: {avatar_target: "imagePreview"} ) %>
+            <%# end %>
+              <div class="self-start icon p-4 hover:cursor-pointer" data-action="click->avatar#selectImage">
+                <%= icon('fa-solid', 'pen-to-square', class: "text-primary-regular") %>
+              </div>
             <%= f.file_field :image, accept: "image/*", data: {avatar_target: "avatarUpload", action: "change->avatar#showPreview"}, class: "hidden" %>
           </div>
         </div>
@@ -52,9 +54,9 @@
     <div class="flex items-center mt-4 gap-5">
       <%= f.submit "Save", class: "btn", data: { turbo_frame: "_top"} %>
       <% if offer.persisted? %>
-        <%= link_to "Cancel", admins_hotel_offer_path(@hotel, offer), class: "btn", data: { turbo_frame: "_top"} %>
+        <%= link_to "Cancel", admins_offer_path(offer), class: "btn", data: { turbo_frame: "_top"} %>
       <% else %>
-        <%= link_to "Cancel", admins_hotel_offers_path(@hotel), class: "btn", data: { turbo_frame: "_top"} %>
+        <%= link_to "Cancel", admins_offers_path, class: "btn", data: { turbo_frame: "_top"} %>
       <% end %>
     </div>
   <% end %>

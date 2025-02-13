@@ -2,7 +2,7 @@
 
 # Subdomain Helper Module
 module SubdomainHelpers
-  def set_subdomain(subdomain)
+  def subdomain(subdomain)
     host! "#{subdomain}.example.com"
   end
 end

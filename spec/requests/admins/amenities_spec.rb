@@ -9,7 +9,7 @@ RSpec.describe 'AdminPanel::Amenities', type: :request do
 
   before do
     sign_in admin, scope: :admin
-    set_subdomain hotel.subdomain
+    subdomain hotel.subdomain
   end
 
   describe 'GET /index' do

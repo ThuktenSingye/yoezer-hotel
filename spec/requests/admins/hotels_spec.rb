@@ -8,7 +8,7 @@ RSpec.describe 'Admins::Hotels', type: :request do
 
   before do
     sign_in admin, scope: :admin
-    set_subdomain hotel.subdomain
+    subdomain hotel.subdomain
   end
 
   describe 'GET /admins/hotels' do
