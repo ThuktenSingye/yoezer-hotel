@@ -6,6 +6,7 @@ FactoryBot.define do
     email { Faker::Internet.email }
     contact_no { Faker::Number.number(digits: 8).to_s }
     description { Faker::Lorem.sentence }
+    subdomain { Faker::Internet.domain_name }
 
     trait :invalid_hotel_params do
       name { nil }

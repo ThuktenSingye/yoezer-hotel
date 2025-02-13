@@ -3,27 +3,56 @@
 require 'sidekiq/web'
 Rails.application.routes.draw do
   mount Sidekiq::Web => '/sidekiq'
+  # namespace :admins do
+  #   resources :hotels, only: %i[index edit update] do
+  #     resources :addresses, only: %i[new create destroy]
+  #     resources :amenities
+  #     resources :feedbacks, only: %i[index destroy]
+  #     resources :hotel_galleries
+  #     resources :offers
+  #     resources :room_categories, except: :show
+  #     resources :rooms do
+  #       resources :room_bed_types, only: %i[create destroy]
+  #       resources :room_facilities, only: %i[create destroy]
+  #       resources :bookings, only: %i[new create]
+  #     end
+  #     resources :bookings, except: %i[new create]
+  #     resources :bed_types, except: %i[index show]
+  #     resources :facilities
+  #     resources :employees
+  #     resources :guests
+  #   end
+  #   resources :profiles, only: %i[index edit update]
+  # end
   namespace :admins do
-    resources :hotels, only: %i[index edit update] do
-      resources :addresses, only: %i[new create destroy]
+      # Hotel-specific resources (no longer nested under /hotels/:hotel_id)
       resources :amenities
-      resources :feedbacks, only: %i[index destroy]
+      resources :facilities
+      resources :bed_types, except: %i[index show]
+      resources :employees
+      resources :guests
+      resources :profiles, only: %i[index edit update]
       resources :hotel_galleries
       resources :offers
+      resources :feedbacks, only: %i[index destroy]
       resources :room_categories, except: :show
+      resources :bookings, except: %i[new create]
+
       resources :rooms do
         resources :room_bed_types, only: %i[create destroy]
         resources :room_facilities, only: %i[create destroy]
         resources :bookings, only: %i[new create]
       end
-      resources :bookings, except: %i[new create]
-      resources :bed_types, except: %i[index show]
-      resources :facilities
-      resources :employees
-      resources :guests
+
+      # Special route for editing/updating hotels (singular resource)
+      resource :hotel, only: %i[edit update] do
+         resources :addresses, only: %i[new create destroy]
+      end
+
+      # Route to show the hotels index page when visiting /admins
+      get '/', to: 'hotels#index', as: :admin_root # This will make /admins show hotels#index
+
     end
-    resources :profiles, only: %i[index edit update]
-  end
 
   devise_for :admins, skip: [:registrations], controllers: { sessions: 'admins/sessions' }
 

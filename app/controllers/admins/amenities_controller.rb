@@ -4,7 +4,6 @@ module Admins
   # Manages amenities for hotels in the admins interface
   class AmenitiesController < AdminsController
     include ImageAttachment
-    before_action :hotel
     before_action :amenity, only: %i[edit update destroy]
 
     def index
@@ -22,7 +21,7 @@ module Admins
       @amenity = @hotel.amenities.new(amenity_params)
       if @amenity.save
         flash[:notice] = I18n.t('amenity.create.success')
-        redirect_to admins_hotel_amenities_path(@hotel)
+        redirect_to admins_amenities_path
       else
         flash[:alert] = I18n.t('amenity.create.error')
         render :new, status: :unprocessable_content
@@ -33,12 +32,13 @@ module Admins
       if @amenity.update(amenity_params.except(:image))
         self.class.attach_image(@amenity, amenity_params, :image)
         flash[:notice] = I18n.t('amenity.update.success')
-        redirect_to admins_hotel_amenities_path(@hotel)
+        redirect_to admins_amenities_path
       else
         flash[:alert] = I18n.t('amenity.update.error')
         render :edit, status: :unprocessable_content
       end
     end
+
 
     def destroy
       @amenity.destroy
@@ -46,10 +46,6 @@ module Admins
     end
 
     private
-
-    def hotel
-      @hotel ||= Hotel.find(params[:hotel_id])
-    end
 
     def amenity
       @amenity ||= Amenity.find(params[:id])
@@ -61,7 +57,7 @@ module Admins
 
     def destroy_response
       respond_to do |format|
-        format.html { redirect_to admins_hotel_amenities_path(@hotel) }
+        format.html { redirect_to admins_amenities_path }
         format.turbo_stream do
           flash.now[:notice] = I18n.t('amenity.destroy.success')
           render turbo_stream: [

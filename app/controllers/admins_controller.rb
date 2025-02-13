@@ -5,8 +5,8 @@ class AdminsController < ApplicationController
   layout 'admins'
   before_action :authenticate_admin!
 
-  def index
-    @hotel = Hotel.first
-    # @room = @hotel.rooms.
-  end
+  # def index
+  #   @hotel = Hotel.first
+  #   # @room = @hotel.rooms.
+  # end
 end

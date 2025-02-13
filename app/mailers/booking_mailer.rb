@@ -2,6 +2,7 @@
 
 # Booking Mailer class
 class BookingMailer < ApplicationMailer
+
   # rubocop:disable Metrics/MethodLength
   def confirmation_email(hotel_id, booking_id)
     @hotel = Hotel.find(hotel_id)
