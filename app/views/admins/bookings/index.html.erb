@@ -18,7 +18,7 @@
             <%= form.search_field :query, class: "query-field", placeholder: "Search", data: {action: "input->search#search"} %>
           <% end %>
         </div>
-    </div>
+      </div>
       <div class="my-4">
         <div class="w-full overflow-hidden">
           <div class="bg-background p-2 border-b">
@@ -51,6 +51,41 @@
         </div>
       </div>
     </div>
+    <div class="card px-4 w-full mx-auto">
+      <div class="flex flex-col lg:flex-row lg:items-center lg:gap-2 mt-4">
+        <h1 class="title">Today Checkout</h1>
+      </div>
+      <div class="my-4">
+        <div class="w-full overflow-hidden">
+          <div class="bg-background p-2 border-b">
+            <div class="flex justify-between items-center font-medium text-primary-dark py-2">
+              <div class="flex-1 md:w-[15%] text-center">Room Number</div>
+              <h3 class="w-[15%] text-center hidden xl:block">Category</h3>
+              <h3 class="flex-1 md:w-[15%] text-center">Guest </h3>
+              <h3 class="w-[15%] text-center hidden lg:block">Total Amounts</h3>
+              <h3 class="w-[15%] text-center hidden xl:block">Room Status</h3>
+              <h3 class="w-[15%] text-center hidden lg:block">Payment</h3>
+              <h3 class="w-[15%] text-center hidden md:block">Actions</h3>
+            </div>
+          </div>
+          <div>
+            <turbo-frame id="booking_search_result">
+              <% if @checkout_bookings.blank? %>
+                <h3 class="text-text-color/50 text-center mt-4 p-2">No Booking Data!</h3>
+              <% else %>
+                <% @checkout_bookings.each do |booking| %>
+                  <turbo-frame id="booking_<%= booking.id %>">
+                    <%= render "admins/bookings/booking", booking: booking %>
+                  </turbo-frame>
+                <% end %>
+              <% end %>
+              <div class="flex justify-end items-center mt-2">
+                <%== pagy_nav(@checkout_pagy) if @checkout_pagy.pages > 1 %>
+              </div>
+            </turbo-frame>
+          </div>
+        </div>
+      </div>
+    </div>
   </turbo-frame>
-
 </div>

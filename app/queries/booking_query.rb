@@ -11,6 +11,10 @@ class BookingQuery < BaseQuery
     ordered_records(bookings)
   end
 
+  def search_by_checkout_date
+    bookings = @hotel.bookings.where(checkout_date: Date.today)
+  end
+
   private
 
   def filter_by_checkin_date(bookings)

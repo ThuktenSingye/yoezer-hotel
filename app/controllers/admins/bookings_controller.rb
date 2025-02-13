@@ -11,6 +11,7 @@ module Admins
     def index
       booking_query = BookingQuery.new(@hotel, params)
       @pagy, @bookings = pagy(booking_query.call, limit: 10)
+      @checkout_pagy, @checkout_bookings = pagy(booking_query.search_by_checkout_date, limit: 10)
     end
 
     def show; end
