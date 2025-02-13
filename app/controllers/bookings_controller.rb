@@ -35,7 +35,7 @@ class BookingsController < HomeController
 
   def confirm
     result = @booking_service.confirm_token(params[:id], params[:token])
-    if result[:valid] && @booking.confirmation_token == params[:token]
+    if result && @booking.confirmation_token == params[:token]
       render :confirm
     else
       flash[:alert] = I18n.t('booking.expired')
@@ -44,7 +44,7 @@ class BookingsController < HomeController
   end
 
   def update_confirmation
-    result = @booking_service.confirm_token(params[:id], params[:token])
+    result = @booking_service.confirm_token_and_update(params[:id], params[:token])
 
     if result
       flash[:notice] = I18n.t('booking.confirmed')

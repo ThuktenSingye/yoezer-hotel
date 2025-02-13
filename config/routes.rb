@@ -51,7 +51,7 @@ Rails.application.routes.draw do
       end
       resources :room_rating, only: [:create]
     end
-    get '/contact', to: "contacts#index", as: :contact
+    get '/visit', to: "visits#index", as: :visit
     resources :feedbacks, only: %i[index create]
     resources :hotels_rating, only: [:create]
     get '/gallery', to: "hotel_galleries#index", as: :gallery
