@@ -1,10 +1,13 @@
 <div class="mx-8">
+  <div id="flash" class="flash">
+    <%= render "shared/flash" %>
+  </div>
   <turbo-frame id="Booking">
     <div class="card px-4 w-full mx-auto">
       <div class="flex flex-col lg:flex-row lg:items-center lg:gap-2 mt-4">
         <h1 class="title">Booking</h1>
         <div class="flex">
-          <%= form_with url: admins_hotel_bookings_path(@hotel), method: :get,
+          <%= form_with url: admins_bookings_path, method: :get,
                         data: {turbo_frame: "booking_search_result", turbo_action: "advance", controller: "search"} do |form| %>
             <%= form.select :status, Room.statuses.slice('reserved', 'booked').keys.map { |s| [s.humanize, s] },{ prompt: "Filter by Room Status"},
                             class: "query-field text-primary-regular",data: { action: "change->search#search" } %>

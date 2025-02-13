@@ -3,7 +3,6 @@
 module Admins
   # Booking controller for booking CRUD operation
   class BookingsController < AdminsController
-    before_action :hotel
     before_action :room, only: %i[new create]
     before_action :booking, only: %i[edit show update destroy]
     before_action :booking_service, only: %i[create]
@@ -30,14 +29,14 @@ module Admins
       else
         flash[:alert] = I18n.t('booking.create.error')
       end
-      redirect_to admins_hotel_room_path(@hotel, @room)
+      redirect_to admins_room_path(@room)
     end
 
     def update
       booking_service = Bookings::BookingService.new(@hotel, @booking.room, @booking)
       if booking_service.update_booking?(booking_params, @offers)
         flash[:notice] = I18n.t('booking.update.success')
-        redirect_to admins_hotel_booking_path(@hotel, @booking)
+        redirect_to admins_booking_path(@booking)
       else
         flash[:alert] = I18n.t('booking.update.error')
         render :edit, status: :unprocessable_entity
@@ -52,14 +51,10 @@ module Admins
         flash[:notice] = I18n.t('booking.destroy.success')
       end
 
-      redirect_to admins_hotel_bookings_path(@hotel)
+      redirect_to admins_bookings_path
     end
 
     private
-
-    def hotel
-      @hotel ||= Hotel.find(params[:hotel_id])
-    end
 
     def room
       @room ||= @hotel.rooms.find(params[:room_id])
@@ -69,7 +64,7 @@ module Admins
       @booking ||= @hotel.bookings.find(params[:id])
     rescue ActiveRecord::RecordNotFound
       flash[:alert] = I18n.t('booking.not-found')
-      redirect_to admins_hotel_bookings_path(hotel)
+      redirect_to admins_bookings_path
     end
 
     def booking_service
