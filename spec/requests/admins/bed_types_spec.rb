@@ -9,11 +9,12 @@ RSpec.describe 'Admins::BedTypes', type: :request do
 
   before do
     sign_in admin, scope: :admin
+    subdomain hotel.subdomain
   end
 
   describe 'GET /new' do
     subject do
-      get new_admins_hotel_bed_type_path(hotel)
+      get new_admins_bed_type_path
       response
     end
 
@@ -22,7 +23,7 @@ RSpec.describe 'Admins::BedTypes', type: :request do
 
   describe 'GET /edit' do
     subject do
-      get edit_admins_hotel_bed_type_path(hotel, bed_type)
+      get edit_admins_bed_type_path(bed_type)
       response
     end
 
@@ -32,7 +33,7 @@ RSpec.describe 'Admins::BedTypes', type: :request do
   describe 'PUT /update' do
     context 'with valid params' do
       subject(:update_bed_type) do
-        put admins_hotel_bed_type_path(hotel, bed_type), params: { bed_type: valid_bed_type_params }
+        put admins_bed_type_path(bed_type), params: { bed_type: valid_bed_type_params }
         response
       end
 
@@ -43,7 +44,7 @@ RSpec.describe 'Admins::BedTypes', type: :request do
       end
 
       it { is_expected.to have_http_status :found }
-      it { is_expected.to redirect_to admins_hotel_room_categories_path(hotel) }
+      it { is_expected.to redirect_to admins_room_categories_path }
       it { expect { :update_bed_type }.not_to change(BedType, :count) }
 
       it 'update room bed type with correct name' do
@@ -54,7 +55,7 @@ RSpec.describe 'Admins::BedTypes', type: :request do
 
     context 'with invalid params' do
       subject(:update_bed_type) do
-        put admins_hotel_bed_type_path(hotel, bed_type), params: { bed_type: invalid_bed_type_params }
+        put admins_bed_type_path(bed_type), params: { bed_type: invalid_bed_type_params }
         response
       end
 
@@ -74,7 +75,7 @@ RSpec.describe 'Admins::BedTypes', type: :request do
   describe 'POST /create' do
     context 'with valid params' do
       subject(:create_bed_type) do
-        post admins_hotel_bed_types_path(hotel), params: { bed_type: valid_bed_type_params }
+        post admins_bed_types_path, params: { bed_type: valid_bed_type_params }
         response
       end
 
@@ -85,7 +86,7 @@ RSpec.describe 'Admins::BedTypes', type: :request do
       end
 
       it { is_expected.to have_http_status :found }
-      it { is_expected.to redirect_to admins_hotel_room_categories_path(hotel) }
+      it { is_expected.to redirect_to admins_room_categories_path }
       it { expect { create_bed_type }.to change(BedType, :count).by(1) }
 
       it 'creates a hotel gallery with the correct name' do
@@ -96,7 +97,7 @@ RSpec.describe 'Admins::BedTypes', type: :request do
 
     context 'with invalid params' do
       subject(:create_bed_type) do
-        post admins_hotel_bed_types_path(hotel), params: { bed_type: invalid_bed_type_params }
+        post admins_bed_types_path, params: { bed_type: invalid_bed_type_params }
         response
       end
 
@@ -110,11 +111,11 @@ RSpec.describe 'Admins::BedTypes', type: :request do
 
   describe 'DELETE /destroy' do
     subject(:delete_bed_type) do
-      delete admins_hotel_bed_type_path(hotel, bed_type)
+      delete admins_bed_type_path(bed_type)
       response
     end
 
-    it { is_expected.to redirect_to admins_hotel_room_categories_path(hotel) }
+    it { is_expected.to redirect_to admins_room_categories_path }
     it { expect { delete_bed_type }.to change(BedType, :count).by(-1) }
   end
 end

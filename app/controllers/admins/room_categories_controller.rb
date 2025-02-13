@@ -3,7 +3,6 @@
 module Admins
   # Controller for managing room categories within the admin hotel interface.
   class RoomCategoriesController < AdminsController
-    before_action :hotel
     before_action :room_category, only: %i[edit update destroy]
 
     def index
@@ -30,7 +29,7 @@ module Admins
       @room_category = @hotel.room_categories.new(room_category_params)
       if @room_category.save
         flash[:notice] = I18n.t('room_category.create.success')
-        redirect_to admins_hotel_room_categories_path(@hotel)
+        redirect_to admins_room_categories_path
       else
         flash[:alert] = I18n.t('room_category.create.error')
         render :new, status: :unprocessable_entity
@@ -40,7 +39,7 @@ module Admins
     def update
       if @room_category.update(room_category_params)
         flash[:notice] = I18n.t('room_category.update.success')
-        redirect_to admins_hotel_room_categories_path(@hotel)
+        redirect_to admins_room_categories_path
       else
         flash[:alert] = I18n.t('room_category.update.success')
         render :edit, status: :unprocessable_entity
@@ -50,20 +49,16 @@ module Admins
     def destroy
       @room_category.destroy
       flash[:notice] = I18n.t('room_category.destroy.success')
-      redirect_to admins_hotel_room_categories_path(@hotel)
+      redirect_to admins_room_categories_path
     end
 
     private
-
-    def hotel
-      @hotel ||= Hotel.find(params[:hotel_id])
-    end
 
     def room_category
       @room_category ||= @hotel.room_categories.find(params[:id])
     rescue ActiveRecord::RecordNotFound
       flash.now[:alert] = I18n.t('room_category.not_found')
-      redirect_to admins_hotel_room_categories_path(@hotel)
+      redirect_to admins_room_categories_path
     end
 
     def room_category_params
