@@ -1,4 +1,7 @@
 <turbo-frame id="<%= dom_id hotel %>" class="block">
+  <div id="flash" class="flash">
+    <%= render "shared/flash" %>
+  </div>
   <div class="card hover:shadow-lg">
     <div class="m-4" role="region" aria-labelledby="hotel-info-<%= dom_id hotel %>">
       <div class="flex flex-col justify-center">
@@ -18,7 +21,7 @@
             <h2 class="title">Address</h2>
             <%=
               link_to "Add",
-                      new_admins_hotel_address_path(hotel),
+                      new_admins_hotel_address_path,
                       data: { "turbo-frame": "new_address" },
                       class: "btn"
             %>
@@ -33,7 +36,7 @@
                     <%= render 'shared/input', input: { name: "Street Address", value: addr&.street_address } %>
                   </div>
                   <div class="self-start ml-2 md:self-end ">
-                    <%= button_to "Delete", admins_hotel_address_path(hotel, addr),
+                    <%= button_to "Delete", admins_hotel_address_path(addr),
                                   method: :delete,
                                   data: { "turbo-frame": dom_id(addr), turbo_confirm: "Are you sure?" },
                                   class: "btn" %>
@@ -52,7 +55,7 @@
             <%= render 'shared/rating', rating: rating, stars: stars %>
             <p class="font-title font-bold tracking-widest text-primary-regular text-2xl "><%= rating.round(1).to_s %></p>
           </div>
-          <%= link_to "Edit", edit_admins_hotel_path(hotel), class: "btn" %>
+          <%= link_to "Edit", edit_admins_hotel_path, class: "btn" %>
         </div>
       </div>
     </div>

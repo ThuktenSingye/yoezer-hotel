@@ -45,12 +45,12 @@ Rails.application.routes.draw do
       end
 
       # Special route for editing/updating hotels (singular resource)
-      resource :hotel, only: %i[edit update] do
+      resource :hotel, only: %i[show edit update] do
          resources :addresses, only: %i[new create destroy]
       end
 
       # Route to show the hotels index page when visiting /admins
-      get '/', to: 'hotels#index', as: :admin_root # This will make /admins show hotels#index
+      get '/', to: 'hotels#show', as: :admin_root # This will make /admins show hotels#index
 
     end
 
