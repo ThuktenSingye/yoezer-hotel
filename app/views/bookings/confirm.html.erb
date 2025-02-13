@@ -37,7 +37,6 @@
                             class: "btn btn-primary",  method: :patch, data: { target: "_top", turbo:false, turbo_confirm: "Are you sure you want to confirm this booking?" } %>
               <%= link_to "Cancel Booking", room_booking_path(@room, @booking), data: { turbo_method: :delete, turbo_confirm: "Are you sure to Cancel Booking?"}, class: "btn" %>
             <% end %>
-
           </div>
         </div>
       </div>

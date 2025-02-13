@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Home Controller
-class HomeController < ApplicationController
+class HomeController < UsersController
   def show
     @amenities = @hotel.amenities.all
     @room_categories = @hotel.room_categories.limit(4)

@@ -85,6 +85,7 @@ class BookingsController < HomeController
   end
 
   def schedule_background_jobs(booking)
+    # checkout_time = booking.checkout_date.to_datetime.advance(days: -1).end_of_day
     BookingCleanupWorker.perform_at(booking.confirmation_expires_at, booking.hotel.id, booking.id)
     FeedbackWorker.perform_at(3.minutes.from_now, booking.hotel.id, booking.id)
   end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Rating Controller for guest
-class RoomRatingController < HomeController
+class RoomRatingController < UsersController
   before_action :room
 
   def create
