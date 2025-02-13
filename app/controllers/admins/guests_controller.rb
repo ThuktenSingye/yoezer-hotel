@@ -3,7 +3,6 @@
 module Admins
   # Guest Controller
   class GuestsController < AdminsController
-    before_action :hotel
     before_action :guest, only: %i[show edit update]
 
     def index
@@ -16,8 +15,8 @@ module Admins
 
     def update
       if @guest.update(guest_params)
-        flash.now[:notice] = I18n.t('guest.update.success')
-        redirect_to admins_hotel_guest_path(@hotel, @guest)
+        flash[:notice] = I18n.t('guest.update.success')
+        redirect_to admins_guest_path(@guest)
       else
         flash[:alert] = I18n.t('guest.update.success')
         render :edit, status: :unprocessable_entity
@@ -26,15 +25,11 @@ module Admins
 
     private
 
-    def hotel
-      @hotel ||= Hotel.find(params[:hotel_id])
-    end
-
     def guest
       @guest ||= @hotel.guests.find(params[:id])
     rescue ActiveRecord::RecordNotFound
       flash[:alert] = I18n.t('guest.not_found')
-      redirect_to admins_hotel_guests_path(@hotel)
+      redirect_to admins_guests_path
     end
 
     def guest_params

@@ -3,7 +3,6 @@
 module Admins
   # Admin controller for managing employee
   class EmployeesController < AdminsController
-    before_action :hotel
     before_action :employee, only: %i[show edit update destroy]
 
     def index
@@ -25,7 +24,7 @@ module Admins
       @employee = @hotel.employees.build(employee_params)
       if @employee.save
         flash[:notice] = I18n.t('employee.create.success')
-        redirect_to admins_hotel_employees_path(@hotel)
+        redirect_to admins_employees_path
       else
         flash[:alert] = I18n.t('employee.create.error')
         render :new, status: :unprocessable_entity
@@ -36,7 +35,7 @@ module Admins
       destroy_all_documents
       if @employee.update(employee_params)
         flash[:notice] = I18n.t('employee.update.success')
-        redirect_to admins_hotel_employee_path(@hotel, @employee)
+        redirect_to admins_employee_path(@employee)
       else
         flash[:alert] = I18n.t('employee.update.error')
         render :edit, status: :unprocessable_entity
@@ -46,20 +45,16 @@ module Admins
     def destroy
       @employee.destroy
       flash[:notice] = I18n.t('employee.destroy.success')
-      redirect_to admins_hotel_employees_path(@hotel)
+      redirect_to admins_employees_path
     end
 
     private
-
-    def hotel
-      @hotel ||= Hotel.find(params[:hotel_id])
-    end
 
     def employee
       @employee ||= @hotel.employees.find(params[:id])
     rescue ActiveRecord::RecordNotFound
       flash[:alert] = I18n.t('employee.not-found')
-      redirect_to admins_hotel_employees_path(@hotel)
+      redirect_to admins_employees_path
     end
 
     def destroy_all_documents

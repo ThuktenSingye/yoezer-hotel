@@ -9,11 +9,12 @@ RSpec.describe 'Admins::Employees', type: :request do
 
   before do
     sign_in admin, scope: :admin
+    subdomain hotel.subdomain
   end
 
   describe 'GET /index' do
     subject do
-      get admins_hotel_employees_path(hotel)
+      get admins_employees_path
       response
     end
 
@@ -22,7 +23,7 @@ RSpec.describe 'Admins::Employees', type: :request do
 
   describe 'GET /new' do
     subject do
-      get new_admins_hotel_employee_path(hotel)
+      get new_admins_employee_path
       response
     end
 
@@ -32,7 +33,7 @@ RSpec.describe 'Admins::Employees', type: :request do
   describe 'GET /show' do
     context 'when employee record exists' do
       subject do
-        get admins_hotel_employee_path(hotel, employee)
+        get admins_employee_path(employee)
         response
       end
 
@@ -41,17 +42,17 @@ RSpec.describe 'Admins::Employees', type: :request do
 
     context 'when employee record does not exist' do
       subject do
-        get admins_hotel_employee_path(hotel, employee.id + 1)
+        get admins_employee_path(employee.id + 1)
         response
       end
 
-      it { is_expected.to redirect_to(admins_hotel_employees_path(hotel)) }
+      it { is_expected.to redirect_to admins_employees_path }
     end
   end
 
   describe 'GET /edit' do
     subject do
-      get edit_admins_hotel_employee_path(hotel, employee)
+      get edit_admins_employee_path(employee)
       response
     end
 
@@ -61,7 +62,7 @@ RSpec.describe 'Admins::Employees', type: :request do
   describe 'UPDATE /update' do
     context 'with valid params' do
       subject(:update_employee) do
-        put admins_hotel_employee_path(hotel, employee), params: { employee: valid_employee_params }
+        put admins_employee_path(employee), params: { employee: valid_employee_params }
         response
       end
 
@@ -102,7 +103,7 @@ RSpec.describe 'Admins::Employees', type: :request do
       end
 
       it { is_expected.to have_http_status :found }
-      it { is_expected.to redirect_to admins_hotel_employee_path(hotel, employee) }
+      it { is_expected.to redirect_to admins_employee_path(employee) }
       it { expect { update_employee }.not_to change(Room, :count) }
 
       # rubocop:disable RSpec/MultipleExpectations
@@ -145,7 +146,7 @@ RSpec.describe 'Admins::Employees', type: :request do
 
     context 'with invalid params' do
       subject(:update_employee) do
-        put admins_hotel_employee_path(hotel, employee), params: { employee: invalid_employee_params }
+        put admins_employee_path(employee), params: { employee: invalid_employee_params }
         response
       end
 
@@ -184,7 +185,7 @@ RSpec.describe 'Admins::Employees', type: :request do
   describe 'POST /create' do
     context 'with valid params' do
       subject(:create_employee) do
-        post admins_hotel_employees_path(hotel), params: { employee: valid_employee_params }
+        post admins_employees_path, params: { employee: valid_employee_params }
         response
       end
 
@@ -225,7 +226,7 @@ RSpec.describe 'Admins::Employees', type: :request do
       end
 
       it { is_expected.to have_http_status :found }
-      it { is_expected.to redirect_to admins_hotel_employees_path(hotel) }
+      it { is_expected.to redirect_to admins_employees_path }
       it { expect { create_employee }.to change(Employee, :count).by(1) }
 
       # rubocop:disable RSpec/MultipleExpectations
@@ -268,7 +269,7 @@ RSpec.describe 'Admins::Employees', type: :request do
 
     context 'with invalid params' do
       subject(:create_employee) do
-        post admins_hotel_employees_path(hotel), params: { employee: invalid_employee_params }
+        post admins_employees_path, params: { employee: invalid_employee_params }
         response
       end
 
@@ -301,11 +302,11 @@ RSpec.describe 'Admins::Employees', type: :request do
 
   describe 'DELETE /destroy' do
     subject(:delete_employee) do
-      delete admins_hotel_employee_path(hotel, employee)
+      delete admins_employee_path(employee)
       response
     end
 
-    it { is_expected.to redirect_to admins_hotel_employees_path(hotel) }
+    it { is_expected.to redirect_to admins_employees_path }
     it { expect { delete_employee }.to change(Employee, :count).by(-1) }
   end
 end
