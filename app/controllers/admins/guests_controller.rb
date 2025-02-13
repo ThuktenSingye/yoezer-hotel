@@ -23,12 +23,18 @@ module Admins
       end
     end
 
+    def destroy_all
+      @hotel.guests.destroy_all
+      flash[:notice] = I18n.t('guest.destroy_all')
+      redirect_to admins_guests_path
+    end
+
     private
 
     def guest
       @guest ||= @hotel.guests.find(params[:id])
     rescue ActiveRecord::RecordNotFound
-      flash[:alert] = I18n.t('guest.not_found')
+      flash[:alert] = I18n.t('guest.not-found')
       redirect_to admins_guests_path
     end
 

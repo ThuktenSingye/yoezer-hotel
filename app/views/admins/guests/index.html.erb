@@ -13,6 +13,12 @@
           <% end %>
         </div>
       </div>
+      <div>
+      <% if @hotel.rooms.exists?(status: [:reserved, :booked]) %>
+      <% else %>
+        <%= link_to 'Delete All Guests', destroy_all_admins_guests_path,data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "btn" %>
+      <% end %>
+    </div>
     </div>
     <div class="my-4">
       <div class="w-full overflow-hidden">

@@ -178,6 +178,7 @@
       destroy:
         success: "Guest removed successfully."
       not-found: "Guest not found"
+      destroy_all: "All guest deleted Successfully."
 
     booking:
       create:

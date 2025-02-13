@@ -26,33 +26,35 @@ Rails.application.routes.draw do
   # end
   namespace :admins do
       # Hotel-specific resources (no longer nested under /hotels/:hotel_id)
-      resources :amenities
-      resources :facilities
-      resources :bed_types, except: %i[index show]
-      resources :employees
-      resources :guests
-      resources :profiles, only: %i[index edit update]
-      resources :hotel_galleries
-      resources :offers
-      resources :feedbacks, only: %i[index destroy]
-      resources :room_categories, except: :show
-      resources :bookings, except: %i[new create]
-
-      resources :rooms do
-        resources :room_bed_types, only: %i[create destroy]
-        resources :room_facilities, only: %i[create destroy]
-        resources :bookings, only: %i[new create]
-      end
-
-      # Special route for editing/updating hotels (singular resource)
-      resource :hotel, only: %i[show edit update] do
-         resources :addresses, only: %i[new create destroy]
-      end
-
-      # Route to show the hotels index page when visiting /admins
-      get '/', to: 'hotels#show', as: :admin_root # This will make /admins show hotels#index
-
+    resources :amenities
+    resources :facilities
+    resources :bed_types, except: %i[index show]
+    resources :employees
+    resources :guests do
+      delete :destroy_all, on: :collection
     end
+    resources :profiles, only: %i[index edit update]
+    resources :hotel_galleries
+    resources :offers
+    resources :feedbacks, only: %i[index destroy]
+    resources :room_categories, except: :show
+    resources :bookings, except: %i[new create]
+
+    resources :rooms do
+      resources :room_bed_types, only: %i[create destroy]
+      resources :room_facilities, only: %i[create destroy]
+      resources :bookings, only: %i[new create]
+    end
+
+    # Special route for editing/updating hotels (singular resource)
+    resource :hotel, only: %i[show edit update] do
+       resources :addresses, only: %i[new create destroy]
+    end
+
+    # Route to show the hotels index page when visiting /admins
+    get '/', to: 'hotels#show', as: :admin_root # This will make /admins show hotels#index
+
+  end
 
   devise_for :admins, skip: [:registrations], controllers: { sessions: 'admins/sessions' }
 
@@ -92,7 +94,4 @@ Rails.application.routes.draw do
     # mount Sidekiq::Web => '/sidekiq'
     root to: 'admins#index', as: :admin_root
   end
-
-  get 'admins' => 'admins#index'
-
 end
