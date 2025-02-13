@@ -5,7 +5,7 @@
         <div class="flex justify-between items-center mb-4">
           <h2 class="title">Feedback</h2>
           <div>
-            <%= form_with(url: admins_hotel_feedbacks_path(@hotel),
+            <%= form_with(url: admins_feedbacks_path,
                           method: :get, data: { turbo_frame: "search_result", turbo_action: "advance", controller: "search" }) do |form| %>
               <%= form.search_field :query, class: "block p-2 mt-4 text-sm rounded border-2 focus:shadow-none focus:border-primary-regular focus:outline-none", placeholder: "Search", data: { action: "input->search#search"} %>
             <% end %>
@@ -24,7 +24,7 @@
             <div id="feedbacks" class="text-sm">
               <turbo-frame id="search_result">
                 <% if @feedbacks.blank? %>
-                  <h3 class="text-text-color/50 text-center mt-4 p-2">No search result found!</h3>
+                  <h3 class="text-text-color/50 text-center mt-4 p-2">No Feedbacks!</h3>
                 <% else %>
                   <% @feedbacks.each do |feedback| %>
                     <turbo-frame id="feedback_<%= feedback.id %>">
