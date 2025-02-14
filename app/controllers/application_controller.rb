@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
   private
 
   def set_global_hotel
-    @hotel = Hotel.includes(:address).first
+    @hotel = Hotel.find_by(subdomain: request.subdomain)
+    # @hotel = Hotel.includes(:address).first
   end
 end

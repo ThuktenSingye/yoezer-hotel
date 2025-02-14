@@ -199,6 +199,9 @@
     .user-title {
         @apply text-4xl font-title text-primary-regular text-center mb-8
     }
+    .user-subtitle {
+        @apply font-title text-primary-regular text-2xl
+    }
 
     .user-card-layout {
         @apply flex flex-wrap justify-center md:justify-evenly lg:justify-center gap-12
