@@ -6,7 +6,7 @@
     <div class="flex-grow flex justify-center gap-10 font-title">
       <%= link_to "HOME", home_path, class: "user-nav-link" %>
       <%= link_to "EXPLORE", explore_path, class: "user-nav-link" %>
-      <%= link_to "ROOMS", root_path, class: "user-nav-link" %>
+      <%= link_to "ROOMS", rooms_path, class: "user-nav-link" %>
       <%= link_to "ABOUT US", root_path, class: "user-nav-link" %>
       <%= link_to "CONTACT US", root_path, class: "user-nav-link" %>
     </div>
@@ -14,50 +14,53 @@
 </header>
 
 <!-- Navbar for small screens -->
-<div data-controller="navbar" class="flex overflow-hidden">
-  <div class="absolute block md:hidden top-7 left-4">
-    <%= image_tag("logo.jpg", class: "avatar-wrapper rounded-full") %>
-  </div>
-  <button
-    class="absolute top-7 right-4 z-1000 bg-primary-regular text-white p-2 rounded md:hidden"
-    data-action="click->navbar#toggleNavBarMenu"
-    aria-label="Toggle Navbar"
-    aria-expanded="false">
-    <%= icon("fa-solid", "bars", class: "w-6") %>
-  </button>
-  <div
-    class="fixed z-50 inset-y-0 h-screen left-0 w-full p-4 bg-primary-regular transform  transition-transform duration-300 md:translate-x-0 md:hidden"
-    data-navbar-target="navbarMenu">
-    <div class="flex flex-col gap-4 py-4 px-10">
-      <div class="self-end md:hidden">
-        <button data-action="click->navbar#toggleNavBarMenu">
-          <%= icon("fa-solid", "xmark", class: "fa-2x text-white w-6") %>
-        </button>
-      </div>
-      <ul class="text-white font-title">
-        <li class="sidebar-menu-row">
-          <%= link_to "HOME", root_path, class: "user-nav-link" %>
-        </li>
-        <li class="sidebar-menu-row">
-          <%= link_to "EXPLORE", root_path, class: "user-nav-link" %>
-        </li>
-        <li class="sidebar-menu-row">
-          <%= link_to "ABOUT", root_path, class: "user-nav-link" %>
-        </li>
-        <li class="sidebar-menu-row">
-          <%= link_to "CONTACT", root_path, class: "user-nav-link" %>
-        </li>
-      </ul>
-      <hr>
+<!--<div data-controller="navbar" class="flex overflow-hidden">-->
+<!--  <div class="absolute block md:hidden top-7 left-4">-->
+    <%#= image_tag("logo.jpg", class: "avatar-wrapper rounded-full") %>
+<!--  </div>-->
+<!--  <button-->
+<!--    class="absolute top-7 right-4 z-1000 bg-primary-regular text-white p-2 rounded md:hidden"-->
+<!--    data-action="click->navbar#toggleNavBarMenu"-->
+<!--    aria-label="Toggle Navbar"-->
+<!--    aria-expanded="false">-->
+    <%#= icon("fa-solid", "bars", class: "w-6") %>
+<!--  </button>-->
+<!--  <div-->
+<!--    class="fixed z-50 inset-y-0 h-screen left-0 w-full p-4 bg-primary-regular transform  transition-transform duration-300 md:translate-x-0 md:hidden"-->
+<!--    data-navbar-target="navbarMenu">-->
+<!--    <div class="flex flex-col gap-4 py-4 px-10">-->
+<!--      <div class="self-end md:hidden">-->
+<!--        <button data-action="click->navbar#toggleNavBarMenu">-->
+          <%#= icon("fa-solid", "xmark", class: "fa-2x text-white w-6") %>
+<!--        </button>-->
+<!--      </div>-->
+<!--      <ul class="text-white font-title">-->
+<!--        <li class="sidebar-menu-row">-->
+          <%#= link_to "HOME", root_path, class: "user-nav-link" %>
+<!--        </li>-->
+<!--        <li class="sidebar-menu-row">-->
+          <%#= link_to "EXPLORE", explore_path, class: "user-nav-link" %>
+<!--        </li>-->
+<!--        <li class="sidebar-menu-row">-->
+          <%#= link_to "ROOM", rooms_path, class: "user-nav-link" %>
+<!--        </li>-->
+<!--        <li class="sidebar-menu-row">-->
+          <%#= link_to "ABOUT", root_path, class: "user-nav-link" %>
+<!--        </li>-->
+<!--        <li class="sidebar-menu-row">-->
+          <%#= link_to "CONTACT", root_path, class: "user-nav-link" %>
+<!--        </li>-->
+<!--      </ul>-->
+<!--      <hr>-->
 
-      <div class="flex flex-col">
-        <h3 class="font-title text-white p-2">YOEZER HOTEL</h3>
-        <div class="flex gap-10 my-2 text-white p-2">
-          <%= icon('fa-brands', 'facebook-f', class: "user-nav-link") %>
-          <%= icon('fa-brands', 'instagram', class: "user-nav-link") %>
-          <%= icon('fa-brands', 'twitter', class: "user-nav-link") %>
-        </div>
-      </div>
-    </div>
-  </div>
+<!--      <div class="flex flex-col">-->
+<!--        <h3 class="font-title text-white p-2">YOEZER HOTEL</h3>-->
+<!--        <div class="flex gap-10 my-2 text-white p-2">-->
+          <%#= icon('fa-brands', 'facebook-f', class: "user-nav-link") %>
+          <%#= icon('fa-brands', 'instagram', class: "user-nav-link") %>
+          <%#= icon('fa-brands', 'twitter', class: "user-nav-link") %>
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
 </div>

@@ -53,7 +53,7 @@ module Admins
     end
 
     def bed_type_params
-      params.require(:bed_type).permit(:name)
+      params.require(:bed_type).permit(:name, :bed_count)
     end
   end
 end

@@ -1,0 +1,47 @@
+<div class="relative w-full h-[80vh] lg:h-screen" data-aos="zoom-in-out" data-aos-duration="2000">
+  <div class="absolute inset-0 w-full h-full" data-aos="zoom-out-down" data-aos-duration="3000">
+    <%= image_tag('room.jpg', class: "object-cover w-full h-full") %>
+  </div>
+  <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+
+  <div class="absolute-layout text-white gap-4 md:gap-10 px-4 text-center">
+    <h1 class="user-heading-title">YOUR HOME</h1>
+  </div>
+</div>
+
+<div class="w-full my-8">
+  <div class="w-full md:w-5/6 mx-auto">
+    <div class="w-full my-4"
+         data-aos="fade-up"
+         data-aos-duration="1000">
+      <h1 class="user-title mb-0">ROOMS</h1>
+      <div class="w-96 md:w-full mx-auto mb-2">
+        <div class="md:p-6">
+          <%= form_with(url: rooms_path(@hotel),
+                        method: :get, class: "w-full flex flex-col justify-center items-center md:flex-row md:justify-center md:items-center gap-4", data: { turbo_frame: "room_search_result", turbo_action: "advance", controller: "search" }) do |form| %>
+            <%= form.select :status, @hotel.rooms.statuses.keys.map { |s| [s.humanize, s] }, { prompt: "Filter by Status" }, class: "user-search-field", data: { action: "change->search#search" } %>
+            <%= form.collection_select :room_category_id, @room_category, :id, :name, { prompt: "Filter by Category" }, class: "user-search-field", data: { action: "change->search#search" } %>
+            <%= form.search_field :query, class: "user-search-field", placeholder: "Search by Price", data: { action: "input->search#search" } %>
+          <% end %>
+        </div>
+      </div>
+
+      <turbo-frame id="room_search_result">
+        <% if @rooms.blank? %>
+          <h3 class="text-text-color/50 text-center mt-4 p-2">No Room Data!</h3>
+        <% else %>
+          <div class="user-card-layout">
+            <% @rooms.each do |room| %>
+              <%= render 'rooms/card', room: room , offers: @offers%>
+            <% end %>
+          </div>
+          <div class="flex justify-center my-4">
+            <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
+          </div>
+        <% end %>
+      </turbo-frame>
+
+    </div>
+  </div>
+</div>
+

@@ -46,6 +46,7 @@ Rails.application.routes.draw do
   constraints subdomain: /[a-zA-Z0-9]+/ do
     get '/', to: 'home#show', as: :home
     get '/explore', to: 'explore#index', as: :explore
+    resources :rooms, only: [:index, :show]
   end
 
   root 'home#show'

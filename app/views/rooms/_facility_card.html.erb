@@ -1,7 +1,7 @@
 <div class="w-[90%] h-[200px] md:w-[250px] user-card p-6 text-center flex flex-col items-center justify-center gap-4">
   <div class="h-[60px] w-[60px]">
-    <%= image_tag((amenity&.image&.attached? ? amenity.image : "https://placehold.co/50x50"),
+    <%= image_tag((room_facility.facility&.image&.attached? ? room_facility.facility.image : "https://placehold.co/50x50"),
                   class: "object-cover w-full h-full") %>
   </div>
-  <h2 class="text-primary-regular font-medium"><%= amenity.name %></h2>
+  <h2 class="text-primary-regular font-medium"><%= room_facility.facility.name %></h2>
 </div>

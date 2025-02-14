@@ -1,0 +1,48 @@
+<div class="relative w-full h-[80vh] lg:h-screen" data-aos="zoom-in-out" data-aos-duration="2000">
+  <div class="absolute inset-0 w-full h-full" data-aos="zoom-out-down" data-aos-duration="3000">
+    <%= image_tag(@room.image.attached? ? @room.image: "https://placehold.co/50x50", class: "object-cover w-full h-full") %>
+  </div>
+  <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+
+  <div class="absolute-layout text-white gap-4 md:gap-10 px-4 text-center">
+    <h1 class="user-heading-title">YOUR ROOM</h1>
+  </div>
+</div>
+
+<!-- Carousel for primary image-->
+
+
+<div class="w-full my-8">
+  <div class="w-full md:w-5/6 mx-auto">
+    <div
+      class="w-full my-4 flex flex-col gap-10 p-6"
+      data-aos="fade-up"
+      data-aos-duration="1000"
+      data-aos-offset="0"
+    >
+      <h1 class="user-title mb-0">ROOM</h1>
+      <div class="w-full flex flex-col lg:flex-row lg:justify-between lg:items-center gap-8">
+        <%= render "rooms/detail", room: @room %>
+        <div class="w-full mx-auto sm:w-3/4 md:w-4/5 lg:w-1/2 h-[300px] md:h-[400px] overflow-hidden">
+          <%= image_tag(@room.image.attached? ? @room.image : "https://placehold.co/500x300",
+                        class: "object-cover w-full h-full transition-transform duration-1000 hover:scale-105") %>
+        </div>
+      </div>
+    </div>
+
+    <div class="w-full my-4 p-6"
+         data-aos="fade-up"
+         data-aos-duration="1000">
+      <% if @room.room_facilities.present? %>
+        <h1 class="user-title">FACILITIES</h1>
+        <div class="user-card-layout">
+          <% @room.room_facilities.each do |room_facility| %>
+            <%= render 'rooms/facility_card', room_facility: room_facility %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+
