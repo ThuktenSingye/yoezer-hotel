@@ -9,7 +9,7 @@
         <div class="flex">
           <%= form_with url: admins_bookings_path, method: :get,
                         data: {turbo_frame: "booking_search_result", turbo_action: "advance", controller: "search"} do |form| %>
-            <%= form.select :status, Room.statuses.slice('reserved', 'booked').keys.map { |s| [s.humanize, s] },{ prompt: "Filter by Room Status"},
+            <%= form.select :status, @hotel.bookings.statuses.slice('reserved', 'booked').keys.map { |s| [s.humanize, s] },{ prompt: "Filter by Status"},
                             class: "query-field text-primary-regular",data: { action: "change->search#search" } %>
             <%= form.select :checkin_date,[['Today', Date.current],['Tomorrow', Date.current + 1], ['Yesterday', Date.current-1]] ,{ prompt: "Filter by Check in"},
                             class: "query-field text-primary-regular",data: { action: "change->search#search" } %>
@@ -27,7 +27,7 @@
               <h3 class="w-[15%] text-center hidden xl:block">Category</h3>
               <h3 class="flex-1 md:w-[15%] text-center">Guest </h3>
               <h3 class="w-[15%] text-center hidden lg:block">Total Amounts</h3>
-              <h3 class="w-[15%] text-center hidden xl:block">Room Status</h3>
+              <h3 class="w-[15%] text-center hidden xl:block">Status</h3>
               <h3 class="w-[15%] text-center hidden lg:block">Payment</h3>
               <h3 class="w-[15%] text-center hidden md:block">Actions</h3>
             </div>
@@ -63,7 +63,7 @@
               <h3 class="w-[15%] text-center hidden xl:block">Category</h3>
               <h3 class="flex-1 md:w-[15%] text-center">Guest </h3>
               <h3 class="w-[15%] text-center hidden lg:block">Total Amounts</h3>
-              <h3 class="w-[15%] text-center hidden xl:block">Room Status</h3>
+              <h3 class="w-[15%] text-center hidden xl:block">Status</h3>
               <h3 class="w-[15%] text-center hidden lg:block">Payment</h3>
               <h3 class="w-[15%] text-center hidden md:block">Actions</h3>
             </div>

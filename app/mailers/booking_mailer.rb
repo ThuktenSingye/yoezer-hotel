@@ -7,7 +7,6 @@ class BookingMailer < ApplicationMailer
     @hotel = Hotel.find(hotel_id)
     @booking = @hotel.bookings.find(booking_id)
     @confirmation_link = confirm_room_booking_url(
-      subdomain: @hotel.subdomain,
       room_id: @booking.room.id,
       id: @booking.id,
       token: @booking.confirmation_token

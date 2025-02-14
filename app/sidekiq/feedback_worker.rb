@@ -10,7 +10,7 @@ class FeedbackWorker
     hotel = Hotel.find(hotel_id)
     booking = hotel.bookings.find(booking_id)
 
-    booking.update(feedback_expires_at: 1.hour.from_now)
+    booking.update(feedback_expires_at: 5.minutes.from_now)
     CheckoutMailer.checkout_email(booking).deliver_later(queue: 'mailers')
   rescue ActiveRecord::RecordNotFound
     Rails.logger.info "Couldn't find Booking Record"

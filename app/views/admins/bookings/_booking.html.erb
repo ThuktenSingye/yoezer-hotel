@@ -18,7 +18,7 @@
   </div>
 
   <div class="w-[15%] text-center hidden xl:block">
-    <p class="break-words <%= room_status_class(booking.room.status) %> "><%= booking.room.status.to_s.humanize %></p>
+    <p class="break-words <%= booking_status_class(booking.status) %> "><%= booking.status.to_s.humanize %></p>
   </div>
 
   <div class="w-[15%] text-center hidden lg:block">

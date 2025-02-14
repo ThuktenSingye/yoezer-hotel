@@ -36,8 +36,8 @@ class BookingQuery < BaseQuery
   end
 
   def filter_by_status(bookings)
-    if Room.statuses.key?(@params[:status])
-      bookings.joins(:room).where(rooms: { status: Room.statuses[@params[:status]] })
+    if @hotel.bookings.statuses.key?(@params[:status])
+      bookings.where(status: @hotel.bookings.statuses[@params[:status]])
     else
       bookings
     end

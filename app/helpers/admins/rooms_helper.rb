@@ -4,7 +4,7 @@ module Admins
   # Helper methods for managing room status
   module RoomsHelper
     def status_class(status)
-      case status.to_sym
+      case status&.to_sym
       when :available then 'bg-success'
       when :booked || :reserved then 'bg-secondary'
       else 'bg-error'

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_13_115706) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_14_043201) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -112,6 +112,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_13_115706) do
     t.datetime "confirmation_expires_at"
     t.string "feedback_token"
     t.datetime "feedback_expires_at"
+    t.integer "status"
     t.index ["feedback_token"], name: "index_bookings_on_feedback_token"
     t.index ["guest_id"], name: "index_bookings_on_guest_id"
     t.index ["hotel_id"], name: "index_bookings_on_hotel_id"
@@ -263,7 +264,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_13_115706) do
   create_table "rooms", force: :cascade do |t|
     t.string "room_number"
     t.integer "floor_number"
-    t.integer "status"
     t.decimal "base_price", precision: 10, scale: 2
     t.text "description"
     t.integer "max_no_adult"
@@ -272,6 +272,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_13_115706) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "hotel_id"
+    t.integer "status"
     t.index ["hotel_id"], name: "index_rooms_on_hotel_id"
     t.index ["room_category_id"], name: "index_rooms_on_room_category_id"
     t.index ["room_number"], name: "index_rooms_on_room_number", unique: true

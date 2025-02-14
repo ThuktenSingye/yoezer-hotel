@@ -21,10 +21,6 @@ FactoryBot.define do
     max_no_children { nil }
   end
 
-  trait :booked_status do
-    status { 1 }
-  end
-
   trait :with_room_image do
     after(:build) do |room|
       room.image.attach(

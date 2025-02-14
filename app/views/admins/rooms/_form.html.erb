@@ -87,7 +87,7 @@
 
       <div class="input-container">
         <%= f.label :status, class: "input-label" %>
-        <%= f.select :status, Room.statuses.keys.map { |d| [d.humanize, d] }, {}, { disabled: @room.status == 'booked' || @room.status == 'reserved' } %>
+        <%= f.select :status, Room.statuses.keys.map { |d| [d.humanize, d] }, {} %>
       </div>
 
       <div class="input-container">

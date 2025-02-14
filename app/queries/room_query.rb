@@ -3,7 +3,7 @@
 # Room Query Class for searching and filtering rooms
 class RoomQuery < BaseQuery
   def call
-    rooms = @hotel.rooms
+    rooms = @hotel.rooms.where(status: :available)
     rooms = filter_by_status(rooms) if @params[:status].present?
     rooms = filter_by_category(rooms) if @params[:room_category_id].present?
     rooms = filter_by_price(rooms) if @params[:query].present?
@@ -14,10 +14,10 @@ class RoomQuery < BaseQuery
   private
 
   def filter_by_status(rooms)
-    if Room.statuses.key?(@params[:status])
-      rooms.where(status: Room.statuses[@params[:status]])
+    if @hotel.rooms.statuses.key?(@params[:status])
+      rooms.where(status: @hotel.rooms.statuses[@params[:status]])
     else
-      rooms.none
+      rooms
     end
   end
 

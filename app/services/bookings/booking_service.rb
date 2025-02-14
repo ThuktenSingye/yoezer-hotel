@@ -11,7 +11,6 @@ module Bookings
 
     def create_booking(booking_params, offers)
       return false unless booking_date_present?(booking_params)
-
       total_amount = Bookings::BookingCalculator.calculate_total_amount(
         booking_params[:checkin_date],
         booking_params[:checkout_date],
@@ -52,7 +51,7 @@ module Bookings
 
       if validate_confirmation_link(booking)
         booking.update(confirmed: true)
-        booking.room.update(status: :booked)
+        booking.update(status: :booked)
         Bookings::BookingMailerService.send_booking_success_email(booking)
         return true
       end
@@ -60,14 +59,6 @@ module Bookings
     end
 
     private
-
-    def build_booking(booking_params)
-      booking = @hotel.bookings.build(booking_params)
-      booking.room = @room
-      booking.guest.hotel = @hotel
-      booking.generate_confirmation_token
-      booking
-    end
 
     def assign_association(booking_params)
       @booking.room ||= Room.find(booking_params[:room_id]) if booking_params[:room_id].present?
@@ -77,7 +68,7 @@ module Bookings
 
     def save_and_send_email(booking)
       if booking.save
-        booking.room.update(status: :reserved)
+        booking.update(status: :reserved)
         Bookings::BookingMailerService.send_confirmation_email(booking)
         return { success: true, booking: booking.reload }
       end

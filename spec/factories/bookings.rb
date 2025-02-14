@@ -22,6 +22,10 @@ FactoryBot.define do
     num_of_children { nil }
   end
 
+  trait :active_booking do
+    status { :booked }
+  end
+
   trait :pending_payment do
     payment_status { :pending }
   end

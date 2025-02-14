@@ -6,9 +6,9 @@ require 'rails_helper'
 RSpec.describe BookingCleanupWorker, type: :job do
   describe '#perform' do
     let(:hotel) { FactoryBot.create(:hotel) }
+    let!(:room) { FactoryBot.create(:room, hotel: hotel) }
 
     context 'when expired booking exist' do
-      let!(:room) { FactoryBot.create(:room, hotel: hotel) }
       let!(:expired_booking) do
         FactoryBot.create(:booking, room: room, hotel: hotel)
       end
@@ -21,8 +21,7 @@ RSpec.describe BookingCleanupWorker, type: :job do
     end
 
     context 'when active booking exist' do
-      let!(:room) { FactoryBot.create(:room, :booked_status, hotel: hotel) }
-      let!(:active_booking) { FactoryBot.create(:booking, room: room, hotel: hotel) }
+      let!(:active_booking) { FactoryBot.create(:booking, :active_booking, room: room, hotel: hotel) }
 
       it 'does not destroys active bookings' do
         expect do

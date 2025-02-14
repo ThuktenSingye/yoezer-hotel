@@ -12,14 +12,19 @@ class BookingsController < HomeController
     @booking.build_guest
   end
 
+
   def create
+    if overlapping_bookings?(booking_params[:checkin_date], booking_params[:checkout_date])
+      render json: { ok: false, message: I18n.t('booking.date_error') }, status: :conflict and return
+    end
+
     result = @booking_service.create_booking(booking_params, @offers)
 
     if result && result[:success]
       schedule_background_jobs(result[:booking])
-      render json: { ok: true }, status: :ok
+      render json: { ok: true, message: I18n.t('booking.create.success') }, status: :ok
     else
-      render json: { ok: false }, status: :unprocessable_entity
+      render json: { ok: false, message: I18n.t('booking.create.error') }, status: :unprocessable_entity
     end
   end
 
@@ -28,7 +33,7 @@ class BookingsController < HomeController
       flash[:alert] = I18n.t('booking.payment-missing')
     elsif @booking.destroy
       @booking.room.update(status: :available)
-      flash[:notice] = I18n.t('booking.destroy.success')
+      flash[:notice] = I18n.t('booking.cancel')
     end
 
     redirect_to room_path(@room)
@@ -73,7 +78,7 @@ class BookingsController < HomeController
     @booking ||= @hotel.bookings.find(params[:id])
   rescue ActiveRecord::RecordNotFound
     flash[:alert] = I18n.t('booking.not-found')
-    redirect_to admins_hotel_bookings_path(hotel)
+    redirect_to room_path(@room)
   end
 
   def room_booked?
@@ -82,6 +87,12 @@ class BookingsController < HomeController
 
   def payment_completed?
     @booking.payment_status == 'completed'
+  end
+
+  def overlapping_bookings?(checkin_date, checkout_date)
+    @room.bookings.any? do |existing_booking|
+      checkin_date < existing_booking.checkout_date && checkout_date > existing_booking.checkin_date
+    end
   end
 
   def schedule_background_jobs(booking)
@@ -99,6 +110,7 @@ class BookingsController < HomeController
       :num_of_children,
       :room_id,
       :payment_status,
+      :status,
       guest_attributes: %i[id first_name last_name contact_no email country region city hotel_id]
     )
   end

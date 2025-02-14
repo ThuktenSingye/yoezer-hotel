@@ -11,7 +11,7 @@ class BookingCleanupWorker
     booking = hotel.bookings.find(booking_id)
     return unless booking
 
-    if booking.room.status != 'booked'
+    if booking.status != 'booked'
       booking.destroy
       booking.guest.destroy
       booking.room&.update(status: :available)

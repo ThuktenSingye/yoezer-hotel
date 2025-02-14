@@ -71,7 +71,7 @@ RSpec.describe 'Admins::Rooms', type: :request do
         {
           room_number: Faker::Number.unique.number(digits: 3).to_s,
           floor_number: Faker::Number.number(digits: 1),
-          status: :booked,
+          status: :available,
           description: Faker::Lorem.sentence,
           max_no_adult: Faker::Number.number(digits: 2),
           max_no_children: Faker::Number.number(digits: 2),
@@ -138,7 +138,7 @@ RSpec.describe 'Admins::Rooms', type: :request do
         {
           room_number: Faker::Number.unique.number(digits: 3).to_s,
           floor_number: Faker::Number.number(digits: 1),
-          status: :booked,
+          status: :available,
           description: Faker::Lorem.sentence,
           max_no_adult: Faker::Number.number(digits: 2),
           max_no_children: Faker::Number.number(digits: 2),

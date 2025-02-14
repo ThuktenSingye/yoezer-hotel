@@ -1,6 +1,6 @@
 <div class="user-card-container flex-1 flex flex-col items-center lg:items-start border p-4">
   <h3 class="user-title mb-4"><%= room.room_category.name %></h3>
-  <div class="mb-2">
+  <div class="mb-4">
     <% rating = room.room_ratings.average(:rating) || 0 %>
     <% stars = Room.calculate_rating(rating) %>
     <%= render 'shared/rating', rating: rating, stars: stars %>
@@ -43,7 +43,6 @@
           </h2>
         <% end %>
       </div>
-      <%= render 'rooms/room_status', room: room %>
     </div>
   </div>
 </div>

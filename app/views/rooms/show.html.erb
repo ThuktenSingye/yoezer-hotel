@@ -13,16 +13,14 @@
   <div class="w-full md:w-5/6 mx-auto"  data-controller="booking">
     <%= render 'shared/booking_success' %>
     <%= render 'shared/booking_error' %>
-    <% if @room.status == 'available' %>
-      <div class="w-full my-4 p-6"
-           id="booking_form"
-           data-aos="fade-up"
-           data-aos-duration="1000">
-        <div class="user-card-container h-auto py-2 lg:w-full md:h-auto">
-          <%= render 'bookings/form', booking: @booking, hotel: @hotel %>
-        </div>
+    <div class="w-full my-4 p-6"
+         id="booking_form"
+         data-aos="fade-up"
+         data-aos-duration="1000">
+      <div class="user-card-container h-auto py-2 lg:w-full md:h-auto">
+        <%= render 'bookings/form', booking: @booking, hotel: @hotel %>
       </div>
-    <% end %>
+    </div>
 
     <div
       class="w-full my-4 flex flex-col gap-10 p-6"

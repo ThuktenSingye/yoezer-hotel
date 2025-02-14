@@ -11,8 +11,7 @@ Rails.application.configure do
   # Do not eager load code on boot.
   config.eager_load = false
 
-  config.hosts << /.*\.lvh\.me/
-  config.hosts << "lvh.me"
+  config.hosts << "yoezerhotel.lvh.me"
 
   # Show full error reports.
   config.consider_all_requests_local = true
@@ -41,11 +40,6 @@ Rails.application.configure do
 
   # Make template changes take effect immediately.
   config.action_mailer.perform_caching = false
-
-  # Set localhost to be used by links generated in mailer templates.
-  # config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
-  config.action_mailer.default_url_options = { host: 'lvh.me', port: 3000 }
-  Rails.application.routes.default_url_options = { host: 'lvh.me', port: 3000 }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
@@ -84,7 +78,8 @@ Rails.application.configure do
   config.active_job.queue_name_delimiter = '_'
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_url_options = { host: 'localhost:3000' }
+  config.action_mailer.default_url_options = { host: 'yoezerhotel.lvh.me', port: 3000 }
+  Rails.application.routes.default_url_options = { host: 'yoezerhotel.lvh.me', port: 3000 }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     address: 'smtp.gmail.com',
