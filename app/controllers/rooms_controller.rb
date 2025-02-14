@@ -10,7 +10,10 @@ class RoomsController < HomeController
     @room_category = @hotel.room_categories.all
   end
 
-  def show; end
+  def show
+    @booking = @hotel.bookings.new
+    @booking.build_guest
+  end
 
   private
 

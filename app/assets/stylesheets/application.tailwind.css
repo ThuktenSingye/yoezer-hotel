@@ -216,7 +216,7 @@
         @apply cursor-pointer hover:text-white hover:scale-105 transition duration-300
     }
     .user-btn {
-        @apply border border-primary-regular bg-white text-primary-regular hover:bg-primary-regular hover:text-white rounded-none px-4 py-2 transition duration-300;
+        @apply w-auto border border-primary-regular bg-white text-primary-regular hover:bg-primary-regular hover:text-white rounded-none px-4 py-2 transition duration-300;
     }
     .user-room-detail-icon {
         @apply text-primary-regular text-lg w-6 text-center
@@ -230,4 +230,65 @@
     .user-search-field{
         @apply  w-full lg:w-48 bg-white p-4 text-sm text-text-color/50 focus:shadow-none focus:outline-none rounded-none border  border-primary-regular;
     }
+
+    .user-reservation-input-layout {
+        @apply flex justify-between items-center gap-4
+    }
+    .user-reservation-input-section {
+        @apply flex flex-col flex-1
+    }
+    .user-reservation-form-label {
+        @apply font-title
+    }
+    .user-reservation-input-field {
+        @apply w-full lg:w-32 bg-white p-4 text-sm text-text-color/50 focus:shadow-none focus:outline-none rounded-none border  border-primary-regular;
+    }
+
+    /*    Dialog */
+    /* Customize the dialog backdrop */
+    dialog {
+        @apply shadow-[0_0_0_100vw_rgba(0,0,0,0.5)];
+    }
+
+    /* Add animations */
+    @keyframes fade-in {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
+    @keyframes fade-out {
+        0% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+        }
+    }
+
+    /* Open dialog animation */
+    dialog[data-dialog-target="dialog"][open] {
+        animation: fade-in 200ms forwards;
+    }
+
+    /* Closing dialog animation */
+    dialog[data-dialog-target="dialog"][closing] {
+        animation: fade-out 200ms forwards;
+    }
+
+    /* Prevent body scroll when dialog is open */
+    body:has(dialog[data-dialog-target="dialog"][open]) {
+        @apply overflow-hidden;
+    }
+    .star {
+        @apply text-rating
+    }
+
+    .star.active {
+        @apply text-rating
+    }
+
 }

@@ -14,6 +14,8 @@ class Room < ApplicationRecord
   has_many :facilities, through: :room_facilities, dependent: :destroy
   has_one :booking, dependent: :destroy
 
+  MAX_RATING = 5
+
   enum :status, { reserved: 0, booked: 1, available: 2, maintenance: 3 }
 
   validates :room_number, :base_price, :max_no_adult, :max_no_children, :status, presence: true

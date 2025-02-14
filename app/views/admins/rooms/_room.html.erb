@@ -39,7 +39,7 @@
             <% end %>
 
             <div>
-              <h2 class="text-primary-regular <%= 'line-through' if @offers.present?%>">Nu. <span class="font-bold text-2lg"><%= room.base_price.to_i.to_s %></span></h2>
+              <h2 class="text-primary-regular <%= 'line-through' if @offers.present? %>">Nu. <span class="font-bold text-2lg"><%= room.base_price.to_i.to_s %></span></h2>
               <% if @offers.present? %>
                 <h2 class="text-primary-regular">
                   Nu. <span class="font-bold text-2xl"><%= calculate_discounted_room_price(room.base_price, @offers)[:discounted_price] %></span>

@@ -6,7 +6,7 @@ module Bookings
     def self.send_confirmation_email(booking)
       booking.update(
         confirmation_sent_at: Time.current,
-        confirmation_expires_at: 24.hours.from_now
+        confirmation_expires_at: 2.minutes.from_now
       )
       BookingMailer.confirmation_email(booking).deliver_later(queue: 'mailers')
     end

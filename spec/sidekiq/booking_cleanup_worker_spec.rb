@@ -2,13 +2,16 @@
 
 require 'rails_helper'
 
-RSpec.describe BookingCleanupJob, type: :job do
+# Spec for Expired Booking Cleanup
+RSpec.describe BookingCleanupWorker, type: :job do
   describe '#perform' do
     let(:hotel) { FactoryBot.create(:hotel) }
 
     # rubocop:disable RSpec/LetSetup
     context 'when expired booking exist' do
-      let!(:expired_booking) { FactoryBot.create(:booking, checkout_date: 1.day.ago, hotel: hotel) }
+      let!(:expired_booking) do
+        FactoryBot.create(:booking, confirmation_expires_at: 1.hour.ago, hotel: hotel)
+      end
 
       it 'destroys expired bookings' do
         expect do
