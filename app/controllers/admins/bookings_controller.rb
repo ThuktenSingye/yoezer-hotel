@@ -24,8 +24,9 @@ module Admins
     def edit; end
 
     def create
-      result = @booking_service.create_booking(booking_params, @offers)
-      if result
+      return if check_overlapping_booking
+
+      if @booking_service.create_booking(booking_params, @offers)
         flash[:notice] = I18n.t('booking.create.success')
       else
         flash[:alert] = I18n.t('booking.create.error')
@@ -78,6 +79,27 @@ module Admins
 
     def payment_completed?
       @booking.payment_status == 'completed'
+    end
+
+    def check_overlapping_booking
+      if overlapping_bookings?(booking_params[:checkin_date], booking_params[:checkout_date])
+        flash[:alert] = I18n.t('booking.date_error')
+        redirect_to admins_room_path(@room)
+        return true
+      end
+      false
+    end
+
+    def overlapping_bookings?(checkin_date, checkout_date)
+      @room.bookings.where(confirmed: true).any? do |existing_booking|
+        checkin_date < existing_booking.checkout_date && checkout_date > existing_booking.checkin_date
+      end
+    end
+
+    def schedule_background_jobs(booking)
+      # checkout_time = booking.checkout_date.to_datetime.advance(days: -1).end_of_day
+      BookingCleanupWorker.perform_at(booking.confirmation_expires_at, booking.hotel.id, booking.id)
+      FeedbackWorker.perform_at(3.minutes.from_now, booking.hotel.id, booking.id)
     end
 
     def room_booked_and_payment_completed?

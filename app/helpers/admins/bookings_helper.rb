@@ -12,10 +12,10 @@ module Admins
     end
 
     def booking_status_class(status)
-      case status&.to_sym
-      when :reserved then 'text-error'
-      when :booked then 'text-secondary'
-      else 'text-error'
+      if status&.to_sym == :booked
+        'text-secondary'
+      else
+        'text-error'
       end
     end
   end

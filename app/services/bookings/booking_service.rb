@@ -11,6 +11,7 @@ module Bookings
 
     def create_booking(booking_params, offers)
       return false unless booking_date_present?(booking_params)
+
       total_amount = Bookings::BookingCalculator.calculate_total_amount(
         booking_params[:checkin_date],
         booking_params[:checkout_date],
@@ -61,7 +62,7 @@ module Bookings
     private
 
     def assign_association(booking_params)
-      @booking.room ||= Room.find(booking_params[:room_id]) if booking_params[:room_id].present?
+      @booking.room ||= @hotel.rooms.find(booking_params[:room_id]) if booking_params[:room_id].present?
       @booking.guest.hotel ||= @hotel if @booking.guest.present?
       @booking
     end

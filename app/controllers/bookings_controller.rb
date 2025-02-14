@@ -12,11 +12,8 @@ class BookingsController < HomeController
     @booking.build_guest
   end
 
-
   def create
-    if overlapping_bookings?(booking_params[:checkin_date], booking_params[:checkout_date])
-      render json: { ok: false, message: I18n.t('booking.date_error') }, status: :conflict and return
-    end
+    return if check_overlapping_booking
 
     result = @booking_service.create_booking(booking_params, @offers)
 
@@ -29,12 +26,8 @@ class BookingsController < HomeController
   end
 
   def destroy
-    if room_booked? && !payment_completed?
-      flash[:alert] = I18n.t('booking.payment-missing')
-    elsif @booking.destroy
-      @booking.room.update(status: :available)
-      flash[:notice] = I18n.t('booking.cancel')
-    end
+    @booking.update(status: :cancelled)
+    flash[:notice] = I18n.t('booking.cancel')
 
     redirect_to room_path(@room)
   end
@@ -82,15 +75,23 @@ class BookingsController < HomeController
   end
 
   def room_booked?
-    @booking.room.status == 'booked'
+    @booking.status == 'booked'
   end
 
   def payment_completed?
     @booking.payment_status == 'completed'
   end
 
+  def check_overlapping_booking
+    if overlapping_bookings?(booking_params[:checkin_date], booking_params[:checkout_date])
+      render json: { ok: false, message: I18n.t('booking.date_error') }, status: :conflict
+      return true
+    end
+    false
+  end
+
   def overlapping_bookings?(checkin_date, checkout_date)
-    @room.bookings.any? do |existing_booking|
+    @room.bookings.where(confirmed: true).any? do |existing_booking|
       checkin_date < existing_booking.checkout_date && checkout_date > existing_booking.checkin_date
     end
   end
@@ -109,8 +110,7 @@ class BookingsController < HomeController
       :num_of_adult,
       :num_of_children,
       :room_id,
-      :payment_status,
-      :status,
+      :payment_status, :status,
       guest_attributes: %i[id first_name last_name contact_no email country region city hotel_id]
     )
   end

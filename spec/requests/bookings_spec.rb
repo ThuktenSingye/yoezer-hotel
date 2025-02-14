@@ -60,11 +60,11 @@ RSpec.describe 'Bookings', type: :request do
       it 'create the booking with correct booking attributes' do
         create_booking
         expect(Booking.last).to have_attributes(
-                                  num_of_adult: valid_booking_params[:num_of_adult],
-                                  num_of_children: valid_booking_params[:num_of_children],
-                                  payment_status: valid_booking_params[:payment_status].to_s,
-                                  confirmed: valid_booking_params[:confirmed]
-                                )
+          num_of_adult: valid_booking_params[:num_of_adult],
+          num_of_children: valid_booking_params[:num_of_children],
+          payment_status: valid_booking_params[:payment_status].to_s,
+          confirmed: valid_booking_params[:confirmed]
+        )
         # rubocop:enable RSpec/ExampleLength
       end
 
@@ -80,14 +80,14 @@ RSpec.describe 'Bookings', type: :request do
       it 'create the booking with correct guest' do
         create_booking
         expect(Booking.last.guest).to have_attributes(
-                                        first_name: valid_booking_params[:guest_attributes][:first_name],
-                                        last_name: valid_booking_params[:guest_attributes][:last_name],
-                                        contact_no: valid_booking_params[:guest_attributes][:contact_no],
-                                        email: valid_booking_params[:guest_attributes][:email],
-                                        country: valid_booking_params[:guest_attributes][:country],
-                                        region: valid_booking_params[:guest_attributes][:region],
-                                        city: valid_booking_params[:guest_attributes][:city]
-                                      )
+          first_name: valid_booking_params[:guest_attributes][:first_name],
+          last_name: valid_booking_params[:guest_attributes][:last_name],
+          contact_no: valid_booking_params[:guest_attributes][:contact_no],
+          email: valid_booking_params[:guest_attributes][:email],
+          country: valid_booking_params[:guest_attributes][:country],
+          region: valid_booking_params[:guest_attributes][:region],
+          city: valid_booking_params[:guest_attributes][:city]
+        )
         # rubocop:enable RSpec/ExampleLength
       end
     end
@@ -136,7 +136,6 @@ RSpec.describe 'Bookings', type: :request do
       expect(Booking.last.confirmed).to be(true)
     end
   end
-
 
   describe 'DELETE /destroy' do
     subject(:delete_booking) do

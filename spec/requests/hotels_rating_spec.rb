@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'HotelsRatings', type: :request do
-  let!(:admin) { FactoryBot.create(:admin) }
+  let(:admin) { FactoryBot.create(:admin) }
   let!(:hotel) { FactoryBot.create(:hotel) }
   let!(:guest) { FactoryBot.create(:guest, hotel: hotel) }
 
@@ -24,6 +24,7 @@ RSpec.describe 'HotelsRatings', type: :request do
           guest_id: guest.id
         }
       end
+
       it { is_expected.to have_http_status :found }
       it { expect { create_hotel_rating }.to change(HotelRating, :count).by(1) }
     end

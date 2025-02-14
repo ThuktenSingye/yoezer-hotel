@@ -3,9 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe 'Feedbacks', type: :request do
-  let!(:admin) { FactoryBot.create(:admin) }
-  let!(:hotel) { FactoryBot.create(:hotel) }
-  let!(:feedback) { FactoryBot.create(:feedback) }
+  let(:admin) { FactoryBot.create(:admin) }
+  let(:hotel) { FactoryBot.create(:hotel) }
+  let(:feedback) { FactoryBot.create(:feedback) }
 
   before do
     subdomain hotel.subdomain
@@ -31,9 +31,10 @@ RSpec.describe 'Feedbacks', type: :request do
         {
           name: Faker::Lorem.word,
           email: Faker::Internet.email,
-          feedback: Faker::Lorem.sentence,
+          feedback: Faker::Lorem.sentence
         }
       end
+
       it { is_expected.to have_http_status :found }
       it { expect { create_feedback }.to change(Feedback, :count).by(1) }
     end
