@@ -216,7 +216,7 @@
         @apply cursor-pointer hover:text-white hover:scale-105 transition duration-300
     }
     .user-btn {
-        @apply w-auto border border-primary-regular bg-white text-primary-regular hover:bg-primary-regular hover:text-white rounded-none px-4 py-2 transition duration-300;
+        @apply w-auto border border-primary-regular bg-white text-primary-regular hover:bg-primary-regular hover:text-white rounded-none px-5 py-4 cursor-pointer transition duration-300;
     }
     .user-room-detail-icon {
         @apply text-primary-regular text-lg w-6 text-center

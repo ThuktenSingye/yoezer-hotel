@@ -50,7 +50,7 @@
             <% rating = hotel.hotel_ratings.average(:rating) || 0 %>
             <% stars = Room.calculate_rating(rating) %>
             <%= render 'shared/rating', rating: rating, stars: stars %>
-            <p class="font-title font-bold tracking-widest text-primary-regular text-2xl "><%= rating.to_s %></p>
+            <p class="font-title font-bold tracking-widest text-primary-regular text-2xl "><%= rating.round(1).to_s %></p>
           </div>
           <%= link_to "Edit", edit_admins_hotel_path(hotel), class: "btn" %>
         </div>

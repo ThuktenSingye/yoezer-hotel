@@ -64,7 +64,7 @@
     feedback:
       create:
         success: "Thank you for your feedback."
-        error: "Something went wrong. Please try again."
+        error: "Something went wrong. Please book first before submitting."
       destroy:
         success: "Feedback removed successfully."
 

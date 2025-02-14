@@ -4,7 +4,7 @@ FactoryBot.define do
   factory :room do
     room_number { Faker::Number.unique.number(digits: 3).to_s }
     floor_number { Faker::Number.number(digits: 1) }
-    status { 1 }
+    status { 0 }
     description { Faker::Lorem.sentence }
     max_no_adult { Faker::Number.number(digits: 2) }
     max_no_children { Faker::Number.number(digits: 2) }
@@ -21,16 +21,10 @@ FactoryBot.define do
     max_no_children { nil }
   end
 
-  # trait :with_room_image do
-  #   after(:build) do |room|
-  #     room.images.attach(
-  #       [
-  #         Rack::Test::UploadedFile.new('spec/support/images/cat.jpg', 'image/jpeg'),
-  #         Rack::Test::UploadedFile.new('spec/support/images/dog.jpg', 'image/jpeg')
-  #       ]
-  #     )
-  #   end
-  # end
+  trait :booked_status do
+    status { 1 }
+  end
+
   trait :with_room_image do
     after(:build) do |room|
       room.image.attach(

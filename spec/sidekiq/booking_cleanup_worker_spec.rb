@@ -7,25 +7,26 @@ RSpec.describe BookingCleanupWorker, type: :job do
   describe '#perform' do
     let(:hotel) { FactoryBot.create(:hotel) }
 
-    # rubocop:disable RSpec/LetSetup
     context 'when expired booking exist' do
+      let!(:room) { FactoryBot.create(:room, hotel: hotel) }
       let!(:expired_booking) do
-        FactoryBot.create(:booking, confirmation_expires_at: 1.hour.ago, hotel: hotel)
+        FactoryBot.create(:booking, room: room, hotel: hotel)
       end
 
       it 'destroys expired bookings' do
         expect do
-          described_class.new.perform
+          described_class.new.perform(hotel.id, expired_booking.id)
         end.to change(Booking, :count).by(-1)
       end
     end
 
     context 'when active booking exist' do
-      let!(:active_booking) { FactoryBot.create(:booking, checkout_date: 1.day.from_now, hotel: hotel) }
+      let!(:room) { FactoryBot.create(:room, :booked_status, hotel: hotel) }
+      let!(:active_booking) { FactoryBot.create(:booking, room: room, hotel: hotel) }
 
       it 'does not destroys active bookings' do
         expect do
-          described_class.new.perform
+          described_class.new.perform(hotel.id, active_booking.id)
         end.not_to change(Booking, :count)
       end
     end
@@ -37,6 +38,5 @@ RSpec.describe BookingCleanupWorker, type: :job do
         end.to change(Sidekiq::Queues['booking_cleanup_queue'], :size).by(1)
       end
     end
-    # rubocop:enable RSpec/LetSetup
   end
 end

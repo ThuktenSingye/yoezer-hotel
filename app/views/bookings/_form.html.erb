@@ -61,11 +61,11 @@
         <% end %>
         <hr class="bg-primary-regular h-0.5 mt-4"/>
         <div class="flex items-center mt-4 gap-5">
-          <%= f.submit "Book", class: "btn", data: { action: "click->booking#handleSubmit"} %>
+          <%= f.submit "Book", class: "user-btn px-5 py-3", data: { action: "click->booking#handleSubmit"} %>
           <% if booking.persisted? %>
-            <%= link_to "Cancel", room_booking_path(@room, booking), class: "btn", data: { turbo_frame: "_top"} %>
+            <%= link_to "Cancel", room_booking_path(@room, booking), class: "user-btn px-5 py-3", data: { turbo_frame: "_top"} %>
           <% else %>
-            <%= link_to "Cancel", room_path(@room), class: "btn", data: { turbo_frame: "_top"} %>
+            <%= link_to "Cancel", room_path(@room), class: "user-btn px-5 py-3", data: { turbo_frame: "_top"} %>
           <% end %>
         </div>
       </dialog>

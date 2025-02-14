@@ -1,0 +1,5 @@
+<div class="flex flex-col gap-2 justify-center items-center h-full p-6 text-center">
+  <h3 class="user-description text-center text-balance line-clamp-3 text-text-color/50"><%= feedback.feedback %></h3>
+  <% reviewer = feedback.name.split(" ") %>
+  <h3 class="text-text-color/50 text-sm">By: <%= reviewer.first %> <%= reviewer.last[0] %></h3>
+</div>
