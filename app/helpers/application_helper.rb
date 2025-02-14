@@ -11,4 +11,12 @@ module ApplicationHelper
     else 'flash-normal'
     end
   end
+
+  def active_class_for_sidebar(controller_name)
+    'bg-white rounded' if params[:controller] == controller_name
+  end
+
+  def icon_class_for_sidebar(controller_name)
+    params[:controller] == controller_name ? 'text-primary-regular' : 'text-white'
+  end
 end

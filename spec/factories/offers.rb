@@ -4,8 +4,8 @@ FactoryBot.define do
   factory :offer do
     title { Faker::Lorem.sentence }
     description { Faker::Lorem.paragraph }
-    start_time { Faker::Time.backward(days: 30) }
-    end_time { Faker::Time.forward(days: 30) }
+    start_time { Faker::Date.backward(days: 14) }
+    end_time { Faker::Date.forward(days: 14) }
     discount { Faker::Number.between(from: 0, to: 100) }
     association :hotel, factory: :hotel
   end

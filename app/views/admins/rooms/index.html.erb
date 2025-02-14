@@ -1,31 +1,32 @@
 <div class="mx-4 mb-4">
   <div class="w-full mx-auto">
-    <div class="w-full flex justify-between items-center">
-      <div class="flex justify-center items-center">
-        <h1 class="title mx-4">Rooms</h1>
-        <div class="flex">
-          <%= form_with(url: admins_hotel_rooms_path(@hotel),
-                        method: :get, data: { turbo_frame: "room_search_result", turbo_action: "advance", controller: "search" }) do |form| %>
-            <%= form.select :status, Room.statuses.keys.map { |s| [s.humanize, s] },{ prompt: "Filter by Status"}, class: "query-field",data: { action: "change->search#search" } %>
-            <%= form.collection_select :room_category_id, RoomCategory.all, :id, :name,{ prompt: "Filter by Category"}, class: "query-field",data: { action: "change->search#search" } %>
-            <%= form.search_field :query, class: "query-field", placeholder: "Search", data: { action: "input->search#search"} %>
-          <% end %>
-        </div>
-      </div>
+    <div class="w-full flex justify-between items-center mt-4">
+      <h1 class="title mx-4">Rooms</h1>
       <div>
         <%= link_to "Add", new_admins_hotel_room_path(@hotel), class: "btn" %>
       </div>
     </div>
+    <div class="mx-4">
+      <%= form_with(url: admins_hotel_rooms_path(@hotel),
+                    method: :get, data: { turbo_frame: "room_search_result", turbo_action: "advance", controller: "search" }) do |form| %>
+        <%= form.select :status, Room.statuses.keys.map { |s| [s.humanize, s] },{ prompt: "Filter by Status"}, class: "query-field text-primary-regular",data: { action: "change->search#search" } %>
+        <%= form.collection_select :room_category_id, RoomCategory.all, :id, :name,{ prompt: "Filter by Category"}, class: "query-field text-primary-regular",data: { action: "change->search#search" } %>
+        <%= form.search_field :query, class: "query-field", placeholder: "Search", data: { action: "input->search#search"} %>
+      <% end %>
+    </div>
     <turbo-frame id="room_search_result">
       <% if @rooms.blank? %>
-        <h3 class="text-text-color/50 text-center mt-4 p-2">No Data found!</h3>
+        <h3 class="text-text-color/50 text-center mt-4 p-2">No Room Data!</h3>
       <% else %>
         <div class="relative flex flex-wrap items-center justify-center gap-5 z-0">
           <% @rooms.each do |room| %>
-            <%= render "admins/rooms/room_card", room: room %>
+            <%= render "admins/rooms/room_card", room: room, offers: @offers %>
           <% end %>
         </div>
       <% end %>
+      <div class="flex justify-end items-center mt-2">
+        <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
+      </div>
     </turbo-frame>
 
   </div>

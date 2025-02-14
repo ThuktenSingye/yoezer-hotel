@@ -6,10 +6,11 @@ module Admins
     include ImageAttachment
     before_action :hotel
     before_action :room, only: %i[show edit update destroy]
+    before_action :offers, only: %i[index show]
 
     def index
       room_query = RoomQuery.new(@hotel, params)
-      @rooms = room_query.call
+      @pagy, @rooms = pagy(room_query.call, limit: 6)
     end
 
     def show; end
@@ -59,6 +60,10 @@ module Admins
     rescue ActiveRecord::RecordNotFound
       flash.now[:alert] = I18n.t('room.not_found')
       redirect_to admins_hotel_rooms_path(@hotel)
+    end
+
+    def offers
+      @offers = OfferQuery.new(@hotel).call
     end
 
     def destroy_all_image

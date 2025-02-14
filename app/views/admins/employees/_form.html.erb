@@ -1,5 +1,5 @@
 <div class="m-4">
-  <%= form_with(model: [ :admins , @hotel, employee], local: true, class: "flex flex-col justify-center") do |f| %>
+  <%= form_with(model: [ :admins , @hotel, employee], local: true,data: { turbo: false }, class: "flex flex-col justify-center") do |f| %>
     <% if employee.errors.any? %>
       <div id="error_explanation" class="flex flex-col items-center">
         <h2 class="text-text-color/50"><%= pluralize(employee.errors.count, "error") %>:</h2>
@@ -16,7 +16,7 @@
           <div class="flex flex-col" data-controller="avatar">
             <div class="flex flex-col" data-controller="avatar">
               <div class="relative flex flex-row justify-center shrink-0">
-                <%= image_tag(profile_form.object.avatar.attached? ? profile_form.object.avatar : 'https://placehold.co/200x200', class: "h-24 w-24 md:h-32 md:w-32 icon p-2", alt: "Profile Image", data: {avatar_target: "imagePreview"}) %>
+                <%= image_tag(profile_form.object.avatar.attached? ? profile_form.object.avatar : 'https://placehold.co/200x200', class: "image-upload", alt: "Profile Image", data: {avatar_target: "imagePreview"}) %>
                 <div class="self-start icon p-4 hover:cursor-pointer" data-action="click->avatar#selectImage">
                   <%= icon('fa-solid', 'pen-to-square', class: "text-primary-regular") %>
                 </div>
@@ -112,8 +112,9 @@
     <div>
       <p class="title">Attach Document</p>
       <div class="flex flex-col items-center gap-4" data-controller="file">
-        <div class="flex items-center gap-4 p-2 border-2 border-dashed rounded border-gray-400 hover:shadow-lg hover:cursor-pointer" data-action="click->file#selectFile">
-          <%= icon('fa-solid', 'paste', class: "fa-2x p-2 avatar-cropper items-center text-primary-regular") %>
+        <div class="flex items-center gap-4 p-2 border-2 border-dashed rounded border-gray-400 hover:shadow-lg
+          hover:cursor-pointer" data-action="click->file#selectFile">
+          <%= icon('fa-solid', 'paste', class: "fa-2x p-2 avatar-wrapper items-center text-primary-regular") %>
           <span class="text-text-color/50 text-sm">Click to attach documents</span>
         </div>
         <div class="flex flex-col items-center gap-2 w-full" data-file-target="filesContainer">
@@ -123,7 +124,8 @@
                 <div class="p-1 flex gap-1 items-center">
                   <%= icon("fa-solid", "file", class: "text-primary-regular w-6 h-6 flex items-center justify-center") %>
                   <p data-file-target="filePreview" class="w-5/6"><%= file.filename.to_s %></p>
-                  <div class="flex items-center justify-center avatar-cropper icon hover:cursor-pointer z-10" data-action="click->file#removeExistingFile">
+                  <div class="flex items-center justify-center avatar-wrapper icon hover:cursor-pointer z-10"
+                       data-action="click->file#removeExistingFile">
                     <%= icon('fa-solid', 'trash', class: "text-error") %>
                   </div>
                 </div>

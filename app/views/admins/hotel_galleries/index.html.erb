@@ -7,9 +7,14 @@
       </div>
     </div>
     <div class="flex flex-wrap items-center justify-center gap-5 ">
-      <% @hotel_galleries.each do |hotel_gallery| %>
-        <%= render "admins/hotel_galleries/gallery_card", hotel_gallery: hotel_gallery %>
+      <% if @hotel_galleries.present? %>
+        <% @hotel_galleries.each do |hotel_gallery| %>
+          <%= render "admins/hotel_galleries/gallery_card", hotel_gallery: hotel_gallery %>
+        <% end %>
+      <% else %>
+        <h3 class="text-text-color/50">No Hotel Gallery!</h3>
       <% end %>
+
     </div>
 </div>
 </div>

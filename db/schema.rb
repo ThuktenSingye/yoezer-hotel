@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_29_085918) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_04_094521) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -188,8 +188,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_29_085918) do
   create_table "offers", force: :cascade do |t|
     t.string "title"
     t.text "description"
-    t.datetime "start_time", default: -> { "CURRENT_TIMESTAMP" }
-    t.datetime "end_time"
+    t.date "start_time", default: -> { "CURRENT_TIMESTAMP" }
+    t.date "end_time"
     t.integer "discount"
     t.bigint "hotel_id", null: false
     t.datetime "created_at", null: false

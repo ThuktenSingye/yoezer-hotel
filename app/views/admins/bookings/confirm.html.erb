@@ -19,10 +19,8 @@
 
           <hr class="bg-primary-regular h-0.5">
           <div class="flex justify-between items-center mt-2 gap-2">
-            <!-- Link to Confirm Booking -->
-            <%= button_to "Confirm Booking", update_confirmation_admins_hotel_room_booking_path(@hotel, @room, @booking,token: @booking.confirmation_token), class: "btn btn-primary",  method: :patch, data: { target: "_top", turbo:false, turbo_confirm: "Are you sure you want to confirm this booking?" } %>
-
-            <!-- Cancel Button -->
+            <%= button_to "Confirm Booking", update_confirmation_admins_hotel_room_booking_path(@hotel, @room, @booking,token: @booking.confirmation_token),
+                class: "btn btn-primary",  method: :patch, data: { target: "_top", turbo:false, turbo_confirm: "Are you sure you want to confirm this booking?" } %>
             <%= link_to "Cancel", admins_hotel_room_path(@hotel, @room), class: "btn" %>
           </div>
         </div>

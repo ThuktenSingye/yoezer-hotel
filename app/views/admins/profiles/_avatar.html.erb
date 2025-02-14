@@ -1,6 +1,6 @@
 <div id="avatar" class="flex flex-row items-center gap-2 ml-auto">
   <%= link_to admins_profiles_path do %>
-    <div class="avatar-cropper">
+    <div class="avatar-wrapper">
       <%= image_tag(profile&.avatar || 'https://via.placeholder.com/50x50', class: "avatar w-full h-full", alt: "Profile Image") %>
     </div>
   <% end %>

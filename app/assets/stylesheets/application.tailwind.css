@@ -42,10 +42,19 @@
         @apply flex flex-col items-center;
     }
     .sidebar-menu-row{
-        @apply flex justify-between items-center gap-2 py-1 px-2 mb-2
+        @apply flex justify-between items-center gap-2 py-1 px-2 mb-2;
+    }
+    .sidebar-menu-button{
+        @apply w-5/6 flex flex-row items-center py-2 px-2 mb-2 rounded hover:bg-white hover:transition ease-in-out duration-300;
+    }
+    .sidebar-menu-icon{
+        @apply text-white group-hover:text-primary-regular;
+    }
+    .sidebar-menu-title {
+        @apply font-title tracking-wider text-white font-semibold group-hover:text-primary-regular;
     }
     .card-container{
-        @apply w-full md:w-5/6 lg:w-3/5 mx-auto;
+        @apply w-full lg:w-4/5 xl:w-3/5 mx-auto;
     }
     .card {
         @apply bg-white border rounded mx-4 mt-8;
@@ -75,13 +84,13 @@
         @apply  w-11/12 md:w-2/3 text-text-color/50 font-poppins p-2 border rounded focus:outline-primary-regular;
     }
     .input-label{
-        @apply w-32 shrink-0 self-start pt-2
+        @apply w-40 shrink-0 self-start pt-2
     }
-    .input-label-sm {
-        @apply w-48 shrink-0 self-start
+    .input-label-lg {
+        @apply input-label w-48
     }
-    .input-value{
-        @apply md:px-2 text-text-color/50 font-poppins;
+    .input-value {
+        @apply text-text-color/50 font-poppins text-wrap;
     }
     .flash {
         @apply fixed left-1/2 top-28 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-4 px-4 w-full z-50;
@@ -131,7 +140,7 @@
     .hover-animation{
         @apply hover:scale-110 hover:transition ease-in-out delay-75;
     }
-    .avatar-cropper{
+    .avatar-wrapper{
         @apply w-11 h-11
     }
     .avatar {
@@ -158,19 +167,29 @@
     nav a[class='gap'] {
         @apply px-3 text-text-color/60;
     }
-    .card-image-cropper-md {
+    .card-image-wrapper-md {
         @apply w-full h-1/3 md:h-1/2 flex-grow
     }
-    .card-image-cropper-sm {
+    .card-image-wrapper-sm {
         @apply w-full h-3/4 flex-grow
     }
-    .image-cropper{
+    .image-wrapper{
         @apply w-36 h-36
     }
     .image {
         @apply rounded w-full h-full object-cover
     }
+    .image-md {
+        @apply w-72 h-40 lg:w-96 lg:h-48 object-cover rounded-lg border
+    }
+    .image-upload {
+        @apply h-24 w-24 md:h-32 md:w-32 icon p-2 z-0
+    }
     .query-field {
         @apply bg-white p-2 mt-4 text-sm rounded border-2 focus:shadow-none focus:border-primary-regular focus:outline-none
     }
+    .field_with_errors {
+        @apply border border-red-500
+    }
+
 }

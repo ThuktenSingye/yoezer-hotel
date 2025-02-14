@@ -24,7 +24,7 @@ module Admins
     def create
       @employee = @hotel.employees.build(employee_params)
       if @employee.save
-        flash[:notice] = I18n.t('employee.destroy.success')
+        flash[:notice] = I18n.t('employee.create.success')
         redirect_to admins_hotel_employees_path(@hotel)
       else
         flash[:alert] = I18n.t('employee.create.error')

@@ -1,8 +1,9 @@
 <turbo-frame id="<%= dom_id hotel_gallery %>">
   <div class="p-4 card-wrapper-md flex flex-col justify-center" role="region" aria-labelledby="profile-<%= dom_id hotel_gallery %>">
-    <div class="card-image-cropper-md">
-      <%= image_tag(hotel_gallery&.image || "https://placehold.co/200x200", class:"object-cover w-full h-full rounded" ) %>
+    <div class="card-image-wrapper-md">
+      <%= image_tag(hotel_gallery&.image&.attached? ? hotel_gallery.image : "https://placehold.co/200x200", class:"image" ) %>
     </div>
+
     <div class="my-2 flex flex-col gap-2">
       <h2 class="title"><%= hotel_gallery.name %></h2>
       <p class="text-wrap text-text-color/50"><%= hotel_gallery.description %></p>
@@ -15,7 +16,7 @@
       </div>
       <div>
         <%= link_to "Edit", edit_admins_hotel_hotel_gallery_path(@hotel, hotel_gallery),class: "btn" %>
-        <%= link_to 'Delete', admins_hotel_hotel_gallery_path(@hotel, hotel_gallery), data: { turbo_method: :delete, confirm: "Are you sure to delete?", turbo_frame: "_top" }, class: "btn" %>
+        <%= link_to 'Delete', admins_hotel_hotel_gallery_path(@hotel, hotel_gallery), data: { turbo_method: :delete, turbo_confirm: "Are you sure to delete?", turbo_frame: "_top" }, class: "btn" %>
       </div>
     </div>
   </div>

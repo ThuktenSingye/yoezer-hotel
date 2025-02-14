@@ -1,25 +1,28 @@
 <%= link_to admins_hotel_offer_path(@hotel, offer) do %>
-  <div class="card-wrapper card-animation card-bg mt-2 p-3 flex flex-col gap-2 z-0">
+  <div class="card-wrapper card-animation card-bg mt-2 p-3 flex flex-col gap-2">
     <div class="w-full h-1/2">
-      <%= image_tag(offer&.image || "https://placehold.co/200x200", class:"object-cover w-full h-full rounded" ) %>
-    </div>
-    <div class="mb-2">
-      <h3 class="title mb-2"><%= offer.title %></h3>
-      <p class="text-sm text-text-color/50 line-clamp-1 text-ellipsis"><%= offer.description %></p>
+      <%= image_tag(offer&.image&.attached? ? offer.image : "https://placehold.co/200x200", class:"image rounded-none" ) %>
     </div>
     <div class="absolute bg-primary-regular text-white p-3 z-0">
-      <p class="z-10"><%= offer.discount %>% Off</p>
+      <p><%= offer.discount %>% Off</p>
     </div>
-    <hr class="bg-primary-regular h-0.5">
-    <div class="flex flex-col items-start">
-      <p class="flex mt-1">
-        <span class="w-24 text-primary-regular">Start Date:</span>
-        <span class="input-value"><%= offer.start_time.strftime("%b %d, %Y") %></span>
-      </p>
-      <p class="flex mt-1">
-        <span class="w-24 text-primary-regular">End Date:</span>
-        <span class="input-value"><%= offer.end_time.strftime("%b %d, %Y") %></span>
-      </p>
+    <div class="mt-2">
+      <div class="mb-2">
+        <h3 class="title mb-2"><%= offer.title %></h3>
+        <p class="text-sm text-text-color/50 line-clamp-1 text-ellipsis"><%= offer.description %></p>
+      </div>
+      <hr class="bg-primary-regular h-0.5 my-2">
+      <div class="flex flex-col items-start">
+        <p class="flex mt-1">
+          <span class="w-24">Start Date:</span>
+          <span class="input-value"><%= offer.start_time.strftime("%b %d, %Y") %></span>
+        </p>
+        <p class="flex mt-1">
+          <span class="w-24">End Date:</span>
+          <span class="input-value"><%= offer.end_time.strftime("%b %d, %Y") %></span>
+        </p>
+      </div>
     </div>
-  </div>
+    </div>
+
 <% end %>

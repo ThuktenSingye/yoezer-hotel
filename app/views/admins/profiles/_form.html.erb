@@ -16,7 +16,7 @@
       <div class="my-2">
         <div class="flex flex-col" data-controller="avatar">
           <div class="relative flex flex-row justify-center shrink-0">
-            <%= image_tag(profile&.avatar || 'https://via.placeholder.com/200x200', class: "h-24 w-24 md:h-32 md:w-32 icon z-0", alt: "Profile Image", data: {avatar_target: "imagePreview"}) %>
+            <%= image_tag(profile&.avatar || 'https://via.placeholder.com/200x200', class: "image-md", alt: "Profile Image", data: {avatar_target: "imagePreview"}) %>
             <div class="self-start icon p-4 hover:cursor-pointer" data-action="click->avatar#selectImage">
               <%= icon('fa-solid', 'pen-to-square', class: "text-primary-regular") %>
             </div>
@@ -26,29 +26,29 @@
       </div>
 
       <div class="input-container">
-        <%= f.label :first_name, class: "w-32 shrink-0 self-start pt-2" %>
+        <%= f.label :first_name, class: "input-label" %>
         <%= f.text_field :first_name, class: "input-field " %>
       </div>
       <div class="input-container">
-        <%= f.label :last_name, class: "w-32 shrink-0 self-start pt-2" %>
+        <%= f.label :last_name, class: "input-label" %>
         <%= f.text_field :last_name, class: "input-field" %>
       </div>
       <div class="input-container">
-        <%= f.label :cid_no, class: "w-32 shrink-0 self-start pt-2" %>
+        <%= f.label :cid_no, class: "input-label" %>
         <%= f.text_field :cid_no, class: "input-field" %>
       </div>
       <div class="input-container">
-        <%= f.label :contact_no, class: "w-32 shrink-0 self-start pt-2" %>
+        <%= f.label :contact_no, class: "input-label" %>
         <%= f.text_field :contact_no, class: "input-field " %>
       </div>
 
       <div class="input-container">
-        <%= f.label :date_of_joining, class: "w-32 shrink-0 self-start pt-2" %>
+        <%= f.label :date_of_joining, class: "input-label" %>
         <%= f.text_field :date_of_joining,
              data: { controller: "flatpickr", flatpickr_date_format: "Y-m-d"}, class: "input-field" %>
       </div>
       <div class="input-container">
-        <%= f.label :dob, class: "w-32" %>
+        <%= f.label :dob, class: "input-label" %>
         <%= f.text_field :dob,
              data: {
                controller: "flatpickr",
@@ -58,11 +58,11 @@
 
       </div>
       <div class="input-container">
-        <%= f.label :qualification, class: "w-32" %>
+        <%= f.label :qualification, class: "input-label" %>
         <%= f.text_field :qualification, class: "input-field" %>
       </div>
       <div class="input-container">
-        <%= f.label :designation, class: "w-32" %>
+        <%= f.label :designation, class: "input-label" %>
         <%= f.select :designation, Profile.designations.keys.map { |d| [d.humanize, d] } %>
       </div>
     </div>
@@ -77,15 +77,15 @@
           <div>
             <%= f.fields_for :addresses, address do |address_fields| %>
               <div class="input-container mt-1">
-                <%= address_fields.label :dzongkhag, class: "w-32" %>
+                <%= address_fields.label :dzongkhag, class: "input-label" %>
                 <%= address_fields.text_field :dzongkhag, class: "input-field" %>
               </div>
               <div class="input-container mt-1">
-                <%= address_fields.label :gewog, class: "w-32" %>
+                <%= address_fields.label :gewog, class: "input-label" %>
                 <%= address_fields.text_field :gewog, class: "input-field" %>
               </div>
               <div class="input-container mt-1">
-                <%= address_fields.label :street_address, class: "w-32 self-start pt-2" %>
+                <%= address_fields.label :street_address, class: "input-label" %>
                 <%= address_fields.text_area :street_address, class: "input-field" %>
               </div>
             <% end %>

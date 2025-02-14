@@ -15,19 +15,19 @@
     <div class="my-1 w-full">
       <h2 class="title">Hotel Info</h2>
       <div class="input-container">
-        <%= f.label :name, class: "w-32 shrink-0 self-start pt-2" %>
+        <%= f.label :name, class: "input-label" %>
         <%= f.text_field :name, class: "input-field " %>
       </div>
       <div class="input-container">
-        <%= f.label :description, class: "w-32 shrink-0 self-start pt-2" %>
+        <%= f.label :description, class: "input-label" %>
         <%= f.textarea :description, class: "flex-grow break-words text-wrap input-field" %>
       </div>
       <div class="input-container">
-        <%= f.label :email, class: "w-32" %>
+        <%= f.label :email, class: "input-label" %>
         <%= f.email_field :email, class: "input-field" %>
       </div>
       <div class="input-container">
-        <%= f.label :contact_no, class: "w-32" %>
+        <%= f.label :contact_no, class: "input-label" %>
         <%= f.text_field :contact_no, class: "input-field" %>
       </div>
 
@@ -37,15 +37,15 @@
       <h2 class="title">Address</h2>
       <%= f.fields_for :address do |af| %>
         <div class="input-container mt-1 ">
-          <%= af.label :dzongkhag, class: "w-32" %>
+          <%= af.label :dzongkhag, class: "input-label" %>
           <%= af.text_field :dzongkhag, class: "input-field" %>
         </div>
         <div class="input-container">
-          <%= af.label :gewog, class: "w-32" %>
+          <%= af.label :gewog, class: "input-label" %>
           <%= af.text_field :gewog, class: "input-field" %>
         </div>
         <div class="input-container">
-          <%= af.label :street_address, class: "w-32 self-start pt-2" %>
+          <%= af.label :street_address, class: "input-label" %>
           <%= af.textarea :street_address, class: "input-field" %>
         </div>
       <% end %>

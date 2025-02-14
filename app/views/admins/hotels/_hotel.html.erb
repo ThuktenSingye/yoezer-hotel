@@ -5,12 +5,11 @@
         <h2 class="title">Hotel Info</h2>
         <%= render 'shared/input', input: { name: "Name", value: hotel.name } %>
         <p class="input-container">
-          <span class="w-32 shrink-0 self-start">Description:</span>
+          <span class="input-label">Description</span>
           <span class="flex-grow break-words text-wrap input-value"><%= hotel.description %></span>
         </p>
         <%= render 'shared/input', input: { name: "Email", value: hotel.email } %>
         <%= render 'shared/input', input: { name: "Contact No", value: hotel.contact_no } %>
-
       </div>
       <hr>
       <div class="my-2">

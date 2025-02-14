@@ -19,7 +19,7 @@
         </button>
       <% end %>
 
-      <%= link_to admins_hotel_amenity_path(@hotel, amenity), class: "hidden md:block", data: {"turbo-method": :delete, "turbo-frame": dom_id(amenity), "turbo-confirm": "Are you sure to delete?"} do %>
+      <%= link_to admins_hotel_amenity_path(@hotel, amenity), class: "hidden md:block", data: { turbo_method: :delete, turbo_frame: dom_id(amenity), turbo_confirm: "Are you sure to delete?"} do %>
         <button class="icon icon-button p-2 group-hover:bg-white hidden md:block">
           <%= icon('fa-solid', 'trash', class: "text-error") %>
         </button>
@@ -28,7 +28,7 @@
         <%= icon('fa-solid', 'ellipsis', class: "text-primary-regular") %>
       </button>
 
-      <div data-popover-target="popover" class="hidden fixed mt-0 right-4  bg-white border rounded shadow-lg z-50">
+      <div data-popover-target="popover" class="hidden absolute mt-0 right-4  bg-white border rounded shadow-lg z-50">
         <div class="flex flex-col items-start">
           <%= link_to 'Edit', edit_admins_hotel_amenity_path(@hotel, amenity), class: "block px-4 py-2 underline text-secondary", data: { "turbo-frame": "amenity"} %>
           <%= link_to 'Delete', admins_hotel_amenity_path(@hotel, amenity), data: { turbo_method: :delete, turbo_confirm: "Are you sure to delete?", turbo_frame: dom_id(amenity) }, class: "block border-t px-4 py-2 underline text-error" %>

@@ -37,7 +37,8 @@
         </div>
       </div>
       <hr class="bg-primary-regular h-0.5 my-2">
-      <div class="self-end mt-2">
+      <div class="flex justify-between items-center mt-2">
+        <%= link_to "Back", :back, class: "btn", data: { turbo_frame: "_top" } %>
         <%= link_to "Edit", edit_admins_profile_path(profile), class: "btn" %>
       </div>
     </div>

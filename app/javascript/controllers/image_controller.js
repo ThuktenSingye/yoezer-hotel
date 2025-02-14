@@ -17,11 +17,11 @@ export default class extends Controller {
         const newImageHtml = `
           <div data-image-target="existingImageContainer">
             <div class="relative my-2 " data-image-id="${file.name}">
-              <div class="image-cropper">
+              <div class="image-wrapper">
                 <img src="${reader.result}" class="rounded object-cover w-full h-full" />
               </div>
               <div
-                class="flex items-center text-center absolute -top-4 -right-4 avatar-cropper icon hover:cursor-pointer z-10"
+                class="flex items-center text-center absolute -top-4 -right-4 avatar-wrapper icon hover:cursor-pointer z-10"
                 data-action="click->image#removeImage" data-image-id="${file.name}">
                 <i class="fa-solid fa-xmark w-full text-primary-regular"></i>
               </div>

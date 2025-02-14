@@ -7,6 +7,6 @@ export default class extends Controller {
 
   toggle() {
     toggle(this.popoverTarget)
-    this.testTarget.classList.toggle('hidden')
+    this.backdropTarget.classList.toggle('hidden')
   }
 }
