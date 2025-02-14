@@ -1,0 +1,64 @@
+<div class="relative w-full h-[80vh] lg:h-screen" data-aos="zoom-in-out" data-aos-duration="2000">
+  <div class="absolute inset-0 w-full h-full" data-aos="zoom-out-down" data-aos-duration="3000">
+    <%= image_tag('banner.jpg', class: "object-cover w-full h-full") %>
+  </div>
+  <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+
+  <div class="absolute-layout text-white gap-4 md:gap-10 px-4 text-center">
+    <h1 class="user-heading-title">GALLERY</h1>
+    <h1 class="user-title text-white">EXPERIENCE LUXURY & COMFORT</h1>
+    <p class="text-sm md:text-base lg:text-lg">
+      Discover breathtaking views, elegant interiors, and a serene atmosphere designed for an unforgettable stay.
+    </p>
+  </div>
+</div>
+
+<div class="w-full my-8">
+  <div class="w-full md:w-5/6 mx-auto">
+    <div class="w-full my-4 p-6 mx-auto" data-aos="fade-up" data-aos-duration="1000">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-content-between gap-4">
+        <% @hotel.images.each_with_index do |image, index| %>
+          <% case index % 8 %>
+        <% when 0 %>
+            <div class="w-full h-[300px]" data-aos="fade-up" data-aos-duration="1000">
+              <%= image_tag(image || "https://placehold.co/200x200", class: "object-cover w-full h-full") %>
+            </div>
+          <% when 1 %>
+            <div class="col-span-1 lg:col-span-2 h-[300px]" data-aos="fade-up" data-aos-duration="1000">
+              <%= image_tag(image || "https://placehold.co/200x200", class: "object-cover w-full h-full") %>
+            </div>
+          <% when 2 %>
+            <div class="w-full row-span-1 lg:row-span-2 lg:h-auto h-[300px]" data-aos="fade-up" data-aos-duration="1000">
+              <%= image_tag(image || "https://placehold.co/200x200", class: "object-cover w-full h-full") %>
+            </div>
+          <% when 3 %>
+            <div class="w-full h-[300px]" data-aos="fade-up" data-aos-duration="1000">
+              <%= image_tag(image || "https://placehold.co/200x200", class: "object-cover w-full h-full") %>
+            </div>
+          <% when 4 %>
+            <div class="w-full row-span-1 lg:row-span-2 lg:h-auto h-[300px]" data-aos="fade-up" data-aos-duration="1000">
+              <%= image_tag(image || "https://placehold.co/200x200", class: "object-cover w-full h-full") %>
+            </div>
+          <% when 5 %>
+            <div class="w-full h-[300px]" data-aos="fade-up" data-aos-duration="1000">
+              <%= image_tag(image || "https://placehold.co/200x200", class: "object-cover w-full h-full") %>
+            </div>
+          <% when 6 %>
+            <div class="col-span-1 lg:col-span-2 h-[300px]" data-aos="fade-up" data-aos-duration="1000">
+              <%= image_tag(image || "https://placehold.co/200x200", class: "object-cover w-full h-full") %>
+            </div>
+          <% when 7 %>
+            <div class="w-full h-[300px]" data-aos="fade-up" data-aos-duration="1000">
+              <%= image_tag(image || "https://placehold.co/200x200", class: "object-cover w-full h-full") %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+
+

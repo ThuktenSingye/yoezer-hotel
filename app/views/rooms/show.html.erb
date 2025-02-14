@@ -32,13 +32,15 @@
       <h1 class="user-title mb-0">ROOM</h1>
       <div class="w-full flex flex-col lg:flex-row lg:justify-between lg:items-center gap-8" >
         <%= render "rooms/detail", room: @room %>
-        <div class="relative user-card-container" data-controller="slideshow">
-          <% @room.images.each do |image| %>
-            <div data-slideshow-target="slide" class="w-full h-full duration-1000 opacity-100">
-              <%= image_tag(image || "https://placehold.co/500x300", class: "object-cover w-full h-full") %>
-            </div>
+        <div class="relative user-card-container overflow-hidden" data-controller="slideshow">
+          <% @room.images.each_with_index do |image, index| %>
+            <div data-slideshow-target="slide"
+                 class="absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out
+               <%= index == 0 ? 'opacity-100' : 'opacity-0' %>">
+                    <%= image_tag(image || "https://placehold.co/500x300", class: "object-cover w-full h-full") %>
+                  </div>
           <% end %>
-          <div class="absolute inset-0 rounded-none flex justify-between">
+          <div class="absolute inset-0 flex justify-between items-center px-4">
             <button data-action="click->slideshow#prev">
               <%= icon('fa-solid', 'chevron-left', class: "fa-2x text-white") %>
             </button>
@@ -47,6 +49,7 @@
             </button>
           </div>
         </div>
+
       </div>
     </div>
 

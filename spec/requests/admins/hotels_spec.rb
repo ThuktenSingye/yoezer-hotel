@@ -38,7 +38,7 @@ RSpec.describe 'Admins::Hotels', type: :request do
       let(:valid_hotel_params) { FactoryBot.attributes_for(:hotel) }
 
       it { is_expected.to have_http_status :found }
-      it { is_expected.to redirect_to admins_hotels_path }
+      it { is_expected.to render_template(:index) }
       it { expect { update_hotel }.not_to change(Hotel, :count) }
 
       # rubocop:disable RSpec/ExampleLength

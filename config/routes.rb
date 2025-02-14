@@ -54,6 +54,7 @@ Rails.application.routes.draw do
     get '/contact', to: "contacts#index", as: :contact
     resources :feedbacks, only: %i[index create]
     resources :hotels_rating, only: [:create]
+    get '/gallery', to: "hotel_galleries#index", as: :gallery
   end
 
   root 'home#show'
