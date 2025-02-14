@@ -1,0 +1,35 @@
+<div class="relative w-full lg:h-[400px] flex flex-col lg:flex-row lg:items-start lg:gap-8 user-card">
+  <div class="relative w-full lg:w-[35%] shrink-0 h-full ">
+    <%= image_tag((offer&.image&.attached? ? offer.image : "https://placehold.co/50x50"),
+                  class: "image rounded-sm") %>
+    <div class="absolute inset-0 bg-primary-regular bg-opacity-10"></div>
+  </div>
+  <div class="absolute right-0  border-l-transparent border-l-[100px] border-r-transparent border-t-[100px] border-primary-regular">
+  </div>
+  <p class="absolute right-0 top-6 text-white transform font-medium rotate-45">Discount</p>
+
+  <div class="p-4">
+    <div>
+      <h3 class="title text-2xl"><%= offer.title %></h3>
+      <p class="line-clamp-5 text-text-color/50 mt-2 lg:mr-8 text-balance text-sm xl:text-base text-ellipsis">
+        <%= offer.description %>
+      </p>
+    </div>
+    <div class="mt-4">
+      <p class="leading-[3] ">
+        <span class="title block">Discount</span>
+        <span class="text-2xl text-primary-regular font-bold"><%= offer.discount %>%</span>
+      </p>
+    </div>
+    <div class="flex flex-col gap-2 my-2 lg:my-4 ">
+      <p class="flex">
+        <span class="w-32">Offer Start On:</span>
+        <span class="text-primary-regular font-semibold"><%= offer.start_time.strftime("%a %e, %b, %Y") %></span>
+      </p>
+      <p class="flex">
+        <span class="w-32">Offer Ends On:</span>
+        <span class="text-primary-regular font-semibold"><%= offer.end_time.strftime("%a %e, %b, %Y") %></span>
+      </p>
+    </div>
+  </div>
+</div>

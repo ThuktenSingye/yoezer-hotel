@@ -3,9 +3,14 @@ import '@hotwired/turbo-rails';
 import 'controllers';
 import { Application } from '@hotwired/stimulus';
 import Flatpickr from 'stimulus-flatpickr';
+import AOS from 'aos';
 
 const application = Application.start();
 application.register('flatpickr', Flatpickr);
+
+document.addEventListener("turbo:load", () => {
+  AOS.init();
+});
 
 function handleViewTransition(event) {
   if (document.startViewTransition) {

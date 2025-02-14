@@ -67,7 +67,7 @@ module Admins
     end
 
     def room_category_params
-      params.require(:room_category).permit(:name)
+      params.require(:room_category).permit(:name, :image)
     end
   end
 end

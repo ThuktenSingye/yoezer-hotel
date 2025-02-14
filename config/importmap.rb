@@ -10,3 +10,4 @@ pin_all_from 'app/javascript/controllers', under: 'controllers'
 pin 'el-transition' # @0.0.7
 pin 'flatpickr' # @4.6.13
 pin 'stimulus-flatpickr' # @3.0.0
+pin "aos" # @2.3.4
