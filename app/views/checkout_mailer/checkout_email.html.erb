@@ -1,0 +1,9 @@
+# app/views/booking_mailer/checkout_notification.html.erb
+<h1>Thanks for staying at <%= @booking.hotel.name %>!</h1>
+
+<p>We hope you enjoyed your stay!</p>
+
+<p>Please take a few minutes to provide feedback about your experience:</p>
+<%= link_to 'Leave Feedback', @feedback_link %>
+
+<p>Thanks!</p>

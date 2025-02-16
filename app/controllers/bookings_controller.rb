@@ -13,11 +13,9 @@ class BookingsController < HomeController
 
   def create
     result = @booking_service.create_booking(booking_params, @offers)
+
     if result[:success]
-      booking_id = result[:booking].id
-      hotel_id = result[:booking].hotel.id
-      expires_at = result[:booking].confirmation_expires_at
-      BookingCleanupWorker.perform_at(expires_at, hotel_id, booking_id)
+      schedule_background_jobs(result[:booking])
       render json: { ok: true }, status: :ok
     else
       render json: { ok: false }, status: :unprocessable_entity
@@ -37,7 +35,7 @@ class BookingsController < HomeController
 
   def confirm
     result = @booking_service.confirm_token(params[:id], params[:token])
-    if result[:valid] && @booking.confirmation_token == params[:token]
+    if result && @booking.confirmation_token == params[:token]
       render :confirm
     else
       flash[:alert] = I18n.t('booking.expired')
@@ -46,14 +44,14 @@ class BookingsController < HomeController
   end
 
   def update_confirmation
-    result = @booking_service.confirm_token(params[:id], params[:token])
+    result = @booking_service.confirm_token_and_update(params[:id], params[:token])
 
-    if result[:valid]
-      confirm_booking_and_redirect
+    if result
+      flash[:notice] = I18n.t('booking.confirmed')
     else
       flash[:alert] = result[:error]
-      redirect_to room_path(@room)
     end
+    redirect_to room_path(@room)
   end
 
   private
@@ -85,12 +83,9 @@ class BookingsController < HomeController
     @booking.payment_status == 'completed'
   end
 
-  def confirm_booking_and_redirect
-    @booking.update(confirmed: true)
-    @booking.room.update(status: :booked)
-    BookingMailer.booking_success_email(@booking).deliver_later(queue: 'mailers')
-    flash[:notice] = I18n.t('booking.confirmed')
-    redirect_to room_path(@room)
+  def schedule_background_jobs(booking)
+    BookingCleanupWorker.perform_at(booking.confirmation_expires_at, booking.hotel.id, booking.id)
+    FeedbackWorker.perform_at(3.minutes.from_now, booking.hotel.id, booking.id)
   end
 
   def booking_params

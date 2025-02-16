@@ -12,7 +12,7 @@
     <div>
       <h3 class="title"><%= room.room_category&.name %></h3>
       <div class="flex items-center gap-2">
-        <h2 class="text-primary-regular <%= 'line-through' if offers.present? %>">Nu. <span class="font-bold text-lg"><%= room.base_price.to_i.to_s %></span></h2>
+        <h2 class="text-primary-regular <%= 'line-through text-base' if offers.present? %>">Nu. <span class="font-bold"><%= room.base_price.to_i.to_s %></span></h2>
         <% if offers.present? %>
           <h2 class="text-primary-regular">
             Nu. <span class="font-bold text-lg"><%= calculate_discounted_room_price(room.base_price, offers)[:discounted_price] %></span>
