@@ -10,5 +10,5 @@ pin_all_from 'app/javascript/controllers', under: 'controllers'
 pin 'el-transition' # @0.0.7
 pin 'flatpickr' # @4.6.13
 pin 'stimulus-flatpickr' # @3.0.0
-pin "aos" # @2.3.4
+pin "aos", to: "https://unpkg.com/aos@3.0.0-beta.6/dist/aos.js" # @2.3.4
 pin "@stimulus-components/dialog", to: "@stimulus-components--dialog.js" # @1.0.1
