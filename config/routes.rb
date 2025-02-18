@@ -3,27 +3,6 @@
 require 'sidekiq/web'
 Rails.application.routes.draw do
   mount Sidekiq::Web => '/sidekiq'
-  # namespace :admins do
-  #   resources :hotels, only: %i[index edit update] do
-  #     resources :addresses, only: %i[new create destroy]
-  #     resources :amenities
-  #     resources :feedbacks, only: %i[index destroy]
-  #     resources :hotel_galleries
-  #     resources :offers
-  #     resources :room_categories, except: :show
-  #     resources :rooms do
-  #       resources :room_bed_types, only: %i[create destroy]
-  #       resources :room_facilities, only: %i[create destroy]
-  #       resources :bookings, only: %i[new create]
-  #     end
-  #     resources :bookings, except: %i[new create]
-  #     resources :bed_types, except: %i[index show]
-  #     resources :facilities
-  #     resources :employees
-  #     resources :guests
-  #   end
-  #   resources :profiles, only: %i[index edit update]
-  # end
   namespace :admins do
       # Hotel-specific resources (no longer nested under /hotels/:hotel_id)
     resources :amenities
