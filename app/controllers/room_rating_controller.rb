@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Rating Controller for guest
-class RoomRatingController < HomeController
+class RoomRatingController < UsersController
   before_action :room
 
   def create
@@ -13,7 +13,7 @@ class RoomRatingController < HomeController
       save_room_rating
     end
 
-    redirect_to request.referer
+    redirect_to request.referer || home_path
   end
 
   private

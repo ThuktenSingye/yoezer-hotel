@@ -4,11 +4,8 @@ module Admins
   # Manages hotels in the admins interface
   class HotelsController < AdminsController
     include RatingCalculator
-    before_action :hotel, only: %i[edit update]
 
-    def index
-      @hotel = Hotel.includes(:address, :hotel_ratings).first
-    end
+    def show; end
 
     def edit; end
 
@@ -16,18 +13,14 @@ module Admins
       destroy_all_image
       if @hotel.update(hotel_params)
         flash[:notice] = I18n.t('hotel.update.success')
-        render :index, status: :found
+        render :show, status: :found
       else
         flash[:alert] = I18n.t('hotel.update.error')
-        render :index, status: :unprocessable_content
+        render :show, status: :unprocessable_content
       end
     end
 
     private
-
-    def hotel
-      @hotel ||= Hotel.find(params[:id])
-    end
 
     def destroy_all_image
       @hotel.images.destroy_all

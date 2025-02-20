@@ -11,11 +11,11 @@ module Admins
       end
     end
 
-    def room_status_class(status)
-      case status&.to_sym
-      when :available then 'text-success'
-      when :booked || :reserved then 'text-secondary'
-      else 'text-error'
+    def booking_status_class(status)
+      if status&.to_sym == :booked
+        'text-secondary'
+      else
+        'text-error'
       end
     end
   end

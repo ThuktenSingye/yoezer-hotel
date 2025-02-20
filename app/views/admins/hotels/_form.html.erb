@@ -1,6 +1,6 @@
 
 <div class="m-4">
-  <%= form_with(model: [ :admins, hotel ], local: true, data:{ turbo: false}, class: "flex flex-col justify-center") do |f| %>
+  <%= form_with(model: [ :admins, hotel], class: "flex flex-col justify-center") do |f| %>
     <% if hotel.errors.any? %>
       <div id="error_explanation" class="flex flex-col items-center">
         <h2 class="text-text-color/50"><%= pluralize(hotel.errors.count, "error") %> prohibited this hotel from being saved:</h2>
@@ -81,7 +81,7 @@
     <hr class="bg-primary-regular h-0.5">
     <div class="flex items-center mt-4 gap-5">
       <%= f.submit "Save", class: "btn" %>
-      <%= link_to "Cancel", admins_hotels_path(hotel), class: "btn" %>
+      <%= link_to "Cancel", admins_admin_root_path, class: "btn", data: {turbo_frame: "_top"} %>
     </div>
   <% end %>
 </div>

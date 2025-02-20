@@ -4,7 +4,6 @@ module Admins
   # Manages offers for hotels in the admins interface
   class OffersController < AdminsController
     include ImageAttachment
-    before_action :hotel
     before_action :offer, only: %i[show edit update destroy]
 
     def index
@@ -23,7 +22,7 @@ module Admins
       @offer = @hotel.offers.new(offer_params)
       if @offer.save
         flash[:notice] = I18n.t('offer.create.success')
-        redirect_to admins_hotel_offers_path(@hotel)
+        redirect_to admins_offers_path
       else
         flash[:alert] = I18n.t('offer.create.error')
         render :new, status: :unprocessable_entity
@@ -34,7 +33,7 @@ module Admins
       if @offer.update(offer_params.except(:image))
         self.class.attach_image(@offer, offer_params, :image)
         flash[:notice] = I18n.t('offer.update.success')
-        redirect_to admins_hotel_offer_path(@hotel, @offer)
+        redirect_to admins_offer_path(@offer)
       else
         flash[:alert] = I18n.t('offer.update.error')
         render :edit, status: :unprocessable_entity
@@ -44,20 +43,16 @@ module Admins
     def destroy
       @offer.destroy
       flash[:notice] = I18n.t('offer.destroy.success')
-      redirect_to admins_hotel_offer_path(@hotel, @offer)
+      redirect_to admins_offers_path
     end
 
     private
-
-    def hotel
-      @hotel ||= Hotel.find(params[:hotel_id])
-    end
 
     def offer
       @offer ||= Offer.find(params[:id])
     rescue ActiveRecord::RecordNotFound
       flash.now[:alert] = I18n.t('offer.not_found')
-      redirect_to admins_hotel_offers_path(@hotel)
+      redirect_to admins_offers_path
     end
 
     def offer_params

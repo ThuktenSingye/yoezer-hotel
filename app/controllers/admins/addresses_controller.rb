@@ -3,7 +3,6 @@
 module Admins
   # Manages addresses for hotels in the admins interface
   class AddressesController < AdminsController
-    before_action :hotel, only: %i[new create destroy]
     before_action :address, only: [:destroy]
 
     def new
@@ -30,20 +29,16 @@ module Admins
       params.require(:address).permit(:dzongkhag, :gewog, :street_address)
     end
 
-    def hotel
-      @hotel ||= Hotel.find(params[:hotel_id])
-    end
-
     def address
       @address ||= Address.find(params[:id])
     rescue ActiveRecord::RecordNotFound
       flash[:alert] = I18n.t('address.not_found')
-      redirect_to admins_path
+      redirect_to admins_admin_root_path
     end
 
     def success_response
       respond_to do |format|
-        format.html { redirect_to admins_hotel_path(@hotel) }
+        format.html { redirect_to admins_admin_root_path }
         format.turbo_stream do
           flash[:notice] = I18n.t('address.create.success')
           render turbo_stream: [
@@ -56,7 +51,7 @@ module Admins
 
     def failure_response
       respond_to do |format|
-        format.html { redirect_to admins_hotels_path(@hotel), status: :unprocessable_entity }
+        format.html { redirect_to admins_admin_root_path, status: :unprocessable_entity }
         format.turbo_stream do
           flash.now[:alert] = I18n.t('address.create.error')
           render turbo_stream: [
@@ -68,7 +63,7 @@ module Admins
 
     def destroy_response
       respond_to do |format|
-        format.html { redirect_to admins_hotels_path }
+        format.html { redirect_to admins_admin_root_path }
         format.turbo_stream do
           flash[:notice] = I18n.t('address.destroy.success')
           render turbo_stream: [

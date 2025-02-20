@@ -9,11 +9,12 @@ RSpec.describe 'Admins::Facilities', type: :request do
 
   before do
     sign_in admin, scope: :admin
+    subdomain hotel.subdomain
   end
 
   describe 'GET /index' do
     subject do
-      get admins_hotel_facilities_path(hotel)
+      get admins_facilities_path
       response
     end
 
@@ -22,7 +23,7 @@ RSpec.describe 'Admins::Facilities', type: :request do
 
   describe 'GET /new' do
     subject do
-      get new_admins_hotel_facility_path(hotel)
+      get new_admins_facility_path
       response
     end
 
@@ -32,7 +33,7 @@ RSpec.describe 'Admins::Facilities', type: :request do
   describe 'POST /create' do
     context 'with valid params' do
       subject(:create_facility) do
-        post admins_hotel_facilities_path(hotel), params: { facility: valid_facility_params }
+        post admins_facilities_path, params: { facility: valid_facility_params }
         response
       end
 
@@ -44,7 +45,7 @@ RSpec.describe 'Admins::Facilities', type: :request do
       end
 
       it { is_expected.to have_http_status :found }
-      it { is_expected.to redirect_to admins_hotel_facilities_path(hotel) }
+      it { is_expected.to redirect_to admins_facilities_path }
       it { expect { create_facility }.to change(Facility, :count).by(1) }
 
       # rubocop:disable RSpec/MultipleExpectations
@@ -59,7 +60,7 @@ RSpec.describe 'Admins::Facilities', type: :request do
 
     context 'with invalid params' do
       subject(:create_facility) do
-        post admins_hotel_facilities_path(hotel), params: { facility: invalid_facility_params }
+        post admins_facilities_path, params: { facility: invalid_facility_params }
         response
       end
 
@@ -73,7 +74,7 @@ RSpec.describe 'Admins::Facilities', type: :request do
 
   describe 'GET /edit' do
     subject do
-      get edit_admins_hotel_facility_path(hotel, facility)
+      get edit_admins_facility_path(facility)
       response
     end
 
@@ -83,7 +84,7 @@ RSpec.describe 'Admins::Facilities', type: :request do
   describe 'put /update' do
     context 'with valid params' do
       subject(:update_facility) do
-        put admins_hotel_facility_path(hotel, facility), params: { facility: valid_facility_params }
+        put admins_facility_path(facility), params: { facility: valid_facility_params }
         response
       end
 
@@ -95,7 +96,7 @@ RSpec.describe 'Admins::Facilities', type: :request do
       end
 
       it { is_expected.to have_http_status :found }
-      it { is_expected.to redirect_to admins_hotel_facilities_path(hotel) }
+      it { is_expected.to redirect_to admins_facilities_path }
       it { expect { update_facility }.not_to change(Facility, :count) }
 
       # rubocop:disable RSpec/MultipleExpectations
@@ -110,7 +111,7 @@ RSpec.describe 'Admins::Facilities', type: :request do
 
     context 'with invalid params' do
       subject(:update_facility) do
-        put admins_hotel_facility_path(hotel, facility), params: { facility: invalid_facility_params }
+        put admins_facility_path(facility), params: { facility: invalid_facility_params }
         response
       end
 
@@ -129,11 +130,11 @@ RSpec.describe 'Admins::Facilities', type: :request do
 
   describe 'DELETE /destroy' do
     subject(:delete_facility) do
-      delete admins_hotel_facility_path(hotel, facility)
+      delete admins_facility_path(facility)
       response
     end
 
-    it { is_expected.to redirect_to admins_hotel_facilities_path(hotel) }
+    it { is_expected.to redirect_to admins_facilities_path }
     it { expect { delete_facility }.to change(Facility, :count).by(-1) }
   end
 end

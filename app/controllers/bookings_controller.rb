@@ -7,28 +7,27 @@ class BookingsController < HomeController
   before_action :booking_service, only: %i[create confirm update_confirmation]
   before_action :booking, only: %i[destroy confirm update_confirmation]
 
-  def index; end
-
-  def new; end
+  def new
+    @booking = @hotel.bookings.new
+    @booking.build_guest
+  end
 
   def create
+    return if check_overlapping_booking
+
     result = @booking_service.create_booking(booking_params, @offers)
 
-    if result[:success]
+    if result && result[:success]
       schedule_background_jobs(result[:booking])
-      render json: { ok: true }, status: :ok
+      render json: { ok: true, message: I18n.t('booking.create.success') }, status: :ok
     else
-      render json: { ok: false }, status: :unprocessable_entity
+      render json: { ok: false, message: I18n.t('booking.create.error') }, status: :unprocessable_entity
     end
   end
 
   def destroy
-    if room_booked? && !payment_completed?
-      flash[:alert] = I18n.t('booking.payment-missing')
-    elsif @booking.destroy
-      @booking.room.update(status: :available)
-      flash[:notice] = I18n.t('booking.destroy.success')
-    end
+    @booking.update(status: :cancelled)
+    flash[:notice] = I18n.t('booking.cancel')
 
     redirect_to room_path(@room)
   end
@@ -49,7 +48,7 @@ class BookingsController < HomeController
     if result
       flash[:notice] = I18n.t('booking.confirmed')
     else
-      flash[:alert] = result[:error]
+      flash[:alert] = I18n.t('booking.update.error')
     end
     redirect_to room_path(@room)
   end
@@ -72,18 +71,33 @@ class BookingsController < HomeController
     @booking ||= @hotel.bookings.find(params[:id])
   rescue ActiveRecord::RecordNotFound
     flash[:alert] = I18n.t('booking.not-found')
-    redirect_to admins_hotel_bookings_path(hotel)
+    redirect_to room_path(@room)
   end
 
   def room_booked?
-    @booking.room.status == 'booked'
+    @booking.status == 'booked'
   end
 
   def payment_completed?
     @booking.payment_status == 'completed'
   end
 
+  def check_overlapping_booking
+    if overlapping_bookings?(booking_params[:checkin_date], booking_params[:checkout_date])
+      render json: { ok: false, message: I18n.t('booking.date_error') }, status: :conflict
+      return true
+    end
+    false
+  end
+
+  def overlapping_bookings?(checkin_date, checkout_date)
+    @room.bookings.where(confirmed: true).any? do |existing_booking|
+      checkin_date < existing_booking.checkout_date && checkout_date > existing_booking.checkin_date
+    end
+  end
+
   def schedule_background_jobs(booking)
+    # checkout_time = booking.checkout_date.to_datetime.advance(days: -1).end_of_day
     BookingCleanupWorker.perform_at(booking.confirmation_expires_at, booking.hotel.id, booking.id)
     FeedbackWorker.perform_at(3.minutes.from_now, booking.hotel.id, booking.id)
   end
@@ -96,7 +110,7 @@ class BookingsController < HomeController
       :num_of_adult,
       :num_of_children,
       :room_id,
-      :payment_status,
+      :payment_status, :status,
       guest_attributes: %i[id first_name last_name contact_no email country region city hotel_id]
     )
   end

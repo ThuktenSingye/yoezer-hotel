@@ -3,7 +3,7 @@
   <div class="card">
     <h2 class="title p-4">Room Booking</h2>
     <div class="m-4">
-      <%= form_with(model: [ :admins , @hotel, @room , @booking], local: true,data: { turbo: false }, class: "flex flex-col justify-center") do |f| %>
+      <%= form_with(model: [ :admins , @room , @booking], class: "flex flex-col justify-center") do |f| %>
         <% if @booking.errors.any? %>
           <div id="error_explanation" class="flex flex-col items-center">
             <h2 class="text-text-color/50"><%= pluralize(@booking.errors.count, "error") %>:</h2>
@@ -93,9 +93,9 @@
         <div class="flex items-center mt-4 gap-5">
           <%= f.submit "Book", class: "btn" %>
           <% if @booking.persisted? %>
-            <%= link_to "Cancel", admins_hotel_room_path(@hotel, @room), class: "btn", data: { turbo_frame: "_top"} %>
+            <%= link_to "Cancel", admins_room_path(@room), class: "btn", data: { turbo_frame: "_top"} %>
           <% else %>
-            <%= link_to "Cancel", admins_hotel_rooms_path(@hotel), class: "btn", data: { turbo_frame: "_top"} %>
+            <%= link_to "Cancel", admins_rooms_path, class: "btn", data: { turbo_frame: "_top"} %>
           <% end %>
         </div>
       <% end %>

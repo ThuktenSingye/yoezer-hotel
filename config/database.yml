@@ -18,11 +18,16 @@ default: &default
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  host: <%= ENV.fetch("DATABASE_HOST", "db") %>
+  port: <%= ENV.fetch("DATABASE_PORT", 5432) %>
+  username: <%= ENV.fetch("DATABASE_USER", "thukten") %>
+  password: <%= ENV.fetch("DATABASE_PASSWORD", "thukten") %>
+  database: <%= ENV.fetch("DATABASE_NAME", "yoezer_hotel_db") %>
 
 
 development:
   <<: *default
-  database: yoezer_hotel_development
+  database: <%= ENV.fetch("DATABASE_NAME","yoezer_hotel_development") %>
 
   # The specified database role being used to connect to PostgreSQL.
   # To create additional roles in PostgreSQL see `$ createuser --help`.
@@ -56,7 +61,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: yoezer_hotel_test
+  database: <%= ENV.fetch("DATABASE_NAME", "yozer_hotel_test") %>
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -81,9 +86,9 @@ test:
 production:
   primary: &primary_production
     <<: *default
-    database: yoezer_hotel_production
-    username: yoezer_hotel
-    password: <%= ENV["YOEZER_HOTEL_DATABASE_PASSWORD"] %>
+    database: <%= ENV.fetch("DATABASE_NAME", "yoezer_hotel_db") %>
+    username: <%= ENV.fetch("DATABASE_USER", "thukten") %>
+    password: <%= ENV.fetch("DATABASE_PASSWORD", "thukten") %>
   cache:
     <<: *primary_production
     database: yoezer_hotel_production_cache

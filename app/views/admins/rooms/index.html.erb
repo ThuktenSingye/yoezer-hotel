@@ -1,17 +1,20 @@
 <div class="mx-4 mb-4">
   <div class="w-full mx-auto">
+    <div id="flash" class="flash">
+      <%= render "shared/flash" %>
+    </div>
     <div class="w-full flex justify-between items-center mt-4">
       <h1 class="title mx-4">Rooms</h1>
       <div>
-        <%= link_to "Add", new_admins_hotel_room_path(@hotel), class: "btn" %>
+        <%= link_to "Add", new_admins_room_path, class: "btn" %>
       </div>
     </div>
     <div class="mx-4">
-      <%= form_with(url: admins_hotel_rooms_path(@hotel),
+      <%= form_with(url: admins_rooms_path,
                     method: :get, data: { turbo_frame: "room_search_result", turbo_action: "advance", controller: "search" }) do |form| %>
         <%= form.select :status, Room.statuses.keys.map { |s| [s.humanize, s] },{ prompt: "Filter by Status"}, class: "query-field text-primary-regular",data: { action: "change->search#search" } %>
         <%= form.collection_select :room_category_id, RoomCategory.all, :id, :name,{ prompt: "Filter by Category"}, class: "query-field text-primary-regular",data: { action: "change->search#search" } %>
-        <%= form.search_field :query, class: "query-field", placeholder: "Search", data: { action: "input->search#search"} %>
+        <%= form.select :query, [['1000 - 1500', '1000-1500'], ['1500 - 2000', '1500-2000'], ['2000 +', '2000+']], { prompt: "Filter by Price/night" }, class: "query-field text-primary-regular", data: { action: "input->search#search" } %>
       <% end %>
     </div>
     <turbo-frame id="room_search_result">

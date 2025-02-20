@@ -9,11 +9,12 @@ RSpec.describe 'Admins::RoomCategories', type: :request do
 
   before do
     sign_in admin, scope: :admin
+    subdomain hotel.subdomain
   end
 
   describe 'GET /index' do
     subject do
-      get admins_hotel_room_categories_path(hotel)
+      get admins_room_categories_path
       response
     end
 
@@ -22,7 +23,7 @@ RSpec.describe 'Admins::RoomCategories', type: :request do
 
   describe 'GET /new' do
     subject do
-      get new_admins_hotel_room_category_path(hotel)
+      get new_admins_room_category_path
       response
     end
 
@@ -31,7 +32,7 @@ RSpec.describe 'Admins::RoomCategories', type: :request do
 
   describe 'GET /edit' do
     subject do
-      get edit_admins_hotel_room_category_path(hotel, room_category)
+      get edit_admins_room_category_path(room_category)
       response
     end
 
@@ -41,7 +42,7 @@ RSpec.describe 'Admins::RoomCategories', type: :request do
   describe 'PUT /update' do
     context 'with valid params' do
       subject(:update_room_category) do
-        put admins_hotel_room_category_path(hotel, room_category), params: { room_category: valid_room_category_params }
+        put admins_room_category_path(room_category), params: { room_category: valid_room_category_params }
         response
       end
 
@@ -52,7 +53,7 @@ RSpec.describe 'Admins::RoomCategories', type: :request do
       end
 
       it { is_expected.to have_http_status :found }
-      it { is_expected.to redirect_to admins_hotel_room_categories_path(hotel) }
+      it { is_expected.to redirect_to admins_room_categories_path }
       it { expect { :update_room_category }.not_to change(RoomCategory, :count) }
 
       it 'update room category with correct name' do
@@ -63,7 +64,7 @@ RSpec.describe 'Admins::RoomCategories', type: :request do
 
     context 'with invalid params' do
       subject(:update_room_category) do
-        put admins_hotel_room_category_path(hotel, room_category),
+        put admins_room_category_path(room_category),
             params: { room_category: invalid_room_category_params }
         response
       end
@@ -84,7 +85,7 @@ RSpec.describe 'Admins::RoomCategories', type: :request do
   describe 'POST /create' do
     context 'with valid params' do
       subject(:create_room_category) do
-        post admins_hotel_room_categories_path(hotel), params: { room_category: valid_room_category_params }
+        post admins_room_categories_path, params: { room_category: valid_room_category_params }
         response
       end
 
@@ -95,7 +96,7 @@ RSpec.describe 'Admins::RoomCategories', type: :request do
       end
 
       it { is_expected.to have_http_status :found }
-      it { is_expected.to redirect_to admins_hotel_room_categories_path(hotel) }
+      it { is_expected.to redirect_to admins_room_categories_path }
       it { expect { create_room_category }.to change(RoomCategory, :count).by(1) }
 
       it 'creates a hotel gallery with the correct name' do
@@ -106,7 +107,7 @@ RSpec.describe 'Admins::RoomCategories', type: :request do
 
     context 'with invalid params' do
       subject(:create_room_category) do
-        post admins_hotel_room_categories_path(hotel), params: { room_category: invalid_room_category_params }
+        post admins_room_categories_path, params: { room_category: invalid_room_category_params }
         response
       end
 
@@ -120,11 +121,11 @@ RSpec.describe 'Admins::RoomCategories', type: :request do
 
   describe 'DELETE /destroy' do
     subject(:delete_room_category) do
-      delete admins_hotel_room_category_path(hotel, room_category)
+      delete admins_room_category_path(room_category)
       response
     end
 
-    it { is_expected.to redirect_to admins_hotel_room_categories_path(hotel) }
+    it { is_expected.to redirect_to admins_room_categories_path }
     it { expect { delete_room_category }.to change(RoomCategory, :count).by(-1) }
   end
 end

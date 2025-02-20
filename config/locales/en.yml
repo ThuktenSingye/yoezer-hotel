@@ -69,6 +69,7 @@
         success: "Feedback removed successfully."
       already_given: "You have already given feedback. Thank You!."
       token_expired: "Invalid Token or Token Expired. Cannot Provide Feedback."
+      email_subject: "Thank You for Choosing Us!"
 
     gallery:
       create:
@@ -178,6 +179,7 @@
       destroy:
         success: "Guest removed successfully."
       not-found: "Guest not found"
+      destroy_all: "All guest deleted Successfully."
 
     booking:
       create:
@@ -188,12 +190,13 @@
         error: "Failed to update Booking."
       destroy:
         success: "Booking removed successfully."
-      not-found: "Booking not found."
+      cancel: "Booking cancelled successfully."
+      not-found: "Booking not found. Please confirm your booking before it expires."
       confirmed: "Booking Confirm.Thank you. Enjoy your Stay!"
       invalid-confirmation: "Invalid Confirmation Token!"
       expired: "Your confirmation link has expired. Please request a new one!"
       confirmation-email-subject: "Room Booking Confirmation Email"
       success-email-subject: "Booking Confirmation Successful"
       update-email-subject: "Booking Detail Update"
-      missing-date: "Booking Date are missing!."
+      date_error: "Sorry, the room is already booked for the selected date.Please choose different date!"
       payment-missing: "Payment not made!. Update the payment status to completed before deleting!"

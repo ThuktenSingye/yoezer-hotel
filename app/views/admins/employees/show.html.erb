@@ -1,6 +1,9 @@
 <div class="card-container mb-4">
   <div class="card">
     <turbo-frame id="<%= dom_id @employee %>" class="block">
+      <div id="flash" class="flash">
+        <%= render "shared/flash" %>
+      </div>
       <div class="m-4" role="region" aria-labelledby="employee-<%= dom_id @employee %>">
         <div class="flex flex-col justify-center">
           <div class="mb-2">
@@ -55,11 +58,11 @@
           <hr class="bg-primary-regular h-0.5 my-2">
           <div class="flex justify-between items-center gap-2 mt-2">
             <div>
-              <%= link_to "Back", admins_hotel_employees_path(@hotel), data: { turbo_frame: "_top"} ,class: "btn" %>
+              <%= link_to "Back", admins_employees_path, data: { turbo_frame: "_top"} ,class: "btn" %>
             </div>
             <div class="flex gap-2 items-center">
-              <%= link_to "Edit", edit_admins_hotel_employee_path(@hotel, @employee), class: "btn" %>
-              <%= link_to 'Delete', admins_hotel_employee_path(@hotel, @employee), data: { turbo_method: :delete, turbo_confirm: "Are you sure to delete?"}, class: "btn" %>
+              <%= link_to "Edit", edit_admins_employee_path(@employee), class: "btn" %>
+              <%= link_to 'Delete', admins_employee_path(@employee), data: { turbo_method: :delete, turbo_confirm: "Are you sure to delete?"}, class: "btn" %>
             </div>
           </div>
         </div>

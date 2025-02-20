@@ -12,11 +12,11 @@
     <hr class="bg-primary-regular h-0.5 my-2">
     <div class="flex justify-between items-center gap-2 my-2">
       <div>
-        <%= link_to "Back", admins_hotel_hotel_galleries_path(@hotel), data: { turbo_frame: "_top"} ,class: "btn" %>
+        <%= link_to "Back", admins_hotel_galleries_path, data: { turbo_frame: "_top"} ,class: "btn" %>
       </div>
       <div>
-        <%= link_to "Edit", edit_admins_hotel_hotel_gallery_path(@hotel, hotel_gallery),class: "btn" %>
-        <%= link_to 'Delete', admins_hotel_hotel_gallery_path(@hotel, hotel_gallery), data: { turbo_method: :delete, turbo_confirm: "Are you sure to delete?", turbo_frame: "_top" }, class: "btn" %>
+        <%= link_to "Edit", edit_admins_hotel_gallery_path(hotel_gallery),class: "btn" %>
+        <%= link_to 'Delete', admins_hotel_gallery_path(@hotel_gallery), data: { turbo_method: :delete, turbo_confirm: "Are you sure to delete?", turbo_frame: "_top" }, class: "btn" %>
       </div>
     </div>
   </div>

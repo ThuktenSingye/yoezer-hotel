@@ -10,11 +10,12 @@ RSpec.describe 'Admins::Rooms', type: :request do
 
   before do
     sign_in admin, scope: :admin
+    subdomain hotel.subdomain
   end
 
   describe 'GET /index' do
     subject do
-      get admins_hotel_rooms_path(hotel)
+      get admins_rooms_path
       response
     end
 
@@ -23,7 +24,7 @@ RSpec.describe 'Admins::Rooms', type: :request do
 
   describe 'GET /new' do
     subject do
-      get new_admins_hotel_room_path(hotel)
+      get new_admins_room_path
       response
     end
 
@@ -33,7 +34,7 @@ RSpec.describe 'Admins::Rooms', type: :request do
   describe 'GET /show' do
     context 'when room record exists' do
       subject do
-        get admins_hotel_room_path(hotel, room)
+        get admins_room_path(room)
         response
       end
 
@@ -42,17 +43,17 @@ RSpec.describe 'Admins::Rooms', type: :request do
 
     context 'when room record does not exist' do
       subject do
-        get admins_hotel_room_path(hotel, room.id + 1)
+        get admins_room_path(room.id + 1)
         response
       end
 
-      it { is_expected.to redirect_to(admins_hotel_rooms_path(hotel)) }
+      it { is_expected.to redirect_to admins_rooms_path }
     end
   end
 
   describe 'GET /edit' do
     subject do
-      get edit_admins_hotel_room_path(hotel, room)
+      get edit_admins_room_path(room)
       response
     end
 
@@ -62,7 +63,7 @@ RSpec.describe 'Admins::Rooms', type: :request do
   describe 'UPDATE /update' do
     context 'with valid params' do
       subject(:update_room) do
-        put admins_hotel_room_path(hotel, room), params: { room: valid_room_params }
+        put admins_room_path(room), params: { room: valid_room_params }
         response
       end
 
@@ -70,7 +71,7 @@ RSpec.describe 'Admins::Rooms', type: :request do
         {
           room_number: Faker::Number.unique.number(digits: 3).to_s,
           floor_number: Faker::Number.number(digits: 1),
-          status: :booked,
+          status: :available,
           description: Faker::Lorem.sentence,
           max_no_adult: Faker::Number.number(digits: 2),
           max_no_children: Faker::Number.number(digits: 2),
@@ -85,7 +86,7 @@ RSpec.describe 'Admins::Rooms', type: :request do
       end
 
       it { is_expected.to have_http_status :found }
-      it { is_expected.to redirect_to admins_hotel_room_path(hotel, room) }
+      it { is_expected.to redirect_to admins_room_path(room) }
       it { expect { update_room }.not_to change(Room, :count) }
 
       # rubocop:disable RSpec/ExampleLength, RSpec/MultipleExpectations
@@ -107,7 +108,7 @@ RSpec.describe 'Admins::Rooms', type: :request do
 
     context 'with invalid params' do
       subject(:update_room) do
-        put admins_hotel_room_path(hotel, room), params: { room: invalid_room_params }
+        put admins_room_path(room), params: { room: invalid_room_params }
         response
       end
 
@@ -129,7 +130,7 @@ RSpec.describe 'Admins::Rooms', type: :request do
   describe 'POST /create' do
     context 'with valid params' do
       subject(:create_room) do
-        post admins_hotel_rooms_path(hotel), params: { room: valid_room_params }
+        post admins_rooms_path, params: { room: valid_room_params }
         response
       end
 
@@ -137,7 +138,7 @@ RSpec.describe 'Admins::Rooms', type: :request do
         {
           room_number: Faker::Number.unique.number(digits: 3).to_s,
           floor_number: Faker::Number.number(digits: 1),
-          status: :booked,
+          status: :available,
           description: Faker::Lorem.sentence,
           max_no_adult: Faker::Number.number(digits: 2),
           max_no_children: Faker::Number.number(digits: 2),
@@ -152,7 +153,7 @@ RSpec.describe 'Admins::Rooms', type: :request do
       end
 
       it { is_expected.to have_http_status :found }
-      it { is_expected.to redirect_to admins_hotel_rooms_path(hotel) }
+      it { is_expected.to redirect_to admins_rooms_path }
       it { expect { create_room }.to change(Room, :count).by(1) }
 
       # rubocop:disable RSpec/ExampleLength, RSpec/MultipleExpectations
@@ -174,7 +175,7 @@ RSpec.describe 'Admins::Rooms', type: :request do
 
     context 'with invalid params' do
       subject(:create_room) do
-        post admins_hotel_rooms_path(hotel), params: { room: invalid_room_params }
+        post admins_rooms_path, params: { room: invalid_room_params }
         response
       end
 
@@ -190,11 +191,11 @@ RSpec.describe 'Admins::Rooms', type: :request do
 
   describe 'DELETE /destroy' do
     subject(:delete_room) do
-      delete admins_hotel_room_path(hotel, room)
+      delete admins_room_path(room)
       response
     end
 
-    it { is_expected.to redirect_to admins_hotel_rooms_path(hotel) }
+    it { is_expected.to redirect_to admins_rooms_path }
     it { expect { delete_room }.to change(Room, :count).by(-1) }
   end
 end

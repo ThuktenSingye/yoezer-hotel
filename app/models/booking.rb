@@ -8,6 +8,7 @@ class Booking < ApplicationRecord
   accepts_nested_attributes_for :guest, allow_destroy: true
 
   enum :payment_status, { pending: 0, completed: 1, refunded: 2 }
+  enum :status, { reserved: 0, booked: 1, cancelled: 2 }
 
   validates :checkin_date, :checkout_date, :num_of_adult, :num_of_children, presence: true
 

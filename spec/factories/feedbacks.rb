@@ -7,4 +7,10 @@ FactoryBot.define do
     feedback { Faker::Lorem.sentence }
     association :hotel, factory: :hotel
   end
+
+  trait :invalid_feedback do
+    name { nil }
+    email { nil }
+    feedback { nil }
+  end
 end

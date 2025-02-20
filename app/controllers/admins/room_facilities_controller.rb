@@ -3,7 +3,6 @@
 module Admins
   # Controller for Room Facilities
   class RoomFacilitiesController < AdminsController
-    before_action :hotel
     before_action :room
     before_action :room_facility, only: :destroy
 
@@ -14,20 +13,16 @@ module Admins
       else
         flash.now[:alert] = I18n.t('room_facility.create.error')
       end
-      redirect_to admins_hotel_room_path(@hotel, @room)
+      redirect_to admins_room_path(@room)
     end
 
     def destroy
       @room_facility.destroy
       flash[:notice] = I18n.t('room_facility.destroy.success')
-      redirect_to admins_hotel_room_path(@hotel, @room)
+      redirect_to admins_room_path(@room)
     end
 
     private
-
-    def hotel
-      @hotel ||= Hotel.find(params[:hotel_id])
-    end
 
     def room
       @room ||= Room.find(params[:room_id])

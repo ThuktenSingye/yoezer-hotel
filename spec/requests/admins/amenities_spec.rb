@@ -9,11 +9,12 @@ RSpec.describe 'AdminPanel::Amenities', type: :request do
 
   before do
     sign_in admin, scope: :admin
+    subdomain hotel.subdomain
   end
 
   describe 'GET /index' do
     subject do
-      get admins_hotel_amenities_path(hotel)
+      get admins_amenities_path
       response
     end
 
@@ -22,7 +23,7 @@ RSpec.describe 'AdminPanel::Amenities', type: :request do
 
   describe 'GET /new' do
     subject do
-      get new_admins_hotel_amenity_path(hotel)
+      get new_admins_amenity_path
       response
     end
 
@@ -32,7 +33,7 @@ RSpec.describe 'AdminPanel::Amenities', type: :request do
   describe 'POST /create' do
     context 'with valid params' do
       subject(:create_amenity) do
-        post admins_hotel_amenities_path(hotel), params: { amenity: valid_amenity_params }
+        post admins_amenities_path, params: { amenity: valid_amenity_params }
         response
       end
 
@@ -46,7 +47,7 @@ RSpec.describe 'AdminPanel::Amenities', type: :request do
       before { create_amenity }
 
       it { is_expected.to have_http_status(:found) }
-      it { is_expected.to redirect_to(admins_hotel_amenities_path(hotel)) }
+      it { is_expected.to redirect_to(admins_amenities_path) }
       it { expect(Amenity.last).to have_attributes(name: valid_amenity_params[:name]) }
       it { expect(Amenity.last.image).to be_attached }
       it { expect(Amenity.last.image.filename.to_s).to eq(valid_amenity_params[:image].original_filename) }
@@ -54,7 +55,7 @@ RSpec.describe 'AdminPanel::Amenities', type: :request do
 
     context 'with invalid params' do
       subject(:create_amenity) do
-        post admins_hotel_amenities_path(hotel, amenity), params: { amenity: invalid_amenity_params }
+        post admins_amenities_path(amenity), params: { amenity: invalid_amenity_params }
         response
       end
 
@@ -68,7 +69,7 @@ RSpec.describe 'AdminPanel::Amenities', type: :request do
 
   describe 'GET /edit' do
     subject do
-      get edit_admins_hotel_amenity_path(hotel, amenity)
+      get edit_admins_amenity_path(amenity)
       response
     end
 
@@ -78,7 +79,7 @@ RSpec.describe 'AdminPanel::Amenities', type: :request do
   describe 'put /update' do
     context 'with valid params' do
       subject(:update_amenity) do
-        put admins_hotel_amenity_path(hotel, amenity), params: { amenity: valid_amenity_params }
+        put admins_amenity_path(amenity), params: { amenity: valid_amenity_params }
         response
       end
 
@@ -92,7 +93,7 @@ RSpec.describe 'AdminPanel::Amenities', type: :request do
       before { update_amenity }
 
       it { is_expected.to have_http_status :found }
-      it { is_expected.to redirect_to admins_hotel_amenities_path(hotel) }
+      it { is_expected.to redirect_to admins_amenities_path }
       it { expect(Amenity.last).to have_attributes(name: valid_amenity_params[:name]) }
       it { expect(Amenity.last.image).to be_attached }
       it { expect(Amenity.last.image.filename.to_s).to eq(valid_amenity_params[:image].original_filename) }
@@ -100,7 +101,7 @@ RSpec.describe 'AdminPanel::Amenities', type: :request do
 
     context 'with invalid params' do
       subject(:update_amenity) do
-        put admins_hotel_amenity_path(hotel, amenity), params: { amenity: invalid_amenity_params }
+        put admins_amenity_path(amenity), params: { amenity: invalid_amenity_params }
         response
       end
 
@@ -119,11 +120,11 @@ RSpec.describe 'AdminPanel::Amenities', type: :request do
 
   describe 'DELETE /destroy' do
     subject(:delete_amenity) do
-      delete admins_hotel_amenity_path(hotel, amenity)
+      delete admins_amenity_path(amenity)
       response
     end
 
-    it { is_expected.to redirect_to admins_hotel_amenities_path }
+    it { is_expected.to redirect_to admins_amenities_path }
     it { expect { delete_amenity }.to change(Amenity, :count).by(-1) }
   end
 end

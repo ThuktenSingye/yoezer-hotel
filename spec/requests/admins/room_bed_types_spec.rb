@@ -10,13 +10,14 @@ RSpec.describe 'Admins::RoomBedTypes', type: :request do
 
   before do
     sign_in admin, scope: :admin
+    subdomain hotel.subdomain
   end
 
   describe 'POST /create' do
     # rubocop:disable RSpec/MultipleMemoizedHelpers
     context 'with valid params' do
       subject(:create_room_bed_type) do
-        post admins_hotel_room_room_bed_types_path(hotel, room), params: { room_bed_type: valid_room_bed_type_params }
+        post admins_room_room_bed_types_path(room), params: { room_bed_type: valid_room_bed_type_params }
         response
       end
 
@@ -29,7 +30,7 @@ RSpec.describe 'Admins::RoomBedTypes', type: :request do
       end
 
       it { is_expected.to have_http_status :found }
-      it { is_expected.to redirect_to admins_hotel_room_path(hotel, room) }
+      it { is_expected.to redirect_to admins_room_path(room) }
       it { expect { create_room_bed_type }.to change(RoomBedType, :count).by(1) }
 
       it 'creates a room bed type with the correct num of bed' do
@@ -46,25 +47,25 @@ RSpec.describe 'Admins::RoomBedTypes', type: :request do
 
     context 'with invalid params' do
       subject(:create_room_bed_type) do
-        post admins_hotel_room_room_bed_types_path(hotel, room),
+        post admins_room_room_bed_types_path(room),
              params: { room_bed_type: invalid_room_bed_type_params }
         response
       end
 
       let(:invalid_room_bed_type_params) { FactoryBot.attributes_for(:room_bed_type, :invalid_room_bed_type) }
 
-      it { is_expected.to redirect_to admins_hotel_room_path(hotel, room) }
+      it { is_expected.to redirect_to admins_room_path(room) }
       it { expect { create_room_bed_type }.not_to change(RoomBedType, :count) }
     end
   end
 
   describe 'DELETE /destroy' do
     subject(:delete_room_bed_type) do
-      delete admins_hotel_room_room_bed_type_path(hotel, room, room_bed_type)
+      delete admins_room_room_bed_type_path(room, room_bed_type)
       response
     end
 
-    it { is_expected.to redirect_to admins_hotel_room_path(hotel, room) }
+    it { is_expected.to redirect_to admins_room_path(room) }
     it { expect { delete_room_bed_type }.to change(RoomBedType, :count).by(-1) }
   end
 end

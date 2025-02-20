@@ -1,5 +1,5 @@
 <div class="m-4">
-  <%= form_with(model: [ :admins, @hotel, amenity], local: true, class: "flex flex-col justify-center")  do |f| %>
+  <%= form_with(model: [ :admins, amenity], local: true, enctype: "multipart/form-data",class: "flex flex-col justify-center")  do |f| %>
     <% if amenity.errors.any? %>
       <div id="error_explanation" class="flex flex-col items-center">
         <h2 class="text-text-color/50"><%= pluralize(amenity.errors.count, "error") %>:</h2>
@@ -31,7 +31,7 @@
     <hr class="h-0.5 bg-primary-regular">
     <div class="flex items-center mt-4 gap-5">
       <%= f.submit "Save", class: "btn" %>
-      <%= link_to "Cancel", admins_hotel_amenities_path(@hotel), data: {"turbo-frame": "_top"}, class: "btn" %>
+      <%= link_to "Cancel", admins_amenities_path, data: {"turbo-frame": "_top"}, class: "btn" %>
     </div>
   <% end %>
 </div>

@@ -9,6 +9,7 @@ RSpec.describe 'Admins::Addresses', type: :request do
 
   before do
     sign_in admin, scope: :admin
+    subdomain hotel.subdomain
   end
 
   describe 'POST /admins/addresses' do
@@ -17,12 +18,12 @@ RSpec.describe 'Admins::Addresses', type: :request do
 
     context 'with valid attributes' do
       subject(:create_address) do
-        post admins_hotel_addresses_path(hotel), params: { address: valid_address_params }
+        post admins_hotel_addresses_path, params: { address: valid_address_params }
         response
       end
 
       it { is_expected.to have_http_status(:found) }
-      it { is_expected.to redirect_to admins_hotel_path(hotel) }
+      it { is_expected.to redirect_to admins_admin_root_path }
       it { expect { create_address }.to change(Address, :count).by(1) }
 
       it 'create an address with correct attributes' do
@@ -36,7 +37,7 @@ RSpec.describe 'Admins::Addresses', type: :request do
 
     context 'with invalid attributes' do
       subject(:create_address) do
-        post admins_hotel_addresses_path(hotel), params: { address: invalid_address_params }
+        post admins_hotel_addresses_path, params: { address: invalid_address_params }
         response
       end
 
@@ -51,6 +52,6 @@ RSpec.describe 'Admins::Addresses', type: :request do
       response
     end
 
-    it { is_expected.to redirect_to(admins_hotels_path) }
+    it { is_expected.to redirect_to admins_admin_root_path }
   end
 end

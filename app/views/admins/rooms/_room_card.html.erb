@@ -34,6 +34,6 @@
       <%= render 'shared/rating', rating: rating, stars: stars %>
       <p class="font-title font-bold tracking-widest text-primary-regular text-2xl "><%= rating.round(1).to_s %></p>
     </div>
-    <%= link_to "View More", admins_hotel_room_path(@hotel, room), class:"btn", data: { turbo_frame: "_top"} %>
+    <%= link_to "View More", admins_room_path(room), class:"btn", data: { turbo_frame: "_top"} %>
   </div>
 </div>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= content_for(:title) || "Yoezer Hotel" %></title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= yield :head %>
+
+  <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
+  <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+
+  <link rel="icon" href="/icon.png" type="image/png">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/icon.png">
+  <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css">
+  <link rel="stylesheet" href="https://ga.jspm.io/npm:flatpickr@4.6.9/dist/flatpickr.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css">
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+  <%# Includes all stylesheet files in app/assets/stylesheets %>
+
+  <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+  <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+  <%= javascript_importmap_tags %>
+</head>
+
+<body class="bg-background font-poppins text-text-color text-sm md:text-base">
+  <main class="w-full">
+    <div id="flash" class="flash">
+      <%= render "shared/user_flash" %>
+    </div>
+    <%= yield %>
+  </main>
+  <%= render 'shared/header' %>
+  <%= render 'shared/footer' %>
+</body>
+</html>

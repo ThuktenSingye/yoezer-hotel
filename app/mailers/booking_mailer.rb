@@ -2,12 +2,10 @@
 
 # Booking Mailer class
 class BookingMailer < ApplicationMailer
-  # rubocop:disable Metrics/MethodLength
   def confirmation_email(hotel_id, booking_id)
     @hotel = Hotel.find(hotel_id)
     @booking = @hotel.bookings.find(booking_id)
     @confirmation_link = confirm_room_booking_url(
-      subdomain: @hotel.subdomain,
       room_id: @booking.room.id,
       id: @booking.id,
       token: @booking.confirmation_token
@@ -15,7 +13,6 @@ class BookingMailer < ApplicationMailer
     mail(to: @booking.guest.email, subject: I18n.t('booking.confirmation-email-subject'), from: @hotel.email)
   rescue ActiveRecord::RecordNotFound
     Rails.logger.info "Couldn't  find Booking Record"
-    # rubocop:enable Metrics/MethodLength
   end
 
   def booking_success_email(hotel_id, booking_id)

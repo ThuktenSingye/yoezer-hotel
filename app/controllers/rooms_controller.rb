@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Room Controller for User
-class RoomsController < HomeController
+class RoomsController < UsersController
   before_action :room, only: [:show]
   before_action :offers
 

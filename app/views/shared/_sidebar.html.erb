@@ -54,37 +54,37 @@
               data-transition-leave-start="transform opacity-100 scale-100"
               data-transition-leave-end="transform opacity-0 scale-95">
               <li class="sidebar-menu-row <%= active_class_for_sidebar('admins/hotels') %>">
-                <%= link_to admins_hotels_path, class: "w-full flex items-center" do %>
+                <%= link_to admins_admin_root_path, class: "w-full flex items-center" do %>
                   <%= icon("fa-solid", "building", class: "w-6 #{icon_class_for_sidebar('admins/hotels')}" ) %>
                   <span class="text-sm ml-2 <%= icon_class_for_sidebar('admins/hotels') %>">Hotels</span>
                 <% end %>
               </li>
 
               <li class="sidebar-menu-row <%= active_class_for_sidebar('admins/amenities') %>">
-                <%= link_to admins_hotel_amenities_path(hotel), class: "w-full flex items-center" do %>
+                <%= link_to  admins_amenities_path, class: "w-full flex items-center" do %>
                   <%= icon("fa-solid", "couch", class: "w-6 #{icon_class_for_sidebar('admins/amenities')}" ) %>
                   <span class="text-sm ml-2 <%= icon_class_for_sidebar('admins/amenities') %>">Amenities</span>
                 <% end %>
               </li>
 
               <li class="sidebar-menu-row <%= active_class_for_sidebar('admins/offers') %>">
-                <%= link_to admins_hotel_offers_path(hotel), class: "w-full flex items-center" do %>
+                <%= link_to admins_offers_path, class: "w-full flex items-center" do %>
                   <%= icon("fa-solid", "hand-holding-heart", class: "w-6 #{icon_class_for_sidebar('admins/offers')}" ) %>
                   <span class="text-sm ml-2 <%= icon_class_for_sidebar('admins/offers') %>">Offer</span>
                 <% end %>
               </li>
 
               <li class="sidebar-menu-row <%= active_class_for_sidebar('admins/feedbacks') %>">
-                <%= link_to admins_hotel_feedbacks_path(hotel), class: "w-full flex items-center" do %>
+                <%= link_to admins_feedbacks_path, class: "w-full flex items-center" do %>
                   <%= icon("fa-solid", "comment", class: "w-6 #{icon_class_for_sidebar('admins/feedbacks')}") %>
                   <span class="text-sm ml-2  <%= icon_class_for_sidebar('admins/feedbacks') %>">Feedback</span>
                 <% end %>
               </li>
 
               <li class="sidebar-menu-row <%= active_class_for_sidebar('admins/hotel_galleries') %>">
-                <%= link_to admins_hotel_hotel_galleries_path(hotel), class: "w-full flex items-center" do %>
+                <%= link_to admins_hotel_galleries_path, class: "w-full flex items-center" do %>
                   <%= icon("fa-solid", "image", class: "w-6 #{icon_class_for_sidebar('admins/hotel_galleries')}") %>
-                  <span class="text-sm ml-2  <%= icon_class_for_sidebar('admins/hotel_galleries') %>">Gallery</span>
+                  <span class="text-sm ml-2  <%= icon_class_for_sidebar('admins/hotel_galleries') %>">Explore</span>
                 <% end %>
               </li>
             </ul>
@@ -111,28 +111,28 @@
               data-transition-leave-start="transform opacity-100 scale-100"
               data-transition-leave-end="transform opacity-0 scale-95">
               <li class="sidebar-menu-row <%= active_class_for_sidebar('admins/rooms') %>">
-                <%= link_to admins_hotel_rooms_path(hotel), class: "w-full flex items-center" do %>
-                  <%= icon("fa-solid", "circle-info", class: "w-6 #{ icon_class_for_sidebar('admins/rooms')}") %>
-                  <span class="text-sm ml-2  <%= icon_class_for_sidebar('admins/rooms') %>">Details</span>
+                <%= link_to admins_rooms_path, class: "w-full flex items-center" do %>
+                  <%= icon("fa-solid", "bed", class: "w-6 #{ icon_class_for_sidebar('admins/rooms')}") %>
+                  <span class="text-sm ml-2  <%= icon_class_for_sidebar('admins/rooms') %>">Rooms</span>
                 <% end %>
               </li>
 
               <li class="sidebar-menu-row <%= active_class_for_sidebar('admins/room_categories') %>">
-                <%= link_to admins_hotel_room_categories_path(hotel), class: "w-full flex items-center" do %>
+                <%= link_to admins_room_categories_path, class: "w-full flex items-center" do %>
                   <%= icon("fa-solid", "hands-holding-heart", class: "w-6 #{icon_class_for_sidebar('admins/room_categories')}") %>
                   <span class="text-sm ml-2  <%= icon_class_for_sidebar('admins/room_categories') %>">Room Class</span>
                 <% end %>
               </li>
 
               <li class="sidebar-menu-row <%= active_class_for_sidebar('admins/bookings') %>">
-                <%= link_to admins_hotel_bookings_path(hotel), class: "w-full flex items-center" do %>
+                <%= link_to admins_bookings_path, class: "w-full flex items-center" do %>
                   <%= icon("fa-solid", "bed", class: "w-6 #{icon_class_for_sidebar('admins/bookings')}") %>
                   <span class="text-sm ml-2  <%= icon_class_for_sidebar('admins/bookings') %>">Bookings</span>
                 <% end %>
               </li>
 
               <li class="sidebar-menu-row <%= active_class_for_sidebar('admins/facilities') %>">
-                <%= link_to admins_hotel_facilities_path(hotel), class: "w-full flex items-center" do %>
+                <%= link_to admins_facilities_path, class: "w-full flex items-center" do %>
                   <%= icon("fa-solid", "hands-holding-heart", class: "w-6 #{icon_class_for_sidebar('admins/facilities')}") %>
                   <span class="text-sm ml-2  <%= icon_class_for_sidebar('admins/facilities') %>">Facility</span>
                 <% end %>
@@ -141,7 +141,7 @@
           </div>
         </li>
         <li class="sidebar-menu-container">
-          <%= link_to admins_hotel_employees_path(hotel), class: "w-5/6 flex items-center py-2 px-2 mb-2 rounded hover:bg-white group
+          <%= link_to admins_employees_path, class: "w-5/6 flex items-center py-2 px-2 mb-2 rounded hover:bg-white group
        hover:transition ease-in-out duration-300 #{active_class_for_sidebar('admins/employees')}" do %>
             <%= icon("fa-solid", "user-group", class: "w-6 mr-1 #{icon_class_for_sidebar('admins/employees')} group-hover:text-primary-regular") %>
             <span class="font-title tracking-wider font-semibold <%= icon_class_for_sidebar('admins/employees') %> group-hover:text-primary-regular">Employee</span>
@@ -149,7 +149,7 @@
         </li>
 
         <li class="sidebar-menu-container">
-          <%= link_to admins_hotel_guests_path(hotel), class: "sidebar-menu-button group #{active_class_for_sidebar('admins/guests')}" do %>
+          <%= link_to admins_guests_path, class: "sidebar-menu-button group #{active_class_for_sidebar('admins/guests')}" do %>
             <%= icon("fa-solid", "person-shelter", class: "sidebar-menu-icon w-6 mr-1 #{icon_class_for_sidebar('admins/guests')}") %>
             <span class="sidebar-menu-title <%= icon_class_for_sidebar('admins/guests') %>">Guest</span>
           <% end %>

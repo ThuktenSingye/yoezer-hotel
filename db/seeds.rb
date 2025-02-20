@@ -14,4 +14,16 @@
 
 require 'faker'
 
-# Create an employee with nested profile and addresses
+hotel = Hotel.new(name: "Yoezer Hotel", description: "cdscsdcds", email: "02210232.cst@rub.edu.bt", contact_no: "17293224", subdomain: "yoezerhotel")
+hotel.save
+add = Address.new(dzongkhag: Faker::Address.state, gewog: Faker::Address.city, street_address: Faker::Address.street_address, addressable: hotel)
+add.save
+
+admin = Admin.new(email: 'admin@example.com', password: 'admin1234', password_confirmation: 'admin1234', hotel: hotel)
+admin.save
+profile = Profile.new(first_name: "Thukten", last_name: "Singye", contact_no: "17293224", cid_no: "11102004718", profileable: admin)
+profile.save
+add2= Address.new(dzongkhag: Faker::Address.state, gewog: Faker::Address.city, street_address: Faker::Address.street_address, address_type: :present, addressable: profile )
+add2.save
+add3= Address.new(dzongkhag: Faker::Address.state, gewog: Faker::Address.city, street_address: Faker::Address.street_address, address_type: :permanent, addressable: profile)
+add3.save

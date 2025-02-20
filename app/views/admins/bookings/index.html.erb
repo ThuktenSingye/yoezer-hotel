@@ -1,13 +1,16 @@
 <div class="mx-8">
+  <div id="flash" class="flash">
+    <%= render "shared/flash" %>
+  </div>
   <turbo-frame id="Booking">
     <div class="card px-4 w-full mx-auto">
       <div class="flex flex-col lg:flex-row lg:items-center lg:gap-2 mt-4">
         <h1 class="title">Booking</h1>
         <div class="flex">
-          <%= form_with url: admins_hotel_bookings_path(@hotel), method: :get,
+          <%= form_with url: admins_bookings_path, method: :get,
                         data: {turbo_frame: "booking_search_result", turbo_action: "advance", controller: "search"} do |form| %>
-            <%= form.select :status, Room.statuses.slice('reserved', 'booked').keys.map { |s| [s.humanize, s] },{ prompt: "Filter by Room Status"},
-                            class: "query-field text-primary-regular",data: { action: "change->search#search" } %>
+            <%= form.select :status, @hotel.bookings.statuses.slice('reserved', 'booked', 'cancelled').keys.map { |s| [s.humanize, s] },{ prompt: "Filter by Status"},
+                            class: "query-field text-primary-regular",data: { action:  "change->search#search" } %>
             <%= form.select :checkin_date,[['Today', Date.current],['Tomorrow', Date.current + 1], ['Yesterday', Date.current-1]] ,{ prompt: "Filter by Check in"},
                             class: "query-field text-primary-regular",data: { action: "change->search#search" } %>
             <%= form.select :checkout_date,[['Today', Date.current],['Tomorrow', Date.current + 1], ['Yesterday', Date.current-1]] ,{ prompt: "Filter by Check out"},
@@ -15,7 +18,7 @@
             <%= form.search_field :query, class: "query-field", placeholder: "Search", data: {action: "input->search#search"} %>
           <% end %>
         </div>
-    </div>
+      </div>
       <div class="my-4">
         <div class="w-full overflow-hidden">
           <div class="bg-background p-2 border-b">
@@ -24,7 +27,7 @@
               <h3 class="w-[15%] text-center hidden xl:block">Category</h3>
               <h3 class="flex-1 md:w-[15%] text-center">Guest </h3>
               <h3 class="w-[15%] text-center hidden lg:block">Total Amounts</h3>
-              <h3 class="w-[15%] text-center hidden xl:block">Room Status</h3>
+              <h3 class="w-[15%] text-center hidden xl:block">Status</h3>
               <h3 class="w-[15%] text-center hidden lg:block">Payment</h3>
               <h3 class="w-[15%] text-center hidden md:block">Actions</h3>
             </div>
@@ -48,6 +51,41 @@
         </div>
       </div>
     </div>
+    <div class="card px-4 w-full mx-auto">
+      <div class="flex flex-col lg:flex-row lg:items-center lg:gap-2 mt-4">
+        <h1 class="title">Today Checkout</h1>
+      </div>
+      <div class="my-4">
+        <div class="w-full overflow-hidden">
+          <div class="bg-background p-2 border-b">
+            <div class="flex justify-between items-center font-medium text-primary-dark py-2">
+              <div class="flex-1 md:w-[15%] text-center">Room Number</div>
+              <h3 class="w-[15%] text-center hidden xl:block">Category</h3>
+              <h3 class="flex-1 md:w-[15%] text-center">Guest </h3>
+              <h3 class="w-[15%] text-center hidden lg:block">Total Amounts</h3>
+              <h3 class="w-[15%] text-center hidden xl:block">Status</h3>
+              <h3 class="w-[15%] text-center hidden lg:block">Payment</h3>
+              <h3 class="w-[15%] text-center hidden md:block">Actions</h3>
+            </div>
+          </div>
+          <div>
+            <turbo-frame id="booking_search_result">
+              <% if @checkout_bookings.blank? %>
+                <h3 class="text-text-color/50 text-center mt-4 p-2">No Booking Data!</h3>
+              <% else %>
+                <% @checkout_bookings.each do |booking| %>
+                  <turbo-frame id="booking_<%= booking.id %>">
+                    <%= render "admins/bookings/booking", booking: booking %>
+                  </turbo-frame>
+                <% end %>
+              <% end %>
+              <div class="flex justify-end items-center mt-2">
+                <%== pagy_nav(@checkout_pagy) if @checkout_pagy.pages > 1 %>
+              </div>
+            </turbo-frame>
+          </div>
+        </div>
+      </div>
+    </div>
   </turbo-frame>
-
 </div>

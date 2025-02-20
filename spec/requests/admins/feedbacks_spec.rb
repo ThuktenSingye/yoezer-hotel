@@ -9,11 +9,12 @@ RSpec.describe 'Admin::Feedbacks', type: :request do
 
   before do
     sign_in admin, scope: :admin
+    subdomain hotel.subdomain
   end
 
   describe 'GET /index' do
     subject do
-      get admins_hotel_feedbacks_path(hotel)
+      get admins_feedbacks_path
       response
     end
 
@@ -22,11 +23,11 @@ RSpec.describe 'Admin::Feedbacks', type: :request do
 
   describe 'GET /destroy' do
     subject(:delete_feedback) do
-      delete admins_hotel_feedback_path(hotel, feedback)
+      delete admins_feedback_path(feedback)
       response
     end
 
-    it { is_expected.to redirect_to admins_hotel_feedbacks_path(hotel) }
+    it { is_expected.to redirect_to admins_feedbacks_path }
     it { expect { delete_feedback }.to change(Feedback, :count).by(-1) }
   end
 end

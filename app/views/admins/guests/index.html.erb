@@ -1,46 +1,52 @@
 <div class="mx-8">
-  <turbo-frame id="employee">
-    <div class="card px-4 w-full mx-auto">
-      <div class="w-full flex justify-between items-center">
-        <div class="flex items-center gap-4">
-          <h1 class="title my-4">Guest</h1>
-          <div>
-            <%= form_with(url: admins_hotel_guests_path(@hotel),
-                          method: :get, data: { turbo_frame: "employee_search_result", turbo_action: "advance", controller: "search" }) do |form| %>
-              <%= form.search_field :query, class: "query-field", placeholder: "Search", data: { action: "input->search#search"} %>
-            <% end %>
-          </div>
+  <div id="flash" class="flash">
+    <%= render "shared/flash" %>
+  </div>
+  <div class="card px-4 w-full mx-auto">
+    <div class="w-full flex justify-between items-center">
+      <div class="flex items-center gap-4">
+        <h1 class="title my-4">Guest</h1>
+        <div>
+          <%= form_with(url: admins_guests_path,
+                        method: :get, data: { turbo_frame: "employee_search_result", turbo_action: "advance", controller: "search" }) do |form| %>
+            <%= form.search_field :query, class: "query-field", placeholder: "Search", data: { action: "input->search#search"} %>
+          <% end %>
         </div>
       </div>
-      <div class="my-4">
-        <div class="w-full overflow-hidden">
-          <div class="bg-background p-2 border-b">
-            <div class="flex justify-between items-center font-medium text-primary-dark py-2">
-              <div class="flex-1 text-center">Name</div>
-              <h3 class="w-[30%] text-center hidden md:block">Email</h3>
-              <h3 class="w-[20%] text-center hidden lg:block">Contact No</h3>
-              <h3 class="w-[30%] text-center hidden lg:block">Address</h3>
-            </div>
+      <div>
+      <% if @hotel.rooms.exists?(status: [:reserved, :booked]) %>
+      <% else %>
+        <%= link_to 'Delete All Guests', destroy_all_admins_guests_path,data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "btn" %>
+      <% end %>
+    </div>
+    </div>
+    <div class="my-4">
+      <div class="w-full overflow-hidden">
+        <div class="bg-background p-2 border-b">
+          <div class="flex justify-between items-center font-medium text-primary-dark py-2">
+            <div class="flex-1 text-center">Name</div>
+            <h3 class="w-[30%] text-center hidden md:block">Email</h3>
+            <h3 class="w-[20%] text-center hidden lg:block">Contact No</h3>
+            <h3 class="w-[30%] text-center hidden lg:block">Address</h3>
           </div>
-          <div>
-            <turbo-frame id="employee_search_result">
-              <% if @guests.blank? %>
-                <h3 class="text-text-color/50 text-center mt-4 p-2">No Guest Data!</h3>
-              <% else %>
-                <% @guests.each do |guest| %>
-                  <turbo-frame id="guest_<%= guest.id %>">
-                    <%= render "admins/guests/guest", guest: guest %>
-                  </turbo-frame>
-                <% end %>
+        </div>
+        <div>
+          <turbo-frame id="employee_search_result">
+            <% if @guests.blank? %>
+              <h3 class="text-text-color/50 text-center mt-4 p-2">No Guest Data!</h3>
+            <% else %>
+              <% @guests.each do |guest| %>
+                <turbo-frame id="guest_<%= guest.id %>">
+                  <%= render "admins/guests/guest", guest: guest %>
+                </turbo-frame>
               <% end %>
-            </turbo-frame>
-          </div>
-          <div class="flex justify-end items-center mt-2">
-            <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
-          </div>
+            <% end %>
+          </turbo-frame>
+        </div>
+        <div class="flex justify-end items-center mt-2">
+          <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
         </div>
       </div>
     </div>
-  </turbo-frame>
-
+  </div>
 </div>

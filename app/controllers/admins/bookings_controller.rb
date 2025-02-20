@@ -3,7 +3,6 @@
 module Admins
   # Booking controller for booking CRUD operation
   class BookingsController < AdminsController
-    before_action :hotel
     before_action :room, only: %i[new create]
     before_action :booking, only: %i[edit show update destroy]
     before_action :booking_service, only: %i[create]
@@ -12,6 +11,7 @@ module Admins
     def index
       booking_query = BookingQuery.new(@hotel, params)
       @pagy, @bookings = pagy(booking_query.call, limit: 10)
+      @checkout_pagy, @checkout_bookings = pagy(booking_query.search_by_checkout_date, limit: 10)
     end
 
     def show; end
@@ -24,20 +24,21 @@ module Admins
     def edit; end
 
     def create
-      result = @booking_service.create_booking(booking_params, @offers)
-      if result
+      return if check_overlapping_booking
+
+      if @booking_service.create_booking(booking_params, @offers)
         flash[:notice] = I18n.t('booking.create.success')
       else
         flash[:alert] = I18n.t('booking.create.error')
       end
-      redirect_to admins_hotel_room_path(@hotel, @room)
+      redirect_to admins_room_path(@room)
     end
 
     def update
       booking_service = Bookings::BookingService.new(@hotel, @booking.room, @booking)
       if booking_service.update_booking?(booking_params, @offers)
         flash[:notice] = I18n.t('booking.update.success')
-        redirect_to admins_hotel_booking_path(@hotel, @booking)
+        redirect_to admins_booking_path(@booking)
       else
         flash[:alert] = I18n.t('booking.update.error')
         render :edit, status: :unprocessable_entity
@@ -52,14 +53,10 @@ module Admins
         flash[:notice] = I18n.t('booking.destroy.success')
       end
 
-      redirect_to admins_hotel_bookings_path(@hotel)
+      redirect_to admins_bookings_path
     end
 
     private
-
-    def hotel
-      @hotel ||= Hotel.find(params[:hotel_id])
-    end
 
     def room
       @room ||= @hotel.rooms.find(params[:room_id])
@@ -69,7 +66,7 @@ module Admins
       @booking ||= @hotel.bookings.find(params[:id])
     rescue ActiveRecord::RecordNotFound
       flash[:alert] = I18n.t('booking.not-found')
-      redirect_to admins_hotel_bookings_path(hotel)
+      redirect_to admins_bookings_path
     end
 
     def booking_service
@@ -82,6 +79,27 @@ module Admins
 
     def payment_completed?
       @booking.payment_status == 'completed'
+    end
+
+    def check_overlapping_booking
+      if overlapping_bookings?(booking_params[:checkin_date], booking_params[:checkout_date])
+        flash[:alert] = I18n.t('booking.date_error')
+        redirect_to admins_room_path(@room)
+        return true
+      end
+      false
+    end
+
+    def overlapping_bookings?(checkin_date, checkout_date)
+      @room.bookings.where(confirmed: true).any? do |existing_booking|
+        checkin_date < existing_booking.checkout_date && checkout_date > existing_booking.checkin_date
+      end
+    end
+
+    def schedule_background_jobs(booking)
+      # checkout_time = booking.checkout_date.to_datetime.advance(days: -1).end_of_day
+      BookingCleanupWorker.perform_at(booking.confirmation_expires_at, booking.hotel.id, booking.id)
+      FeedbackWorker.perform_at(3.minutes.from_now, booking.hotel.id, booking.id)
     end
 
     def room_booked_and_payment_completed?

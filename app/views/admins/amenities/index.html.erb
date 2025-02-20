@@ -3,11 +3,14 @@
     <div class="card m-4">
       <div class="m-4">
         <turbo-frame id="amenity">
+          <div id="flash" class="flash">
+            <%= render "shared/flash" %>
+          </div>
           <div class="flex justify-between items-center">
             <div class="flex flex-col md:flex-row md:items-center md:space-x-3">
               <h2 class="title">Amenities</h2>
               <div>
-                <%= form_with(url: admins_hotel_amenities_path(@hotel),
+                <%= form_with(url: admins_amenities_path,
                               method: :get, data: { turbo_frame: "search_result", turbo_action: "advance", controller: "search" }) do |form| %>
                   <%= form.search_field :query, class: "block p-2 mt-4 text-sm rounded border-2 focus:shadow-none focus:border-primary-regular focus:outline-none", placeholder: "Search", data: { action: "input->search#search"} %>
                 <% end %>
@@ -15,7 +18,7 @@
             </div>
             <div class="self-start md:self-center">
               <%= link_to "Add",
-                          new_admins_hotel_amenity_path(@hotel),
+                          new_admins_amenity_path(@hotel),
                           data: { "turbo-frame": "new_amenity" },
                           class: "btn" %>
             </div>

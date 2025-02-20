@@ -10,11 +10,12 @@ RSpec.describe 'Admins::Bookings', type: :request do
 
   before do
     sign_in admin, scope: :admin
+    subdomain hotel.subdomain
   end
 
   describe 'GET /index' do
     subject do
-      get admins_hotel_bookings_path(hotel)
+      get admins_bookings_path
       response
     end
 
@@ -23,7 +24,7 @@ RSpec.describe 'Admins::Bookings', type: :request do
 
   describe 'GET /new' do
     subject do
-      get new_admins_hotel_room_booking_path(hotel, room)
+      get new_admins_room_booking_path(room)
       response
     end
 
@@ -33,7 +34,7 @@ RSpec.describe 'Admins::Bookings', type: :request do
   describe 'GET /show' do
     context 'when booking record exists' do
       subject do
-        get admins_hotel_booking_path(hotel, booking)
+        get admins_booking_path(booking)
         response
       end
 
@@ -42,17 +43,17 @@ RSpec.describe 'Admins::Bookings', type: :request do
 
     context 'when booking record does not exist' do
       subject do
-        get admins_hotel_booking_path(hotel, booking.id + 1)
+        get admins_booking_path(booking.id + 1)
         response
       end
 
-      it { is_expected.to redirect_to(admins_hotel_bookings_path(hotel)) }
+      it { is_expected.to redirect_to admins_bookings_path }
     end
   end
 
   describe 'GET /edit' do
     subject do
-      get edit_admins_hotel_booking_path(hotel, booking)
+      get edit_admins_booking_path(booking)
       response
     end
 
@@ -62,7 +63,7 @@ RSpec.describe 'Admins::Bookings', type: :request do
   describe 'PUT /update' do
     context 'with valid params' do
       subject(:update_booking) do
-        put admins_hotel_booking_path(hotel, booking), params: { booking: valid_booking_params }
+        put admins_booking_path(booking), params: { booking: valid_booking_params }
         response
       end
 
@@ -90,7 +91,7 @@ RSpec.describe 'Admins::Bookings', type: :request do
       end
 
       it { is_expected.to have_http_status :found }
-      it { is_expected.to redirect_to admins_hotel_booking_path(hotel, booking) }
+      it { is_expected.to redirect_to admins_booking_path(booking) }
       it { expect { update_booking }.not_to change(Booking, :count) }
 
       # rubocop:disable RSpec/ExampleLength
@@ -136,7 +137,7 @@ RSpec.describe 'Admins::Bookings', type: :request do
 
     context 'with invalid params' do
       subject(:update_booking) do
-        put admins_hotel_booking_path(hotel, booking), params: { booking: invalid_booking_params }
+        put admins_booking_path(booking), params: { booking: invalid_booking_params }
         response
       end
 
@@ -151,7 +152,7 @@ RSpec.describe 'Admins::Bookings', type: :request do
   describe 'POST /create' do
     context 'with valid params' do
       subject(:create_booking) do
-        post admins_hotel_room_bookings_path(hotel, room), params: { booking: valid_booking_params }
+        post admins_room_bookings_path(room), params: { booking: valid_booking_params }
         response
       end
 
@@ -178,7 +179,7 @@ RSpec.describe 'Admins::Bookings', type: :request do
       end
 
       it { is_expected.to have_http_status :found }
-      it { is_expected.to redirect_to admins_hotel_room_path(hotel, room) }
+      it { is_expected.to redirect_to admins_room_path(room) }
       it { expect { create_booking }.to change(Booking, :count).by(1) }
 
       # rubocop:disable RSpec/ExampleLength
@@ -219,13 +220,13 @@ RSpec.describe 'Admins::Bookings', type: :request do
 
     context 'with invalid params' do
       subject(:create_booking) do
-        post admins_hotel_room_bookings_path(hotel, room), params: { booking: invalid_booking_params }
+        post admins_room_bookings_path(room), params: { booking: invalid_booking_params }
         response
       end
 
       let(:invalid_booking_params) { FactoryBot.attributes_for(:booking, :invalid_booking) }
 
-      it { is_expected.to redirect_to admins_hotel_room_path(hotel, room) }
+      it { is_expected.to redirect_to admins_room_path(room) }
       it { expect { create_booking }.not_to change(Booking, :count) }
     end
   end
@@ -233,23 +234,23 @@ RSpec.describe 'Admins::Bookings', type: :request do
   describe 'DELETE /destroy' do
     context 'when payment status is completed' do
       subject(:delete_booking) do
-        delete admins_hotel_booking_path(hotel, booking)
+        delete admins_booking_path(booking)
         response
       end
 
-      it { is_expected.to redirect_to admins_hotel_bookings_path(hotel) }
+      it { is_expected.to redirect_to admins_bookings_path }
       it { expect { delete_booking }.to change(Booking, :count).by(-1) }
     end
 
     context 'when payment status is other than completed' do
       subject(:delete_booking) do
-        delete admins_hotel_booking_path(hotel, invalid_booking)
+        delete admins_booking_path(invalid_booking)
         response
       end
 
       let(:invalid_booking) { FactoryBot.create(:booking, :pending_payment, hotel: hotel) }
 
-      it { is_expected.to redirect_to admins_hotel_bookings_path(hotel) }
+      it { is_expected.to redirect_to admins_bookings_path }
       it { expect { delete_booking }.not_to change(Booking, :count) }
     end
   end

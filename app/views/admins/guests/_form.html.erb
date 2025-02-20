@@ -1,5 +1,5 @@
 <div class="m-4">
-  <%= form_with(model: [ :admins , @hotel, guest], local: true, class: "flex flex-col justify-center") do |f| %>
+  <%= form_with(model: [ :admins , guest], local: true, class: "flex flex-col justify-center") do |f| %>
     <% if guest.errors.any? %>
       <div id="error_explanation" class="flex flex-col items-center">
         <h2 class="text-text-color/50"><%= pluralize(guest.errors.count, "error") %>:</h2>
@@ -46,7 +46,7 @@
     <hr class="bg-primary-regular h-0.5">
     <div class="flex items-center mt-4 gap-5">
       <%= f.submit "Save", class: "btn" %>
-      <%= link_to "Cancel", admins_hotel_guest_path(@hotel, guest), class: "btn" %>
+      <%= link_to "Cancel", admins_guest_path(guest), class: "btn" %>
     </div>
   <% end %>
 </div>

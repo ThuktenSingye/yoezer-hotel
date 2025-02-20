@@ -9,11 +9,12 @@ RSpec.describe 'Admin::Offers', type: :request do
 
   before do
     sign_in admin, scope: :admin
+    subdomain hotel.subdomain
   end
 
   describe 'GET /index' do
     subject do
-      get admins_hotel_offers_path(hotel)
+      get admins_offers_path
       response
     end
 
@@ -23,7 +24,7 @@ RSpec.describe 'Admin::Offers', type: :request do
   describe 'GET /show' do
     context 'when offer exists' do
       subject do
-        get admins_hotel_offer_path(hotel, offer)
+        get admins_offer_path(offer)
         response
       end
 
@@ -32,17 +33,17 @@ RSpec.describe 'Admin::Offers', type: :request do
 
     context 'when offer record does not exist' do
       subject do
-        get admins_hotel_offer_path(hotel, offer.id + 1)
+        get admins_offer_path(offer.id + 1)
         response
       end
 
-      it { is_expected.to redirect_to(admins_hotel_offers_path(hotel)) }
+      it { is_expected.to redirect_to admins_offers_path }
     end
   end
 
   describe 'GET /new' do
     subject do
-      get new_admins_hotel_offer_path(hotel)
+      get new_admins_offer_path
       response
     end
 
@@ -51,7 +52,7 @@ RSpec.describe 'Admin::Offers', type: :request do
 
   describe 'GET /edit' do
     subject do
-      get edit_admins_hotel_offer_path(hotel, offer)
+      get edit_admins_offer_path(offer)
       response
     end
 
@@ -61,7 +62,7 @@ RSpec.describe 'Admin::Offers', type: :request do
   describe 'GET /update' do
     context 'with valid params' do
       subject(:update_offer) do
-        put admins_hotel_offer_path(hotel, offer), params: { offer: valid_hotel_offer_params }
+        put admins_offer_path(offer), params: { offer: valid_hotel_offer_params }
         response
       end
 
@@ -79,7 +80,7 @@ RSpec.describe 'Admin::Offers', type: :request do
       before { update_offer }
 
       it { is_expected.to have_http_status :found }
-      it { is_expected.to redirect_to admins_hotel_offer_path(hotel, offer) }
+      it { is_expected.to redirect_to admins_offer_path(offer) }
       it { expect(Offer.last.image).to be_attached }
       it { expect(Offer.last.image.filename.to_s).to eq(valid_hotel_offer_params[:image].original_filename) }
 
@@ -94,7 +95,7 @@ RSpec.describe 'Admin::Offers', type: :request do
 
     context 'with invalid params' do
       subject(:update_offer) do
-        put admins_hotel_offer_path(hotel, offer), params: { offer: invalid_hotel_offer_params }
+        put admins_offer_path(offer), params: { offer: invalid_hotel_offer_params }
         response
       end
 
@@ -113,7 +114,7 @@ RSpec.describe 'Admin::Offers', type: :request do
   describe 'GET /create' do
     context 'with valid params' do
       subject(:create_offer) do
-        post admins_hotel_offers_path(hotel), params: { offer: valid_hotel_offer_params }
+        post admins_offers_path, params: { offer: valid_hotel_offer_params }
         response
       end
 
@@ -131,7 +132,7 @@ RSpec.describe 'Admin::Offers', type: :request do
       before { create_offer }
 
       it { is_expected.to have_http_status :found }
-      it { is_expected.to redirect_to admins_hotel_offers_path(hotel) }
+      it { is_expected.to redirect_to admins_offers_path }
       it { expect(Offer.last.image).to be_attached }
       it { expect(Offer.last.image.filename.to_s).to eq(valid_hotel_offer_params[:image].original_filename) }
 
@@ -150,7 +151,7 @@ RSpec.describe 'Admin::Offers', type: :request do
 
     context 'with invalid params' do
       subject(:create_offer) do
-        post admins_hotel_offers_path(hotel), params: { offer: invalid_hotel_offer_params }
+        post admins_offers_path, params: { offer: invalid_hotel_offer_params }
         response
       end
 
@@ -164,11 +165,11 @@ RSpec.describe 'Admin::Offers', type: :request do
 
   describe 'GET /destroy' do
     subject(:delete_offer) do
-      delete admins_hotel_offer_path(hotel, offer)
+      delete admins_offer_path(offer)
       response
     end
 
-    it { is_expected.to redirect_to admins_hotel_offer_path(hotel, offer) }
+    it { is_expected.to redirect_to admins_offers_path }
     it { expect { delete_offer }.to change(Offer, :count).by(-1) }
   end
 end

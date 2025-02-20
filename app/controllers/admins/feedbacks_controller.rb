@@ -4,7 +4,6 @@ module Admins
   # Manages feedback for hotels in the admins interface
   class FeedbacksController < AdminsController
     before_action :feedback, only: [:destroy]
-    before_action :hotel
 
     def index
       feedback_query = FeedbackQuery.new(@hotel, params)
@@ -18,10 +17,6 @@ module Admins
 
     private
 
-    def hotel
-      @hotel ||= Hotel.find(params[:hotel_id])
-    end
-
     def feedback
       @feedback ||= Feedback.find(params[:id])
     end
@@ -32,7 +27,7 @@ module Admins
 
     def destroy_response
       respond_to do |format|
-        format.html { redirect_to admins_hotel_feedbacks_path(@hotel) }
+        format.html { redirect_to admins_feedbacks_path }
         format.turbo_stream do
           flash[:notice] = I18n.t('feedback.destroy.success')
           render turbo_stream: [

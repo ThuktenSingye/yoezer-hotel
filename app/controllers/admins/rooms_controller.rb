@@ -4,7 +4,6 @@ module Admins
   # Room Controller
   class RoomsController < AdminsController
     include ImageAttachment
-    before_action :hotel
     before_action :room, only: %i[show edit update destroy]
     before_action :offers, only: %i[index show]
 
@@ -25,7 +24,7 @@ module Admins
       @room = @hotel.rooms.build(room_params)
       if @room.save
         flash[:notice] = I18n.t('room.create.success')
-        redirect_to admins_hotel_rooms_path(@hotel)
+        redirect_to admins_rooms_path
       else
         flash[:alert] = I18n.t('room.create.error')
         render :new, status: :unprocessable_entity
@@ -36,7 +35,7 @@ module Admins
       destroy_all_image
       if @room.update(room_params)
         flash[:notice] = I18n.t('room.update.success')
-        redirect_to admins_hotel_room_path(@hotel, @room)
+        redirect_to admins_room_path(@room)
       else
         flash[:alert] = I18n.t('room.update.error')
         render :edit, status: :unprocessable_entity
@@ -46,20 +45,16 @@ module Admins
     def destroy
       @room.destroy
       flash[:notice] = I18n.t('room.destroy.success')
-      redirect_to admins_hotel_rooms_path(@hotel)
+      redirect_to admins_rooms_path
     end
 
     private
-
-    def hotel
-      @hotel ||= Hotel.find(params[:hotel_id])
-    end
 
     def room
       @room ||= @hotel.rooms.find(params[:id])
     rescue ActiveRecord::RecordNotFound
       flash.now[:alert] = I18n.t('room.not_found')
-      redirect_to admins_hotel_rooms_path(@hotel)
+      redirect_to admins_rooms_path
     end
 
     def offers

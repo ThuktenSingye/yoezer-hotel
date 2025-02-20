@@ -9,11 +9,12 @@ RSpec.describe 'Admins::Guests', type: :request do
 
   before do
     sign_in admin, scope: :admin
+    subdomain hotel.subdomain
   end
 
   describe 'GET /admins/hotels' do
     subject do
-      get admins_hotel_guests_path(hotel)
+      get admins_guests_path
       response
     end
 
@@ -23,7 +24,7 @@ RSpec.describe 'Admins::Guests', type: :request do
   describe 'GET /show' do
     context 'when guest record exists' do
       subject do
-        get admins_hotel_guest_path(hotel, guest)
+        get admins_guest_path(guest)
         response
       end
 
@@ -32,17 +33,17 @@ RSpec.describe 'Admins::Guests', type: :request do
 
     context 'when guest record does not exist' do
       subject do
-        get admins_hotel_guest_path(hotel, guest.id + 1)
+        get admins_guest_path(guest.id + 1)
         response
       end
 
-      it { is_expected.to redirect_to(admins_hotel_guests_path(hotel)) }
+      it { is_expected.to redirect_to admins_guests_path }
     end
   end
 
   describe 'GET /edit' do
     subject do
-      get edit_admins_hotel_guest_path(hotel, guest)
+      get edit_admins_guest_path(guest)
       response
     end
 
@@ -52,14 +53,14 @@ RSpec.describe 'Admins::Guests', type: :request do
   describe 'PUT /update' do
     context 'with valid params' do
       subject(:update_guest) do
-        put admins_hotel_guest_path(hotel, guest), params: { guest: valid_guest_params }
+        put admins_guest_path(guest), params: { guest: valid_guest_params }
         response
       end
 
       let(:valid_guest_params) { FactoryBot.attributes_for(:guest) }
 
       it { is_expected.to have_http_status :found }
-      it { is_expected.to redirect_to admins_hotel_guest_path(hotel, guest) }
+      it { is_expected.to redirect_to admins_guest_path(guest) }
       it { expect { update_guest }.not_to change(Guest, :count) }
 
       # rubocop:disable RSpec/ExampleLength
@@ -80,7 +81,7 @@ RSpec.describe 'Admins::Guests', type: :request do
 
     context 'with invalid params' do
       subject(:update_guest) do
-        put admins_hotel_guest_path(hotel, guest), params: { guest: invalid_guest_params }
+        put admins_guest_path(guest), params: { guest: invalid_guest_params }
         response
       end
 

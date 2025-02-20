@@ -9,11 +9,12 @@ RSpec.describe 'Admin::HotelGalleries', type: :request do
 
   before do
     sign_in admin, scope: :admin
+    subdomain hotel.subdomain
   end
 
   describe 'GET /index' do
     subject do
-      get admins_hotel_hotel_galleries_path(hotel)
+      get admins_hotel_galleries_path
       response
     end
 
@@ -22,7 +23,7 @@ RSpec.describe 'Admin::HotelGalleries', type: :request do
 
   describe 'GET /new' do
     subject do
-      get new_admins_hotel_hotel_gallery_path(hotel)
+      get new_admins_hotel_gallery_path
       response
     end
 
@@ -32,7 +33,7 @@ RSpec.describe 'Admin::HotelGalleries', type: :request do
   describe 'GET /show' do
     context 'when gallery exists' do
       subject do
-        get admins_hotel_hotel_gallery_path(hotel, gallery)
+        get admins_hotel_gallery_path(gallery)
         response
       end
 
@@ -41,17 +42,17 @@ RSpec.describe 'Admin::HotelGalleries', type: :request do
 
     context 'when gallery record does not exist' do
       subject do
-        get admins_hotel_hotel_gallery_path(hotel, gallery.id + 1)
+        get admins_hotel_gallery_path(gallery.id + 1)
         response
       end
 
-      it { is_expected.to redirect_to(admins_hotel_hotel_galleries_path(hotel)) }
+      it { is_expected.to redirect_to admins_hotel_galleries_path }
     end
   end
 
   describe 'GET /edit' do
     subject do
-      get edit_admins_hotel_hotel_gallery_path(hotel, gallery)
+      get edit_admins_hotel_gallery_path(gallery)
       response
     end
 
@@ -61,7 +62,7 @@ RSpec.describe 'Admin::HotelGalleries', type: :request do
   describe 'UPDATE /update' do
     context 'with valid params' do
       subject(:update_gallery) do
-        put admins_hotel_hotel_gallery_path(hotel, gallery), params: { hotel_gallery: valid_hotel_gallery_params }
+        put admins_hotel_gallery_path(gallery), params: { hotel_gallery: valid_hotel_gallery_params }
         response
       end
 
@@ -76,7 +77,7 @@ RSpec.describe 'Admin::HotelGalleries', type: :request do
       before { update_gallery }
 
       it { is_expected.to have_http_status :found }
-      it { is_expected.to redirect_to admins_hotel_hotel_galleries_path(hotel) }
+      it { is_expected.to redirect_to admins_hotel_gallery_path(gallery) }
       it { expect(HotelGallery.last.image).to be_attached }
 
       it 'update the hotel gallery with correct attributes' do
@@ -89,7 +90,7 @@ RSpec.describe 'Admin::HotelGalleries', type: :request do
 
     context 'with invalid params' do
       subject(:update_gallery) do
-        put admins_hotel_hotel_gallery_path(hotel, gallery), params: { hotel_gallery: invalid_hotel_gallery_params }
+        put admins_hotel_gallery_path(gallery), params: { hotel_gallery: invalid_hotel_gallery_params }
         response
       end
 
@@ -109,7 +110,7 @@ RSpec.describe 'Admin::HotelGalleries', type: :request do
   describe 'POST /create' do
     context 'with valid params' do
       subject(:create_gallery) do
-        post admins_hotel_hotel_galleries_path(hotel), params: { hotel_gallery: valid_hotel_gallery_params }
+        post admins_hotel_galleries_path, params: { hotel_gallery: valid_hotel_gallery_params }
         response
       end
 
@@ -124,7 +125,7 @@ RSpec.describe 'Admin::HotelGalleries', type: :request do
       before { create_gallery }
 
       it { is_expected.to have_http_status :found }
-      it { is_expected.to redirect_to admins_hotel_hotel_galleries_path(hotel) }
+      it { is_expected.to redirect_to admins_hotel_galleries_path }
       it { expect(HotelGallery.last.image).to be_attached }
 
       it 'update the hotel gallery with correct attributes' do
@@ -137,7 +138,7 @@ RSpec.describe 'Admin::HotelGalleries', type: :request do
 
     context 'with invalid params' do
       subject(:create_gallery) do
-        post admins_hotel_hotel_galleries_path(hotel), params: { hotel_gallery: invalid_hotel_gallery_params }
+        post admins_hotel_galleries_path, params: { hotel_gallery: invalid_hotel_gallery_params }
         response
       end
 
@@ -151,11 +152,11 @@ RSpec.describe 'Admin::HotelGalleries', type: :request do
 
   describe 'DELETE /destroy' do
     subject(:delete_gallery) do
-      delete admins_hotel_hotel_gallery_path(hotel, gallery)
+      delete admins_hotel_gallery_path(gallery)
       response
     end
 
-    it { is_expected.to redirect_to admins_hotel_hotel_galleries_path(hotel) }
+    it { is_expected.to redirect_to admins_hotel_galleries_path }
     it { expect { delete_gallery }.to change(HotelGallery, :count).by(-1) }
   end
 end

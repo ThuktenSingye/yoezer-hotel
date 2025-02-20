@@ -4,6 +4,11 @@ require 'rails_helper'
 
 RSpec.describe 'Authentication', type: :request do
   let!(:valid_admin) { FactoryBot.create(:admin) }
+  let(:hotel) { FactoryBot.create(:hotel) }
+
+  before do
+    subdomain hotel.subdomain
+  end
 
   describe 'Log In' do
     context 'with correct credentials' do

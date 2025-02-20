@@ -3,7 +3,6 @@
 module Admins
   # Controller for Room Bed Type junction model
   class RoomBedTypesController < AdminsController
-    before_action :hotel
     before_action :room
     before_action :room_bed_type, only: :destroy
 
@@ -18,20 +17,16 @@ module Admins
       else
         flash.now[:alert] = I18n.t('room_bed_type.create.error')
       end
-      redirect_to admins_hotel_room_path(@hotel, @room)
+      redirect_to admins_room_path(@room)
     end
 
     def destroy
       @room_bed_type.destroy
       flash[:notice] = I18n.t('room_bed_type.destroy.success')
-      redirect_to admins_hotel_room_path(@hotel, @room)
+      redirect_to admins_room_path(@room)
     end
 
     private
-
-    def hotel
-      @hotel ||= Hotel.find(params[:hotel_id])
-    end
 
     def room
       @room ||= Room.find(params[:room_id])

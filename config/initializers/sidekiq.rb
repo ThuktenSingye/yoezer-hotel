@@ -1,10 +1,13 @@
 # frozen_string_literal: true
-Sidekiq.configure_server do |config|
-  config.redis = { url: ENV["REDIS_URL"] }
-end
+if defined?(Sidekiq)
 
-Sidekiq.configure_client do |config|
-  config.redis = { url: ENV["REDIS_URL"] }
+  Sidekiq.configure_server do |config|
+    config.redis = { url: ENV.fetch("REDIS_URL", nil) }
+  end
+
+  Sidekiq.configure_client do |config|
+    config.redis = { url: ENV.fetch("REDIS_URL", nil)}
+  end
 end
 
 

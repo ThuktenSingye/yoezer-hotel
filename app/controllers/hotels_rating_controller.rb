@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 # Hotel Rating Controller
-class HotelsRatingController < HomeController
+class HotelsRatingController < UsersController
   def create
     if @hotel.hotel_ratings.exists?(guest_id: hotel_rating_params[:guest_id])
       flash[:alert] = I18n.t('rating.already_rated')
-      return redirect_to request.referer
+      return redirect_to request.referer || home_path
     end
 
     save_hotel_rating
-    redirect_to request.referer
+    redirect_to request.referer || home_path
   end
 
   private

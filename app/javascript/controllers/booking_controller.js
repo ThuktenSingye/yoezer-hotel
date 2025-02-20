@@ -11,43 +11,34 @@ export default class extends Controller {
   async handleSubmit(event) {
     event.preventDefault();
 
-    if (this.validateForm()) {
-      const isSuccess = await this.submitForm();
-      if (isSuccess) {
-        this.dialogTarget.close();
-        this.successDialog.showModal();
-      } else {
-        this.showErrorDialog("An error occurred. Please try again by entering correct details.");
-      }
-    } else {
-      alert("Please Fill in all Input with Correct Details. Thank you!.")
+    if (!this.formTarget.checkValidity()) {
+      alert("Please fill in all inputs with correct details.");
+      return;
     }
-  }
-
-  validateForm() {
-    return this.formTarget.checkValidity();
-  }
-
-  async submitForm() {
-    const form = this.formTarget;
-    const formData = new FormData(form);
-
-    const csrfToken = document.querySelector("[name='csrf-token']").content
 
     try {
-      const response = await fetch(form.action, {
-        method: form.method,
-        body: formData,
+      const response = await fetch(this.formTarget.action, {
+        method: this.formTarget.method,
+        body: new FormData(this.formTarget),
         headers: {
-          "X-CSRF-Token": csrfToken
+          "Accept": "application/json",
+          "X-CSRF-Token": document.querySelector("[name='csrf-token']").content,
         },
       });
 
-      return response.ok
+      const data = await response.json();
+
+      if (response.ok) {
+        this.dialogTarget.close();
+        this.successDialogTarget.showModal();
+      } else {
+        this.showErrorDialog(data.message || "An error occurred. Please try again.");
+      }
     } catch (error) {
-      return false
+      this.showErrorDialog("An error occurred. Please try again.");
     }
   }
+
   closeSuccessDialog() {
     this.successDialog.close();
     window.location.reload();
@@ -55,16 +46,15 @@ export default class extends Controller {
 
   closeErrorDialog() {
     this.errorDialog.close();
-    window.location.reload()
+    window.location.reload();
   }
-
 
   showErrorDialog(message) {
     const errorMessageElement = this.errorDialog.querySelector("[data-error-message]");
     if (errorMessageElement) {
       errorMessageElement.textContent = message;
     }
-    this.dialogTarget.close()
+    this.dialogTarget.close();
     this.errorDialog.showModal();
   }
 }

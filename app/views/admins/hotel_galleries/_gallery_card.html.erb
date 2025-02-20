@@ -1,4 +1,4 @@
-<%= link_to admins_hotel_hotel_gallery_path(@hotel, hotel_gallery) do %>
+<%= link_to admins_hotel_gallery_path(hotel_gallery) do %>
   <div class="card-wrapper-sm card-animation card-bg mt-2 p-3 flex flex-col gap-2">
     <div class="card-image-wrapper-sm">
       <%= image_tag(hotel_gallery&.image&.attached? ? hotel_gallery.image : "https://placehold.co/200x200", class:"image rounded-none" ) %>
