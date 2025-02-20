@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
   end
 
   def default_hotel
-    default_hotel_id = 3
+    default_hotel_id = 1
     Hotel.find(default_hotel_id)
   end
 end

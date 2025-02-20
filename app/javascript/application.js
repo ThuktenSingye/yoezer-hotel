@@ -2,7 +2,7 @@
 import '@hotwired/turbo-rails';
 import 'controllers';
 import { Application } from '@hotwired/stimulus';
-import Flatpickr from 'stimulus-flatpickr';
+import * as Flatpickr from 'stimulus-flatpickr';
 import AOS from 'aos';
 import Dialog from '@stimulus-components/dialog'
 

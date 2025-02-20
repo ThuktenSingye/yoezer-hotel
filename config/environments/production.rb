@@ -14,6 +14,9 @@ Rails.application.configure do
   # Full error reports are disabled.
   config.consider_all_requests_local = false
 
+  config.hosts << "192.168.20.56"
+  config.hosts << "localhost"
+
   # Turn on fragment caching in view templates.
   config.action_controller.perform_caching = true
 
@@ -24,13 +27,13 @@ Rails.application.configure do
   # config.asset_host = "http://assets.example.com"
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
-  config.active_storage.service = :amazon
+  config.active_storage.service = :local
 
   # Assume all access to the app is happening through a SSL-terminating reverse proxy.
-  config.assume_ssl = true
+  config.assume_ssl = false
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  config.force_ssl = true
+  config.force_ssl = false
 
   # Skip http-to-https redirect for the default health check endpoint.
   # config.ssl_options = { redirect: { exclude: ->(request) { request.path == "/up" } } }
@@ -52,15 +55,28 @@ Rails.application.configure do
   config.cache_store = :solid_cache_store
 
   # Replace the default in-process and non-durable queuing backend for Active Job.
-  config.active_job.queue_adapter = :solid_queue
+  config.active_job.queue_adapter = :sidekiq
   config.solid_queue.connects_to = { database: { writing: :queue } }
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
-  # config.action_mailer.raise_delivery_errors = false
-
+  config.action_mailer.raise_delivery_errors = true
   # Set host to be used by links generated in mailer templates.
-  config.action_mailer.default_url_options = { host: 'example.com' }
+  config.action_mailer.default_url_options = { host: '192.168.20.56' }
+  config.active_job.queue_name_prefix = 'booking'
+  config.active_job.queue_name_delimiter = '_'
+  config.action_mailer.perform_deliveries = true
+  Rails.application.routes.default_url_options = { host: '192.168.20.56'}
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: 'smtp.gmail.com',
+    port: 587,
+    domain: 'gmail.com',
+    user_name: ENV.fetch('HOTEL_USERNAME', nil),
+    password: ENV.fetch('HOTEL_PASSWORD', nil),
+    authentication: 'plain',
+    enable_starttls_auto: true
+  }
 
   # Specify outgoing SMTP server. Remember to add smtp/* credentials via rails credentials:edit.
   # config.action_mailer.smtp_settings = {

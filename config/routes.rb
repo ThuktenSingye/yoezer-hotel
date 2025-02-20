@@ -48,24 +48,23 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Defines the root path route ("/")
-  constraints subdomain: /[a-zA-Z0-9]+/ do
-    get '/', to: 'home#show', as: :home
-    get '/explore', to: 'explore#index', as: :explore
-    resources :rooms, only: [:index, :show] do
-      resources :bookings, controller: "bookings" do
-        member do
-          get :confirm
-          patch :update_confirmation
-          delete :destroy
-        end
+  get '/', to: 'home#show', as: :home
+  get '/explore', to: 'explore#index', as: :explore
+  resources :rooms, only: [:index, :show] do
+    resources :bookings, controller: "bookings" do
+      member do
+        get :confirm
+        patch :update_confirmation
+        delete :destroy
       end
-      resources :room_rating, only: [:create]
     end
-    get '/visit', to: "visits#index", as: :visit
-    resources :feedbacks, only: %i[index create]
-    resources :hotels_rating, only: [:create]
-    get '/gallery', to: "hotel_galleries#index", as: :gallery
+    resources :room_rating, only: [:create]
   end
+  get '/visit', to: "visits#index", as: :visit
+  resources :feedbacks, only: %i[index create]
+  resources :hotels_rating, only: [:create]
+  get '/gallery', to: "hotel_galleries#index", as: :gallery
+  
 
   root 'home#show'
 
